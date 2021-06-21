@@ -1,10 +1,4 @@
-import * as React from 'react'
-import styles from './styles.module.css'
+import { LivestreamingVideo } from './components/Livestreaming-video/LivestreamingVideo'
+// import { Chat } from './components/Chat/Chat'
 
-interface Props {
-  text: string
-}
-
-export const ExampleComponent = ({ text }: Props) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+export { LivestreamingVideo }
