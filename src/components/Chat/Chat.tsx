@@ -2,8 +2,9 @@ import React, { useRef, useState } from 'react'
 import Button from '@vtex/styleguide/lib/Button'
 import Input from '@vtex/styleguide/lib/Input'
 
-import IconCustom from './../Icon-custom/IconCustom'
 //import { Message } from './../../typings/livestreaming'
+import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
+import ArrorRightLivestreaming from '../icons/ArrorRightLivestreaming'
 
 import styles from './../../styles.module.css'
 
@@ -20,12 +21,7 @@ export const Chat = ({ title, placeholder }: ChatProps) => {
     <div className={styles.container}>
       <div className={styles.lifeChatContainer}>
         <p className={styles.lifeChatText}>{title}</p>
-        <IconCustom
-          id='message-live-streaming'
-          handle='messageLiveStreaming'
-          size={40}
-          viewBox='0 0 400 400'
-        />
+        <MessageLivestreamingIcon size='40' viewBox='0 0 400 400' />
       </div>
       <div className={styles.subContainer}>
         <div className={styles.chatArea} ref={chatAreaRef}>
@@ -43,12 +39,7 @@ export const Chat = ({ title, placeholder }: ChatProps) => {
             autoComplete='off'
           />
           <Button type='submit' variation='primary'>
-            <IconCustom
-              id='arrow-right-live-streaming'
-              handle='arrorRightLiveStreaming'
-              size={40}
-              viewBox='0 0 400 400'
-            />
+            <ArrorRightLivestreaming size='40' viewBox='0 0 400 400' />
           </Button>
         </form>
       </div>

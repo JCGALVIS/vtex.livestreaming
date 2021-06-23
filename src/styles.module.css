@@ -290,6 +290,16 @@
     grid-row-start: 4;
     grid-row-end: 5;
   }
+  .playerVideoMuteButtonPosition{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: #ffffff;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+  }
 }
 
 @media all and (max-width: 1025px) {

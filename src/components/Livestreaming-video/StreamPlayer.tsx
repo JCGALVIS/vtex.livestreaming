@@ -4,12 +4,22 @@ import React, {
   useState,
   useMemo,
   useCallback,
-  useLayoutEffect
+  useLayoutEffect,
+  Fragment
 } from 'react'
 
-import IconCustom from '../Icon-custom/IconCustom'
 import { MediaPlayer } from '../../typings/MediaPlayer'
 import styles from './../../styles.module.css'
+import MutedIcon from '../icons/MutedIcon'
+import PlayIcon from './../icons/PlayIcon'
+import PauseIcon from './../icons/PauseIcon'
+import PictureAndPictureIcon from './../icons/PictureAndPictureIcon'
+import PictureAndPictureAltIcon from './../icons/PictureAndPictureAltIcon'
+import VolumeUpIcon from './../icons/VolumeUpIcon'
+import VolumeOffIcon from './../icons/VolumeOffIcon'
+import FullscreenIcon from './../icons/FullscreenIcon'
+import FullscreenExitIcon from './../icons/FullscreenExitIcon'
+import LoadingIcon from './../icons/LoadingIcon'
 
 interface HTMLVideoPicture extends HTMLVideoElement {
   requestPictureInPicture(): void
@@ -43,7 +53,6 @@ export const StreamPlayer = ({
 
   const videoEl = useRef<HTMLVideoPicture>(null)
   const mainContainer = useRef<HTMLDivElement>(null)
-
   const handleNothing = () => {}
 
   const handleMainButton = (): void => {
@@ -68,7 +77,6 @@ export const StreamPlayer = ({
       setPictureInPicture((prev) => {
         if (prev) document.exitPictureInPicture()
         else videoEl.current?.requestPictureInPicture()
-
         return !prev
       })
     }
@@ -84,13 +92,16 @@ export const StreamPlayer = ({
 
         if (fullScreenElement) return
 
-        const exitFullScreen = document.exitFullscreen
+        document
+          .exitFullscreen()
+          .then(() => console.log('Document Exited from Full screen mode'))
+          .catch((err: Error) => console.error(err))
         // document.exitFullscreen ||
         // document.mozCancelFullScreen ||
         // document.webkitExitFullscreen ||
         // document.msExitFullscreen
 
-        if (exitFullScreen) exitFullScreen.bind(document)()
+        // if (exitFullScreen) exitFullScreen.bind(document)()
         setFullScreen(false)
       }
 
@@ -119,9 +130,7 @@ export const StreamPlayer = ({
   }
 
   const handleFullScreenMobile = (): void => {
-    const mobileDiv = document.querySelector(
-      '[class*=flexRowContent--playerContainer]'
-    )
+    const mobileDiv = document.querySelector('[class*=playerUi]')
 
     if (mobileDiv) {
       mobileDiv.onfullscreenchange = (): void => {
@@ -132,13 +141,16 @@ export const StreamPlayer = ({
 
         if (fullScreenElement) return
 
-        const exitFullScreen = document.exitFullscreen
+        document
+          .exitFullscreen()
+          .then(() => console.log('Document Exited from Full screen mode'))
+          .catch((err: Error) => console.error(err))
         // document.exitFullscreen ||
         // document.mozCancelFullScreen ||
         // document.webkitExitFullscreen ||
         // document.msExitFullscreen
 
-        if (exitFullScreen) exitFullScreen.bind(document)()
+        // if (exitFullScreen) exitFullScreen.bind(document)()
         setFullScreen(false)
       }
 
@@ -201,7 +213,7 @@ export const StreamPlayer = ({
     playerStatus: string,
     { mute, picture, screen, firstMuted }: IndicatorInterface
   ): JSX.Element => (
-    <div>
+    <Fragment>
       {playerStatus === PLAYING || playerStatus === IDLE ? (
         firstMuted ? (
           <div
@@ -211,14 +223,10 @@ export const StreamPlayer = ({
             onClick={handleMute}
             onKeyDown={handleNothing}
           >
-            <IconCustom
-              id='muted-grounded-live-streaming'
-              size={100}
-              viewBox='0 0 400 400'
-            />
+            <MutedIcon size='100' viewBox='0 0 400 400' />
           </div>
         ) : (
-          <div>
+          <Fragment>
             <div
               role='button'
               tabIndex={0}
@@ -227,13 +235,11 @@ export const StreamPlayer = ({
               onKeyDown={handleNothing}
               data-status={playerStatus}
             >
-              <IconCustom
-                id={`${
-                  playerStatus === PLAYING ? 'pause' : 'play'
-                }-grounded-live-streaming`}
-                size={100}
-                viewBox='0 0 400 400'
-              />
+              {playerStatus === PLAYING ? (
+                <PauseIcon size='100' viewBox='0 0 400 400' />
+              ) : (
+                <PlayIcon size='100' viewBox='0 0 400 400' />
+              )}
             </div>
             <div
               role='button'
@@ -242,13 +248,11 @@ export const StreamPlayer = ({
               onClick={handlePictureAndPicture}
               onKeyDown={handleNothing}
             >
-              <IconCustom
-                id={`picture-and-picture${
-                  picture ? '' : '-alt'
-                }-live-streaming`}
-                size={40}
-                viewBox='0 0 400 400'
-              />
+              {picture ? (
+                <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+              ) : (
+                <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+              )}
             </div>
             <div
               role='button'
@@ -257,11 +261,11 @@ export const StreamPlayer = ({
               onClick={handleMute}
               onKeyDown={handleNothing}
             >
-              <IconCustom
-                id={`volume-${mute ? 'off' : 'up'}-live-streaming`}
-                size={40}
-                viewBox='0 0 400 400'
-              />
+              {mute ? (
+                <VolumeOffIcon size='40' viewBox='0 0 400 400' />
+              ) : (
+                <VolumeUpIcon size='40' viewBox='0 0 400 400' />
+              )}
             </div>
             <div
               role='button'
@@ -270,27 +274,23 @@ export const StreamPlayer = ({
               onClick={handleFullScreen}
               onKeyDown={handleNothing}
             >
-              <IconCustom
-                id={`fullscreen${screen ? '-exit' : ''}-live-streaming`}
-                size={40}
-                viewBox='0 0 400 400'
-              />
+              {screen ? (
+                <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
+              ) : (
+                <FullscreenIcon size='40' viewBox='0 0 400 400' />
+              )}
             </div>
-          </div>
+          </Fragment>
         )
       ) : status === BUFFERING ? (
         <div
           className={`${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
           data-status={playerStatus}
         >
-          <IconCustom
-            id='loading-grounded-live-streaming'
-            size={100}
-            viewBox='0 0 400 400'
-          />
+          <LoadingIcon size='100' viewBox='0 0 400 400' />
         </div>
       ) : null}
-    </div>
+    </Fragment>
   )
 
   const MainButtonRenderer = useMemo(
@@ -301,7 +301,6 @@ export const StreamPlayer = ({
         screen: fullScreen,
         firstMuted: firstTimeMuted
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [status, muted, pictureInPicture, fullScreen, firstTimeMuted]
   )
 
@@ -376,53 +375,60 @@ export const StreamPlayer = ({
           {MainButtonRenderer}
         </div>
         <div className={styles.playerVideoMobile}>
-          <div className={styles.playerVideoMobile}>
-            {firstTimeMuted && (
-              <div
-                role='button'
-                tabIndex={0}
-                onClick={handleMute}
-                onKeyDown={handleNothing}
-                className={styles.playerVideoMobileMuted}
-              >
-                <IconCustom
-                  id='muted-grounded-live-streaming'
-                  size={100}
-                  viewBox='0 0 400 400'
-                />
-              </div>
-            )}
+          {firstTimeMuted ? (
             <div
               role='button'
               tabIndex={0}
-              onClick={handleFullScreenMobile}
-              onKeyDown={handleFullScreenMobile}
-              className={styles.playerVideoMobileFullscreen}
+              onClick={handleMute}
+              onKeyDown={handleNothing}
+              className={styles.playerVideoMobileMuted}
             >
-              <IconCustom
-                id={`fullscreen${fullScreen ? '-exit' : ''}-live-streaming`}
-                size={42}
-                viewBox='0 0 400 400'
-              />
+              <MutedIcon size='100' viewBox='0 0 400 400' />
             </div>
-            {!!videoEl?.current?.requestPictureInPicture && (
-              <div
-                role='button'
-                tabIndex={0}
-                onClick={handlePictureAndPicture}
-                onKeyDown={handlePictureAndPicture}
-                className={styles.playerVideoMobileFullscreen}
-              >
-                <IconCustom
-                  id={`picture-and-picture${
-                    pictureInPicture ? '' : '-alt'
-                  }-live-streaming`}
-                  size={40}
-                  viewBox='0 0 400 400'
-                />
-              </div>
+          ) : (
+            <Fragment />
+          )}
+          <div
+            role='button'
+            tabIndex={0}
+            className={`${styles.playerVideoMuteButtonPosition}`}
+            onClick={handleMute}
+            onKeyDown={handleNothing}
+          >
+            {muted ? (
+              <VolumeOffIcon size='40' viewBox='0 0 400 400' />
+            ) : (
+              <VolumeUpIcon size='40' viewBox='0 0 400 400' />
             )}
           </div>
+          <div
+            role='button'
+            tabIndex={0}
+            onClick={handleFullScreenMobile}
+            onKeyDown={handleFullScreenMobile}
+            className={styles.playerVideoMobileFullscreen}
+          >
+            {fullScreen ? (
+              <FullscreenExitIcon size='42' viewBox='0 0 400 400' />
+            ) : (
+              <FullscreenIcon size='42' viewBox='0 0 400 400' />
+            )}
+          </div>
+          {!!videoEl?.current?.requestPictureInPicture && (
+            <div
+              role='button'
+              tabIndex={0}
+              onClick={handlePictureAndPicture}
+              onKeyDown={handlePictureAndPicture}
+              className={styles.playerVideoMobilePicture}
+            >
+              {pictureInPicture ? (
+                <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+              ) : (
+                <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
