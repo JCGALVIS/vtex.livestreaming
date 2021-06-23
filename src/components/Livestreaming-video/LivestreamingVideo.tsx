@@ -30,7 +30,6 @@ export const LivestreamingVideo = ({ streamUrl }: LivestreamingVideoProps) => {
     }
 
     if (document.getElementById('IVS')) setScriptVideoPlayer(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!isPlayerSupported) return null

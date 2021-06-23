@@ -1,13 +1,18 @@
 import React from 'react'
 
-import { LivestreamingVideo } from 'vtex.livestreaming'
+import { LivestreamingVideo, Chat } from 'vtex.livestreaming'
 import 'vtex.livestreaming/dist/index.css'
 
 const App = () => {
   return (
-    <>
-      <LivestreamingVideo streamUrl='https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.xhP3ExfcX8ON.m3u8' />
-    </>
+    <div>
+      <div>
+        <LivestreamingVideo streamUrl='https://a8a9a64b061c.us-east-1.playback.live-video.net/api/video/v1/us-east-1.356389886440.channel.vRR9XH3krJqD.m3u8' />
+      </div>
+      <div>
+        <Chat title='Chat' placeholder='Ingrese un mensaje' />
+      </div>
+    </div>
   )
 }
 
