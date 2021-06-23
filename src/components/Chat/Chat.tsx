@@ -1,7 +1,6 @@
 import React, { useRef, useState, useMemo, useEffect } from 'react'
 import Button from '@vtex/styleguide/lib/Button'
 import Input from '@vtex/styleguide/lib/Input'
-import { uuid } from 'uuidv4'
 
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import ArrorRightLivestreaming from '../icons/ArrorRightLivestreaming'
@@ -17,14 +16,14 @@ type ChatProps = {
 export const Chat = ({ title, placeholder }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<string>('')
-  const { socket, chat, setChat } = useWebSocket()
+  const { socket, chat, setChat, sessionId } = useWebSocket()
 
   const chats = [
     {
       sessionId: '347291293i1293912301',
       data: 'genial',
       sendDate: '25 de mayo',
-      username: 'Anonimo 67'
+      username: 'Anonimo 1'
     }
   ]
 
@@ -37,11 +36,10 @@ export const Chat = ({ title, placeholder }: ChatProps) => {
       return
     }
 
-    const id = uuid()
     const data = {
       action: 'sendmessage',
       data: content.replace(/\\/g, '\\\\').replace(/"/g, '\\"'),
-      sessionId: id,
+      sessionId: sessionId,
       username: undefined
     }
 

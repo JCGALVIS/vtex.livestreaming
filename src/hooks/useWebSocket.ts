@@ -9,6 +9,7 @@ const useWebSocket = () => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
+  const [sessionId, setSessionId] = useState('')
 
   const createWebSocket = useCallback(() => {
     if (!wssStream) return
@@ -52,9 +53,10 @@ const useWebSocket = () => {
       JSON.stringify({
         action: 'sendaccountid',
         data: id,
-        username: 'undefined'
+        username: undefined
       })
     )
+    setSessionId(id)
   }, [isConnected, socket])
 
   useEffect(() => {
@@ -79,7 +81,8 @@ const useWebSocket = () => {
     socket,
     chat,
     setChat,
-    sendAccountId
+    sendAccountId,
+    sessionId
   }
 }
 
