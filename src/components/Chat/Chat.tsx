@@ -3,8 +3,10 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Button, Input } from 'vtex.styleguide'
 
 import { useCssHandles } from 'vtex.css-handles'
-import IconCustom from './ClientIconCustom'
 import { Message } from './../../typings/livestreaming'
+
+import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
+import ArrorRightLivestreaming from '../icons/ArrorRightLivestreaming'
 
 import './styles.css'
 
@@ -37,12 +39,7 @@ export const Chat = () => {
         <p className={handles.lifeChatText}>
           <FormattedMessage id='store/live.chat' />
         </p>
-        <IconCustom
-          id='message-live-streaming'
-          handle='messageLiveStreaming'
-          size={40}
-          viewBox='0 0 400 400'
-        />
+        <MessageLivestreamingIcon size='40' viewBox='0 0 400 400' />
       </div>
       <div className={handles.subContainer}>
         <div className={handles.chatArea} ref={chatAreaRef}>
@@ -62,12 +59,7 @@ export const Chat = () => {
             autoComplete='off'
           />
           <Button type='submit' variation='primary'>
-            <IconCustom
-              id='arrow-right-live-streaming'
-              handle='arrorRightLiveStreaming'
-              size={40}
-              viewBox='0 0 400 400'
-            />
+            <ArrorRightLivestreaming size='40' viewBox='0 0 400 400' />
           </Button>
         </form>
       </div>
