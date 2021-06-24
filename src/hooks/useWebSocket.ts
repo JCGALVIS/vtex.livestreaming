@@ -1,18 +1,20 @@
 import { useEffect, useState, useCallback } from 'react'
 import { uuid } from 'uuidv4'
 // eslint-disable-next-line no-unused-vars
-import { Message } from './../typings/livestreaming'
+import { Message, Heart } from './../typings/livestreaming'
+import getRandomColor from '../utils/getRandomColor'
 
-const wssStream = 'wss://jte42hfx7g.execute-api.us-east-1.amazonaws.com/Prod'
+const wssStream = 'wss://9zdkhplw14.execute-api.us-east-1.amazonaws.com/Prod'
 
 const useWebSocket = () => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
   const [sessionId, setSessionId] = useState('')
+  const [hearts, setHearts] = useState<Heart[]>([])
 
   const createWebSocket = useCallback(() => {
-    if (!wssStream) return
+    if (!wssStream && socket) return
 
     const connection = new WebSocket(wssStream as string)
 
@@ -36,6 +38,17 @@ const useWebSocket = () => {
       switch (action) {
         case 'sendmessage':
           setChat((prev) => [...prev, { data, username, sendDate }])
+          break
+
+        case 'sendlike':
+          if (document.hidden) break
+          setHearts((prev) => [
+            ...prev,
+            {
+              id: Date.now(),
+              color: getRandomColor()
+            }
+          ])
           break
 
         default:
@@ -80,9 +93,11 @@ const useWebSocket = () => {
   return {
     socket,
     chat,
+    sessionId,
+    hearts,
+    setHearts,
     setChat,
-    sendAccountId,
-    sessionId
+    sendAccountId
   }
 }
 

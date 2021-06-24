@@ -1,0 +1,6 @@
+@media all and (max-width: 760px) {
+  .likeIconContainer--like-btn {
+    padding-bottom: 10px;
+  }
+}
+

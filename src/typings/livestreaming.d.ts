@@ -4,3 +4,8 @@ export declare interface Message {
   sendDate?: string
   username?: string
 }
+
+export declare interface Heart {
+  id: number
+  color: string
+}
