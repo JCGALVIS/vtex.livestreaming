@@ -3,7 +3,7 @@ import { uuid } from 'uuidv4'
 // eslint-disable-next-line no-unused-vars
 import { Message } from './../typings/livestreaming'
 
-const wssStream = 'wss://ouirrjizx5.execute-api.us-east-1.amazonaws.com/Prod'
+const wssStream = 'wss://jte42hfx7g.execute-api.us-east-1.amazonaws.com/Prod'
 
 const useWebSocket = () => {
   const [socket, setSocket] = useState<WebSocket>()

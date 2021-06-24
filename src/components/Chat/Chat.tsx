@@ -17,15 +17,7 @@ export const Chat = ({ title, placeholder }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<string>('')
   const { socket, chat, setChat, sessionId } = useWebSocket()
-
-  const chats = [
-    {
-      sessionId: '347291293i1293912301',
-      data: 'genial',
-      sendDate: '25 de mayo',
-      username: 'Anonimo 1'
-    }
-  ]
+  const chatHistory: never[] = []
 
   const handlerSendMessage = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -48,8 +40,8 @@ export const Chat = ({ title, placeholder }: ChatProps) => {
   }
 
   const ChatMessages = useMemo(
-    () => MessageRenderer(chats || [], chat),
-    [/* chats, */ chat]
+    () => MessageRenderer(chatHistory || [], chat),
+    [/* chatHistory, */ chat]
   )
 
   useEffect(() => {
@@ -65,7 +57,7 @@ export const Chat = ({ title, placeholder }: ChatProps) => {
 
   useEffect(() => {
     if (setChat) setChat([])
-  }, [/* chats, */ setChat])
+  }, [/* chatHistory, */ setChat])
 
   return (
     <div className={styles.container}>
