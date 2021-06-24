@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useMemo, useEffect } from 'react'
 import Button from '@vtex/styleguide/lib/Button'
 import Input from '@vtex/styleguide/lib/Input'
 
-//import { Message } from './../../typings/livestreaming'
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import ArrorRightLivestreaming from '../icons/ArrorRightLivestreaming'
-
 import styles from './../../styles.module.css'
+import useWebSocket from '../../hooks/useWebSocket'
+import MessageRenderer from './MessageRenderer'
 
 type ChatProps = {
   title: string
@@ -16,6 +16,48 @@ type ChatProps = {
 export const Chat = ({ title, placeholder }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<string>('')
+  const { socket, chat, setChat, sessionId } = useWebSocket()
+  const chatHistory: never[] = []
+
+  const handlerSendMessage = async (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    event.persist()
+    const isEmpty = !(content !== null && content.trim() !== '')
+
+    if (isEmpty || !socket) {
+      return
+    }
+
+    const data = {
+      action: 'sendmessage',
+      data: content.replace(/\\/g, '\\\\').replace(/"/g, '\\"'),
+      sessionId: sessionId,
+      username: undefined
+    }
+
+    socket.send(JSON.stringify(data))
+    setContent('')
+  }
+
+  const ChatMessages = useMemo(
+    () => MessageRenderer(chatHistory || [], chat),
+    [/* chatHistory, */ chat]
+  )
+
+  useEffect(() => {
+    if (chatAreaRef?.current) {
+      const current = chatAreaRef?.current
+
+      current.scrollBy(0, current.scrollHeight)
+      setTimeout(() => {
+        current.scrollBy(0, current.scrollHeight)
+      }, 300)
+    }
+  }, [ChatMessages])
+
+  useEffect(() => {
+    if (setChat) setChat([])
+  }, [/* chatHistory, */ setChat])
 
   return (
     <div className={styles.container}>
@@ -25,9 +67,9 @@ export const Chat = ({ title, placeholder }: ChatProps) => {
       </div>
       <div className={styles.subContainer}>
         <div className={styles.chatArea} ref={chatAreaRef}>
-          {/* {ChatMessages} */}
+          {ChatMessages}
         </div>
-        <form className={styles.inputChat}>
+        <form onSubmit={handlerSendMessage} className={styles.inputChat}>
           <Input
             placeholder={placeholder}
             name='content'
