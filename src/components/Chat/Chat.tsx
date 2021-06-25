@@ -5,18 +5,20 @@ import Input from '@vtex/styleguide/lib/Input'
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import ArrorRightLivestreaming from '../icons/ArrorRightLivestreaming'
 import styles from './../../styles.module.css'
-import useWebSocket from '../../hooks/useWebSocket'
 import MessageRenderer from './MessageRenderer'
+// eslint-disable-next-line no-unused-vars
+import { InfoLivestreaming } from '../../typings/livestreaming'
 
 type ChatProps = {
   title: string
   placeholder: string
+  infoLivestreaming: InfoLivestreaming
 }
 
-export const Chat = ({ title, placeholder }: ChatProps) => {
+export const Chat = ({ title, placeholder, infoLivestreaming }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<string>('')
-  const { socket, chat, setChat, sessionId } = useWebSocket()
+  const { socket, chat, setChat, sessionId } = infoLivestreaming
   const chatHistory: never[] = []
 
   const handlerSendMessage = async (event: React.SyntheticEvent) => {

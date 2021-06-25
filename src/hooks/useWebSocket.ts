@@ -4,9 +4,9 @@ import { uuid } from 'uuidv4'
 import { Message, Heart } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 
-const wssStream = 'wss://9zdkhplw14.execute-api.us-east-1.amazonaws.com/Prod'
+const wssStream = 'wss://yentxtbxy1.execute-api.us-east-1.amazonaws.com/Prod'
 
-const useWebSocket = () => {
+export const useWebSocket = () => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
@@ -100,5 +100,3 @@ const useWebSocket = () => {
     sendAccountId
   }
 }
-
-export default useWebSocket

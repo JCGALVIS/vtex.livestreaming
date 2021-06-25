@@ -1,14 +1,18 @@
 // @ts-nocheck
 import React, { useMemo } from 'react'
-import IconHeart from '../../icons/FullscreenIcon'
+import IconHeart from '../icons/FullscreenIcon'
 
-import HeartComponent from '../heart/Heart'
+import HeartComponent from './heart/Heart'
 import styles from './like.css'
-import useWebSocket from '../../../hooks/useWebSocket'
-import getRandomColor from '../../../utils/getRandomColor'
+import getRandomColor from '../../utils/getRandomColor'
 
-const Like = () => {
-  const { socket, hearts: socketHearts, setHearts, sessionId } = useWebSocket()
+export const Like = ({ infoLivestreaming }: InfoLivestreaming) => {
+  const {
+    socket,
+    hearts: socketHearts,
+    setHearts,
+    sessionId
+  } = infoLivestreaming
 
   const removeHeart = () => {
     if (setHearts) setHearts((prev: Heart[]) => prev.slice(1, prev.length))
@@ -49,5 +53,3 @@ const Like = () => {
     </div>
   )
 }
-
-export default Like
