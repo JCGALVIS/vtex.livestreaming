@@ -1,0 +1,14 @@
+.appContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.videoContent {
+  flex: 0 1 calc(70% - .3rem);
+}
+
+.chatContent {
+  flex: 0 1 calc(30% - .3rem);
+}
