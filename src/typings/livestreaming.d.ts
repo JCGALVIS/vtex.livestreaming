@@ -1,4 +1,4 @@
-declare interface Message {
+export declare interface Message {
   sessionId?: string
   data?: string
   sendDate?: string
