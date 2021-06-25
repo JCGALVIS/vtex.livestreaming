@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useMemo } from 'react'
-import IconHeart from '../icons/FullscreenIcon'
+import IconHeart from '../icons/HeartIcon'
 
 import HeartComponent from './heart/Heart'
 import styles from './like.css'
