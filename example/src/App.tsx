@@ -4,6 +4,7 @@ import {
   LivestreamingVideo,
   Chat,
   Like,
+  Viewers,
   useWebSocket
 } from 'vtex.livestreaming'
 import 'vtex.livestreaming/dist/index.css'
@@ -12,7 +13,7 @@ import './app.css'
 
 const App = () => {
   const info = useWebSocket()
-
+  console.log(info)
   return (
     <div className='appContent'>
       <div className='videoContainer'>
@@ -21,6 +22,9 @@ const App = () => {
         </div>
         <div className='likeContent'>
           <Like infoLivestreaming={info} />
+        </div>
+        <div className='viewersContent'>
+          <Viewers infoLivestreaming={info} />
         </div>
       </div>
 

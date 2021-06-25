@@ -16,8 +16,14 @@
 
 .likeContent{
   position: absolute;
-  bottom: 5px;
-  right: 20px;
+  bottom: 0.3rem;
+  right: 1rem;
+}
+
+.viewersContent{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .chatContent {
