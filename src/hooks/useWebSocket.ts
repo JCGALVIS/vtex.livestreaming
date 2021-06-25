@@ -4,7 +4,7 @@ import { uuid } from 'uuidv4'
 import { Message, Heart, IvsRealTime } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 
-const wssStream = 'wss://yentxtbxy1.execute-api.us-east-1.amazonaws.com/Prod'
+const wssStream = 'wss://2nxtbs8bme.execute-api.us-east-1.amazonaws.com/Prod'
 
 export const useWebSocket = () => {
   const [socket, setSocket] = useState<WebSocket>()
@@ -16,6 +16,7 @@ export const useWebSocket = () => {
     undefined
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
+  const [isTransmiting, setIsTransmiting] = useState(false)
 
   const createWebSocket = useCallback(() => {
     if (!wssStream && socket) return
@@ -110,6 +111,10 @@ export const useWebSocket = () => {
     }
   }, [sendAccountId])
 
+  useEffect(() => {
+    setIsTransmiting(ivsRealTime?.status === 'LIVE')
+  }, [ivsRealTime?.status])
+
   return {
     socket,
     chat,
@@ -117,9 +122,11 @@ export const useWebSocket = () => {
     hearts,
     ivsRealTime,
     showCounter,
+    isTransmiting,
     setHearts,
     setChat,
     setIvsRealTime,
+    setIsTransmiting,
     sendAccountId
   }
 }

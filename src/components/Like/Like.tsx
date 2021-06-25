@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React, { useMemo } from 'react'
 import IconHeart from '../icons/HeartIcon'
-
 import HeartComponent from './heart/Heart'
 import styles from './like.css'
 import getRandomColor from '../../utils/getRandomColor'
@@ -11,7 +10,8 @@ export const Like = ({ infoLivestreaming }: InfoLivestreaming) => {
     socket,
     hearts: socketHearts,
     setHearts,
-    sessionId
+    sessionId,
+    isTransmiting
   } = infoLivestreaming
 
   const removeHeart = () => {
@@ -45,11 +45,13 @@ export const Like = ({ infoLivestreaming }: InfoLivestreaming) => {
   )
 
   return (
-    <div className={styles.likeWrapper}>
-      <button className={styles.likeButton} onClick={handleClick}>
-        <IconHeart size='42' viewBox='0 0 400 400' />
-      </button>
-      {HeartCollection}
-    </div>
+    isTransmiting && (
+      <div className={styles.likeWrapper}>
+        <button className={styles.likeButton} onClick={handleClick}>
+          <IconHeart size='42' viewBox='0 0 400 400' />
+        </button>
+        {HeartCollection}
+      </div>
+    )
   )
 }

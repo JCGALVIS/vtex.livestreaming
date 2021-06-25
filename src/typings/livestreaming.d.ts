@@ -22,7 +22,9 @@ export declare interface InfoLivestreaming {
   sessionId: string
   ivsRealTime: IvsRealTime
   showCounter: boolean
+  isTransmiting: boolean
   setHearts: React.Dispatch<React.SetStateAction<Heart[]>>
   setChat: React.Dispatch<React.SetStateAction<Message[]>>
+  SetIsTransmiting: React.Dispatch<React.SetStateAction<boolean>>
   sendAccountId: () => void
 }

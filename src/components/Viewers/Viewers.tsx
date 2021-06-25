@@ -5,7 +5,7 @@ import styles from './viewers.css'
 
 export const Viewers = ({ infoLivestreaming }: InfoLivestreaming) => {
   const [viewers, setViewers] = useState(0)
-  const { ivsRealTime, showCounter } = infoLivestreaming
+  const { ivsRealTime, showCounter, isTransmiting } = infoLivestreaming
 
   useEffect(() => {
     if (ivsRealTime && ivsRealTime.status === 'LIVE') {
@@ -21,7 +21,7 @@ export const Viewers = ({ infoLivestreaming }: InfoLivestreaming) => {
 
   return (
     <div>
-      {showCounter ? (
+      {showCounter && isTransmiting ? (
         <div className={styles.viewersContainer}>
           <div className={styles.viewerIcon}>
             <ViewersIcon size='20' viewBox='0 0 400 400' />
