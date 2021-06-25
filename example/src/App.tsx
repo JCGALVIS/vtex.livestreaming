@@ -13,7 +13,6 @@ import './app.css'
 
 const App = () => {
   const info = useWebSocket()
-  console.log(info)
   return (
     <div className='appContent'>
       <div className='videoContainer'>

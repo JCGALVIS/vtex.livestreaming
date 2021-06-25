@@ -8,14 +8,13 @@ export const Viewers = ({ infoLivestreaming }: InfoLivestreaming) => {
   const { ivsRealTime, showCounter } = infoLivestreaming
 
   useEffect(() => {
-    console.log('me actualize', ivsRealTime, showCounter)
     if (ivsRealTime && ivsRealTime.status === 'LIVE') {
       setViewers(ivsRealTime.viewerCount)
     } else {
       setViewers(0)
     }
   }, [ivsRealTime])
-  console.log('viewerrs', infoLivestreaming)
+
   if (!infoLivestreaming) {
     return null
   }
