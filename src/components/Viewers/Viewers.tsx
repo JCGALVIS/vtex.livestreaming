@@ -1,9 +1,13 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react'
+// eslint-disable-next-line no-unused-vars
+import { InfoLivestreaming } from '../../typings/livestreaming'
 import ViewersIcon from '../icons/ViewersIcon'
 import styles from './viewers.css'
+interface ViewersProps {
+  infoLivestreaming: InfoLivestreaming
+}
 
-export const Viewers = ({ infoLivestreaming }: InfoLivestreaming) => {
+export const Viewers = ({ infoLivestreaming }: ViewersProps) => {
   const [viewers, setViewers] = useState(0)
   const { ivsRealTime, showCounter, isTransmiting } = infoLivestreaming
 

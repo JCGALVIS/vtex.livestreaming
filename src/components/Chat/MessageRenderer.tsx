@@ -1,6 +1,6 @@
 import React from 'react'
 // eslint-disable-next-line no-unused-vars
-import { Message } from './../../typings/livestreaming'
+import { Message } from '../../typings/livestreaming'
 import ProfileIcon from '../icons/ProfileIcon'
 import styles from './../../styles.module.css'
 

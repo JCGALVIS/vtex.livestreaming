@@ -1,11 +1,16 @@
-// @ts-nocheck
 import React, { useMemo } from 'react'
 import IconHeart from '../icons/HeartIcon'
 import HeartComponent from './heart/Heart'
 import styles from './like.css'
 import getRandomColor from '../../utils/getRandomColor'
+// eslint-disable-next-line no-unused-vars
+import { Heart, InfoLivestreaming } from '../../typings/livestreaming'
 
-export const Like = ({ infoLivestreaming }: InfoLivestreaming) => {
+interface LikeProps {
+  infoLivestreaming: InfoLivestreaming
+}
+
+export const Like = ({ infoLivestreaming }: LikeProps) => {
   const {
     socket,
     hearts: socketHearts,

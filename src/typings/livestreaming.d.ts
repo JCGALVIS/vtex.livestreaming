@@ -18,7 +18,7 @@ export declare interface IvsRealTime {
 export declare interface InfoLivestreaming {
   socket: WebSocket
   chat: Message[]
-  hearts: Heart
+  hearts: Heart[]
   sessionId: string
   ivsRealTime: IvsRealTime
   showCounter: boolean
