@@ -5,8 +5,19 @@
   height: 100%;
 }
 
-.videoContent {
+.videoContainer{
+  position: relative;
   flex: 0 1 calc(70% - .3rem);
+}
+
+.videoContent {
+  width: 100%;
+}
+
+.likeContent{
+  position: absolute;
+  bottom: 5px;
+  right: 20px;
 }
 
 .chatContent {
