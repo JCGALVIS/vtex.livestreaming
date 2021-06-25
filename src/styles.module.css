@@ -209,6 +209,7 @@
   border-bottom: 1px solid grey;
   background-color: #fff;
   border-radius: 0px;
+  width: 100%;
 }
 
 .inputChat label {
