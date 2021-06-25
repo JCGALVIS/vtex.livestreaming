@@ -10,11 +10,18 @@ export declare interface Heart {
   color: string
 }
 
+export declare interface IvsRealTime {
+  startTime: string
+  viewerCount: number
+  status: string
+}
 export declare interface InfoLivestreaming {
   socket: WebSocket
   chat: Message[]
   hearts: Heart
   sessionId: string
+  ivsRealTime: IvsRealTime
+  showCounter: boolean
   setHearts: React.Dispatch<React.SetStateAction<Heart[]>>
   setChat: React.Dispatch<React.SetStateAction<Message[]>>
   sendAccountId: () => void

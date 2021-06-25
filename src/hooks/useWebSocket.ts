@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { uuid } from 'uuidv4'
 // eslint-disable-next-line no-unused-vars
-import { Message, Heart } from './../typings/livestreaming'
+import { Message, Heart, IvsRealTime } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 
 const wssStream = 'wss://yentxtbxy1.execute-api.us-east-1.amazonaws.com/Prod'
@@ -12,6 +12,10 @@ export const useWebSocket = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false)
   const [sessionId, setSessionId] = useState('')
   const [hearts, setHearts] = useState<Heart[]>([])
+  const [ivsRealTime, setIvsRealTime] = useState<IvsRealTime | undefined>(
+    undefined
+  )
+  const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
 
   const createWebSocket = useCallback(() => {
     if (!wssStream && socket) return
@@ -33,7 +37,15 @@ export const useWebSocket = () => {
     }
 
     connection.onmessage = (event: MessageEvent) => {
-      const { action, data, sendDate, username } = JSON.parse(event.data)
+      const {
+        action,
+        data,
+        sendDate,
+        username,
+        startTime,
+        viewerCount,
+        status
+      } = JSON.parse(event.data)
 
       switch (action) {
         case 'sendmessage':
@@ -49,6 +61,14 @@ export const useWebSocket = () => {
               color: getRandomColor()
             }
           ])
+          break
+
+        case 'sendivsdatarealtime':
+          setIvsRealTime({ startTime, status, viewerCount })
+          break
+
+        case 'sendshowCounter':
+          setShowCounter(data)
           break
 
         default:
@@ -95,8 +115,11 @@ export const useWebSocket = () => {
     chat,
     sessionId,
     hearts,
+    ivsRealTime,
+    showCounter,
     setHearts,
     setChat,
+    setIvsRealTime,
     sendAccountId
   }
 }
