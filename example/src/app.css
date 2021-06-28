@@ -26,8 +26,8 @@
 
 .viewersContent{
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.6rem;
+  right: 31%;
 }
 
 .liveContent{
@@ -54,6 +54,12 @@
   .likeContent{
     bottom: 0rem;
     right: 0.2rem;
+  }
+
+  .viewersContent{
+    position: absolute;
+    top: 0.6rem;
+    right: 0.2rem
   }
 
   .chatContent {
