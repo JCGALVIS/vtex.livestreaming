@@ -26,6 +26,12 @@
   right: 1rem;
 }
 
+.liveContent{
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
 .chatContent {
   flex: 0 1 calc(30% - .3rem);
 }

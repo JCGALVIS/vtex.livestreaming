@@ -1,11 +1,15 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react'
+// eslint-disable-next-line no-unused-vars
+import { InfoLivestreaming } from '../../typings/livestreaming'
 import ViewersIcon from '../icons/ViewersIcon'
 import styles from './viewers.css'
+interface ViewersProps {
+  infoLivestreaming: InfoLivestreaming
+}
 
-export const Viewers = ({ infoLivestreaming }: InfoLivestreaming) => {
+export const Viewers = ({ infoLivestreaming }: ViewersProps) => {
   const [viewers, setViewers] = useState(0)
-  const { ivsRealTime, showCounter } = infoLivestreaming
+  const { ivsRealTime, showCounter, isTransmiting } = infoLivestreaming
 
   useEffect(() => {
     if (ivsRealTime && ivsRealTime.status === 'LIVE') {
@@ -21,7 +25,7 @@ export const Viewers = ({ infoLivestreaming }: InfoLivestreaming) => {
 
   return (
     <div>
-      {showCounter ? (
+      {showCounter && isTransmiting ? (
         <div className={styles.viewersContainer}>
           <div className={styles.viewerIcon}>
             <ViewersIcon size='20' viewBox='0 0 400 400' />
