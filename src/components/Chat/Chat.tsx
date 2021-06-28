@@ -63,8 +63,8 @@ export const Chat = ({ title, placeholder, infoLivestreaming }: ChatProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.lifeChatContainer}>
-        <p className={styles.lifeChatText}>{title}</p>
+      <div className={styles.liveChatContainer}>
+        <p className={styles.liveChatText}>{title}</p>
         <MessageLivestreamingIcon size='40' viewBox='0 0 400 400' />
       </div>
       <div className={styles.subContainer}>

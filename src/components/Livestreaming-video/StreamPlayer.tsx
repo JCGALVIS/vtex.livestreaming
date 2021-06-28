@@ -391,19 +391,6 @@ export const StreamPlayer = ({
           <div
             role='button'
             tabIndex={0}
-            className={`${styles.playerVideoMuteButtonPosition}`}
-            onClick={handleMute}
-            onKeyDown={handleNothing}
-          >
-            {muted ? (
-              <VolumeOffIcon size='40' viewBox='0 0 400 400' />
-            ) : (
-              <VolumeUpIcon size='40' viewBox='0 0 400 400' />
-            )}
-          </div>
-          <div
-            role='button'
-            tabIndex={0}
             onClick={handleFullScreenMobile}
             onKeyDown={handleFullScreenMobile}
             className={styles.playerVideoMobileFullscreen}
