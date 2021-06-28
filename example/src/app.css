@@ -35,3 +35,30 @@
 .chatContent {
   flex: 0 1 calc(30% - .3rem);
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .appContent {
+    flex-direction: column;
+  }
+
+  .likeContent{
+    bottom: 0rem;
+    right: 0.2rem;
+  }
+
+  .chatContent {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1rem;
+  }
+}
+
+@media all and (max-width: 760px) {
+  .likeIconContainer--like-btn {
+    padding-bottom: 10px;
+  }
+  .subContainer--chat {
+    max-width: 200px;
+    width: auto !important;
+  }
+}

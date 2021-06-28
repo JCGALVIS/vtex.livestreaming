@@ -4,7 +4,7 @@ import { uuid } from 'uuidv4'
 import { Message, Heart, IvsRealTime } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 
-const wssStream = 'wss://2nxtbs8bme.execute-api.us-east-1.amazonaws.com/Prod'
+const wssStream = 'wss://xxlq6m97i7.execute-api.us-east-1.amazonaws.com/Prod'
 
 export const useWebSocket = () => {
   const [socket, setSocket] = useState<WebSocket>()

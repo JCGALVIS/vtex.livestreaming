@@ -21,7 +21,7 @@ const App = () => {
         <div className='videoContent'>
           <LivestreamingVideo
           infoLivestreaming={info}
-          streamUrl='https://a8a9a64b061c.us-east-1.playback.live-video.net/api/video/v1/us-east-1.356389886440.channel.tFcOmOrRG2XU.m3u8'
+          streamUrl='https://a8a9a64b061c.us-east-1.playback.live-video.net/api/video/v1/us-east-1.356389886440.channel.ORTVqqYGiqDa.m3u8'
           />
         </div>
         <div className='likeContent'>
