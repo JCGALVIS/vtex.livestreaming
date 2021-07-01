@@ -91,7 +91,7 @@ export const useWebSocket = ({ wssStream }: Props) => {
       })
     )
     setSessionId(id)
-  }, [isConnected, socket])
+  }, [isConnected, socket, isTransmiting])
 
   useEffect(() => {
     if (!socket) return () => {}
