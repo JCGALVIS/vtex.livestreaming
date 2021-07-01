@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-// eslint-disable-next-line no-unused-vars
-// import { Message } from '../typings/livestreaming'
-// import { client } from '../services/cassandra'
+
 import {
   getData,
   getEnvironmentTable,
@@ -21,7 +19,7 @@ export const useChat = ({ idLivestreaming, account }: Props) => {
       const { LIVESTREAMINGS_TABLE } = dynamoTablesName
 
       const data = await getData({
-        TableName: getEnvironmentTable(false, LIVESTREAMINGS_TABLE),
+        TableName: getEnvironmentTable(LIVESTREAMINGS_TABLE),
         Key: { account, id: idLivestreaming },
         ProjectionExpression: 'info'
       })

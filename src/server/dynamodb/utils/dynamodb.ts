@@ -1,22 +1,36 @@
+const {
+  REACT_APP_REGION_NAME,
+  REACT_APP_END_POINT,
+  REACT_APP_ACCESS_KEY_ID,
+  REACT_APP_SECRET_ACCESS_KEY,
+  REACT_APP_LIVESTREAMINGS_TABLE,
+  REACT_APP_LOGS_TABLE,
+  REACT_APP_DIRTYWORDS_TABLE,
+  REACT_APP_REPORTS_TABLE,
+  REACT_APP_ACCOUNTS_AVAILABLE_TABLE,
+  REACT_APP_ORDERS_REPORTS_TABLE,
+  NODE_ENV
+} = process.env
+
 export const dynamoCredentials = {
   region: {
-    name: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    endPoint: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    name: REACT_APP_REGION_NAME,
+    endPoint: REACT_APP_END_POINT
   },
   credentials: {
-    accessKeyId: 'xxxxxxxxxxxxx',
-    secretAccessKey: 'xxxxxxxxxxxxxxxxxxxxx'
+    accessKeyId: REACT_APP_ACCESS_KEY_ID,
+    secretAccessKey: REACT_APP_SECRET_ACCESS_KEY
   }
 }
 
 export const dynamoTablesName = {
-  LIVESTREAMINGS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  LOGS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  DIRTYWORDS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
-  REPORTS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxx',
-  ACCOUNTS_AVAILABLE_TABLE: 'xxxxxxxxxxxx',
-  ORDERS_REPORTS_TABLE: 'xxxxxxxxxxxxxxxxxxxxx'
+  LIVESTREAMINGS_TABLE: REACT_APP_LIVESTREAMINGS_TABLE,
+  LOGS_TABLE: REACT_APP_LOGS_TABLE,
+  DIRTYWORDS_TABLE: REACT_APP_DIRTYWORDS_TABLE,
+  REPORTS_TABLE: REACT_APP_REPORTS_TABLE,
+  ACCOUNTS_AVAILABLE_TABLE: REACT_APP_ACCOUNTS_AVAILABLE_TABLE,
+  ORDERS_REPORTS_TABLE: REACT_APP_ORDERS_REPORTS_TABLE
 }
 
-export const getEnvironmentTable = (production: boolean, tableName: any) =>
-  production ? tableName : `${tableName}-dev`
+export const getEnvironmentTable = (tableName: any) =>
+  NODE_ENV === 'production' ? tableName : `${tableName}-dev`

@@ -19,7 +19,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
       const { LIVESTREAMINGS_TABLE } = dynamoTablesName
 
       const data = await getData({
-        TableName: getEnvironmentTable(false, LIVESTREAMINGS_TABLE),
+        TableName: getEnvironmentTable(LIVESTREAMINGS_TABLE),
         Key: { account, id },
         ProjectionExpression: 'config'
       })
