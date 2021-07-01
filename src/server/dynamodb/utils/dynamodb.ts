@@ -1,21 +1,21 @@
 export const dynamoCredentials = {
   region: {
-    name: 'us-east-1',
-    endPoint: 'http://dynamodb.us-east-1.amazonaws.com'
+    name: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    endPoint: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   },
   credentials: {
-    accessKeyId: 'AKIAVF6T6DHULDX5I3NA',
-    secretAccessKey: '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'
+    accessKeyId: 'xxxxxxxxxxxxx',
+    secretAccessKey: 'xxxxxxxxxxxxxxxxxxxxx'
   }
 }
 
 export const dynamoTablesName = {
-  LIVESTREAMINGS_TABLE: 'livestreaming',
-  LOGS_TABLE: 'livestreaming-logs',
-  DIRTYWORDS_TABLE: 'livestreaming-dirtywords',
-  REPORTS_TABLE: 'livestreaming-reports',
-  ACCOUNTS_AVAILABLE_TABLE: 'livestreaming-accounts-availables',
-  ORDERS_REPORTS_TABLE: 'livestreaming-reports'
+  LIVESTREAMINGS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  LOGS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  DIRTYWORDS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  REPORTS_TABLE: 'xxxxxxxxxxxxxxxxxxxxxx',
+  ACCOUNTS_AVAILABLE_TABLE: 'xxxxxxxxxxxx',
+  ORDERS_REPORTS_TABLE: 'xxxxxxxxxxxxxxxxxxxxx'
 }
 
 export const getEnvironmentTable = (production: boolean, tableName: any) =>
