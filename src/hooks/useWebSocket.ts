@@ -3,10 +3,11 @@ import { uuid } from 'uuidv4'
 // eslint-disable-next-line no-unused-vars
 import { Message, Heart, IvsRealTime } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
+declare interface Props {
+  wssStream: string | undefined
+}
 
-const wssStream = 'wss://xxlq6m97i7.execute-api.us-east-1.amazonaws.com/Prod'
-
-export const useWebSocket = () => {
+export const useWebSocket = ({ wssStream }: Props) => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
@@ -19,8 +20,7 @@ export const useWebSocket = () => {
   const [isTransmiting, setIsTransmiting] = useState(false)
 
   const createWebSocket = useCallback(() => {
-    if (!wssStream && socket) return
-
+    if (!wssStream || socket) return
     const connection = new WebSocket(wssStream as string)
 
     connection.onopen = () => {

@@ -7,19 +7,31 @@ import ArrorRightLivestreaming from '../icons/ArrorRightLivestreaming'
 import styles from './../../styles.module.css'
 import MessageRenderer from './MessageRenderer'
 // eslint-disable-next-line no-unused-vars
-import { InfoLivestreaming } from '../../typings/livestreaming'
+import { InfoSocket } from '../../typings/livestreaming'
+import { useChat } from '../../hooks/useChat'
 
 type ChatProps = {
   title: string
   placeholder: string
-  infoLivestreaming: InfoLivestreaming
+  infoSocket: InfoSocket
+  idLivestreaming: string
+  account: string
 }
 
-export const Chat = ({ title, placeholder, infoLivestreaming }: ChatProps) => {
+export const Chat = ({
+  title,
+  placeholder,
+  infoSocket,
+  idLivestreaming,
+  account
+}: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<string>('')
-  const { socket, chat, setChat, sessionId } = infoLivestreaming
-  const chatHistory: never[] = []
+  const { socket, chat, setChat, sessionId } = infoSocket
+  const { chatHistory } = useChat({
+    idLivestreaming,
+    account
+  })
 
   const handlerSendMessage = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -43,7 +55,7 @@ export const Chat = ({ title, placeholder, infoLivestreaming }: ChatProps) => {
 
   const ChatMessages = useMemo(
     () => MessageRenderer(chatHistory || [], chat),
-    [/* chatHistory, */ chat]
+    [chatHistory, chat]
   )
 
   useEffect(() => {
@@ -59,7 +71,7 @@ export const Chat = ({ title, placeholder, infoLivestreaming }: ChatProps) => {
 
   useEffect(() => {
     if (setChat) setChat([])
-  }, [/* chatHistory, */ setChat])
+  }, [chatHistory, setChat])
 
   return (
     <div className={styles.container}>

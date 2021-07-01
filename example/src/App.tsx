@@ -6,38 +6,44 @@ import {
   Like,
   Viewers,
   Live,
-  useWebSocket
+  useWebSocket,
+  useLivestreamingConfig
 } from 'vtex.livestreaming'
 import 'vtex.livestreaming/dist/index.css'
-
 import './app.css'
 
+const LIVESTREAMING_ID = '0a0ef145-60e5-4e3c-837a-7c9ce2004e46'
+const ACCOUNT = 'livestreamingdemo'
+
 const App = () => {
-  const info = useWebSocket()
+  const { wssStream, streamUrl } = useLivestreamingConfig({
+    id: LIVESTREAMING_ID,
+    account: ACCOUNT
+  })
+  const infoSocket = useWebSocket({ wssStream })
 
   return (
     <div className='appContent'>
       <div className='videoContainer'>
         <div className='videoContent'>
-          <LivestreamingVideo
-            infoLivestreaming={info}
-            streamUrl='https://a8a9a64b061c.us-east-1.playback.live-video.net/api/video/v1/us-east-1.356389886440.channel.ORTVqqYGiqDa.m3u8'
-          />
+          <LivestreamingVideo infoSocket={infoSocket} streamUrl={streamUrl} />
         </div>
         <div className='likeContent'>
-          <Like infoLivestreaming={info} />
+          <Like infoSocket={infoSocket} />
         </div>
         <div className='viewersContent'>
-          <Viewers infoLivestreaming={info} />
+          <Viewers infoSocket={infoSocket} />
         </div>
         <div className='liveContent'>
-          <Live infoLivestreaming={info} />
+          <Live infoSocket={infoSocket} />
         </div>
         <div className='chatContent'>
           <Chat
             title='Chat'
             placeholder='Ingrese un mensaje'
-            infoLivestreaming={info}
+            infoSocket={infoSocket}
+            idLivestreaming={LIVESTREAMING_ID}
+            account={ACCOUNT}
           />
         </div>
       </div>

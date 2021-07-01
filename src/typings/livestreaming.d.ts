@@ -15,7 +15,7 @@ export declare interface IvsRealTime {
   viewerCount: number
   status: string
 }
-export declare interface InfoLivestreaming {
+export declare interface InfoSocket {
   socket: WebSocket
   chat: Message[]
   hearts: Heart[]

@@ -3,22 +3,22 @@ import React, { useState, useEffect } from 'react'
 import { Feed } from './Feed'
 import { NoVideo } from '../NoVideo/NoVideo'
 // eslint-disable-next-line no-unused-vars
-import { InfoLivestreaming } from '../../typings/livestreaming'
+import { InfoSocket } from '../../typings/livestreaming'
 const IVS_PLAYER_MIN_JS =
   'https://player.live-video.net/1.2.0/amazon-ivs-player.min.js'
 
 type LivestreamingVideoProps = {
-  streamUrl: string
-  infoLivestreaming: InfoLivestreaming
+  streamUrl: string | undefined
+  infoSocket: InfoSocket
 }
 
 export const LivestreamingVideo = ({
   streamUrl,
-  infoLivestreaming
+  infoSocket
 }: LivestreamingVideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
-  const { isTransmiting } = infoLivestreaming
+  const { isTransmiting } = infoSocket
 
   useEffect(() => {
     if (!scriptVideoPlayer) {
@@ -46,6 +46,6 @@ export const LivestreamingVideo = ({
       <Feed streamUrl={streamUrl} />
     </div>
   ) : (
-    <NoVideo isLive={infoLivestreaming?.ivsRealTime?.status} />
+    <NoVideo isLive={infoSocket?.ivsRealTime?.status} />
   )
 }

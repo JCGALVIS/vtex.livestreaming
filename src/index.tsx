@@ -5,5 +5,15 @@ import { Viewers } from './components/Viewers/Viewers'
 import { NoVideo } from './components/NoVideo/NoVideo'
 import { Live } from './components/Live/Live'
 import { useWebSocket } from './hooks/useWebSocket'
+import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 
-export { LivestreamingVideo, Chat, Like, Viewers, NoVideo, Live, useWebSocket }
+export {
+  LivestreamingVideo,
+  Chat,
+  Like,
+  Viewers,
+  NoVideo,
+  Live,
+  useWebSocket,
+  useLivestreamingConfig
+}
