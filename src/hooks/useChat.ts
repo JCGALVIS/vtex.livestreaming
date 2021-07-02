@@ -14,7 +14,7 @@ export const useChat = ({ idLivestreaming, account }: Props) => {
         url: `https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/chat?id=${idLivestreaming}&account=${account}`
       })
 
-      setChatHistory(data)
+      setChatHistory(data.reverse())
     }
 
     getChat().catch(null)
