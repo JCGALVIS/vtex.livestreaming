@@ -15,16 +15,17 @@ export declare interface IvsRealTime {
   viewerCount: number
   status: string
 }
-export declare interface InfoSocket {
-  socket: WebSocket
+export declare interface InfoLivestreaming {
+  socket: WebSocket | undefined
   chat: Message[]
   hearts: Heart[]
   sessionId: string
-  ivsRealTime: IvsRealTime
-  showCounter: boolean
+  ivsRealTime: IvsRealTime | undefined
+  showCounter: boolean | undefined
   isTransmiting: boolean
   setHearts: React.Dispatch<React.SetStateAction<Heart[]>>
   setChat: React.Dispatch<React.SetStateAction<Message[]>>
-  SetIsTransmiting: React.Dispatch<React.SetStateAction<boolean>>
+  setIsTransmiting: React.Dispatch<React.SetStateAction<boolean>>
   sendAccountId: () => void
+  setIvsRealTime: React.Dispatch<React.SetStateAction<IvsRealTime | undefined>>
 }
