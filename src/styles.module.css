@@ -1,13 +1,4 @@
-/* add css module styles here (optional) */
-
-.test {
-  margin: 2em;
-  padding: 0.5em;
-  border: 2px solid #000;
-  font-size: 2em;
-  text-align: center;
-}
-
+/* Styles video streaming */
 .playerUi {
   position: relative;
   width: 100%;
@@ -20,12 +11,6 @@
   min-width: 100%;
   position: absolute;
   height: 100%;
-}
-
-@media screen and (min-width: 640px) {
-  .playerVideoEl {
-    height: auto;
-  }
 }
 
 .playerVideoMobile {
@@ -119,6 +104,7 @@
   animation: spin 0.5s linear infinite;
 }
 
+/* Styles chat*/
 .container {
   height: 100%;
   width: 100%;
@@ -155,25 +141,17 @@
   background-color: whitesmoke;
 }
 
-/* width */
-
 .chatArea::-webkit-scrollbar {
   width: 4px;
 }
-
-/* Track */
 
 .chatArea::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-/* Handle */
-
 .chatArea::-webkit-scrollbar-thumb {
   background: #888;
 }
-
-/* Handle on hover */
 
 .chatArea::-webkit-scrollbar-thumb:hover {
   background: #555;
@@ -220,6 +198,7 @@
 
 .inputChat button {
   width: 20%;
+  background: #EAEAEA;
 }
 
 .inputChat button div {
@@ -239,6 +218,136 @@
 .chatUser span:last-child {
   padding-left: 5px;
 }
+
+.appContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.videoContainer{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.videoContent {
+  width: 70%;
+  height: 100%;
+}
+
+.likeContent{
+  position: absolute;
+  bottom: 0.3rem;
+  right: 31%;
+}
+
+.viewersContent{
+  position: absolute;
+  top: 0.6rem;
+  right: 31%;
+}
+
+.liveContent{
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.chatContent {
+  width: 30%;
+  height: 100%;
+  max-height: 80vh;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 578px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .appContent {
+    flex-direction: column;
+  }
+
+  .videoContent {
+    width: 100%;
+  }
+
+  .likeContent{
+    bottom: 0rem;
+    right: 0.2rem;
+  }
+
+  .viewersContent{
+    position: absolute;
+    top: 0.6rem;
+    right: 0.2rem
+  }
+
+  .chatContent {
+    position: absolute;
+    bottom: 4rem;
+    left: 0.5rem;
+    width: 50%;
+    height: 22%;
+    max-height: none;
+  }
+}
+
+@media only screen and (min-device-width: 640px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  .appContent {
+    flex-direction: column;
+  }
+
+  .videoContent {
+    width: 100%;
+  }
+
+  .likeContent{
+    bottom: 0.3rem;
+    right: 1rem;
+  }
+
+  .viewersContent{
+    position: absolute;
+    top: 0.6rem;
+    right: 1rem
+  }
+
+  .chatContent {
+    position: absolute;
+    bottom: 4rem;
+    left: 0.5rem;
+    width: 50%;
+    height: 22%;
+    max-height: none;
+  }
+
+}
+
+ @media (min-width:414px) and (max-width: 1025px)  {
+  .likeContent{
+    bottom: 0.3rem;
+    right: 1rem;
+  }
+
+  .videoContent {
+    width: 100%;
+  }
+
+  .viewersContent{
+    right: 1rem;
+  }
+
+  .chatContent {
+    position: absolute;
+    bottom: 4rem;
+    left: 0.5rem;
+    width: 50%;
+    height: 22%;
+    max-height: none;
+  }
+ }
+
 
 @-moz-keyframes spin {
   100% {
@@ -314,6 +423,12 @@
     grid-column-end: 2;
     grid-row-start: 4;
     grid-row-end: 5;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .playerVideoEl {
+    height: auto;
   }
 }
 
