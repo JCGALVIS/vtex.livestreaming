@@ -49,14 +49,12 @@ export const Like = ({ infoLivestreaming }: LikeProps) => {
     [socketHearts]
   )
 
-  return (
-    isTransmiting && (
-      <div className={styles.likeWrapper}>
-        <button className={styles.likeButton} onClick={handleClick}>
-          <IconHeart size='42' viewBox='0 0 400 400' />
-        </button>
-        {HeartCollection}
-      </div>
-    )
-  )
+  return isTransmiting ? (
+    <div className={styles.likeWrapper}>
+      <button className={styles.likeButton} onClick={handleClick}>
+        <IconHeart size='42' viewBox='0 0 400 400' />
+      </button>
+      {HeartCollection}
+    </div>
+  ) : null
 }
