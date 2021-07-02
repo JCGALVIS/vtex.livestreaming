@@ -14,10 +14,9 @@ type LivestreamingProps = {
   inactivateViewers?: boolean
   streamUrl: string
   wssStream: string
+  idLivestreaming: string
+  account: string
 }
-
-const LIVESTREAMING_ID = '258cbe07-ac1b-4804-9bdc-e509ade8fa45'
-const ACCOUNT = 'livestreamingdemo'
 
 export const Livestreaming = (props: LivestreamingProps) => {
   const {
@@ -25,7 +24,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactivateViewers,
     inactivateChat,
     streamUrl,
-    wssStream
+    wssStream,
+    idLivestreaming,
+    account
   } = props
 
   const info = useWebSocket(wssStream)
@@ -51,8 +52,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
               title='Chat'
               placeholder='Ingrese un mensaje'
               infoSocket={info}
-              idLivestreaming={LIVESTREAMING_ID}
-              account={ACCOUNT}
+              idLivestreaming={idLivestreaming}
+              account={account}
             />
           )}
         </div>
