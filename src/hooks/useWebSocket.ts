@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useCallback } from 'react'
-// eslint-disable-next-line no-unused-vars
 import {
   Message,
   Heart,
   IvsRealTime,
-  InfoLivestreaming
+  InfoSocket
 } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 import { apiCall } from '../api/apiCall'
@@ -12,7 +12,7 @@ declare interface Props {
   wssStream: string | undefined
 }
 
-export const useWebSocket = (wssStream: string): InfoLivestreaming => {
+export const useWebSocket = (wssStream: string): InfoSocket => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)

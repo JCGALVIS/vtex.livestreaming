@@ -9,10 +9,10 @@ const IVS_PLAYER_MIN_JS =
 
 type VideoProps = {
   streamUrl: string
-  infoLivestreaming: InfoLivestreaming
+  infoSocket: InfoSocket
 }
 
-export const Video = ({ streamUrl, infoLivestreaming }: VideoProps) => {
+export const Video = ({ streamUrl, infoSocket }: VideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
   const { isTransmiting } = infoSocket

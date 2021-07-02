@@ -16,6 +16,9 @@ type LivestreamingProps = {
   wssStream: string
 }
 
+const LIVESTREAMING_ID = '258cbe07-ac1b-4804-9bdc-e509ade8fa45'
+const ACCOUNT = 'livestreamingdemo'
+
 export const Livestreaming = (props: LivestreamingProps) => {
   const {
     inactivateLike,
@@ -31,23 +34,25 @@ export const Livestreaming = (props: LivestreamingProps) => {
     <div className={styles.appContent}>
       <div className={styles.videoContainer}>
         <div className={styles.videoContent}>
-          <Video infoLivestreaming={info} streamUrl={streamUrl} />
+          <Video infoSocket={info} streamUrl={streamUrl} />
         </div>
         <div className={styles.likeContent}>
-          {inactivateLike && <Like infoLivestreaming={info} />}
+          {inactivateLike && <Like infoSocket={info} />}
         </div>
         <div className={styles.viewersContent}>
-          {inactivateViewers && <Viewers infoLivestreaming={info} />}
+          {inactivateViewers && <Viewers infoSocket={info} />}
         </div>
         <div className={styles.liveContent}>
-          <Live infoLivestreaming={info} />
+          <Live infoSocket={info} />
         </div>
         <div className={styles.chatContent}>
           {inactivateChat && (
             <Chat
               title='Chat'
               placeholder='Ingrese un mensaje'
-              infoLivestreaming={info}
+              infoSocket={info}
+              idLivestreaming={LIVESTREAMING_ID}
+              account={ACCOUNT}
             />
           )}
         </div>
