@@ -7,7 +7,8 @@ import {
   InfoSocket
 } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
-import { apiCall } from '../api/apiCall'
+import { useSessionId } from './useSessionId'
+
 declare interface Props {
   wssStream: string | undefined
 }
@@ -16,13 +17,13 @@ export const useWebSocket = (wssStream: string): InfoSocket => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
-  const [sessionId, setSessionId] = useState('')
   const [hearts, setHearts] = useState<Heart[]>([])
   const [ivsRealTime, setIvsRealTime] = useState<IvsRealTime | undefined>(
     undefined
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [isTransmiting, setIsTransmiting] = useState(false)
+  const { sessionId } = useSessionId()
 
   const createWebSocket = useCallback(() => {
     if (!wssStream || socket) return
@@ -87,16 +88,12 @@ export const useWebSocket = (wssStream: string): InfoSocket => {
 
   const sendAccountId = useCallback(() => {
     if (!isConnected || !socket) return
-
+    console.log('SessionId enviado', sessionId)
     const getId = async () => {
-      const data = await apiCall({ url: 'https://api.ipify.org/?format=json' })
-
-      setSessionId(data?.ip)
-
       socket.send(
         JSON.stringify({
           action: 'sendaccountid',
-          data: data?.ip,
+          data: sessionId,
           username: undefined
         })
       )
