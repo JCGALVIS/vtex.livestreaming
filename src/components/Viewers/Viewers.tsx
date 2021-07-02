@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 // eslint-disable-next-line no-unused-vars
-import { InfoLivestreaming } from '../../typings/livestreaming'
+import { InfoSocket } from '../../typings/livestreaming'
 import ViewersIcon from '../icons/ViewersIcon'
 import styles from './viewers.css'
 interface ViewersProps {
-  infoLivestreaming: InfoLivestreaming
+  infoSocket: InfoSocket
 }
 
-export const Viewers = ({ infoLivestreaming }: ViewersProps) => {
+export const Viewers = ({ infoSocket }: ViewersProps) => {
   const [viewers, setViewers] = useState(0)
-  const { ivsRealTime, showCounter, isTransmiting } = infoLivestreaming
+  const { ivsRealTime, showCounter, isTransmiting } = infoSocket
 
   useEffect(() => {
     if (ivsRealTime && ivsRealTime.status === 'LIVE') {
@@ -19,7 +19,7 @@ export const Viewers = ({ infoLivestreaming }: ViewersProps) => {
     }
   }, [ivsRealTime])
 
-  if (!infoLivestreaming) {
+  if (!infoSocket) {
     return null
   }
 

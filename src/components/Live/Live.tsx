@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 // eslint-disable-next-line no-unused-vars
-import { InfoLivestreaming } from '../../typings/livestreaming'
+import { InfoSocket } from '../../typings/livestreaming'
 import styles from './live.css'
 
 interface LiveProps {
-  infoLivestreaming: InfoLivestreaming
+  infoSocket: InfoSocket
 }
 
-export const Live = ({ infoLivestreaming }: LiveProps) => {
-  const { isTransmiting } = infoLivestreaming
+export const Live = ({ infoSocket }: LiveProps) => {
+  const { isTransmiting } = infoSocket
 
   return (
     /* livestramingStatus !== 'FINALIZED' ? */ <Fragment>
