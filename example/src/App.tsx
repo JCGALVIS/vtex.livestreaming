@@ -7,19 +7,17 @@ import {
   Viewers,
   Live,
   useWebSocket,
-  useLivestreamingConfig
 } from 'vtex.livestreaming'
 import 'vtex.livestreaming/dist/index.css'
 import './app.css'
 
-const LIVESTREAMING_ID = '0a0ef145-60e5-4e3c-837a-7c9ce2004e46'
+const LIVESTREAMING_ID = '495e55e2-c49a-437d-b7cf-17f914c60a81'
 const ACCOUNT = 'livestreamingdemo'
+const streamUrl = 'https://a8a9a64b061c.us-east-1.playback.live-video.net/api/video/v1/us-east-1.356389886440.channel.zM3SdTZdbjJJ.m3u8'
+const wssStream = 'wss://vdtgqx8x77.execute-api.us-east-1.amazonaws.com/Prod'
 
 const App = () => {
-  const { wssStream, streamUrl } = useLivestreamingConfig({
-    id: LIVESTREAMING_ID,
-    account: ACCOUNT
-  })
+
   const infoSocket = useWebSocket({ wssStream })
 
   return (

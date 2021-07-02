@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react'
-import { uuid } from 'uuidv4'
 // eslint-disable-next-line no-unused-vars
 import { Message, Heart, IvsRealTime } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
+import { apiCall } from '../api/apiCall'
 declare interface Props {
   wssStream: string | undefined
 }
@@ -82,15 +82,22 @@ export const useWebSocket = ({ wssStream }: Props) => {
 
   const sendAccountId = useCallback(() => {
     if (!isConnected || !socket) return
-    const id = uuid()
-    socket.send(
-      JSON.stringify({
-        action: 'sendaccountid',
-        data: id,
-        username: undefined
-      })
-    )
-    setSessionId(id)
+
+    const getId = async () => {
+      const data = await apiCall({ url: 'https://api.ipify.org/?format=json' })
+
+      setSessionId(data?.ip)
+
+      socket.send(
+        JSON.stringify({
+          action: 'sendaccountid',
+          data: data?.ip,
+          username: undefined
+        })
+      )
+    }
+
+    getId().catch(null)
   }, [isConnected, socket, isTransmiting])
 
   useEffect(() => {

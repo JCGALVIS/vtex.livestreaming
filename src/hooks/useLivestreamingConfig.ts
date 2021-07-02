@@ -1,9 +1,4 @@
 import { useEffect, useState } from 'react'
-import {
-  getData,
-  dynamoTablesName,
-  getEnvironmentTable
-} from '../server/dynamodb'
 
 declare interface Props {
   id: string
@@ -16,16 +11,15 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
 
   useEffect(() => {
     const getLivestreaming = async () => {
-      const { LIVESTREAMINGS_TABLE } = dynamoTablesName
-
-      const data = await getData({
-        TableName: getEnvironmentTable(LIVESTREAMINGS_TABLE),
-        Key: { account, id },
-        ProjectionExpression: 'config'
-      })
-
-      setWssStream(data?.config.webClient.streamWSS)
-      setStreamUrl(data?.config.webClient.streamURL)
+      /* const data = await apiCall({
+        url: `https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/chat?id=${idLivestreaming}&account=${account}`,
+        method: 'GET'
+      }) */
+      const data = ''
+      // setWssStream(data?.config.webClient.streamWSS)
+      // setStreamUrl(data?.config.webClient.streamURL)
+      setWssStream(data)
+      setStreamUrl(data)
     }
 
     getLivestreaming().catch(null)

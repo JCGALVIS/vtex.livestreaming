@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react'
-
-import {
-  getData,
-  getEnvironmentTable,
-  dynamoTablesName
-} from '../server/dynamodb/'
-
+import { apiCall } from '../api/apiCall'
 declare interface Props {
   idLivestreaming: string
   account: string
@@ -16,12 +10,9 @@ export const useChat = ({ idLivestreaming, account }: Props) => {
 
   useEffect(() => {
     const getChat = async () => {
-      const { LIVESTREAMINGS_TABLE } = dynamoTablesName
-
-      const data = await getData({
-        TableName: getEnvironmentTable(LIVESTREAMINGS_TABLE),
-        Key: { account, id: idLivestreaming },
-        ProjectionExpression: 'info'
+      const data = await apiCall({
+        url: `https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/chat?id=${idLivestreaming}&account=${account}`,
+        method: 'GET'
       })
       setChat(data?.info.chat)
     }
