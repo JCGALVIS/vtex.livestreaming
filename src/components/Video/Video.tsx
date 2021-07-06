@@ -8,7 +8,7 @@ const IVS_PLAYER_MIN_JS =
   'https://player.live-video.net/1.2.0/amazon-ivs-player.min.js'
 
 type VideoProps = {
-  streamUrl: string
+  streamUrl: string | undefined
   infoSocket: InfoSocket
 }
 

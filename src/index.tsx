@@ -5,6 +5,7 @@ import { Like } from './components/Like/Like'
 import { Viewers } from './components/Viewers/Viewers'
 import { Live } from './components/Live/Live'
 import { useWebSocket } from './hooks/useWebSocket'
+import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 
 import styles from './styles.module.css'
 
@@ -12,8 +13,6 @@ type LivestreamingProps = {
   inactivateChat?: boolean
   inactivateLike?: boolean
   inactivateViewers?: boolean
-  streamUrl: string
-  wssStream: string
   idLivestreaming: string
   account: string
 }
@@ -23,13 +22,15 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactivateLike,
     inactivateViewers,
     inactivateChat,
-    streamUrl,
-    wssStream,
     idLivestreaming,
     account
   } = props
 
-  const info = useWebSocket(wssStream)
+  const { wssStream, streamUrl } = useLivestreamingConfig({
+    id: idLivestreaming,
+    account
+  })
+  const info = useWebSocket({ wssStream })
 
   return (
     <div className={styles.appContent}>

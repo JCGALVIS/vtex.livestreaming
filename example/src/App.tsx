@@ -8,9 +8,7 @@ const App = () => {
 
   return (
     <Livestreaming
-      streamUrl='https://a8a9a64b061c.us-east-1.playback.live-video.net/api/video/v1/us-east-1.356389886440.channel.bpaeuc747at1.m3u8'
-      wssStream='wss://bthvqvbpr5.execute-api.us-east-1.amazonaws.com/Prod'
-      idLivestreaming='258cbe07-ac1b-4804-9bdc-e509ade8fa45'
+      idLivestreaming='57a7d44b-64ff-4405-abd7-db39d4b2480b'
       account='livestreamingdemo'
     />
   )

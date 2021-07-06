@@ -13,7 +13,7 @@ declare interface Props {
   wssStream: string | undefined
 }
 
-export const useWebSocket = (wssStream: string): InfoSocket => {
+export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
@@ -88,7 +88,7 @@ export const useWebSocket = (wssStream: string): InfoSocket => {
 
   const sendAccountId = useCallback(() => {
     if (!isConnected || !socket) return
-    console.log('SessionId enviado', sessionId)
+
     const getId = async () => {
       socket.send(
         JSON.stringify({

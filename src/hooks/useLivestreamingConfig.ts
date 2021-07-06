@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import { apiCall } from '../api/apiCall'
 declare interface Props {
   id: string
   account: string
@@ -8,18 +8,19 @@ declare interface Props {
 export const useLivestreamingConfig = ({ id, account }: Props) => {
   const [wssStream, setWssStream] = useState<string | undefined>(undefined)
   const [streamUrl, setStreamUrl] = useState<string | undefined>(undefined)
+  const { REACT_APP_GET_LIVESTREAMING_CONFIG_URL } = process.env
 
   useEffect(() => {
+    if (!REACT_APP_GET_LIVESTREAMING_CONFIG_URL) return
+    const url = `${REACT_APP_GET_LIVESTREAMING_CONFIG_URL}?id=${id}&account=${account}`
+
     const getLivestreaming = async () => {
-      /* const data = await apiCall({
-        url: `https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/chat?id=${idLivestreaming}&account=${account}`,
-        method: 'GET'
-      }) */
-      const data = ''
-      // setWssStream(data?.config.webClient.streamWSS)
-      // setStreamUrl(data?.config.webClient.streamURL)
-      setWssStream(data)
-      setStreamUrl(data)
+      const data = await apiCall({
+        url
+      })
+
+      setWssStream(data?.streamWSS)
+      setStreamUrl(data?.streamURL)
     }
 
     getLivestreaming().catch(null)
