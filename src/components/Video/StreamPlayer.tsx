@@ -41,7 +41,7 @@ export const StreamPlayer = ({
   streamUrl
 }: {
   player: MediaPlayer
-  streamUrl: string
+  streamUrl: string | undefined
 }) => {
   const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
   const [overlay, setOverlay] = useState<boolean>(false)
@@ -305,7 +305,7 @@ export const StreamPlayer = ({
   )
 
   useEffect(() => {
-    if (!videoEl.current) return () => {}
+    if (!videoEl.current || !streamUrl) return () => {}
 
     player.pause()
     player.attachHTMLVideoElement(videoEl.current)

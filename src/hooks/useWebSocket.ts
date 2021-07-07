@@ -1,29 +1,32 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useCallback } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-// eslint-disable-next-line no-unused-vars
 import {
   Message,
   Heart,
   IvsRealTime,
-  InfoLivestreaming
+  InfoSocket
 } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
+import { useSessionId } from './useSessionId'
 
-export const useWebSocket = (wssStream: string): InfoLivestreaming => {
+declare interface Props {
+  wssStream: string | undefined
+}
+
+export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
-  const [sessionId, setSessionId] = useState('')
   const [hearts, setHearts] = useState<Heart[]>([])
   const [ivsRealTime, setIvsRealTime] = useState<IvsRealTime | undefined>(
     undefined
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [isTransmiting, setIsTransmiting] = useState(false)
+  const { sessionId } = useSessionId()
 
   const createWebSocket = useCallback(() => {
-    if (!wssStream && socket) return
-
+    if (!wssStream || socket) return
     const connection = new WebSocket(wssStream as string)
 
     connection.onopen = () => {
@@ -85,16 +88,19 @@ export const useWebSocket = (wssStream: string): InfoLivestreaming => {
 
   const sendAccountId = useCallback(() => {
     if (!isConnected || !socket) return
-    const id = uuidv4()
-    socket.send(
-      JSON.stringify({
-        action: 'sendaccountid',
-        data: id,
-        username: undefined
-      })
-    )
-    setSessionId(id)
-  }, [isConnected, socket])
+
+    const getId = async () => {
+      socket.send(
+        JSON.stringify({
+          action: 'sendaccountid',
+          data: sessionId,
+          username: undefined
+        })
+      )
+    }
+
+    getId().catch(null)
+  }, [isConnected, socket, isTransmiting])
 
   useEffect(() => {
     if (!socket) return () => {}

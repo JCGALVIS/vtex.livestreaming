@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { StreamPlayer } from './StreamPlayer'
 
 type FeedProps = {
-  streamUrl: string
+  streamUrl: string | undefined
 }
 
 export const Feed = ({ streamUrl }: FeedProps) => {

@@ -4,20 +4,20 @@ import HeartComponent from './heart/Heart'
 import styles from './like.css'
 import getRandomColor from '../../utils/getRandomColor'
 // eslint-disable-next-line no-unused-vars
-import { Heart, InfoLivestreaming } from '../../typings/livestreaming'
+import { Heart, InfoSocket } from '../../typings/livestreaming'
 
 interface LikeProps {
-  infoLivestreaming: InfoLivestreaming
+  infoSocket: InfoSocket
 }
 
-export const Like = ({ infoLivestreaming }: LikeProps) => {
+export const Like = ({ infoSocket }: LikeProps) => {
   const {
     socket,
     hearts: socketHearts,
     setHearts,
     sessionId,
     isTransmiting
-  } = infoLivestreaming
+  } = infoSocket
 
   const removeHeart = () => {
     if (setHearts) setHearts((prev: Heart[]) => prev.slice(1, prev.length))
