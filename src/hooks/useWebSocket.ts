@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { uuid } from 'uuidv4'
+import { v4 as uuidv4 } from 'uuid'
 // eslint-disable-next-line no-unused-vars
 import {
   Message,
@@ -85,7 +85,7 @@ export const useWebSocket = (wssStream: string): InfoLivestreaming => {
 
   const sendAccountId = useCallback(() => {
     if (!isConnected || !socket) return
-    const id = uuid()
+    const id = uuidv4()
     socket.send(
       JSON.stringify({
         action: 'sendaccountid',
