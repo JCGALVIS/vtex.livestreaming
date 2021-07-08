@@ -8,15 +8,20 @@ declare interface Props {
 export const useLivestreamingConfig = ({ id, account }: Props) => {
   const [wssStream, setWssStream] = useState<string | undefined>(undefined)
   const [streamUrl, setStreamUrl] = useState<string | undefined>(undefined)
-  const { GET_LIVESTREAMING_CONFIG_URL } = process.env
 
   useEffect(() => {
+    let URL = '__GET_LIVESTREAMING_CONFIG_URL'
+    const { GET_LIVESTREAMING_CONFIG_URL } = process.env
+
+    if (GET_LIVESTREAMING_CONFIG_URL && GET_LIVESTREAMING_CONFIG_URL !== URL) {
+      URL = GET_LIVESTREAMING_CONFIG_URL
+    }
+
     if (!GET_LIVESTREAMING_CONFIG_URL) return
-    const url = `${GET_LIVESTREAMING_CONFIG_URL}?id=${id}&account=${account}`
 
     const getLivestreaming = async () => {
       const data = await apiCall({
-        url
+        url: `${URL}?id=${id}&account=${account}`
       })
 
       setWssStream(data?.streamWSS)
