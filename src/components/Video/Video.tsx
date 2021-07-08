@@ -39,9 +39,7 @@ export const Video = ({ streamUrl, infoSocket }: VideoProps) => {
   if (!isPlayerSupported) return null
 
   return isPlayerSupported && isTransmiting ? (
-    <div>
-      <Feed streamUrl={streamUrl} />
-    </div>
+    <Feed streamUrl={streamUrl} />
   ) : (
     <NoVideo isLive={infoSocket?.ivsRealTime?.status} />
   )

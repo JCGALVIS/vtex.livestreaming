@@ -58,10 +58,6 @@ export const Feed = ({ streamUrl }: FeedProps) => {
   }
 
   return playerCurrent ? (
-    <div>
-      <StreamPlayer player={player.current} streamUrl={streamUrl} />
-    </div>
-  ) : (
-    <div />
-  )
+    <StreamPlayer player={player.current} streamUrl={streamUrl} />
+  ) : null
 }
