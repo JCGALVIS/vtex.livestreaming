@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <Livestreaming
-      idLivestreaming='57a7d44b-64ff-4405-abd7-db39d4b2480b'
+      idLivestreaming='95fcbdbe-f03a-4e19-82c8-e7fafa242cd7'
       account='livestreamingdemo'
     />
   )

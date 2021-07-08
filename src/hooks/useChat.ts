@@ -7,11 +7,11 @@ declare interface Props {
 
 export const useChat = ({ idLivestreaming, account }: Props) => {
   const [chatHistory, setChatHistory] = useState<any>([])
-  const { REACT_APP_GET_CHAT_BY_ID_URL } = process.env
+  const { GET_CHAT_BY_ID_URL } = process.env
 
   useEffect(() => {
-    if (!REACT_APP_GET_CHAT_BY_ID_URL) return
-    const url = `${REACT_APP_GET_CHAT_BY_ID_URL}?id=${idLivestreaming}&account=${account}`
+    if (!GET_CHAT_BY_ID_URL) return
+    const url = `${GET_CHAT_BY_ID_URL}?id=${idLivestreaming}&account=${account}`
 
     const getChat = async () => {
       const data = await apiCall({
