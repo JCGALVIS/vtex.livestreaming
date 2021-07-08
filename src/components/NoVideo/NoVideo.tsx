@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from './NoVideo.css'
 
-// type VideoMessageType = 'LIVE' | 'FINALIZED'
-
 const messages = {
   noVideo: 'Esperando conexión con el stream.',
   FINALIZED: 'El evento ha finalizado.',

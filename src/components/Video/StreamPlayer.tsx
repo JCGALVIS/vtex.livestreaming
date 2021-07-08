@@ -344,7 +344,7 @@ export const StreamPlayer = ({
   }, [videoEl, checkIfWebKit])
 
   return (
-    <div>
+    <Fragment>
       <div
         ref={mainContainer}
         className={styles.playerUi}
@@ -418,6 +418,6 @@ export const StreamPlayer = ({
           )}
         </div>
       </div>
-    </div>
+    </Fragment>
   )
 }

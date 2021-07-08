@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { uuid } from 'uuidv4'
+import { v4 as uuidv4 } from 'uuid'
 
 export const useSessionId = () => {
   const [sessionId, setSessionId] = useState('')
@@ -11,7 +11,7 @@ export const useSessionId = () => {
       return
     }
 
-    const id = uuid()
+    const id = uuidv4()
     localStorage.setItem('sessionId', id)
     setSessionId(id)
   }, [])
