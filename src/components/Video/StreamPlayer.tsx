@@ -84,41 +84,43 @@ export const StreamPlayer = ({
     }
   }
 
-  const fullScreenHandler = () => {
+  const getFullScreenElement = () => {
     let fullScreenElement
 
     if (document.fullscreenElement) {
       fullScreenElement = document.fullscreenElement
-    } else {
-      fullScreenElement =
-        document.mozFullScreenElement ||
-        document.webkitFullscreenElement ||
-        document.msFullscreenElement
+    } else if (document.mozFullScreenElement) {
+      fullScreenElement = document.mozFullScreenElement
+    } else if (document.webkitFullscreenElement) {
+      fullScreenElement = document.webkitFullscreenElement
+    } else if (document.msFullscreenElement) {
+      fullScreenElement = document.msFullscreenElement
     }
 
     return fullScreenElement
   }
 
-  const exitFullScreenHandler = () => {
-    let exitFullScreen
+  const getExitFullScreenElement = () => {
+    let exitFullScreenElement
 
     if (document.exitFullscreen) {
-      exitFullScreen = document.exitFullscreen
+      exitFullScreenElement = document.exitFullscreen
     } else if (document.mozCancelFullScreen) {
-      exitFullScreen = document.mozCancelFullScreen
+      exitFullScreenElement = document.mozCancelFullScreen
     } else if (document.webkitExitFullscreen) {
-      exitFullScreen = document.webkitExitFullscreen
+      exitFullScreenElement = document.webkitExitFullscreen
     } else if (document.msExitFullscreen) {
-      exitFullScreen = document.msExitFullscreen
+      exitFullScreenElement = document.msExitFullscreen
     }
 
-    return exitFullScreen
+    return exitFullScreenElement
   }
 
-  const requestFullScreenHandler = (
+  const getRequestFullScreenElement = (
     mainContainerCurrent: HTMLDivElement | null
   ) => {
     let requestFullscreen
+
     if (mainContainerCurrent) {
       if (mainContainerCurrent.requestFullscreen) {
         requestFullscreen = mainContainerCurrent.requestFullscreen
@@ -137,10 +139,10 @@ export const StreamPlayer = ({
   const handleFullScreen = (): void => {
     if (mainContainer.current) {
       mainContainer.current.onfullscreenchange = (): void => {
-        const fullScreenElement = fullScreenHandler()
+        const fullScreenElement = getFullScreenElement()
 
         if (fullScreenElement) return
-        const exitFullScreen = exitFullScreenHandler()
+        const exitFullScreen = getExitFullScreenElement()
         if (exitFullScreen)
           exitFullScreen
             .bind(document)()
@@ -150,14 +152,14 @@ export const StreamPlayer = ({
 
       setFullScreen((prev) => {
         if (prev) {
-          const exitFullScreen = exitFullScreenHandler()
+          const exitFullScreen = getExitFullScreenElement()
           if (exitFullScreen)
             exitFullScreen
               .bind(document)()
               .catch((err: Error) => console.error(err))
           return false
         } else {
-          const requestFullscreen = requestFullScreenHandler(
+          const requestFullscreen = getRequestFullScreenElement(
             mainContainer.current
           )
 
@@ -173,11 +175,11 @@ export const StreamPlayer = ({
 
     if (mobileDiv) {
       mobileDiv.onfullscreenchange = (): void => {
-        const fullScreenElement = fullScreenHandler()
+        const fullScreenElement = getFullScreenElement()
 
         if (fullScreenElement) return
 
-        const exitFullScreen = exitFullScreenHandler()
+        const exitFullScreen = getExitFullScreenElement()
         if (exitFullScreen)
           exitFullScreen
             .bind(document)()
@@ -187,7 +189,7 @@ export const StreamPlayer = ({
 
       setFullScreen((prev) => {
         if (prev) {
-          const exitFullScreen = exitFullScreenHandler()
+          const exitFullScreen = getExitFullScreenElement()
 
           if (exitFullScreen)
             exitFullScreen
