@@ -20,6 +20,7 @@ import VolumeOffIcon from '../icons/VolumeOffIcon'
 import FullscreenIcon from '../icons/FullscreenIcon'
 import FullscreenExitIcon from '../icons/FullscreenExitIcon'
 import LoadingIcon from '../icons/LoadingIcon'
+import { getMobileOS } from '../../utils/getMobileOs'
 
 interface HTMLVideoPicture extends HTMLVideoElement {
   requestPictureInPicture(): void
@@ -280,11 +281,13 @@ export const StreamPlayer = ({
               onClick={handlePictureAndPicture}
               onKeyDown={handleNothing}
             >
-              {picture ? (
-                <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
-              ) : (
-                <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-              )}
+              {videoEl?.current?.requestPictureInPicture ? (
+                picture ? (
+                  <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+                ) : (
+                  <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+                )
+              ) : null}
             </div>
             <div
               role='button'
@@ -441,11 +444,14 @@ export const StreamPlayer = ({
               onKeyDown={handlePictureAndPicture}
               className={styles.playerVideoMobilePicture}
             >
-              {pictureInPicture ? (
-                <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
-              ) : (
-                <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-              )}
+              {!!videoEl?.current?.requestPictureInPicture &&
+              getMobileOS() !== 'Android' ? (
+                pictureInPicture ? (
+                  <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+                ) : (
+                  <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+                )
+              ) : null}
             </div>
           )}
         </div>
