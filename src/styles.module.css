@@ -3,29 +3,33 @@ body {
 }
 
 .livestreaming {
+  height: 100%;
+  margin-bottom: 1rem;
+}
+
+.livestreamingContent {
   display: flex;
   justify-content: space-between;
-  height: 100vh;
+  height: 71vh;
+  position: relative;
 }
 
 .videoContainer {
   position: relative;
   width: 100%;
-  height: 100%;
-  flex: 0 1 80%;
+  flex: 0 1 calc(70% - .5rem);
 }
 
 .videoContent {
   position: absolute;
   right: 0;
   left: 0;
-  height: 100%;
   width: 100%;
 }
 
 .likeContent {
   position: absolute;
-  bottom: 0.3rem;
+  bottom: .3rem;
   right: 1rem;
 }
 
@@ -42,7 +46,8 @@ body {
 }
 
 .chatContent {
-  flex: 0 1 20%;
+  flex: 0 1 calc(30% - .5rem);
+  height: 72vh;
 }
 
 /* Styles video streaming */
@@ -50,8 +55,8 @@ body {
 .playerUi {
   position: relative;
   width: 100%;
-  height: 100vh;
   background-color: black;
+  padding-bottom: 56.25%;
 }
 
 .playerVideoEl {
@@ -362,8 +367,9 @@ body {
   .playerUi {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 71vh;
     background-color: black;
+    padding: 0;
   }
   .playerVideoHover {
     display: none !important;
