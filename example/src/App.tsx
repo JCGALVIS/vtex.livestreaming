@@ -8,8 +8,8 @@ const App = () => {
 
   return (
     <Livestreaming
-      idLivestreaming='__IDLIVESTREAMING'
-      account='__ACCOUNT'
+      idLivestreaming='a48e402d-a67d-43f1-9a20-aea32d898355'
+      account='livestreamingdemo'
     />
   )
 }
