@@ -118,7 +118,7 @@ export const StreamPlayer = ({
   }
 
   const getRequestFullScreenElement = (
-    mainContainerCurrent: HTMLDivElement | null
+    mainContainerCurrent: HTMLDivElement | Element | null
   ) => {
     let requestFullscreen
 
@@ -198,11 +198,7 @@ export const StreamPlayer = ({
               .catch((err: Error) => console.error(err))
           else videoEl.current?.webkitExitFullScreen()
         } else {
-          const requestFullscreen =
-            mobileDiv.requestFullscreen ||
-            mobileDiv.mozRequestFullScreen ||
-            mobileDiv.webkitRequestFullscreen ||
-            mobileDiv.msRequestFullscreen
+          const requestFullscreen = getRequestFullScreenElement(mobileDiv)
 
           if (requestFullscreen) requestFullscreen.bind(mobileDiv)()
           else videoEl.current?.webkitEnterFullscreen()
