@@ -20,6 +20,7 @@ import VolumeOffIcon from '../icons/VolumeOffIcon'
 import FullscreenIcon from '../icons/FullscreenIcon'
 import FullscreenExitIcon from '../icons/FullscreenExitIcon'
 import LoadingIcon from '../icons/LoadingIcon'
+import { getMobileOS } from '../../utils/getMobileOs'
 
 interface HTMLVideoPicture extends HTMLVideoElement {
   requestPictureInPicture(): void
@@ -73,58 +74,99 @@ export const StreamPlayer = ({
   }
 
   const handlePictureAndPicture = (): void => {
-    if (videoEl.current) {
-      setPictureInPicture((prev) => {
-        if (prev) document.exitPictureInPicture()
-        else videoEl.current?.requestPictureInPicture()
-        return !prev
-      })
+    try {
+      if (videoEl.current) {
+        if (pictureInPicture) document.exitPictureInPicture()
+        else videoEl.current.requestPictureInPicture()
+        setPictureInPicture(!pictureInPicture)
+      }
+    } catch (err) {
+      setPictureInPicture(false)
     }
+  }
+
+  const getFullScreenElement = () => {
+    let fullScreenElement
+
+    if (document.fullscreenElement) {
+      fullScreenElement = document.fullscreenElement
+    } else if (document.mozFullScreenElement) {
+      fullScreenElement = document.mozFullScreenElement
+    } else if (document.webkitFullscreenElement) {
+      fullScreenElement = document.webkitFullscreenElement
+    } else if (document.msFullscreenElement) {
+      fullScreenElement = document.msFullscreenElement
+    }
+
+    return fullScreenElement
+  }
+
+  const getExitFullScreenElement = () => {
+    let exitFullScreenElement
+
+    if (document.exitFullscreen) {
+      exitFullScreenElement = document.exitFullscreen
+    } else if (document.mozCancelFullScreen) {
+      exitFullScreenElement = document.mozCancelFullScreen
+    } else if (document.webkitExitFullscreen) {
+      exitFullScreenElement = document.webkitExitFullscreen
+    } else if (document.msExitFullscreen) {
+      exitFullScreenElement = document.msExitFullscreen
+    }
+
+    return exitFullScreenElement
+  }
+
+  const getRequestFullScreenElement = (
+    mainContainerCurrent: HTMLDivElement | Element | null
+  ) => {
+    let requestFullscreen
+
+    if (mainContainerCurrent) {
+      if (mainContainerCurrent.requestFullscreen) {
+        requestFullscreen = mainContainerCurrent.requestFullscreen
+      } else if (mainContainerCurrent.mozRequestFullScreen) {
+        requestFullscreen = mainContainerCurrent.mozRequestFullScreen
+      } else if (mainContainerCurrent.webkitRequestFullscreen) {
+        requestFullscreen = mainContainerCurrent.webkitRequestFullscreen
+      } else if (mainContainerCurrent.msRequestFullscreen) {
+        requestFullscreen = mainContainerCurrent.msRequestFullscreen
+      }
+    }
+
+    return requestFullscreen
   }
 
   const handleFullScreen = (): void => {
     if (mainContainer.current) {
       mainContainer.current.onfullscreenchange = (): void => {
-        const fullScreenElement = document.fullscreenElement
-        // (document.fullscreenElement ?? document.mozFullScreenElement) ||
-        // document.webkitFullscreenElement ||
-        // document.msFullscreenElement
+        const fullScreenElement = getFullScreenElement()
 
         if (fullScreenElement) return
-
-        document
-          .exitFullscreen()
-          .then(() => console.log('Document Exited from Full screen mode'))
-          .catch((err: Error) => console.error(err))
-        // document.exitFullscreen ||
-        // document.mozCancelFullScreen ||
-        // document.webkitExitFullscreen ||
-        // document.msExitFullscreen
-
-        // if (exitFullScreen) exitFullScreen.bind(document)()
+        const exitFullScreen = getExitFullScreenElement()
+        if (exitFullScreen)
+          exitFullScreen
+            .bind(document)()
+            .catch((err: Error) => console.error(err))
         setFullScreen(false)
       }
 
       setFullScreen((prev) => {
         if (prev) {
-          const exitFullScreen = document.exitFullscreen
-          // document.exitFullscreen ||
-          // document.mozCancelFullScreen ||
-          // document.webkitExitFullscreen ||
-          // document.msExitFullscreen
-
-          if (exitFullScreen) exitFullScreen.bind(document)()
+          const exitFullScreen = getExitFullScreenElement()
+          if (exitFullScreen)
+            exitFullScreen
+              .bind(document)()
+              .catch((err: Error) => console.error(err))
+          return false
         } else {
-          const requestFullscreen = mainContainer.current?.requestFullscreen
-          // mainContainer.current?.requestFullscreen ??
-          // mainContainer.current?.mozRequestFullScreen ??
-          // mainContainer.current?.webkitRequestFullscreen ??
-          // mainContainer.current?.msRequestFullscreen
+          const requestFullscreen = getRequestFullScreenElement(
+            mainContainer.current
+          )
 
           if (requestFullscreen) requestFullscreen.bind(mainContainer.current)()
+          return true
         }
-
-        return !prev
       })
     }
   }
@@ -134,42 +176,29 @@ export const StreamPlayer = ({
 
     if (mobileDiv) {
       mobileDiv.onfullscreenchange = (): void => {
-        const fullScreenElement = document.fullscreenElement
-        // (document.fullscreenElement ?? document.mozFullScreenElement) ||
-        // document.webkitFullscreenElement ||
-        // document.msFullscreenElement
+        const fullScreenElement = getFullScreenElement()
 
         if (fullScreenElement) return
 
-        document
-          .exitFullscreen()
-          .then(() => console.log('Document Exited from Full screen mode'))
-          .catch((err: Error) => console.error(err))
-        // document.exitFullscreen ||
-        // document.mozCancelFullScreen ||
-        // document.webkitExitFullscreen ||
-        // document.msExitFullscreen
-
-        // if (exitFullScreen) exitFullScreen.bind(document)()
+        const exitFullScreen = getExitFullScreenElement()
+        if (exitFullScreen)
+          exitFullScreen
+            .bind(document)()
+            .catch((err: Error) => console.error(err))
         setFullScreen(false)
       }
 
       setFullScreen((prev) => {
         if (prev) {
-          const exitFullScreen = document.exitFullscreen
-          // document.exitFullscreen ||
-          // document.mozCancelFullScreen ||
-          // document.webkitExitFullscreen ||
-          // document.msExitFullscreen
+          const exitFullScreen = getExitFullScreenElement()
 
-          if (exitFullScreen) exitFullScreen.bind(document)()
+          if (exitFullScreen)
+            exitFullScreen
+              .bind(document)()
+              .catch((err: Error) => console.error(err))
           else videoEl.current?.webkitExitFullScreen()
         } else {
-          const requestFullscreen = mobileDiv.requestFullscreen
-          // mobileDiv.requestFullscreen ||
-          // mobileDiv.mozRequestFullScreen ||
-          // mobileDiv.webkitRequestFullscreen ||
-          // mobileDiv.msRequestFullscreen
+          const requestFullscreen = getRequestFullScreenElement(mobileDiv)
 
           if (requestFullscreen) requestFullscreen.bind(mobileDiv)()
           else videoEl.current?.webkitEnterFullscreen()
@@ -248,11 +277,13 @@ export const StreamPlayer = ({
               onClick={handlePictureAndPicture}
               onKeyDown={handleNothing}
             >
-              {picture ? (
-                <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
-              ) : (
-                <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-              )}
+              {videoEl?.current?.requestPictureInPicture ? (
+                picture ? (
+                  <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+                ) : (
+                  <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+                )
+              ) : null}
             </div>
             <div
               role='button'
@@ -409,11 +440,14 @@ export const StreamPlayer = ({
               onKeyDown={handlePictureAndPicture}
               className={styles.playerVideoMobilePicture}
             >
-              {pictureInPicture ? (
-                <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
-              ) : (
-                <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-              )}
+              {!!videoEl?.current?.requestPictureInPicture &&
+              getMobileOS() !== 'Android' ? (
+                pictureInPicture ? (
+                  <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+                ) : (
+                  <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+                )
+              ) : null}
             </div>
           )}
         </div>
