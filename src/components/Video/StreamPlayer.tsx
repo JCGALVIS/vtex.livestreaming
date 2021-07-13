@@ -172,7 +172,7 @@ export const StreamPlayer = ({
   }
 
   const handleFullScreenMobile = (): void => {
-    const mobileDiv = document.querySelector('[class*=playerUi]')
+    const mobileDiv = document.getElementById('player-video-el')?.parentElement
 
     if (mobileDiv) {
       mobileDiv.onfullscreenchange = (): void => {
@@ -391,7 +391,7 @@ export const StreamPlayer = ({
           ref={videoEl}
           playsInline
           muted={muted}
-          id='payer-video-el'
+          id='player-video-el'
         />
         <div
           className={`${styles.playerVideoHover} ${styles.playerVideoGrid}`}
