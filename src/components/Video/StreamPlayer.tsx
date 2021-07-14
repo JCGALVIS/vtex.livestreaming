@@ -51,6 +51,10 @@ export const StreamPlayer = ({
   const [fullScreen, setFullScreen] = useState<boolean>(false)
   const [status, setStatus] = useState<string>(IDLE)
   const [firstTimeMuted, setFirstTimeMuted] = useState<boolean>(true)
+  const [
+    { height: mainContainerHeight, width: mainContainerWidth },
+    setMainContainerDims
+  ] = useState<DOMRect>(new DOMRect())
 
   const videoEl = useRef<HTMLVideoPicture>(null)
   const mainContainer = useRef<HTMLDivElement>(null)
@@ -361,11 +365,9 @@ export const StreamPlayer = ({
     if (videoEl.current) {
       videoEl.current.onleavepictureinpicture = () => setPictureInPicture(false)
       const isWebkit = checkIfWebKit()
-
       fullInterval = window.setInterval(() => {
         if (isWebkit)
-          // setFullScreen(videoEl.current?.webkitDisplayingFullscreen ?? false)
-          setFullScreen(false)
+          setFullScreen(videoEl.current?.webkitDisplayingFullscreen || false)
       }, 500)
     }
 
@@ -373,6 +375,27 @@ export const StreamPlayer = ({
       if (fullInterval) clearInterval(fullInterval)
     }
   }, [videoEl, checkIfWebKit])
+
+  useLayoutEffect(() => {
+    if (!mainContainer.current) return
+    const sizeObeserver = new ResizeObserver((entry: ResizeObserverEntry[]) => {
+      setMainContainerDims(entry[0].target.getBoundingClientRect())
+    })
+
+    sizeObeserver.observe(mainContainer.current)
+
+    return () => sizeObeserver.disconnect()
+  }, [mainContainer])
+
+  useEffect(() => {
+    if (!videoEl.current || !streamUrl || pictureInPicture) return () => {}
+
+    const interval = setInterval(() => {
+      player.play()
+    }, 300)
+
+    return () => clearInterval(interval)
+  }, [pictureInPicture])
 
   return (
     <Fragment>
@@ -383,7 +406,11 @@ export const StreamPlayer = ({
         onMouseOut={() => setOverlay(false)}
         onFocus={handleNothing}
         onBlur={handleNothing}
-        style={{ height: fullScreen ? '100vh' : '' }}
+        style={{
+          height: fullScreen ? '100vh' : '',
+          maxHeight: pictureInPicture ? (9 * mainContainerWidth) / 16 : '',
+          paddingBottom: fullScreen ? 'unset' : ''
+        }}
       >
         <video
           className={styles.playerVideoEl}
@@ -392,9 +419,15 @@ export const StreamPlayer = ({
           playsInline
           muted={muted}
           id='player-video-el'
+          style={{
+            height: fullScreen ? '100vh' : ''
+          }}
         />
         <div
           className={`${styles.playerVideoHover} ${styles.playerVideoGrid}`}
+          style={{
+            height: fullScreen ? '100%' : mainContainerHeight
+          }}
           data-visible={
             status === BUFFERING || firstTimeMuted
               ? BUFFERING
