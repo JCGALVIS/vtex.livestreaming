@@ -68,10 +68,10 @@ input, button {
   .videoContainer {
     position: relative;
     width: 100%;
-    flex: 0 1 calc(70% - .5rem);
+    flex: 0 1 70%;
   }
   .chatContent {
-    flex: 0 1 calc(30% - .5rem);
+    flex: 0 1 30%;
     position: relative;
     width: 100%;
     bottom: 0;

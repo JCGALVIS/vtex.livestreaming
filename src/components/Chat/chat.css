@@ -98,15 +98,16 @@
 }
 
 @media screen and (min-width: 930px) {
-  :-webkit-scrollbar {
-    width: 10px;
-  }
   .chatContainer {
     justify-content: space-between;
+    height: calc(33.75vw + 25px + 10px);
+    min-height: calc(337.5px + 25px + 10px);
+    max-height: calc(calc(95vh - 50px) + 25px + 25px);
   }
   .liveChatContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background: whitesmoke;
     padding: 0 1rem;
     margin-bottom: .5rem;
