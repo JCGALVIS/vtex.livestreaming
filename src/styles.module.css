@@ -1,5 +1,14 @@
 body {
+  font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
   margin: 0;
+  font-size: 1rem;
+}
+
+input, button {
+  outline: none;
 }
 
 .livestreaming {
@@ -15,9 +24,7 @@ body {
 }
 
 .videoContainer {
-  position: relative;
-  width: 100%;
-  flex: 0 1 calc(70% - .5rem);
+  flex: 1;
 }
 
 .videoContent {
@@ -46,8 +53,30 @@ body {
 }
 
 .chatContent {
-  flex: 0 1 calc(30% - .5rem);
-  height: 72vh;
+  position: absolute;
+  bottom: 1rem;
+  left: 0.5rem;
+  width: 50%;
+  height: auto;
+  max-height: none;
+}
+
+@media screen and (min-width: 930px) {
+  .livestreamingContent {
+    height: 364px;
+  }
+  .videoContainer {
+    position: relative;
+    width: 100%;
+    flex: 0 1 70%;
+  }
+  .chatContent {
+    flex: 0 1 30%;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+  }
 }
 
 /* Styles video streaming */
@@ -157,130 +186,7 @@ body {
   animation: spin 0.5s linear infinite;
 }
 
-/* Styles chat*/
-
-.container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.liveChatContainer {
-  height: 8%;
-  display: flex;
-  background-color: whitesmoke;
-  justify-content: space-between;
-  align-items: center;
-  padding: .2rem 10px;
-  margin-bottom: .2rem;
-}
-
-.liveChatText {
-  margin: 0;
-  padding: 0 15px;
-}
-
-.subContainer {
-  height: 91%;
-  background-color: whitesmoke;
-}
-
-.chatArea {
-  height: 85%;
-  max-height: initial;
-  overflow-y: scroll;
-  margin-top: 0;
-  background-color: whitesmoke;
-}
-
-.chatArea::-webkit-scrollbar {
-  width: 4px;
-}
-
-.chatArea::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.chatArea::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-.chatArea::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.chatArea .chatBubble {
-  background-color: whitesmoke;
-  padding: 20px;
-  border-radius: 0px;
-  word-wrap: break-word;
-  position: relative;
-  border-bottom: 1px solid #e0e0e0;
-  color: gray;
-  margin: 0;
-  display: flex;
-  align-items: center;
-}
-
-.chatArea .chatBubble svg {
-  padding-right: 10px;
-}
-
-.inputChat {
-  display: flex;
-  height: 12%;
-  margin: 10px 0px 15px 0px;
-  padding: 0px 10px 0px 10px;
-}
-
-.inputChat label div, input {
-  height: 100%;
-  border: none;
-  border-bottom: 1px solid grey;
-  background-color: #fff;
-  border-radius: 0px;
-  width: 100%;
-  outline: none;
-}
-
-.inputChat label {
-  padding-right: 5px;
-  flex: 1;
-}
-
-.inputChat button {
-  background: #E3E3E3;
-}
-
-.inputChat button:hover {
-  cursor: pointer;
-  background-color: #C6C6C6;
-}
-
-.inputChat button div {
-  padding: 5px;
-}
-
-.chatTextContainer {
-  display: flex;
-  flex-direction: column;
-  width: 85%;
-}
-
-.chatUser span:first-child {
-  font-weight: 600;
-}
-
-.chatUser span:last-child {
-  padding-left: 5px;
-}
-
 @media only screen and (min-device-width: 320px) and (max-device-width: 578px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-  .videoContainer {
-    flex: 1;
-  }
   .likeContent {
     bottom: 0rem;
     right: 0.2rem;
@@ -290,20 +196,9 @@ body {
     top: 0.6rem;
     right: 0.2rem
   }
-  .chatContent {
-    position: absolute;
-    bottom: 4rem;
-    left: 0.5rem;
-    width: 50%;
-    height: 22%;
-    max-height: none;
-  }
 }
 
 @media only screen and (min-device-width: 640px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
-  .videoContainer {
-    flex: 1;
-  }
   .likeContent {
     bottom: 0.3rem;
     right: 1rem;
@@ -313,34 +208,15 @@ body {
     top: 0.6rem;
     right: 1rem
   }
-  .chatContent {
-    position: absolute;
-    bottom: 4rem;
-    left: 0.5rem;
-    width: 50%;
-    height: 22%;
-    max-height: none;
-  }
 }
 
 @media (min-width:414px) and (max-width: 1025px) {
-  .videoContainer {
-    flex: 1;
-  }
   .likeContent {
     bottom: 0.3rem;
     right: 1rem;
   }
   .viewersContent {
     right: 1rem;
-  }
-  .chatContent {
-    position: absolute;
-    bottom: 4rem;
-    left: 0.5rem;
-    width: 50%;
-    height: 22%;
-    max-height: none;
   }
 }
 
@@ -428,65 +304,5 @@ body {
 @media screen and (min-width: 640px) {
   .playerVideoEl {
     height: auto;
-  }
-}
-
-@media all and (max-width: 1025px) {
-  .liveChatContainer {
-    display: none;
-  }
-  .subContainer {
-    height: 100%;
-    width: 100%;
-    background-color: unset;
-  }
-  .chatArea {
-    height: 100%;
-    background-color: unset;
-  }
-  .chatArea::-webkit-scrollbar {
-    display: none;
-  }
-  .chatArea .chatBubble {
-    max-width: 250px;
-    padding: 6px 20px;
-    margin: 10px 0px;
-    border-radius: 20px;
-    background-color: rgba(128, 128, 128, 0.3);
-    color: white;
-    border-bottom: none;
-  }
-  .inputChat {
-    padding: 0;
-    align-items: flex-start;
-  }
-  .inputChat svg {
-    width: 20px !important;
-    height: 20px !important;
-  }
-  .inputChat label div, input {
-    height: 39px;
-    border-radius: 20px 0px 0px 20px;
-    border: none;
-  }
-  .inputChat label {
-    padding-right: 0px;
-  }
-  .inputChat button {
-    height: 42px;
-    width: 25%;
-    border-radius: 0px 20px 20px 0px;
-  }
-  .inputChat label {
-    width: 80%;
-  }
-  .profileIcon {
-    display: none;
-  }
-  .chatUser {
-    font-size: 0.65rem !important;
-  }
-  .chatMessage {
-    font-size: 0.7rem !important;
   }
 }

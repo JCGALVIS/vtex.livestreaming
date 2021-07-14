@@ -2,7 +2,7 @@ import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Message } from '../../typings/livestreaming'
 import ProfileIcon from '../icons/ProfileIcon'
-import styles from './../../styles.module.css'
+import styles from './chat.css'
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 15
 
@@ -33,8 +33,7 @@ const messageRenderer = (
         </div>
         <div className={styles.chatTextContainer}>
           <span className={`${styles.chatUser} t-mini`}>
-            <span>{getUserName(value?.username)}</span>
-            <span />
+            {getUserName(value?.username)}
           </span>
           <span className={`${styles.chatMessage} mv3`}>{value.data}</span>
         </div>
