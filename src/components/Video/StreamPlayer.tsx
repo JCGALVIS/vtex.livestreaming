@@ -388,10 +388,18 @@ export const StreamPlayer = ({
   }, [mainContainer])
 
   useEffect(() => {
-    if (!videoEl.current || !streamUrl || pictureInPicture) return () => {}
+    if (
+      !videoEl.current ||
+      !streamUrl ||
+      pictureInPicture ||
+      getMobileOS() !== 'iOS' ||
+      firstTimeMuted
+    )
+      return () => {}
 
     const interval = setInterval(() => {
       player.play()
+      player.setMuted(false)
     }, 300)
 
     return () => clearInterval(interval)
