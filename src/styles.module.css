@@ -36,7 +36,7 @@ input, button {
 
 .likeContent {
   position: absolute;
-  bottom: .3rem;
+  bottom: .7rem;
   right: 1rem;
 }
 
@@ -48,7 +48,7 @@ input, button {
 
 .liveContent {
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   left: 1rem;
 }
 
@@ -63,8 +63,9 @@ input, button {
 
 @media screen and (min-width: 930px) {
   .livestreamingContent {
-    height: 364px;
-  }
+    height: auto;
+   }
+
   .videoContainer {
     position: relative;
     width: 100%;
@@ -188,7 +189,7 @@ input, button {
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 578px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
   .likeContent {
-    bottom: 0rem;
+    bottom: -.6rem;
     right: 0.2rem;
   }
   .viewersContent {
@@ -200,7 +201,7 @@ input, button {
 
 @media only screen and (min-device-width: 640px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
   .likeContent {
-    bottom: 0.3rem;
+    bottom: -.6rem;
     right: 1rem;
   }
   .viewersContent {
