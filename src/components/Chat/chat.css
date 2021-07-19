@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: .7rem;
+  font-size: 14px;
 }
 
 .chatArea {
@@ -57,6 +57,7 @@
 .inputChatContent {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 1rem;
 }
 
@@ -68,12 +69,21 @@
   width: 100%;
 }
 
+.inputContent label div {
+  margin-right: .5rem;
+}
+
 .inputContent label div input {
-  padding: .75rem .2rem;
+  padding: .68rem .2rem;
   width: 100%;
   border-radius: 1.4rem 0 0 1.4rem;
   border: 1px solid;
   border-color: #e3e4e6;
+  font-size: 14px;
+}
+
+.inputContent label div input {
+  font-size: 14px;
 }
 
 .buttonConetnt {
@@ -154,13 +164,16 @@
     margin: 0;
     padding: 1rem .5rem .1rem .5rem;
   }
+  .inputContent label div {
+    margin-right: 0;
+  }
   .inputContent label div input {
     border-bottom: 1px solid gray;
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-radius: 0;
-    padding: 2rem .2rem;
+    padding: 1rem .2rem;
     font-size: 1rem;
   }
   .inputContent {
