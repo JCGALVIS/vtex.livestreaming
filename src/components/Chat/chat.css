@@ -70,20 +70,15 @@
 }
 
 .inputContent label div {
-  margin-right: .5rem;
+  margin-right: .4rem;
 }
 
 .inputContent label div input {
-  padding: .68rem .2rem;
+  padding: .6rem .2rem;
   width: 100%;
   border-radius: 1.4rem 0 0 1.4rem;
   border: 1px solid;
   border-color: #e3e4e6;
-  font-size: 14px;
-}
-
-.inputContent label div input {
-  font-size: 14px;
 }
 
 .buttonConetnt {

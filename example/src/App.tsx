@@ -7,7 +7,7 @@ import './app.css'
 const App = () => {
   return (
     <Livestreaming
-      idLivestreaming='76e41dd1-8b15-4fa4-8794-636c4f34c247'
+      idLivestreaming='ed965935-b267-465c-8f58-5be31b69577c'
       account='livestreamingdemo'
     />
   )

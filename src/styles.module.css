@@ -11,6 +11,14 @@ input, button {
   outline: none;
 }
 
+input[type='text'] {
+  font-size: 1rem;
+}
+
+input[type='text']:focus {
+  font-size: 1rem;
+}
+
 .livestreaming {
   height: 100%;
   margin-bottom: 1rem;
@@ -64,8 +72,7 @@ input, button {
 @media screen and (min-width: 930px) {
   .livestreamingContent {
     height: auto;
-   }
-
+  }
   .videoContainer {
     position: relative;
     width: 100%;
