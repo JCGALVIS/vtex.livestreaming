@@ -53,7 +53,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           {inactivateChat && (
             <Chat
               title='Chat'
-              placeholder='Ingrese un mensaje'
+              placeholder='Di algo...'
               infoSocket={info}
               idLivestreaming={idLivestreaming}
               account={account}
