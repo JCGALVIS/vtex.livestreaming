@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .chatArea {
@@ -67,18 +67,17 @@
 
 .inputContent label {
   width: 100%;
-}
-
-.inputContent label div {
-  margin-right: .4rem;
+  margin-bottom: 0;
 }
 
 .inputContent label div input {
-  padding: .6rem .2rem;
   width: 100%;
   border-radius: 1.4rem 0 0 1.4rem;
   border: 1px solid;
   border-color: #e3e4e6;
+  height: 36px;
+  padding-left: .5rem;
+  padding-right: .5rem;
 }
 
 .buttonConetnt {
