@@ -15,7 +15,6 @@ export const apiCall = async ({
     const response = await fetch(url, { method, headers, body })
 
     return response.json()
-
   } catch (error) {
     Promise.reject(error)
   }

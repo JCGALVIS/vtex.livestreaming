@@ -4,7 +4,8 @@ import {
   Message,
   Heart,
   IvsRealTime,
-  InfoSocket
+  InfoSocket,
+  HighlightProduct
 } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 import { useSessionId } from './useSessionId'
@@ -23,6 +24,9 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [isTransmiting, setIsTransmiting] = useState(false)
+  const [highlightProduct, setHighlightProduct] = useState<
+    HighlightProduct | undefined
+  >()
   const { sessionId } = useSessionId()
 
   const createWebSocket = useCallback(() => {
@@ -51,7 +55,11 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         username,
         startTime,
         viewerCount,
-        status
+        status,
+        productId,
+        showProduct,
+        collection,
+        livestreamingId
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -76,6 +84,15 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
         case 'sendshowCounter':
           setShowCounter(data)
+          break
+
+        case 'sendhighlightproduct':
+          setHighlightProduct({
+            productId,
+            showProduct,
+            collection,
+            livestreamingId
+          })
           break
 
         default:
@@ -103,7 +120,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   }, [isConnected, socket, isTransmiting])
 
   useEffect(() => {
-    if (!socket) return () => {}
+    if (!socket) return () => { }
 
     return () => {
       socket.close()
@@ -136,6 +153,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setChat,
     setIvsRealTime,
     setIsTransmiting,
-    sendAccountId
+    sendAccountId,
+    highlightProduct
   }
 }

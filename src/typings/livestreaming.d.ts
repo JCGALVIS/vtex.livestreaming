@@ -15,6 +15,13 @@ export declare interface IvsRealTime {
   viewerCount: number
   status: string
 }
+
+declare interface HighlightProduct {
+  productId: string | undefined
+  showProduct: boolean | undefined
+  collection?: string
+  livestreamingId?: string
+}
 export declare interface InfoSocket {
   socket: WebSocket | undefined
   chat: Message[]
@@ -28,4 +35,5 @@ export declare interface InfoSocket {
   setIsTransmiting: React.Dispatch<React.SetStateAction<boolean>>
   sendAccountId: () => void
   setIvsRealTime: React.Dispatch<React.SetStateAction<IvsRealTime | undefined>>
+  highlightProduct?: HighlightProduct | undefined
 }

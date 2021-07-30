@@ -8,6 +8,9 @@ declare interface Props {
 export const useLivestreamingConfig = ({ id, account }: Props) => {
   const [wssStream, setWssStream] = useState<string | undefined>(undefined)
   const [streamUrl, setStreamUrl] = useState<string | undefined>(undefined)
+  const [collectionId, setCollectionId] = useState<string | undefined>(
+    undefined
+  )
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -24,12 +27,13 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
         url: `${URL}?id=${id}&account=${account}`
       })
 
-      setWssStream(data?.streamWSS)
-      setStreamUrl(data?.streamURL)
+      setWssStream(data?.webClient?.streamWSS)
+      setStreamUrl(data?.webClient?.streamURL)
+      setCollectionId(data?.collection?.id)
     }
 
     getLivestreaming().catch(null)
   }, [id, account])
 
-  return { wssStream, streamUrl }
+  return { wssStream, streamUrl, collectionId }
 }
