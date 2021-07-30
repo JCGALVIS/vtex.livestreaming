@@ -8,6 +8,7 @@ declare global {
 
   interface Window {
     IVSPlayer: any
+    vtexjs: any
   }
 
   interface Document {
