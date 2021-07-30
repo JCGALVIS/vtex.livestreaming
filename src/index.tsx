@@ -8,6 +8,7 @@ import { useWebSocket } from './hooks/useWebSocket'
 import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 
 import styles from './styles.module.css'
+import HighlightProduct from './components/HighlightProduct/HighlightProduct'
 
 type LivestreamingProps = {
   inactivateChat?: boolean
@@ -26,7 +27,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
     account
   } = props
 
-  const { wssStream, streamUrl } = useLivestreamingConfig({
+  const { wssStream, streamUrl, collectionId } = useLivestreamingConfig({
     id: idLivestreaming,
     account
   })
@@ -37,6 +38,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
       <div className={styles.livestreamingContent}>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
+            {collectionId && (
+              <HighlightProduct infoSocket={info} collectionId={collectionId} />
+            )}
             <Video infoSocket={info} streamUrl={streamUrl} />
             <div className={styles.liveContent}>
               <Live infoSocket={info} />
