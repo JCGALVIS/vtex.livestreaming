@@ -6,10 +6,7 @@ import './app.css'
 
 const App = () => {
   return (
-    <Livestreaming
-      idLivestreaming='dd153f50-127e-42cf-b42e-dba640d5e940'
-      account='livestreamingdemo'
-    />
+    <Livestreaming idLivestreaming='__IDLIVESTREAMING' account='__ACCOUNT' />
   )
 }
 

@@ -39,7 +39,7 @@ const HighlightProduct = ({
       setShow(showProduct)
       return
     }
-    setShow(true)
+    setShow(false)
   }, [ivsRealTime, showProduct])
 
   return (
