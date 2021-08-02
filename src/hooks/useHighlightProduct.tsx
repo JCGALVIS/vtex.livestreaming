@@ -57,7 +57,7 @@ export const useHighlightProduct = ({
     if (collectionId && !storageProducts) {
       const getProducts = async () => {
         const data = await apiCall({ url })
-        if (data.length > 0) {
+        if (data && data.length > 0) {
           localStorage.setItem('products', JSON.stringify(data))
         }
       }

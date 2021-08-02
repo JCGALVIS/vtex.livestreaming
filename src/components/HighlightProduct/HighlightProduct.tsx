@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { useState, Fragment, useEffect, useRef } from 'react'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 // eslint-disable-next-line no-unused-vars
@@ -17,6 +17,7 @@ const HighlightProduct = ({
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const { ivsRealTime, highlightProduct } = infoSocket
+  const divProduct = useRef<HTMLDivElement>(null)
 
   const { product, showProduct, handlerCloseCard } = useHighlightProduct({
     highlightProduct,
@@ -24,14 +25,17 @@ const HighlightProduct = ({
   })
 
   const addToCart = () => {
-    // eslint-disable-next-line no-unused-expressions
-    document
-      .getElementById('add-cart')
-      ?.addEventListener(
-        'click',
-        () => alert('Producto agregado al carrito'),
-        true
-      )
+    if (divProduct.current) {
+      const productId = divProduct.current.id
+      var item = {
+        id: productId,
+        quantity: 1,
+        seller: '1'
+      }
+      window.vtexjs.checkout.addToCart([item], null).done(function () {
+        alert('Item adicionado!')
+      })
+    }
   }
 
   useEffect(() => {
@@ -67,7 +71,7 @@ const HighlightProduct = ({
                   <a className={styles.productAddCart} onClick={addToCart}>
                     Agregar
                   </a>
-                  <div id={product.id}>
+                  <div ref={divProduct} id={product.id}>
                     <a id='add-cart' href={product.addToCartLink} />
                   </div>
                 </div>
