@@ -22,8 +22,6 @@ export const useHighlightProduct = ({
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
 
-  const url = 'http://localhost:3001/products'
-
   const handlerCloseCard = () => {
     setShowProduct(false)
     setProduct({
@@ -38,6 +36,8 @@ export const useHighlightProduct = ({
   }
 
   useEffect(() => {
+    const url = `/api/catalog_system/pub/products/search?productClusterIds:${collectionId}`
+
     if (highlightProduct && !highlightProduct?.showProduct)
       localStorage.removeItem('product')
 
