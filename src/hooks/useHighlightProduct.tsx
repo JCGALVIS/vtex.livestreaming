@@ -36,7 +36,7 @@ export const useHighlightProduct = ({
   }
 
   useEffect(() => {
-    const url = `/api/catalog_system/pub/products/search?productClusterIds:${collectionId}`
+    const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
 
     if (highlightProduct && !highlightProduct?.showProduct)
       localStorage.removeItem('product')
@@ -53,8 +53,13 @@ export const useHighlightProduct = ({
 
     const storageProducts = localStorage.getItem('products')
     const storageProduct = localStorage.getItem('product')
+    const storageCollectionId = localStorage.getItem('collectionId')
 
-    if (collectionId && !storageProducts) {
+    if (
+      collectionId &&
+      (!storageCollectionId || collectionId !== storageCollectionId)
+    ) {
+      localStorage.setItem('collectionId', collectionId)
       const getProducts = async () => {
         const data = await apiCall({ url })
         if (data && data.length > 0) {
