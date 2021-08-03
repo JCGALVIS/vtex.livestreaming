@@ -67,6 +67,7 @@ const HighlightProduct = ({
                       id='add-cart'
                       href={product.addToCartLink}
                       target='_blank'
+                      rel='noreferrer'
                     />
                   </div>
                 </div>
