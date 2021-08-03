@@ -27,14 +27,17 @@ const HighlightProduct = ({
   const addToCart = () => {
     if (divProduct.current) {
       const productId = divProduct.current.id
-      var item = {
+      const item = {
         id: productId,
         quantity: 1,
         seller: '1'
       }
-      window.vtexjs.checkout.addToCart([item], null).done(function () {
-        alert('Item adicionado!')
-      })
+      window.vtexjs.checkout
+        .addToCart([item], null)
+        .done(function (orderForm: any) {
+          alert('Item adicionado!')
+          console.log(orderForm)
+        })
     }
   }
 
