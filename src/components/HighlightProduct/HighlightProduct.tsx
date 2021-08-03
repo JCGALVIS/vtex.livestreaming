@@ -60,7 +60,7 @@ const HighlightProduct = ({
                 </div>
                 <div className={styles.productAddCartContent}>
                   <a className={styles.productAddCart} onClick={addToCart}>
-                    Agregar
+                    Ver
                   </a>
                   <div ref={divProduct} id={product.id}>
                     <a
