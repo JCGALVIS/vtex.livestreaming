@@ -25,20 +25,8 @@ const HighlightProduct = ({
   })
 
   const addToCart = () => {
-    if (divProduct.current) {
-      const productId = divProduct.current.id
-      const item = {
-        id: productId,
-        quantity: 1,
-        seller: '1'
-      }
-      window.vtexjs.checkout
-        .addToCart([item], null)
-        .done(function (orderForm: any) {
-          alert('Item adicionado!')
-          console.log(orderForm)
-        })
-    }
+    const link = document.getElementById('add-cart')
+    if (link) link.click()
   }
 
   useEffect(() => {
@@ -72,10 +60,15 @@ const HighlightProduct = ({
                 </div>
                 <div className={styles.productAddCartContent}>
                   <a className={styles.productAddCart} onClick={addToCart}>
-                    Agregar
+                    Ver
                   </a>
                   <div ref={divProduct} id={product.id}>
-                    <a id='add-cart' href={product.addToCartLink} />
+                    <a
+                      id='add-cart'
+                      href={product.addToCartLink}
+                      target='_blank'
+                      rel='noreferrer'
+                    />
                   </div>
                 </div>
               </div>

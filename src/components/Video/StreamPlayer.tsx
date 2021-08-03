@@ -366,7 +366,7 @@ export const StreamPlayer = ({
       videoEl.current.onleavepictureinpicture = () => setPictureInPicture(false)
       const isWebkit = checkIfWebKit()
       fullInterval = window.setInterval(() => {
-        if (isWebkit)
+        if (isWebkit && !pictureInPicture)
           setFullScreen(videoEl.current?.webkitDisplayingFullscreen || false)
       }, 500)
     }
@@ -374,7 +374,7 @@ export const StreamPlayer = ({
     return () => {
       if (fullInterval) clearInterval(fullInterval)
     }
-  }, [videoEl, checkIfWebKit])
+  }, [videoEl, checkIfWebKit, pictureInPicture])
 
   useLayoutEffect(() => {
     if (!mainContainer.current) return
@@ -428,7 +428,7 @@ export const StreamPlayer = ({
           muted={muted}
           id='player-video-el'
           style={{
-            height: fullScreen ? '100vh' : ''
+            height: !pictureInPicture ? '100%' : ''
           }}
         />
         <div
