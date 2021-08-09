@@ -24,6 +24,7 @@ export const Like = ({ infoSocket }: LikeProps) => {
   }
 
   const handleClick = () => {
+    setHearts((prev) => [...prev, { id: Date.now(), color: getRandomColor() }])
     if (socket && socket?.readyState === 1) {
       const sendLike = {
         action: 'sendlike',
@@ -31,11 +32,6 @@ export const Like = ({ infoSocket }: LikeProps) => {
       }
 
       socket.send(JSON.stringify(sendLike))
-    } else {
-      setHearts((prev) => [
-        ...prev,
-        { id: Date.now(), color: getRandomColor() }
-      ])
     }
   }
 

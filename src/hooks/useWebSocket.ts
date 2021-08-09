@@ -69,6 +69,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
         case 'sendlike':
           if (document.hidden) break
+          if (!(Math.random() < 0.3)) break
           setHearts((prev) => [
             ...prev,
             {
