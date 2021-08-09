@@ -67,7 +67,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [livestreaminComponentInView, utm])
 
   return (
-    <div id='live-shopping-app' className={styles.livestreaming}>
+    <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
