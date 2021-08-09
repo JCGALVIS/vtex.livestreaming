@@ -158,10 +158,7 @@ export const StreamPlayer = ({
       setFullScreen((prev) => {
         if (prev) {
           const exitFullScreen = getExitFullScreenElement()
-          if (exitFullScreen)
-            exitFullScreen
-              .bind(document)()
-              .catch((err: Error) => console.error(err))
+          if (exitFullScreen) exitFullScreen.bind(document)()
           return false
         } else {
           const requestFullscreen = getRequestFullScreenElement(
@@ -176,7 +173,7 @@ export const StreamPlayer = ({
   }
 
   const handleFullScreenMobile = (): void => {
-    const mobileDiv = document.getElementById('player-video-el')?.parentElement
+    const mobileDiv = document.getElementById('playerVideoEl')?.parentElement
 
     if (mobileDiv) {
       mobileDiv.onfullscreenchange = (): void => {
@@ -245,88 +242,90 @@ export const StreamPlayer = ({
   const buttonRenderer = (
     playerStatus: string,
     { mute, picture, screen, firstMuted }: IndicatorInterface
-  ): JSX.Element => (
-    <Fragment>
-      {playerStatus === PLAYING || playerStatus === IDLE ? (
-        firstMuted ? (
-          <div
-            role='button'
-            tabIndex={0}
-            className={`${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
-            onClick={handleMute}
-            onKeyDown={handleNothing}
-          >
-            <MutedIcon size='100' viewBox='0 0 400 400' />
-          </div>
-        ) : (
-          <Fragment>
+  ): JSX.Element => {
+    return (
+      <Fragment>
+        {playerStatus === PLAYING || playerStatus === IDLE ? (
+          firstMuted ? (
             <div
               role='button'
               tabIndex={0}
               className={`${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
-              onClick={handleMainButton}
-              onKeyDown={handleNothing}
-              data-status={playerStatus}
-            >
-              {playerStatus === PLAYING ? (
-                <PauseIcon size='100' viewBox='0 0 400 400' />
-              ) : (
-                <PlayIcon size='100' viewBox='0 0 400 400' />
-              )}
-            </div>
-            <div
-              role='button'
-              tabIndex={0}
-              className={`${styles.playerVideoPictureButtonPosition} ${styles.playerVideoButtonFlex}`}
-              onClick={handlePictureAndPicture}
-              onKeyDown={handleNothing}
-            >
-              {videoEl?.current?.requestPictureInPicture ? (
-                picture ? (
-                  <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
-                ) : (
-                  <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-                )
-              ) : null}
-            </div>
-            <div
-              role='button'
-              tabIndex={0}
-              className={`${styles.playerVideoMuteButtonPosition} ${styles.playerVideoButtonFlex}`}
               onClick={handleMute}
               onKeyDown={handleNothing}
             >
-              {mute ? (
-                <VolumeOffIcon size='40' viewBox='0 0 400 400' />
-              ) : (
-                <VolumeUpIcon size='40' viewBox='0 0 400 400' />
-              )}
+              <MutedIcon size='100' viewBox='0 0 400 400' />
             </div>
-            <div
-              role='button'
-              tabIndex={0}
-              className={`${styles.playerVideoFullscreenButtonPosition} ${styles.playerVideoButtonFlex}`}
-              onClick={handleFullScreen}
-              onKeyDown={handleNothing}
-            >
-              {screen ? (
-                <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
-              ) : (
-                <FullscreenIcon size='40' viewBox='0 0 400 400' />
-              )}
-            </div>
-          </Fragment>
-        )
-      ) : status === BUFFERING ? (
-        <div
-          className={`${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
-          data-status={playerStatus}
-        >
-          <LoadingIcon size='100' viewBox='0 0 400 400' />
-        </div>
-      ) : null}
-    </Fragment>
-  )
+          ) : (
+            <Fragment>
+              <div
+                role='button'
+                tabIndex={0}
+                className={`${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
+                onClick={handleMainButton}
+                onKeyDown={handleNothing}
+                data-status={playerStatus}
+              >
+                {playerStatus === PLAYING ? (
+                  <PauseIcon size='100' viewBox='0 0 400 400' />
+                ) : (
+                  <PlayIcon size='100' viewBox='0 0 400 400' />
+                )}
+              </div>
+              <div
+                role='button'
+                tabIndex={0}
+                className={`${styles.playerVideoPictureButtonPosition} ${styles.playerVideoButtonFlex}`}
+                onClick={handlePictureAndPicture}
+                onKeyDown={handleNothing}
+              >
+                {videoEl?.current?.requestPictureInPicture ? (
+                  picture ? (
+                    <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+                  ) : (
+                    <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+                  )
+                ) : null}
+              </div>
+              <div
+                role='button'
+                tabIndex={0}
+                className={`${styles.playerVideoMuteButtonPosition} ${styles.playerVideoButtonFlex}`}
+                onClick={handleMute}
+                onKeyDown={handleNothing}
+              >
+                {mute ? (
+                  <VolumeOffIcon size='40' viewBox='0 0 400 400' />
+                ) : (
+                  <VolumeUpIcon size='40' viewBox='0 0 400 400' />
+                )}
+              </div>
+              <div
+                role='button'
+                tabIndex={0}
+                className={`${styles.playerVideoFullscreenButtonPosition} ${styles.playerVideoButtonFlex}`}
+                onClick={handleFullScreen}
+                onKeyDown={handleNothing}
+              >
+                {screen ? (
+                  <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
+                ) : (
+                  <FullscreenIcon size='40' viewBox='0 0 400 400' />
+                )}
+              </div>
+            </Fragment>
+          )
+        ) : status === BUFFERING ? (
+          <div
+            className={`${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
+            data-status={playerStatus}
+          >
+            <LoadingIcon size='100' viewBox='0 0 400 400' />
+          </div>
+        ) : null}
+      </Fragment>
+    )
+  }
 
   const MainButtonRenderer = useMemo(
     () =>
@@ -366,7 +365,7 @@ export const StreamPlayer = ({
       videoEl.current.onleavepictureinpicture = () => setPictureInPicture(false)
       const isWebkit = checkIfWebKit()
       fullInterval = window.setInterval(() => {
-        if (isWebkit && !pictureInPicture)
+        if (isWebkit && !document.webkitExitFullscreen && !pictureInPicture)
           setFullScreen(videoEl.current?.webkitDisplayingFullscreen || false)
       }, 500)
     }
