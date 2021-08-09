@@ -4,6 +4,7 @@ import { Chat } from './components/Chat/Chat'
 import { Like } from './components/Like/Like'
 import { Viewers } from './components/Viewers/Viewers'
 import { Live } from './components/Live/Live'
+import { VerticalProductSlider } from './components/ProductSlider/VerticalProductSlider'
 import { useWebSocket } from './hooks/useWebSocket'
 import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 
@@ -36,6 +37,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
+        <div>
+          <VerticalProductSlider />
+        </div>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
             {collectionId && (

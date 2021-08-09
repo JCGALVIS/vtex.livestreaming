@@ -1,0 +1,27 @@
+.verticalProductSliderContent {
+  width: 100%;
+  height: 100%;
+}
+
+.verticalProductSliderTitle {
+  background-color: #c8c8c8;
+  padding: 14px;
+  margin: 0;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.pictureContent {
+  text-align: center;
+}
+
+.picture {
+  max-height: 180px;
+  mix-blend-mode: unset!important;
+}
