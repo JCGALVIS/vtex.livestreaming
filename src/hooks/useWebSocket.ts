@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState, useCallback } from 'react'
 import {
   Message,
@@ -9,7 +8,7 @@ import {
 } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 import { useSessionId } from './useSessionId'
-
+import { getDeviceType  } from '../utils/getMobileOs'
 declare interface Props {
   wssStream: string | undefined
 }
@@ -28,6 +27,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     HighlightProduct | undefined
   >()
   const { sessionId } = useSessionId()
+  const [ uniqueViewer, setUniqueViewer ] = useState(false)
 
   const createWebSocket = useCallback(() => {
     if (!wssStream || socket) return
@@ -112,13 +112,14 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         JSON.stringify({
           action: 'sendaccountid',
           data: sessionId,
-          username: undefined
+          username: undefined,
+          device: getDeviceType()
         })
       )
     }
 
     getId().catch(null)
-  }, [isConnected, socket, isTransmiting])
+  }, [isConnected, socket, isTransmiting, uniqueViewer])
 
   useEffect(() => {
     if (!socket) return () => { }
@@ -141,6 +142,12 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   useEffect(() => {
     setIsTransmiting(ivsRealTime?.status === 'LIVE')
   }, [ivsRealTime?.status])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setUniqueViewer(true);
+    }, 10000);
+  }, []);
 
   return {
     socket,
