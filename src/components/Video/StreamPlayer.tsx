@@ -173,7 +173,7 @@ export const StreamPlayer = ({
   }
 
   const handleFullScreenMobile = (): void => {
-    const mobileDiv = document.getElementById('playerVideoEl')?.parentElement
+    const mobileDiv = document.getElementById('player-video-el')?.parentElement
 
     if (mobileDiv) {
       mobileDiv.onfullscreenchange = (): void => {

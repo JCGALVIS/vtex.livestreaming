@@ -1,4 +1,4 @@
-export const getMobileOS = () => {
+const getMobileOS = () => {
   const userAgent = navigator.userAgent || navigator.vendor
 
   // Windows Phone must come first because its UA also contains "Android"
@@ -17,3 +17,19 @@ export const getMobileOS = () => {
 
   return 'unknown'
 }
+
+const getDeviceType = () => {
+  const userAgent = navigator.userAgent || navigator.vendor
+
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(
+      userAgent
+    )
+  ) {
+    return 'mobile'
+  }
+
+  return 'desktop'
+}
+
+export { getMobileOS, getDeviceType }

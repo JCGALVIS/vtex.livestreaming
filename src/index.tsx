@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Video } from './components/Video/Video'
 import { Chat } from './components/Chat/Chat'
 import { Like } from './components/Like/Like'
@@ -7,7 +7,7 @@ import { Live } from './components/Live/Live'
 import { VerticalProductSlider } from './components/ProductSlider/VerticalProductSlider'
 import { useWebSocket } from './hooks/useWebSocket'
 import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
-
+import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingComponentOnScreen'
 import styles from './styles.module.css'
 import HighlightProduct from './components/HighlightProduct/HighlightProduct'
 
@@ -19,6 +19,14 @@ type LivestreamingProps = {
   account: string
 }
 
+type MarketingData = {
+  utmSource: string | undefined
+}
+
+type OrderForm = {
+  marketingData: MarketingData
+}
+
 export const Livestreaming = (props: LivestreamingProps) => {
   const {
     inactivateLike,
@@ -28,11 +36,36 @@ export const Livestreaming = (props: LivestreamingProps) => {
     account
   } = props
 
-  const { wssStream, streamUrl, collectionId } = useLivestreamingConfig({
+  const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
     id: idLivestreaming,
     account
   })
+
+  const { livestreaminComponentInView } = useLivestreamingComponentOnScreen({
+    rootMargin: '0px 0px'
+  })
+
   const info = useWebSocket({ wssStream })
+
+  useEffect(() => {
+    if (!livestreaminComponentInView || !window.vtexjs) return () => {}
+    const setUTM = setTimeout(() => {
+      window.vtexjs.checkout
+        .getOrderForm()
+        .then(function (orderForm: OrderForm) {
+          var marketingData = orderForm.marketingData
+          marketingData = {
+            utmSource: utm
+          }
+          return window.vtexjs.checkout.sendAttachment(
+            'marketingData',
+            marketingData
+          )
+        })
+    }, 10000)
+
+    return () => clearTimeout(setUTM)
+  }, [livestreaminComponentInView, utm])
 
   return (
     <div className={styles.livestreaming}>
