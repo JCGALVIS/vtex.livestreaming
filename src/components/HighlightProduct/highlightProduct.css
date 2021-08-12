@@ -92,6 +92,10 @@
   border-radius: 10px;
 }
 
+.productAddCart:hover {
+  cursor: pointer;
+}
+
 .productDiscounted {
   font-weight: bold;
 }

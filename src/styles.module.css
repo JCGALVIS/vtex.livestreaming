@@ -76,14 +76,19 @@ input[type='text']:focus {
   .videoContainer {
     position: relative;
     width: 100%;
-    flex: 0 1 70%;
+    flex: 0 1 60%;
   }
   .chatContent {
-    flex: 0 1 30%;
+    flex: 0 1 25%;
     position: relative;
     width: 100%;
     bottom: 0;
     left: 0;
+  }
+  .sliderProductContent {
+    flex: 0 1 15%;
+    position: relative;
+    width: 100%;
   }
 }
 

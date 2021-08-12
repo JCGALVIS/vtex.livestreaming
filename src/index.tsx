@@ -70,8 +70,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
-        <div>
-          <VerticalProductSlider />
+        <div className={styles.sliderProductContent}>
+          <VerticalProductSlider collectionId={collectionId} />
         </div>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
