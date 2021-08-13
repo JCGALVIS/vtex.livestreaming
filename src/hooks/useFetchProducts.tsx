@@ -24,9 +24,8 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
   useEffect(() => {
     if (collectionId) {
-      getProducts({ collectionId }).then((respon) => {
-        console.log('products: ', respon)
-        setProducts({ data: respon, loading: false })
+      getProducts({ collectionId }).then((respon: any) => {
+        if (respon) setProducts({ data: respon, loading: false })
       })
     }
   }, [collectionId])

@@ -5,7 +5,7 @@ declare interface Props {
   viewBox: string
 }
 
-const ArrorRightLivestreaming = ({ size, viewBox }: Props) => {
+const ArrowRightLivestreaming = ({ size, viewBox }: Props) => {
   return (
     <svg
       fill='white'
@@ -38,4 +38,4 @@ const ArrorRightLivestreaming = ({ size, viewBox }: Props) => {
   )
 }
 
-export default ArrorRightLivestreaming
+export default ArrowRightLivestreaming

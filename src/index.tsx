@@ -10,6 +10,7 @@ import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingComponentOnScreen'
 import styles from './styles.module.css'
 import HighlightProduct from './components/HighlightProduct/HighlightProduct'
+import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 
 type LivestreamingProps = {
   inactivateChat?: boolean
@@ -87,6 +88,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
             </div>
             <div className={styles.likeContent}>
               {inactivateLike && <Like infoSocket={info} />}
+            </div>
+            <div className={styles.horizontalProductsContent}>
+              <HorizontalProductSlider collectionId={collectionId} />
             </div>
           </div>
         </div>

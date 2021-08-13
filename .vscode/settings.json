@@ -1,0 +1,7 @@
+{
+    "editor.fontSize": 14,
+    "window.zoomLevel": 0.25,
+    "workbench.preferredLightColorTheme": "Default Dark+",
+    "workbench.preferredHighContrastColorTheme": "Default Dark+",
+    "workbench.iconTheme": "material-icon-theme"
+}

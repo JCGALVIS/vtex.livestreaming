@@ -3,7 +3,7 @@ import Button from '@vtex/styleguide/lib/Button'
 import Input from '@vtex/styleguide/lib/Input'
 
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
-import ArrorRightLivestreaming from '../icons/ArrorRightLivestreaming'
+import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
 import MessageRenderer from './MessageRenderer'
 // eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../typings/livestreaming'
@@ -99,7 +99,7 @@ export const Chat = ({
           </div>
           <div className={styles.buttonConetnt}>
             <Button type='submit' variation='primary'>
-              <ArrorRightLivestreaming size='40' viewBox='0 0 400 400' />
+              <ArrowRightLivestreaming size='40' viewBox='0 0 400 400' />
             </Button>
           </div>
         </form>

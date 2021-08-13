@@ -21,6 +21,7 @@ export const VerticalProductSlider = ({
       </div>
       <div className={styles.productList}>
         {!loading &&
+          products.length > 0 &&
           products.map((product: any) => (
             <ProductItem key={product.id} {...product} />
           ))}
