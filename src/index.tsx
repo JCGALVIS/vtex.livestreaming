@@ -18,6 +18,7 @@ type LivestreamingProps = {
   inactivateViewers?: boolean
   idLivestreaming: string
   account: string
+  infinite?: boolean
 }
 
 type MarketingData = {
@@ -34,7 +35,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactivateViewers,
     inactivateChat,
     idLivestreaming,
-    account
+    account,
+    infinite = true
   } = props
 
   const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
@@ -72,7 +74,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
         <div className={styles.sliderProductContent}>
-          <VerticalProductSlider collectionId={collectionId} />
+          <VerticalProductSlider
+            collectionId={collectionId}
+            infinite={infinite}
+            time={10}
+          />
         </div>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
