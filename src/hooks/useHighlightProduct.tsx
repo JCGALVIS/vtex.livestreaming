@@ -36,8 +36,7 @@ export const useHighlightProduct = ({
   }
 
   useEffect(() => {
-    //const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
-    const url = 'http://localhost:3001/products'
+    const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
 
     if (highlightProduct && !highlightProduct?.showProduct)
       localStorage.removeItem('product')
