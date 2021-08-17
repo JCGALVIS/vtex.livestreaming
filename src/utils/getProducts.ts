@@ -5,10 +5,7 @@ type getProductsProps = {
 }
 
 export const getProducts = async ({ collectionId }: getProductsProps) => {
-  // const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
-
-  const url = 'http://localhost:3001/products'
-  console.log(collectionId)
+  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
 
   const data = await apiCall({ url })
   if (data && data.length > 0) {
