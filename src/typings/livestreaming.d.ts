@@ -37,3 +37,13 @@ export declare interface InfoSocket {
   setIvsRealTime: React.Dispatch<React.SetStateAction<IvsRealTime | undefined>>
   highlightProduct?: HighlightProduct | undefined
 }
+
+export declare interface Products {
+  id: string
+  name: string
+  price: number
+  priceWithDiscount: number
+  imageUrl: string
+  addToCartLink: string
+  isAvailable: boolean
+}

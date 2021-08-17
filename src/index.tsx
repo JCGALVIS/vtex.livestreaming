@@ -4,11 +4,13 @@ import { Chat } from './components/Chat/Chat'
 import { Like } from './components/Like/Like'
 import { Viewers } from './components/Viewers/Viewers'
 import { Live } from './components/Live/Live'
+import { VerticalProductSlider } from './components/ProductSlider/VerticalProductSlider'
 import { useWebSocket } from './hooks/useWebSocket'
 import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingComponentOnScreen'
 import styles from './styles.module.css'
 import HighlightProduct from './components/HighlightProduct/HighlightProduct'
+import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 
 type LivestreamingProps = {
   inactivateChat?: boolean
@@ -16,6 +18,7 @@ type LivestreamingProps = {
   inactivateViewers?: boolean
   idLivestreaming: string
   account: string
+  infinite?: boolean
 }
 
 type MarketingData = {
@@ -32,7 +35,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactivateViewers,
     inactivateChat,
     idLivestreaming,
-    account
+    account,
+    infinite = true
   } = props
 
   const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
@@ -69,6 +73,13 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
+        <div className={styles.sliderProductContent}>
+          <VerticalProductSlider
+            collectionId={collectionId}
+            infinite={infinite}
+            time={10}
+          />
+        </div>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
             {collectionId && (
@@ -83,6 +94,13 @@ export const Livestreaming = (props: LivestreamingProps) => {
             </div>
             <div className={styles.likeContent}>
               {inactivateLike && <Like infoSocket={info} />}
+            </div>
+            <div className={styles.horizontalProductsContent}>
+              <HorizontalProductSlider
+                collectionId={collectionId}
+                infinite={infinite}
+                time={10}
+              />
             </div>
           </div>
         </div>
