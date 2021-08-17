@@ -96,7 +96,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
               {inactivateLike && <Like infoSocket={info} />}
             </div>
             <div className={styles.horizontalProductsContent}>
-              <HorizontalProductSlider collectionId={collectionId} />
+              <HorizontalProductSlider
+                collectionId={collectionId}
+                infinite={infinite}
+                time={10}
+              />
             </div>
           </div>
         </div>

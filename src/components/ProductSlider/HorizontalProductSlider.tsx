@@ -9,10 +9,14 @@ import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
 
 type HorizontalProductSliderProps = {
   collectionId: string | undefined
+  time: number
+  infinite: boolean
 }
 
 export const HorizontalProductSlider = ({
-  collectionId
+  collectionId,
+  time,
+  infinite
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
   const [itemsProdcuts, setItemsProdcuts] = useState([
@@ -28,6 +32,8 @@ export const HorizontalProductSlider = ({
   ])
   const { data: products, loading } = useFetchProducts({ collectionId })
 
+  const delay = time * 1000
+
   useEffect(() => {
     if (products && products[0]) {
       setItemsProdcuts(products.slice(0, 3))
@@ -35,9 +41,21 @@ export const HorizontalProductSlider = ({
     }
   }, [products])
 
+  useEffect(() => {
+    if (loading) return
+    if (!infinite) return
+
+    const timeout = setTimeout(() => {
+      handleRightClick()
+    }, delay)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [infinite, delay, loading, itemsProdcuts])
+
   const handleProductMovement = (newIdx: number) => {
     if (products && products.length > 0) {
-      console.log('selectedProductIndex: ', selectedProductIndex)
 
       setSelectedProductIndex(newIdx)
 
@@ -63,7 +81,7 @@ export const HorizontalProductSlider = ({
       if (newIdx < 0) {
         newIdx = products.length - itemsProdcuts.length
       }
-      console.log('newIdx: ', newIdx)
+
       handleProductMovement(newIdx)
     }
   }
