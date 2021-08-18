@@ -9,8 +9,8 @@ import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
 
 type HorizontalProductSliderProps = {
   collectionId: string | undefined
-  time: number
-  infinite: boolean
+  time?: number
+  infinite?: boolean
 }
 
 export const HorizontalProductSlider = ({
@@ -32,7 +32,7 @@ export const HorizontalProductSlider = ({
   ])
   const { data: products, loading } = useFetchProducts({ collectionId })
 
-  const delay = time * 1000
+  const delay = time ? time * 1000 : 10000
 
   useEffect(() => {
     if (products && products[0]) {
@@ -52,11 +52,10 @@ export const HorizontalProductSlider = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [infinite, delay, loading, itemsProdcuts])
+  }, [infinite, delay, loading, itemsProdcuts, selectedProductIndex])
 
   const handleProductMovement = (newIdx: number) => {
     if (products && products.length > 0) {
-
       setSelectedProductIndex(newIdx)
 
       if (products.length >= newIdx + 3) {

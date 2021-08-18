@@ -13,12 +13,15 @@ import HighlightProduct from './components/HighlightProduct/HighlightProduct'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 
 type LivestreamingProps = {
-  inactivateChat?: boolean
-  inactivateLike?: boolean
-  inactivateViewers?: boolean
-  idLivestreaming: string
   account: string
-  infinite?: boolean
+  idLivestreaming: string
+  inactiveSidebarProducts?: string
+  inactiveProductsCarousel?: string
+  inactivateChat?: string
+  inactivateLike?: string
+  inactivateViewers?: string
+  isInfinite?: string
+  time?: string
 }
 
 type MarketingData = {
@@ -36,7 +39,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactivateChat,
     idLivestreaming,
     account,
-    infinite = true
+    isInfinite,
+    time,
+    inactiveSidebarProducts,
+    inactiveProductsCarousel
   } = props
 
   const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
@@ -49,6 +55,21 @@ export const Livestreaming = (props: LivestreamingProps) => {
   })
 
   const info = useWebSocket({ wssStream })
+
+  const { scriptProperties, setScriptProperties, showCounter } = info
+
+  useEffect(() => {
+    console.log('scriptProperties: ', scriptProperties)
+    if (scriptProperties) return
+    setScriptProperties({
+      sidebarProducts: inactiveSidebarProducts === 'true',
+      productsCarousel: inactiveProductsCarousel === 'true',
+      chat: inactivateChat === 'true',
+      like: inactivateLike === 'true',
+      infinite: isInfinite === 'true',
+      time: time ? parseInt(time) : 0
+    })
+  }, [scriptProperties])
 
   useEffect(() => {
     if (!livestreaminComponentInView || !window.vtexjs) return () => {}
@@ -74,11 +95,13 @@ export const Livestreaming = (props: LivestreamingProps) => {
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
         <div className={styles.sliderProductContent}>
-          <VerticalProductSlider
-            collectionId={collectionId}
-            infinite={infinite}
-            time={10}
-          />
+          {scriptProperties?.sidebarProducts && (
+            <VerticalProductSlider
+              collectionId={collectionId}
+              infinite={scriptProperties.infinite}
+              time={scriptProperties.time}
+            />
+          )}
         </div>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
@@ -90,22 +113,26 @@ export const Livestreaming = (props: LivestreamingProps) => {
               <Live infoSocket={info} />
             </div>
             <div className={styles.viewersContent}>
-              {inactivateViewers && <Viewers infoSocket={info} />}
+              {inactivateViewers === 'true' || showCounter ? (
+                <Viewers infoSocket={info} />
+              ) : null}
             </div>
             <div className={styles.likeContent}>
-              {inactivateLike && <Like infoSocket={info} />}
+              {scriptProperties?.like && <Like infoSocket={info} />}
             </div>
             <div className={styles.horizontalProductsContent}>
-              <HorizontalProductSlider
-                collectionId={collectionId}
-                infinite={infinite}
-                time={10}
-              />
+              {scriptProperties?.productsCarousel && (
+                <HorizontalProductSlider
+                  collectionId={collectionId}
+                  infinite={scriptProperties.infinite}
+                  time={scriptProperties.time}
+                />
+              )}
             </div>
           </div>
         </div>
         <div className={styles.chatContent}>
-          {inactivateChat && (
+          {scriptProperties?.chat && (
             <Chat
               title='Chat'
               placeholder='Di algo...'
@@ -123,5 +150,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
 Livestreaming.defaultProps = {
   inactivateChat: true,
   inactivateLike: true,
-  inactivateViewers: true
+  inactivateViewers: true,
+  isInfinite: true,
+  time: 10,
+  inactiveSidebarProducts: true,
+  inactiveProductsCarousel: false
 }

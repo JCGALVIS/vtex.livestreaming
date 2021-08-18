@@ -1,14 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useCallback } from 'react'
 import {
   Message,
   Heart,
   IvsRealTime,
   InfoSocket,
-  HighlightProduct
+  HighlightProduct,
+  ScriptProperties
 } from './../typings/livestreaming'
 import getRandomColor from '../utils/getRandomColor'
 import { useSessionId } from './useSessionId'
-import { getDeviceType  } from '../utils/getMobileOs'
+import { getDeviceType } from '../utils/getMobileOs'
 declare interface Props {
   wssStream: string | undefined
 }
@@ -27,7 +29,10 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     HighlightProduct | undefined
   >()
   const { sessionId } = useSessionId()
-  const [ uniqueViewer, setUniqueViewer ] = useState(false)
+  const [uniqueViewer, setUniqueViewer] = useState(false)
+  const [scriptProperties, setScriptProperties] = useState<
+    ScriptProperties | undefined
+  >()
 
   const createWebSocket = useCallback(() => {
     if (!wssStream || socket) return
@@ -59,8 +64,16 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         productId,
         showProduct,
         collection,
-        livestreamingId
+        livestreamingId,
+        sidebarProducts,
+        productsCarousel,
+        chat,
+        like,
+        infinite,
+        time
       } = JSON.parse(event.data)
+
+      console.log('action: ', action)
 
       switch (action) {
         case 'sendmessage':
@@ -96,6 +109,17 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           })
           break
 
+        case 'sendPropertiesToCms':
+          setScriptProperties({
+            sidebarProducts,
+            productsCarousel,
+            chat,
+            like,
+            infinite,
+            time
+          })
+          break
+
         default:
           break
       }
@@ -122,7 +146,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   }, [isConnected, socket, isTransmiting, uniqueViewer])
 
   useEffect(() => {
-    if (!socket) return () => { }
+    if (!socket) return () => {}
 
     return () => {
       socket.close()
@@ -145,9 +169,9 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
   useEffect(() => {
     setTimeout(() => {
-      setUniqueViewer(true);
-    }, 10000);
-  }, []);
+      setUniqueViewer(true)
+    }, 10000)
+  }, [])
 
   return {
     socket,
@@ -162,6 +186,8 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setIvsRealTime,
     setIsTransmiting,
     sendAccountId,
-    highlightProduct
+    highlightProduct,
+    scriptProperties,
+    setScriptProperties
   }
 }

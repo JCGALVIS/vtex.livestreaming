@@ -6,7 +6,17 @@ import './app.css'
 
 const App = () => {
   return (
-    <Livestreaming idLivestreaming='__IDLIVESTREAMING' account='__ACCOUNT' />
+    <Livestreaming
+      idLivestreaming='__IDLIVESTREAMING'
+      account='__ACCOUNT'
+      inactiveSidebarProducts='_INACTIVESIDEBARPRODUCTS'
+      inactiveProductsCarousel='_INACTIVEPRODUCTSCAROUSEL'
+      inactivateChat='_INACTIVATECHAT'
+      inactivateLike='_INACTIVATELIKE'
+      inactivateViewers='_INACTIVATEVIEWERS'
+      isInfinite='_ISINFINITE'
+      time='_TIME'
+    />
   )
 }
 

@@ -22,6 +22,15 @@ declare interface HighlightProduct {
   collection?: string
   livestreamingId?: string
 }
+
+export declare interface ScriptProperties {
+  sidebarProducts: boolean | undefined
+  productsCarousel: boolean | undefined
+  chat: boolean | undefined
+  like: boolean | undefined
+  infinite: boolean | undefined
+  time: number | undefined
+}
 export declare interface InfoSocket {
   socket: WebSocket | undefined
   chat: Message[]
@@ -36,6 +45,10 @@ export declare interface InfoSocket {
   sendAccountId: () => void
   setIvsRealTime: React.Dispatch<React.SetStateAction<IvsRealTime | undefined>>
   highlightProduct?: HighlightProduct | undefined
+  scriptProperties?: ScriptProperties | undefined
+  setScriptProperties: React.Dispatch<
+    React.SetStateAction<ScriptProperties | undefined>
+  >
 }
 
 export declare interface Products {
