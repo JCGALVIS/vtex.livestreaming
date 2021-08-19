@@ -23,7 +23,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [ivsRealTime, setIvsRealTime] = useState<IvsRealTime | undefined>(
     undefined
   )
-  const [showCounter, setShowCounter] = useState<boolean | undefined>()
+  const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [isTransmiting, setIsTransmiting] = useState(false)
   const [highlightProduct, setHighlightProduct] = useState<
     HighlightProduct | undefined
@@ -188,6 +188,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     sendAccountId,
     highlightProduct,
     scriptProperties,
-    setScriptProperties
+    setScriptProperties,
+    setShowCounter
   }
 }

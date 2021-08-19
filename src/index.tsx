@@ -59,7 +59,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const info = useWebSocket({ wssStream })
 
-  const { scriptProperties, setScriptProperties, showCounter } = info
+  const { scriptProperties, setScriptProperties, setShowCounter } = info
 
   const getHeight = () => {
     if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
@@ -75,6 +75,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   useEffect(() => {
     if (scriptProperties) return
+    setShowCounter(inactivateViewers === 'true')
     setScriptProperties({
       sidebarProducts: inactiveSidebarProducts === 'true',
       productsCarousel: inactiveProductsCarousel === 'true',
@@ -145,9 +146,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               <Live infoSocket={info} />
             </div>
             <div className={styles.viewersContent}>
-              {inactivateViewers === 'true' || showCounter ? (
-                <Viewers infoSocket={info} />
-              ) : null}
+              <Viewers infoSocket={info} />
             </div>
             <div className={styles.likeContent}>
               {scriptProperties?.like && <Like infoSocket={info} />}

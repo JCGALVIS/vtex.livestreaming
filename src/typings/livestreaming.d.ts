@@ -50,6 +50,7 @@ export declare interface InfoSocket {
   setScriptProperties: React.Dispatch<
     React.SetStateAction<ScriptProperties | undefined>
   >
+  setShowCounter: React.Dispatch<React.SetStateAction<boolean | undefined>>
 }
 
 export declare interface Products {
