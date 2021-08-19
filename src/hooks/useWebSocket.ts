@@ -32,14 +32,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [uniqueViewer, setUniqueViewer] = useState(false)
   const [scriptProperties, setScriptProperties] = useState<
     ScriptProperties | undefined
-  >({
-    sidebarProducts: true,
-    productsCarousel: false,
-    chat: true,
-    like: true,
-    infinite: true,
-    time: 10
-  })
+  >()
 
   const createWebSocket = useCallback(() => {
     if (!wssStream || socket) return
