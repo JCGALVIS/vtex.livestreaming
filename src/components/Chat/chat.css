@@ -107,8 +107,9 @@
 @media screen and (min-width: 930px) {
   .chatContainer {
     justify-content: space-between;
-    height: 100%;
-    min-height: calc(100vh - 169px);
+    height: calc(25.75vw + 25px + 10px);
+    min-height: calc(257.5px + 25px + 10px);
+    max-height: calc(calc(95vh - 50px) + 25px + 25px);
   }
   .liveChatContainer {
     display: flex;
@@ -184,5 +185,55 @@
   .buttonConetnt button div svg {
     width: 40px;
     height: 40px;
+  }
+}
+
+
+@media screen and (min-width: 1060px) {
+  .chatContainer {
+    height: calc(31.75vw + 25px + 10px);
+    min-height: calc(317.5px + 25px + 10px);
+  }
+}
+
+@media screen and (min-width: 1140px) {
+  .chatContainer {
+    height: calc(29.75vw + 25px + 10px);
+    min-height: calc(297.5px + 25px + 10px);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .chatContainer {
+    height: calc(34.75vw + 25px + 10px);
+    min-height: calc(347.5px + 25px + 10px);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .chatContainer {
+    height: calc(28.75vw + 25px + 10px);
+    min-height: calc(287.5px + 25px + 10px);
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .chatContainer {
+    height: calc(21.75vw + 25px + 10px);
+    min-height: calc(217.5px + 25px + 10px);
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .chatContainer {
+    height: calc(16.75vw + 25px + 10px);
+    min-height: calc(167.5px + 25px + 10px);
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .chatContainer {
+    height: calc(11vw + 25px + 10px);
+    min-height: calc(11px + 25px + 10px);
   }
 }
