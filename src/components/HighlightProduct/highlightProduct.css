@@ -132,8 +132,7 @@
 @media screen and (min-width: 930px) {
   .highlightProductContainer {
     width: 450px;
-    top: initial;
-    bottom: 20px;
+    top: 64px;
     left: 1rem;
   }
 }

@@ -75,14 +75,22 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   useEffect(() => {
     if (scriptProperties) return
-    setShowCounter(inactivateViewers === 'true')
+    setShowCounter(
+      inactivateViewers === 'undefined' ? true : inactivateViewers === 'true'
+    )
     setScriptProperties({
-      sidebarProducts: inactiveSidebarProducts === 'true',
-      productsCarousel: inactiveProductsCarousel === 'true',
-      chat: inactivateChat === 'true',
-      like: inactivateLike === 'true',
-      infinite: isInfinite === 'true',
-      time: time ? parseInt(time) : 0
+      sidebarProducts:
+        inactiveSidebarProducts === 'undefined'
+          ? false
+          : inactiveSidebarProducts === 'true',
+      productsCarousel:
+        inactiveSidebarProducts === 'undefined'
+          ? false
+          : inactiveProductsCarousel === 'true',
+      chat: inactivateChat === 'undefined' ? true : inactivateChat === 'true',
+      like: inactivateLike === 'undefined' ? true : inactivateLike === 'true',
+      infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
+      time: time === 'undefined' ? 10 : time ? parseInt(time) : 1
     })
   }, [scriptProperties])
 
