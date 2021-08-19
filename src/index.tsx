@@ -185,7 +185,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 }
 
 Livestreaming.defaultProps = {
-  inactiveSidebarProducts: 'true',
+  inactiveSidebarProducts: 'false',
   inactiveProductsCarousel: 'false',
   inactivateChat: 'true',
   inactivateLike: 'true',
