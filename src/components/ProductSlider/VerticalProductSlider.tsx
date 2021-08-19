@@ -69,18 +69,17 @@ export const VerticalProductSlider = ({
     return () => {}
   }, [productLisRef])
 
-  return (
+  return !loading ? (
     <div className={styles.verticalProductSliderContent}>
       <div className={styles.verticalProductSliderTitle}>
         <h1 className={styles.title}>Productos</h1>
       </div>
       <div className={styles.productList} ref={productLisRef} id='product-list'>
-        {!loading &&
-          products.length > 0 &&
+        {products.length > 0 &&
           products.map((product: any) => (
             <ProductItem key={product.id} {...product} />
           ))}
       </div>
     </div>
-  )
+  ) : null
 }

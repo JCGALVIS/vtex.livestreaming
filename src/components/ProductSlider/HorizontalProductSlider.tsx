@@ -85,14 +85,13 @@ export const HorizontalProductSlider = ({
     }
   }
 
-  return (
+  return !loading ? (
     <div className={styles.horizontalProductContainer}>
       <button className={styles.arrowLeft} onClick={handleLeftClick}>
         <ArrowRightLivestreaming size='40' viewBox='0 0 400 400' />
       </button>
       <TransitionGroup className={styles.horizontalProductListContent}>
-        {!loading &&
-          itemsProdcuts.length > 0 &&
+        {itemsProdcuts.length > 0 &&
           itemsProdcuts.map((product: any) => (
             <CSSTransition
               key={product.id}
@@ -109,5 +108,5 @@ export const HorizontalProductSlider = ({
         <ArrowRightLivestreaming size='40' viewBox='0 0 400 400' />
       </button>
     </div>
-  )
+  ) : null
 }

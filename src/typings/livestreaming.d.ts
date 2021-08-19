@@ -21,6 +21,7 @@ declare interface HighlightProduct {
   showProduct: boolean | undefined
   collection?: string
   livestreamingId?: string
+  backgroundWhiteHighlight?: string
 }
 
 export declare interface ScriptProperties {
