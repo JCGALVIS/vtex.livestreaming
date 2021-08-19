@@ -7,7 +7,8 @@ body {
   font-size: 1rem;
 }
 
-input, button {
+input,
+button {
   outline: none;
 }
 
@@ -44,7 +45,7 @@ input[type='text']:focus {
 
 .likeContent {
   position: absolute;
-  bottom: .6rem;
+  bottom: 0.6rem;
   right: 1rem;
 }
 
@@ -73,11 +74,25 @@ input[type='text']:focus {
   .livestreamingContent {
     height: auto;
   }
+
   .videoContainer {
     position: relative;
     width: 100%;
     flex: 0 1 60%;
   }
+
+  .videoContainerChat {
+    flex: 0 1 70% !important;
+  }
+
+  .videoContainerProducts {
+    flex: 0 1 90% !important;
+  }
+
+  .videoContainerFull {
+    flex: 1 !important;
+  }
+
   .chatContent {
     flex: 0 1 30%;
     position: relative;
@@ -85,11 +100,17 @@ input[type='text']:focus {
     bottom: 0;
     left: 0;
   }
+
   .sliderProductContent {
     flex: 0 1 10%;
     position: relative;
     width: 100%;
   }
+
+  .displayNone {
+    display: none;
+  }
+
   .horizontalProductsContent {
     display: flex;
     justify-content: center;
@@ -140,7 +161,11 @@ input[type='text']:focus {
 .playerVideoHover[data-visible='on'] {
   display: grid;
   background: rgba(255, 255, 255, 0);
-  background: -webkit-linear-gradient( 0deg, rgba(255, 255, 255, 0) 0%, #040008 100%);
+  background: -webkit-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0) 0%,
+    #040008 100%
+  );
   background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #040008 100%);
 }
 
@@ -206,29 +231,29 @@ input[type='text']:focus {
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 578px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
   .likeContent {
-    bottom: -.6rem;
+    bottom: -0.6rem;
     right: 0.2rem;
   }
   .viewersContent {
     position: absolute;
     top: 0.6rem;
-    right: 0.2rem
+    right: 0.2rem;
   }
 }
 
 @media only screen and (min-device-width: 640px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
   .likeContent {
-    bottom: -.6rem;
+    bottom: -0.6rem;
     right: 1rem;
   }
   .viewersContent {
     position: absolute;
     top: 0.6rem;
-    right: 1rem
+    right: 1rem;
   }
 }
 
-@media (min-width:414px) and (max-width: 1025px) {
+@media (min-width: 414px) and (max-width: 1025px) {
   .likeContent {
     bottom: 0.3rem;
     right: 1rem;

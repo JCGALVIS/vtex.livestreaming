@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Video } from './components/Video/Video'
 import { Chat } from './components/Chat/Chat'
 import { Like } from './components/Like/Like'
@@ -44,6 +44,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactiveProductsCarousel
   } = props
 
+  const divVideoContent = useRef<HTMLDivElement>(null)
+
+  const [height, setHeight] = useState(0)
+
   const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
     id: idLivestreaming,
     account
@@ -56,6 +60,18 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const info = useWebSocket({ wssStream })
 
   const { scriptProperties, setScriptProperties, showCounter } = info
+
+  const getHeight = () => {
+    if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
+      setHeight(divVideoContent.current?.clientHeight)
+  }
+
+  useEffect(() => {
+    getHeight()
+    window.addEventListener('resize', function () {
+      getHeight()
+    })
+  }, [info, divVideoContent])
 
   useEffect(() => {
     if (scriptProperties) return
@@ -92,17 +108,33 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
-        <div className={styles.sliderProductContent}>
+        <div
+          style={{ height: height }}
+          className={`${
+            scriptProperties?.sidebarProducts
+              ? styles.sliderProductContent
+              : styles.displayNone
+          }`}
+        >
           {scriptProperties?.sidebarProducts && (
             <VerticalProductSlider
               collectionId={collectionId}
               infinite={scriptProperties.infinite}
               time={scriptProperties.time}
+              height={height - 58}
             />
           )}
         </div>
-        <div className={styles.videoContainer}>
-          <div className={styles.videoContent}>
+        <div
+          className={`${styles.videoContainer} ${
+            !scriptProperties?.sidebarProducts && styles.videoContainerChat
+          } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
+            !scriptProperties?.sidebarProducts &&
+            !scriptProperties?.chat &&
+            styles.videoContainerFull
+          }`}
+        >
+          <div ref={divVideoContent} className={styles.videoContent}>
             <Video
               infoSocket={info}
               streamUrl={streamUrl}
@@ -130,7 +162,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
             </div>
           </div>
         </div>
-        <div className={styles.chatContent}>
+        <div
+          style={{ height: height }}
+          className={`${
+            scriptProperties?.chat ? styles.chatContent : styles.displayNone
+          }`}
+        >
           {scriptProperties?.chat && (
             <Chat
               title='Chat'
