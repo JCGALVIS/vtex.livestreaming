@@ -126,6 +126,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           )}
         </div>
         <div
+          style={{ height: height }}
           className={`${styles.videoContainer} ${
             !scriptProperties?.sidebarProducts && styles.videoContainerChat
           } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
