@@ -59,7 +59,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const { scriptProperties, setScriptProperties, showCounter } = info
 
   useEffect(() => {
-    console.log('scriptProperties: ', scriptProperties)
     if (scriptProperties) return
     setScriptProperties({
       sidebarProducts: inactiveSidebarProducts === 'true',
@@ -148,11 +147,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
 }
 
 Livestreaming.defaultProps = {
-  inactivateChat: true,
-  inactivateLike: true,
-  inactivateViewers: true,
-  isInfinite: true,
-  time: 10,
-  inactiveSidebarProducts: true,
-  inactiveProductsCarousel: false
+  inactiveSidebarProducts: 'true',
+  inactiveProductsCarousel: 'false',
+  inactivateChat: 'true',
+  inactivateLike: 'true',
+  inactivateViewers: 'true',
+  isInfinite: 'true',
+  time: '10'
 }

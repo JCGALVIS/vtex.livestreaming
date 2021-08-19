@@ -16,6 +16,7 @@ const HighlightProduct = ({
   collectionId
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
+  const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
   const { ivsRealTime, highlightProduct } = infoSocket
   const divProduct = useRef<HTMLDivElement>(null)
 
@@ -37,19 +38,54 @@ const HighlightProduct = ({
     setShow(false)
   }, [ivsRealTime, showProduct])
 
+  useEffect(() => {
+    if (highlightProduct?.backgroundWhiteHighlight)
+      localStorage.setItem(
+        'backgroundWhiteHighlight',
+        highlightProduct?.backgroundWhiteHighlight
+      )
+
+    const backgroundWhiteHighlight = localStorage.getItem(
+      'backgroundWhiteHighlight'
+    )
+
+    if (backgroundWhiteHighlight) {
+      setOptionHighlight(backgroundWhiteHighlight)
+    } else {
+      setOptionHighlight(highlightProduct?.backgroundWhiteHighlight)
+    }
+  }, [highlightProduct?.backgroundWhiteHighlight])
+
   return (
     <Fragment>
       {show ? (
         <div
-          className={styles.highlightProductContainer}
+          className={`${styles.highlightProductContainer}  ${
+            !optionHighlight || optionHighlight === 'white'
+              ? styles.white
+              : styles.black
+          }`}
           id='highlightProductContainer'
         >
-          <button className={styles.closeCardBtn} onClick={handlerCloseCard}>
+          <button
+            className={`${styles.closeCardBtn} ${
+              !optionHighlight || optionHighlight === 'white'
+                ? styles.closeCardBtnWhite
+                : styles.closeCardBtnBlack
+            }`}
+            onClick={handlerCloseCard}
+          >
             <IconClose />
           </button>
           <div className={styles.productContainer}>
             <img className={styles.productPicture} src={product.imageUrl} />
-            <div className={styles.productInfo}>
+            <div
+              className={`${styles.productInfo} ${
+                !optionHighlight || optionHighlight === 'white'
+                  ? styles.textBlack
+                  : styles.textWhite
+              }`}
+            >
               <p className={styles.productTitle}>{product.name}</p>
               <div className={styles.productPriceContainer}>
                 <div>
