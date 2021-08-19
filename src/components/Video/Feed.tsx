@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
+// eslint-disable-next-line no-unused-vars
+import { InfoSocket } from '../../typings/livestreaming'
 
 import { StreamPlayer } from './StreamPlayer'
 
 type FeedProps = {
   streamUrl: string | undefined
+  infoSocket: InfoSocket
+  collectionId: string | undefined
 }
 
-export const Feed = ({ streamUrl }: FeedProps) => {
+export const Feed = ({ streamUrl, infoSocket, collectionId }: FeedProps) => {
   const { IVSPlayer } = window
   const { isPlayerSupported, MediaPlayer } = IVSPlayer
 
@@ -58,6 +62,11 @@ export const Feed = ({ streamUrl }: FeedProps) => {
   }
 
   return playerCurrent ? (
-    <StreamPlayer player={player.current} streamUrl={streamUrl} />
+    <StreamPlayer
+      player={player.current}
+      streamUrl={streamUrl}
+      infoSocket={infoSocket}
+      collectionId={collectionId}
+    />
   ) : null
 }

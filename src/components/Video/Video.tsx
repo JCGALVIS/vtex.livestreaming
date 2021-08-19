@@ -10,9 +10,10 @@ const IVS_PLAYER_MIN_JS =
 type VideoProps = {
   streamUrl: string | undefined
   infoSocket: InfoSocket
+  collectionId: string | undefined
 }
 
-export const Video = ({ streamUrl, infoSocket }: VideoProps) => {
+export const Video = ({ streamUrl, infoSocket, collectionId }: VideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
   const { isTransmiting } = infoSocket
@@ -39,7 +40,11 @@ export const Video = ({ streamUrl, infoSocket }: VideoProps) => {
   if (!isPlayerSupported) return null
 
   return isPlayerSupported && isTransmiting ? (
-    <Feed streamUrl={streamUrl} />
+    <Feed
+      streamUrl={streamUrl}
+      infoSocket={infoSocket}
+      collectionId={collectionId}
+    />
   ) : (
     <NoVideo isLive={infoSocket?.ivsRealTime?.status} />
   )

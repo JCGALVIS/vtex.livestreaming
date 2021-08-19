@@ -21,6 +21,9 @@ import FullscreenIcon from '../icons/FullscreenIcon'
 import FullscreenExitIcon from '../icons/FullscreenExitIcon'
 import LoadingIcon from '../icons/LoadingIcon'
 import { getMobileOS } from '../../utils/getMobileOs'
+import HighlightProduct from '../HighlightProduct/HighlightProduct'
+// eslint-disable-next-line no-unused-vars
+import { InfoSocket } from '../../typings/livestreaming'
 
 interface HTMLVideoPicture extends HTMLVideoElement {
   requestPictureInPicture(): void
@@ -39,10 +42,14 @@ interface IndicatorInterface {
 
 export const StreamPlayer = ({
   player,
-  streamUrl
+  streamUrl,
+  infoSocket,
+  collectionId
 }: {
   player: MediaPlayer
   streamUrl: string | undefined
+  infoSocket: InfoSocket
+  collectionId: string | undefined
 }) => {
   const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
   const [overlay, setOverlay] = useState<boolean>(false)
@@ -419,6 +426,12 @@ export const StreamPlayer = ({
           paddingBottom: fullScreen ? 'unset' : ''
         }}
       >
+        {collectionId && (
+          <HighlightProduct
+            infoSocket={infoSocket}
+            collectionId={collectionId}
+          />
+        )}
         <video
           className={styles.playerVideoEl}
           controls={false}

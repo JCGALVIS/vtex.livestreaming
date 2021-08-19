@@ -36,6 +36,7 @@ export const useHighlightProduct = ({
   }
 
   useEffect(() => {
+    if (highlightProduct?.backgroundWhiteHighlight) return
     const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
 
     if (highlightProduct && !highlightProduct?.showProduct)

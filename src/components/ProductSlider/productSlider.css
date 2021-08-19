@@ -150,7 +150,7 @@
   position: absolute;
   height: 40%;
   border: 0;
-  background: rgba(245, 245, 245, 0.5);
+  background: rgba(180, 180, 180, 0.4);
   box-shadow: 0 0 5px #55555536;
   top: 30%;
   left: 0;
@@ -166,7 +166,7 @@
   position: absolute;
   height: 40%;
   border: 0;
-  background: rgba(245, 245, 245, 0.5);
+  background: rgba(180, 180, 180, 0.4);
   box-shadow: 0 0 5px #55555536;
   top: 30%;
   right: 0;

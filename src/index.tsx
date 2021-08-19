@@ -9,7 +9,6 @@ import { useWebSocket } from './hooks/useWebSocket'
 import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingComponentOnScreen'
 import styles from './styles.module.css'
-import HighlightProduct from './components/HighlightProduct/HighlightProduct'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 
 type LivestreamingProps = {
@@ -104,10 +103,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
         </div>
         <div className={styles.videoContainer}>
           <div className={styles.videoContent}>
-            {collectionId && (
-              <HighlightProduct infoSocket={info} collectionId={collectionId} />
-            )}
-            <Video infoSocket={info} streamUrl={streamUrl} />
+            <Video
+              infoSocket={info}
+              streamUrl={streamUrl}
+              collectionId={collectionId}
+            />
             <div className={styles.liveContent}>
               <Live infoSocket={info} />
             </div>
