@@ -121,14 +121,17 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
-        <SliderProductMobile
-          collectionId={collectionId}
-          infinite={scriptProperties?.infinite}
-          time={scriptProperties?.time}
-          height={height}
-          showSliderProducts={showSliderProducts}
-          setShowSliderProducts={setShowSliderProducts}
-        />
+        {scriptProperties?.sidebarProducts ||
+        scriptProperties?.productsCarousel ? (
+          <SliderProductMobile
+            collectionId={collectionId}
+            infinite={scriptProperties?.infinite}
+            time={scriptProperties?.time}
+            height={height}
+            showSliderProducts={showSliderProducts}
+            setShowSliderProducts={setShowSliderProducts}
+          />
+        ) : null}
         <div
           style={{ height: height }}
           className={`${
@@ -157,14 +160,15 @@ export const Livestreaming = (props: LivestreamingProps) => {
           }`}
         >
           <div ref={divVideoContent} className={styles.videoContent}>
-            {collectionId && (
+            {scriptProperties?.sidebarProducts ||
+            scriptProperties?.productsCarousel ? (
               <div className={styles.buttonProductContent}>
                 <ButtonProductsMobile
                   collectionId={collectionId}
                   setShowSliderProducts={setShowSliderProducts}
                 />
               </div>
-            )}
+            ) : null}
             <Video
               infoSocket={info}
               streamUrl={streamUrl}

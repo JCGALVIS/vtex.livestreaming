@@ -32,7 +32,10 @@ export const SliderProductMobile = ({
         unmountOnExit
       >
         <Fragment>
-          <div className={styles.sliderProductMobileContainer} />
+          <div
+            className={styles.sliderProductMobileContainer}
+            onClick={() => setShowSliderProducts(false)}
+          />
           <div className={styles.sliderProductMobileContent}>
             <div style={{ overflow: 'hidden' }}>
               <div className={styles.closeContent}>
