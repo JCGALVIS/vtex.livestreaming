@@ -4,8 +4,10 @@ import IconClose from '@vtex/styleguide/lib/icon/Close'
 // eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../typings/livestreaming'
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
-import styles from './highlightProduct.css'
+import { formatterDolar } from '../../utils/getFormatMoney'
+import { addToCart } from '../../utils/addToCart'
 
+import styles from './highlightProduct.css'
 interface HighlightProductProps {
   infoSocket: InfoSocket
   collectionId: string | undefined
@@ -24,11 +26,6 @@ const HighlightProduct = ({
     highlightProduct,
     collectionId
   })
-
-  const addToCart = () => {
-    const link = document.getElementById('add-cart')
-    if (link) link.click()
-  }
 
   useEffect(() => {
     if (ivsRealTime && ivsRealTime.status === 'LIVE') {
@@ -55,6 +52,8 @@ const HighlightProduct = ({
       setOptionHighlight(highlightProduct?.backgroundWhiteHighlight)
     }
   }, [highlightProduct?.backgroundWhiteHighlight])
+
+  console.log(product)
 
   return (
     <Fragment>
@@ -90,17 +89,25 @@ const HighlightProduct = ({
               <div className={styles.productPriceContainer}>
                 <div>
                   <p className={styles.productDiscounted}>
-                    $ {product.priceWithDiscount}
+                    {formatterDolar.format(product.priceWithDiscount)}
                   </p>
-                  <p className={styles.productPrice}>$ {product.price}</p>
+                  <p className={styles.productPrice}>
+                    {formatterDolar.format(product.price)}
+                  </p>
                 </div>
                 <div className={styles.productAddCartContent}>
-                  <a className={styles.productAddCart} onClick={addToCart}>
-                    Ver
-                  </a>
+                  <button
+                    className={`${styles.productAddCart} ${
+                      !product.isAvailable && styles.noActive
+                    }`}
+                    disabled={!product.isAvailable}
+                    onClick={() => addToCart(product.id)}
+                  >
+                    {product.isAvailable ? 'Ver' : 'Indisponible'}
+                  </button>
                   <div ref={divProduct} id={product.id}>
                     <a
-                      id='add-cart'
+                      id={`add-cart-${product.id}`}
                       href={product.addToCartLink}
                       target='_blank'
                       rel='noreferrer'

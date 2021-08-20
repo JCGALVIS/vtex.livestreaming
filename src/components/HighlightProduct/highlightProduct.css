@@ -62,8 +62,8 @@
 }
 
 .productPicture {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   object-fit: fill;
   border-radius: 0.3rem 0 0.3rem 0.3rem;
 }
@@ -74,12 +74,12 @@
 }
 
 .productInfo p {
-  font-size: 14px;
+  font-size: 13px;
   margin: 0.2rem 0;
 }
 
 .productTitle {
-  font-size: 16px !important;
+  font-size: 15px !important;
   margin-top: 0.2rem !important;
   margin-bottom: 0.5rem !important;
 }
@@ -107,6 +107,8 @@
   text-transform: uppercase;
   background: #e3e4e6;
   border-radius: 10px;
+  text-decoration: none;
+  border: 0;
 }
 
 .productAddCart:hover {
@@ -131,8 +133,8 @@
 
 @media screen and (min-width: 930px) {
   .highlightProductContainer {
-    width: 450px;
-    top: 64px;
+    width: 60%;
+    top: 40px;
     left: 1rem;
   }
 }

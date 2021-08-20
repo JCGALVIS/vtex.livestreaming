@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { formatterDolar } from './../../utils/getFormatMoney'
+import { addToCart } from '../../utils/addToCart'
+
 import styles from './productSlider.css'
 
 type ProductItemProps = {
@@ -14,6 +16,7 @@ type ProductItemProps = {
 }
 export const ProductItem = (props: ProductItemProps) => {
   const {
+    id,
     name,
     price,
     priceWithDiscount,
@@ -41,12 +44,14 @@ export const ProductItem = (props: ProductItemProps) => {
               !isAvailable && styles.noActive
             }`}
             disabled={!isAvailable}
+            onClick={() => addToCart(id)}
           >
             {isAvailable ? 'Ver' : 'Indisponible'}
           </button>
           <div>
             <a
-              id='add-cart'
+              id={`add-cart-${id}`}
+              className='add-cart'
               target='_blank'
               rel='noreferrer'
               href={addToCartLink}

@@ -1,7 +1,6 @@
 .verticalProductSliderContent {
   width: 100%;
   height: 100%;
-  display: none;
 }
 
 .verticalProductSliderTitle {
@@ -15,7 +14,7 @@
 
 .title {
   margin: 0;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
 }
 
@@ -39,12 +38,12 @@
 }
 
 .productItemContent {
-  max-width: 230px;
+  max-width: 200px;
   box-shadow: 0 0 5px #55555536;
   background-color: white;
   margin-bottom: 10px;
-  padding: .5rem 0;
-  min-width: 230px;
+  padding: 0.5rem 0;
+  min-width: 200px;
 }
 
 .productLink {
@@ -56,8 +55,8 @@
 }
 
 .picture {
-  max-height: 150px;
-  mix-blend-mode: unset!important;
+  max-height: 120px;
+  mix-blend-mode: unset !important;
 }
 
 .productDeatailContent {
@@ -81,12 +80,12 @@
 .price {
   text-decoration: line-through;
   color: #444;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .priceWithDiscount {
   color: gray;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .productAddCartContent {
@@ -128,6 +127,7 @@
 }
 
 .horizontalProductContainer {
+  display: none;
   position: relative;
   width: 100%;
   height: auto;
@@ -202,8 +202,63 @@
   transform: translateX(-100%);
 }
 
+.buttonMobile {
+  color: white;
+  background-color: #808080;
+  opacity: 0.9;
+  padding: 4px 10px !important;
+  border-radius: 64px;
+  font-size: 12px;
+  border: unset;
+}
+
+.sliderProductMobileContainer {
+  opacity: 0.5;
+  pointer-events: auto;
+  transition: opacity 300ms ease 0s;
+  z-index: 999;
+  position: fixed;
+  background-color: #3f3f40;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+}
+
+.sliderProductMobileContent {
+  width: 50%;
+  max-width: 450px;
+  min-width: 230px;
+  pointer-events: auto;
+  transform: translate3d(0%, 0px, 0px);
+  position: fixed;
+  z-index: 1300;
+  inset: 0px;
+  flex-direction: column;
+  display: flex;
+  background-color: #fff;
+}
+
+.closeContent {
+  display: flex;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.buttonClose {
+  background-color: #c8c8c8;
+  padding: 0.75rem;
+  border-style: none;
+  border-width: 0;
+  text-transform: none;
+}
+
 @media screen and (min-width: 930px) {
-  .verticalProductSliderContent {
+  .horizontalProductContainer {
     display: initial;
+  }
+
+  .buttonMobile {
+    display: none;
   }
 }

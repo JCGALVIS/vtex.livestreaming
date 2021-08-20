@@ -8,8 +8,11 @@ import { VerticalProductSlider } from './components/ProductSlider/VerticalProduc
 import { useWebSocket } from './hooks/useWebSocket'
 import { useLivestreamingConfig } from './hooks/useLivestreamingConfig'
 import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingComponentOnScreen'
-import styles from './styles.module.css'
+import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsMobile'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
+import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
+
+import styles from './styles.module.css'
 
 type LivestreamingProps = {
   account: string
@@ -45,6 +48,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   } = props
 
   const divVideoContent = useRef<HTMLDivElement>(null)
+  const [showSliderProducts, setShowSliderProducts] = useState(false)
 
   const [height, setHeight] = useState(0)
 
@@ -117,6 +121,14 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
+        <SliderProductMobile
+          collectionId={collectionId}
+          infinite={scriptProperties?.infinite}
+          time={scriptProperties?.time}
+          height={height}
+          showSliderProducts={showSliderProducts}
+          setShowSliderProducts={setShowSliderProducts}
+        />
         <div
           style={{ height: height }}
           className={`${
@@ -145,6 +157,14 @@ export const Livestreaming = (props: LivestreamingProps) => {
           }`}
         >
           <div ref={divVideoContent} className={styles.videoContent}>
+            {collectionId && (
+              <div className={styles.buttonProductContent}>
+                <ButtonProductsMobile
+                  collectionId={collectionId}
+                  setShowSliderProducts={setShowSliderProducts}
+                />
+              </div>
+            )}
             <Video
               infoSocket={info}
               streamUrl={streamUrl}

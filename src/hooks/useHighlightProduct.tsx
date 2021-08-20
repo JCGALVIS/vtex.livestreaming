@@ -18,7 +18,8 @@ export const useHighlightProduct = ({
     price: 0,
     priceWithDiscount: 0,
     imageUrl: '',
-    addToCartLink: ''
+    addToCartLink: '',
+    isAvailable: true
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
 
@@ -30,7 +31,8 @@ export const useHighlightProduct = ({
       price: 0,
       priceWithDiscount: 0,
       imageUrl: '',
-      addToCartLink: ''
+      addToCartLink: '',
+      isAvailable: true
     })
     localStorage.removeItem('product')
   }
@@ -92,7 +94,8 @@ export const useHighlightProduct = ({
         priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
         price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
         imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.items[0]?.sellers[0]?.addToCartLink
+        addToCartLink: product?.items[0]?.sellers[0]?.addToCartLink,
+        isAvailable: product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable
       })
     }
 

@@ -9,7 +9,7 @@ type VerticalProductSliderProps = {
   collectionId: string | undefined
   time?: number
   infinite?: boolean
-  height: number
+  height?: number
 }
 
 export const VerticalProductSlider = ({
