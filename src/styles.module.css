@@ -72,7 +72,7 @@ input[type='text']:focus {
 
 .buttonProductContent {
   position: absolute;
-  top: 2rem;
+  top: 1.4rem;
   right: 1rem;
   z-index: 1;
 }
@@ -93,11 +93,11 @@ input[type='text']:focus {
   }
 
   .videoContainerChat {
-    flex: 0 1 70% !important;
+    flex: 0 1 75% !important;
   }
 
   .videoContainerProducts {
-    flex: 0 1 90% !important;
+    flex: 0 1 95% !important;
   }
 
   .videoContainerFull {
@@ -248,8 +248,8 @@ input[type='text']:focus {
   }
   .viewersContent {
     position: absolute;
-    top: 0.6rem;
-    left: 3.5rem;
+    top: 0.9rem;
+    left: 5rem;
   }
 }
 
@@ -260,8 +260,8 @@ input[type='text']:focus {
   }
   .viewersContent {
     position: absolute;
-    top: 0.6rem;
-    left: 3.5rem;
+    top: 0.9rem;
+    left: 5rem;
   }
 }
 
