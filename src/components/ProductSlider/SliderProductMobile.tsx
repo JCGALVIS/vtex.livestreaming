@@ -10,7 +10,7 @@ type SliderProductMobileProps = {
   collectionId: string | undefined
   time?: number
   infinite?: boolean
-  height: number
+  height: string
   showSliderProducts: boolean
   setShowSliderProducts: React.Dispatch<React.SetStateAction<boolean>>
 }

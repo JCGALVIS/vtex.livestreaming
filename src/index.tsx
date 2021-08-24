@@ -11,6 +11,7 @@ import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingCompo
 import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsMobile'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
+import { getMobileOS } from './utils/getMobileOs'
 
 import styles from './styles.module.css'
 
@@ -50,7 +51,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
 
-  const [height, setHeight] = useState(0)
+  const [height, setHeight] = useState('0')
 
   const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
     id: idLivestreaming,
@@ -66,8 +67,15 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const { scriptProperties, setScriptProperties, setShowCounter } = info
 
   const getHeight = () => {
-    if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
-      setHeight(divVideoContent.current?.clientHeight)
+    const detector = getMobileOS()
+    console.log('detector: ', detector)
+
+    if (detector === 'unknown') {
+      if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
+        setHeight(divVideoContent.current?.clientHeight.toString())
+    } else {
+      setHeight('auto')
+    }
   }
 
   useEffect(() => {
@@ -133,7 +141,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           />
         ) : null}
         <div
-          style={{ height: height }}
+          style={{ height: parseInt(height) }}
           className={`${
             scriptProperties?.sidebarProducts
               ? styles.sliderProductContent
@@ -145,12 +153,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
               collectionId={collectionId}
               infinite={scriptProperties.infinite}
               time={scriptProperties.time}
-              height={height - 58}
+              height={(parseInt(height) - 58).toString()}
             />
           )}
         </div>
         <div
-          style={{ height: height }}
+          style={{ height: parseInt(height) }}
           className={`${styles.videoContainer} ${
             !scriptProperties?.sidebarProducts && styles.videoContainerChat
           } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
@@ -195,7 +203,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           </div>
         </div>
         <div
-          style={{ height: height }}
+          style={{ height: parseInt(height) }}
           className={`${
             scriptProperties?.chat ? styles.chatContent : styles.displayNone
           }`}

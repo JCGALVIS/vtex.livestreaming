@@ -9,7 +9,7 @@ type VerticalProductSliderProps = {
   collectionId: string | undefined
   time?: number
   infinite?: boolean
-  height?: number
+  height: string
 }
 
 export const VerticalProductSlider = ({
@@ -77,7 +77,7 @@ export const VerticalProductSlider = ({
         <h1 className={styles.title}>Productos</h1>
       </div>
       <div
-        style={{ height: height }}
+        style={{ height: parseInt(height) }}
         className={styles.productList}
         ref={productLisRef}
         id='product-list'
