@@ -167,39 +167,41 @@ export const Livestreaming = (props: LivestreamingProps) => {
             styles.videoContainerFull
           }`}
         >
-          <div ref={divVideoContent} className={styles.videoContent}>
-            {scriptProperties?.sidebarProducts ||
-            scriptProperties?.productsCarousel ? (
-              <div className={styles.buttonProductContent}>
-                <ButtonProductsMobile
-                  collectionId={collectionId}
-                  setShowSliderProducts={setShowSliderProducts}
-                />
+          <div style={{ height: parseInt(height) }}>
+            <div ref={divVideoContent} className={styles.videoContent}>
+              {scriptProperties?.sidebarProducts ||
+              scriptProperties?.productsCarousel ? (
+                <div className={styles.buttonProductContent}>
+                  <ButtonProductsMobile
+                    collectionId={collectionId}
+                    setShowSliderProducts={setShowSliderProducts}
+                  />
+                </div>
+              ) : null}
+              <Video
+                infoSocket={info}
+                streamUrl={streamUrl}
+                collectionId={collectionId}
+              />
+              <div className={styles.liveContent}>
+                <Live infoSocket={info} />
               </div>
-            ) : null}
-            <Video
-              infoSocket={info}
-              streamUrl={streamUrl}
-              collectionId={collectionId}
-            />
-            <div className={styles.liveContent}>
-              <Live infoSocket={info} />
+              <div className={styles.viewersContent}>
+                <Viewers infoSocket={info} />
+              </div>
+              <div className={styles.likeContent}>
+                {scriptProperties?.like && <Like infoSocket={info} />}
+              </div>
             </div>
-            <div className={styles.viewersContent}>
-              <Viewers infoSocket={info} />
-            </div>
-            <div className={styles.likeContent}>
-              {scriptProperties?.like && <Like infoSocket={info} />}
-            </div>
-            <div className={styles.horizontalProductsContent}>
-              {scriptProperties?.productsCarousel && (
-                <HorizontalProductSlider
-                  collectionId={collectionId}
-                  infinite={scriptProperties.infinite}
-                  time={scriptProperties.time}
-                />
-              )}
-            </div>
+          </div>
+          <div className={styles.horizontalProductsContent}>
+            {scriptProperties?.productsCarousel && (
+              <HorizontalProductSlider
+                collectionId={collectionId}
+                infinite={scriptProperties.infinite}
+                time={scriptProperties.time}
+              />
+            )}
           </div>
         </div>
         <div

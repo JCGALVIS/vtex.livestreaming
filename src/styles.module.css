@@ -128,6 +128,11 @@ input[type='text']:focus {
     justify-content: center;
     padding: 0 10px;
   }
+
+  .videoContentOption {
+    position: relative;
+    width: 100%;
+  }
 }
 
 /* Styles video streaming */
