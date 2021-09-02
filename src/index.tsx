@@ -68,7 +68,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const getHeight = () => {
     const detector = getMobileOS()
-    console.log('detector: ', detector)
 
     if (detector === 'unknown') {
       if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
@@ -158,7 +157,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
           )}
         </div>
         <div
-          style={{ height: parseInt(height) }}
+          style={
+            !scriptProperties?.productsCarousel
+              ? { height: parseInt(height) }
+              : { height: 'auto' }
+          }
           className={`${styles.videoContainer} ${
             !scriptProperties?.sidebarProducts && styles.videoContainerChat
           } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
@@ -205,7 +208,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
           </div>
         </div>
         <div
-          style={{ height: parseInt(height) }}
+          style={
+            parseInt(height) > 0
+              ? { height: parseInt(height) }
+              : { height: 'auto' }
+          }
           className={`${
             scriptProperties?.chat ? styles.chatContent : styles.displayNone
           }`}
