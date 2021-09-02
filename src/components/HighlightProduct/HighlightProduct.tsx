@@ -53,8 +53,6 @@ const HighlightProduct = ({
     }
   }, [highlightProduct?.backgroundWhiteHighlight])
 
-  console.log(product)
-
   return (
     <Fragment>
       {show ? (

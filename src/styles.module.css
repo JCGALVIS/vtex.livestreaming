@@ -37,9 +37,7 @@ input[type='text']:focus {
 }
 
 .videoContent {
-  position: absolute;
-  right: 0;
-  left: 0;
+  position: relative;
   width: 100%;
 }
 
@@ -131,6 +129,13 @@ input[type='text']:focus {
 
   .videoContentOption {
     position: relative;
+    width: 100%;
+  }
+
+  .fittedContainer {
+    position: absolute;
+    right: 0;
+    left: 0;
     width: 100%;
   }
 }

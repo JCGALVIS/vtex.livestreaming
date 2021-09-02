@@ -52,6 +52,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [showSliderProducts, setShowSliderProducts] = useState(false)
 
   const [height, setHeight] = useState('0')
+  const [detector, setDetector] = useState('')
 
   const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
     id: idLivestreaming,
@@ -67,14 +68,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const { scriptProperties, setScriptProperties, setShowCounter } = info
 
   const getHeight = () => {
-    const detector = getMobileOS()
-
-    if (detector === 'unknown') {
-      if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
-        setHeight(divVideoContent.current?.clientHeight.toString())
-    } else {
-      setHeight('auto')
-    }
+    setDetector(getMobileOS())
+    if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
+      setHeight(divVideoContent.current?.clientHeight.toString())
   }
 
   useEffect(() => {
@@ -157,11 +153,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           )}
         </div>
         <div
-          style={
-            !scriptProperties?.productsCarousel
-              ? { height: parseInt(height) }
-              : { height: 'auto' }
-          }
+          style={{ height: parseInt(height) }}
           className={`${styles.videoContainer} ${
             !scriptProperties?.sidebarProducts && styles.videoContainerChat
           } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
@@ -170,8 +162,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
             styles.videoContainerFull
           }`}
         >
-          <div style={{ height: parseInt(height) }}>
-            <div ref={divVideoContent} className={styles.videoContent}>
+          <div ref={divVideoContent} className={styles.fittedContainer}>
+            <div className={styles.videoContent}>
               {scriptProperties?.sidebarProducts ||
               scriptProperties?.productsCarousel ? (
                 <div className={styles.buttonProductContent}>
@@ -196,20 +188,20 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 {scriptProperties?.like && <Like infoSocket={info} />}
               </div>
             </div>
-          </div>
-          <div className={styles.horizontalProductsContent}>
-            {scriptProperties?.productsCarousel && (
-              <HorizontalProductSlider
-                collectionId={collectionId}
-                infinite={scriptProperties.infinite}
-                time={scriptProperties.time}
-              />
-            )}
+            <div className={styles.horizontalProductsContent}>
+              {scriptProperties?.productsCarousel && (
+                <HorizontalProductSlider
+                  collectionId={collectionId}
+                  infinite={scriptProperties.infinite}
+                  time={scriptProperties.time}
+                />
+              )}
+            </div>
           </div>
         </div>
         <div
           style={
-            parseInt(height) > 0
+            detector === 'unknown'
               ? { height: parseInt(height) }
               : { height: 'auto' }
           }

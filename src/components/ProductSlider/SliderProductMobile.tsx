@@ -51,7 +51,7 @@ export const SliderProductMobile = ({
                   collectionId={collectionId}
                   time={time}
                   infinite={infinite}
-                  height={height + 50}
+                  height={(parseInt(height) + 50).toString()}
                 />
               </div>
             </div>
