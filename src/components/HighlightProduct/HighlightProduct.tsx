@@ -11,11 +11,13 @@ import styles from './highlightProduct.css'
 interface HighlightProductProps {
   infoSocket: InfoSocket
   collectionId: string | undefined
+  pdp: boolean
 }
 
 const HighlightProduct = ({
   infoSocket,
-  collectionId
+  collectionId,
+  pdp
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -99,7 +101,7 @@ const HighlightProduct = ({
                       !product.isAvailable && styles.noActive
                     }`}
                     disabled={!product.isAvailable}
-                    onClick={() => addToCart(product.id)}
+                    onClick={() => addToCart(product.id, pdp)}
                   >
                     {product.isAvailable ? 'Ver' : 'Indisponible'}
                   </button>

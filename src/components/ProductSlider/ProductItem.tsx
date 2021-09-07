@@ -13,6 +13,7 @@ type ProductItemProps = {
   imageUrl: string
   addToCartLink: string
   isAvailable: boolean
+  pdp: boolean
 }
 export const ProductItem = (props: ProductItemProps) => {
   const {
@@ -22,7 +23,8 @@ export const ProductItem = (props: ProductItemProps) => {
     priceWithDiscount,
     imageUrl,
     addToCartLink,
-    isAvailable
+    isAvailable,
+    pdp
   } = props
 
   return (
@@ -44,7 +46,7 @@ export const ProductItem = (props: ProductItemProps) => {
               !isAvailable && styles.noActive
             }`}
             disabled={!isAvailable}
-            onClick={() => addToCart(id)}
+            onClick={() => addToCart(id, pdp)}
           >
             {isAvailable ? 'Ver' : 'Indisponible'}
           </button>

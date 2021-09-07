@@ -8,9 +8,15 @@ type FeedProps = {
   streamUrl: string | undefined
   infoSocket: InfoSocket
   collectionId: string | undefined
+  pdp: boolean
 }
 
-export const Feed = ({ streamUrl, infoSocket, collectionId }: FeedProps) => {
+export const Feed = ({
+  streamUrl,
+  infoSocket,
+  collectionId,
+  pdp
+}: FeedProps) => {
   const { IVSPlayer } = window
   const { isPlayerSupported, MediaPlayer } = IVSPlayer
 
@@ -67,6 +73,7 @@ export const Feed = ({ streamUrl, infoSocket, collectionId }: FeedProps) => {
       streamUrl={streamUrl}
       infoSocket={infoSocket}
       collectionId={collectionId}
+      pdp={pdp}
     />
   ) : null
 }
