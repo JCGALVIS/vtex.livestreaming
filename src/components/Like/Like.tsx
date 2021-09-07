@@ -2,9 +2,9 @@ import React, { useMemo } from 'react'
 import IconHeart from '../icons/HeartIcon'
 import HeartComponent from './heart/Heart'
 import styles from './like.css'
-import getRandomColor from '../../utils/getRandomColor'
 // eslint-disable-next-line no-unused-vars
 import { Heart, InfoSocket } from '../../typings/livestreaming'
+import { getRandomColor } from '../../utils'
 
 interface LikeProps {
   infoSocket: InfoSocket

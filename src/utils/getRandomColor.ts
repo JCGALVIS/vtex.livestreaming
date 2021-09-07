@@ -1,4 +1,4 @@
-const getRandomColor = () => {
+export const getRandomColor = () => {
   const letters = '0123456789ABCDEF'
   let color = '#'
 
@@ -8,5 +8,3 @@ const getRandomColor = () => {
 
   return color
 }
-
-export default getRandomColor

@@ -11,7 +11,7 @@ import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingCompo
 import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsMobile'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
-import { getMobileOS } from './utils/getMobileOs'
+import { getMobileOS } from './utils'
 
 import styles from './styles.module.css'
 

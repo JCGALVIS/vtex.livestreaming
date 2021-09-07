@@ -20,7 +20,7 @@ import VolumeOffIcon from '../icons/VolumeOffIcon'
 import FullscreenIcon from '../icons/FullscreenIcon'
 import FullscreenExitIcon from '../icons/FullscreenExitIcon'
 import LoadingIcon from '../icons/LoadingIcon'
-import { getMobileOS } from '../../utils/getMobileOs'
+import { getMobileOS } from '../../utils'
 import HighlightProduct from '../HighlightProduct/HighlightProduct'
 // eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../typings/livestreaming'
