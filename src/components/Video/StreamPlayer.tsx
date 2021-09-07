@@ -44,12 +44,14 @@ export const StreamPlayer = ({
   player,
   streamUrl,
   infoSocket,
-  collectionId
+  collectionId,
+  pdp
 }: {
   player: MediaPlayer
   streamUrl: string | undefined
   infoSocket: InfoSocket
   collectionId: string | undefined
+  pdp: boolean
 }) => {
   const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
   const [overlay, setOverlay] = useState<boolean>(false)
@@ -430,6 +432,7 @@ export const StreamPlayer = ({
           <HighlightProduct
             infoSocket={infoSocket}
             collectionId={collectionId}
+            pdp={pdp}
           />
         )}
         <video

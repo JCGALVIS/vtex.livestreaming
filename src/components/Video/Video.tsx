@@ -11,9 +11,15 @@ type VideoProps = {
   streamUrl: string | undefined
   infoSocket: InfoSocket
   collectionId: string | undefined
+  pdp: boolean
 }
 
-export const Video = ({ streamUrl, infoSocket, collectionId }: VideoProps) => {
+export const Video = ({
+  streamUrl,
+  infoSocket,
+  collectionId,
+  pdp
+}: VideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
   const { isTransmiting } = infoSocket
@@ -44,6 +50,7 @@ export const Video = ({ streamUrl, infoSocket, collectionId }: VideoProps) => {
       streamUrl={streamUrl}
       infoSocket={infoSocket}
       collectionId={collectionId}
+      pdp={pdp}
     />
   ) : (
     <NoVideo isLive={infoSocket?.ivsRealTime?.status} />

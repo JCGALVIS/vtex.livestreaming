@@ -94,7 +94,7 @@ export const useHighlightProduct = ({
         priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
         price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
         imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.items[0]?.sellers[0]?.addToCartLink,
+        addToCartLink: product?.link,
         isAvailable: product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable
       })
     }

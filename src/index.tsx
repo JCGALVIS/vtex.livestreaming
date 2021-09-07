@@ -25,6 +25,7 @@ type LivestreamingProps = {
   inactivateViewers?: string
   isInfinite?: string
   time?: string
+  pdp?: string
 }
 
 type MarketingData = {
@@ -45,7 +46,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     isInfinite,
     time,
     inactiveSidebarProducts,
-    inactiveProductsCarousel
+    inactiveProductsCarousel,
+    pdp
   } = props
 
   const divVideoContent = useRef<HTMLDivElement>(null)
@@ -97,7 +99,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
       chat: inactivateChat === 'undefined' ? true : inactivateChat === 'true',
       like: inactivateLike === 'undefined' ? true : inactivateLike === 'true',
       infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
-      time: time === 'undefined' ? 10 : time ? parseInt(time) : 1
+      time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
+      pdp: pdp === 'undefined' ? false : pdp === 'true'
     })
   }, [scriptProperties])
 
@@ -133,6 +136,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
             height={height}
             showSliderProducts={showSliderProducts}
             setShowSliderProducts={setShowSliderProducts}
+            pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
           />
         ) : null}
         <div
@@ -149,6 +153,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               infinite={scriptProperties.infinite}
               time={scriptProperties.time}
               height={(parseInt(height) - 58).toString()}
+              pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
             />
           )}
         </div>
@@ -177,6 +182,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 infoSocket={info}
                 streamUrl={streamUrl}
                 collectionId={collectionId}
+                pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -194,6 +200,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   collectionId={collectionId}
                   infinite={scriptProperties.infinite}
                   time={scriptProperties.time}
+                  pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
                 />
               )}
             </div>
@@ -231,5 +238,6 @@ Livestreaming.defaultProps = {
   inactivateLike: 'true',
   inactivateViewers: 'true',
   isInfinite: 'true',
-  time: '10'
+  time: '10',
+  pdp: 'true'
 }

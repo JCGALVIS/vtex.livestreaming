@@ -1,7 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-export const addToCart = (idProduct: string) => {
-  const link = document.getElementById(`add-cart-${idProduct}`)
-  console.log(link)
+export const addToCart = (idProduct: string, pdp: boolean) => {
+  const event = new CustomEvent('addToCartPortal')
 
-  if (link) link.click()
+  if (!pdp) {
+    document.dispatchEvent(event)
+  } else {
+    const link = document.getElementById(`add-cart-${idProduct}`)
+    if (link) link.click()
+  }
 }

@@ -10,13 +10,15 @@ type VerticalProductSliderProps = {
   time?: number
   infinite?: boolean
   height: string
+  pdp: boolean
 }
 
 export const VerticalProductSlider = ({
   collectionId,
   time,
   infinite,
-  height
+  height,
+  pdp
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({ collectionId })
   const [isMouseOver, setIsMouseOver] = useState(false)
@@ -84,7 +86,7 @@ export const VerticalProductSlider = ({
       >
         {products.length > 0 &&
           products.map((product: any) => (
-            <ProductItem key={product.id} {...product} />
+            <ProductItem key={product.id} {...product} pdp={pdp} />
           ))}
       </div>
     </div>
