@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { formatterDolar } from './../../utils/getFormatMoney'
-import { addToCart } from '../../utils/addToCart'
+import { formatterDolar } from '../../utils'
+import ProductButton from './../ProductsButton/ProductButton'
 
 import styles from './productSlider.css'
 
@@ -41,24 +41,12 @@ export const ProductItem = (props: ProductItemProps) => {
           Para {formatterDolar.format(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          <button
-            className={`${styles.productAddCart} ${
-              !isAvailable && styles.noActive
-            }`}
-            disabled={!isAvailable}
-            onClick={() => addToCart(id, pdp)}
-          >
-            {isAvailable ? 'Ver' : 'Indisponible'}
-          </button>
-          <div>
-            <a
-              id={`add-cart-${id}`}
-              className='add-cart'
-              target='_blank'
-              rel='noreferrer'
-              href={addToCartLink}
-            />
-          </div>
+          <ProductButton
+            addToCartLink={addToCartLink}
+            isAvailable={isAvailable}
+            pdp={pdp}
+            productId={id}
+          />
         </div>
       </div>
     </div>

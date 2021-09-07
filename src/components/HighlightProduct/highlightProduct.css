@@ -95,26 +95,6 @@
   align-items: center;
 }
 
-.productAddCart {
-  width: 100%;
-  display: block;
-  height: 36px;
-  color: #001738;
-  font-weight: bolder;
-  text-align: center;
-  line-height: 36px;
-  font-size: 14px;
-  text-transform: uppercase;
-  background: #e3e4e6;
-  border-radius: 10px;
-  text-decoration: none;
-  border: 0;
-}
-
-.productAddCart:hover {
-  cursor: pointer;
-}
-
 .productDiscounted {
   font-weight: bold;
 }

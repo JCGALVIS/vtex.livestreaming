@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-
-import { getProducts } from './../utils/getProducts'
+import { getProducts } from '../utils'
 
 type useFetchProductsProps = {
   collectionId: string | undefined

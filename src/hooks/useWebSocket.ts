@@ -8,9 +8,9 @@ import {
   HighlightProduct,
   ScriptProperties
 } from './../typings/livestreaming'
-import getRandomColor from '../utils/getRandomColor'
 import { useSessionId } from './useSessionId'
-import { getDeviceType } from '../utils/getMobileOs'
+import { getDeviceType, getRandomColor } from '../utils'
+
 declare interface Props {
   wssStream: string | undefined
 }

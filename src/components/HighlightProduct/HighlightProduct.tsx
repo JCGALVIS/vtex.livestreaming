@@ -1,13 +1,13 @@
-import React, { useState, Fragment, useEffect, useRef } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 // eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../typings/livestreaming'
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
-import { formatterDolar } from '../../utils/getFormatMoney'
-import { addToCart } from '../../utils/addToCart'
 
 import styles from './highlightProduct.css'
+import ProductButton from '../ProductsButton/ProductButton'
+import { formatterDolar } from '../../utils'
 interface HighlightProductProps {
   infoSocket: InfoSocket
   collectionId: string | undefined
@@ -22,7 +22,6 @@ const HighlightProduct = ({
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
   const { ivsRealTime, highlightProduct } = infoSocket
-  const divProduct = useRef<HTMLDivElement>(null)
 
   const { product, showProduct, handlerCloseCard } = useHighlightProduct({
     highlightProduct,
@@ -96,23 +95,12 @@ const HighlightProduct = ({
                   </p>
                 </div>
                 <div className={styles.productAddCartContent}>
-                  <button
-                    className={`${styles.productAddCart} ${
-                      !product.isAvailable && styles.noActive
-                    }`}
-                    disabled={!product.isAvailable}
-                    onClick={() => addToCart(product.id, pdp)}
-                  >
-                    {product.isAvailable ? 'Ver' : 'Indisponible'}
-                  </button>
-                  <div ref={divProduct} id={product.id}>
-                    <a
-                      id={`add-cart-${product.id}`}
-                      href={product.addToCartLink}
-                      target='_blank'
-                      rel='noreferrer'
-                    />
-                  </div>
+                  <ProductButton
+                    addToCartLink={product.addToCartLink}
+                    isAvailable={product.isAvailable}
+                    pdp={pdp}
+                    productId={product.id}
+                  />
                 </div>
               </div>
             </div>
