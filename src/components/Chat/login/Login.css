@@ -1,0 +1,155 @@
+.loginContainer {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  z-index: 100;
+  bottom: 0px;
+  left: 0px;
+  background: white;
+  padding: 0px;
+  border-radius: 10px 10px 0 0;
+  transition: all 0.9s;
+}
+
+.label {
+  text-align: left;
+  color: rgba(87, 83, 83);
+  font-size: 18px;
+  font-weight: bolder;
+  width: 100%;
+}
+
+.inputContainer {
+  width: 100%;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input {
+  padding: 1px 16px;
+  height: 40px;
+  width: 100%;
+  max-width: 100%;
+  border: solid .125rem #cacbcc;
+  border-radius: .25rem;
+  box-sizing: border-box;
+}
+
+.inputContainer {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeCardBtn {
+  background: transparent;
+  border: none;
+  position: absolute;
+  padding: 0px;
+  right: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #919191;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 5px #00000059;
+  margin-bottom: 0px;
+  padding: 24px;
+  border-radius: 10px 10px 0 0;
+}
+
+.loginForm > button {
+  width: 100%;
+  height: 36px;
+}
+
+.btnText {
+  font-size: 15px;
+  padding: 0;
+}
+
+.inputError{
+  border: solid .125rem #e13232;
+  border-radius: .25rem;
+}
+
+.inputErrorMessage {
+  font-family: Fabriga, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  font-weight: normal;
+  font-size: .875rem;
+  text-transform: initial;
+  letter-spacing: 0;
+  color: #e13232;
+  text-align: left;
+  width: 100%;
+  margin: 8px 0px 0px 0px;
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width: 320px) {
+  .loginContainer {
+    position: fixed;
+    width: 100%;
+    left: 0px;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width: 410px) {
+  .loginContainer {
+    position: fixed;
+    width: 100%;
+    left: 0px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+  .loginContainer {
+    width: 100%;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+  .loginContainer {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    bottom: 0px;
+    left: 0px;
+    background: white;
+    padding: 0px;
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+  .loginContainer {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    bottom: 0px;
+    left: 0px;
+    background: white;
+    padding: 0px;
+    border-radius: 10px 10px 0 0;
+  }
+}

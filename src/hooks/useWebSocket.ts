@@ -33,6 +33,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [scriptProperties, setScriptProperties] = useState<
     ScriptProperties | undefined
   >()
+  const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>()
 
   const createWebSocket = useCallback(() => {
     if (!wssStream || socket) return
@@ -72,7 +73,8 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         infinite,
         time,
         backgroundWhiteHighlight,
-        pdp
+        pdp,
+        emailIsRequired
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -98,6 +100,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
         case 'sendshowCounter':
           setShowCounter(data)
+          setEmailIsRequired(emailIsRequired)
           break
 
         case 'sendhighlightproduct':
@@ -130,22 +133,26 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setSocket(connection)
   }, [wssStream])
 
-  const sendAccountId = useCallback(() => {
-    if (!isConnected || !socket) return
+  const sendAccountId = useCallback(
+    (username?: string, email?: string) => {
+      if (!isConnected || !socket) return
 
-    const getId = async () => {
-      socket.send(
-        JSON.stringify({
-          action: 'sendaccountid',
-          data: sessionId,
-          username: undefined,
-          device: getDeviceType()
-        })
-      )
-    }
+      const getId = async () => {
+        socket.send(
+          JSON.stringify({
+            action: 'sendaccountid',
+            data: sessionId,
+            username: username,
+            device: getDeviceType(),
+            email: email
+          })
+        )
+      }
 
-    getId().catch(null)
-  }, [isConnected, socket, isTransmiting, uniqueViewer])
+      getId().catch(null)
+    },
+    [isConnected, socket, isTransmiting, uniqueViewer]
+  )
 
   useEffect(() => {
     if (!socket) return () => {}
@@ -183,6 +190,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     ivsRealTime,
     showCounter,
     isTransmiting,
+    emailIsRequired,
     setHearts,
     setChat,
     setIvsRealTime,

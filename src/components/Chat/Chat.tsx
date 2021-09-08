@@ -5,10 +5,9 @@ import Input from '@vtex/styleguide/lib/Input'
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
 import MessageRenderer from './MessageRenderer'
-// eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../typings/livestreaming'
 import { useChat } from '../../hooks/useChat'
-
+import { Login } from './login/Login'
 import styles from './chat.css'
 
 type ChatProps = {
@@ -33,6 +32,11 @@ export const Chat = ({
     idLivestreaming,
     account
   })
+  const [showLoginWindow, setShowLoginWindow] = useState(false)
+  const [sendFirstMessage, setSendFirstMessage] = useState(false)
+  const [userIsLoggedInChat, setUserIsLoggedInChat] = useState(false)
+  //const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
+
 
   const handlerSendMessage = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -40,6 +44,12 @@ export const Chat = ({
     const isEmpty = !(content !== null && content.trim() !== '')
 
     if (isEmpty || !socket) {
+      return
+    }
+
+    if (!userIsLoggedInChat) {
+      setTimeout(() => setShowLoginWindow(true), 200)
+
       return
     }
 
@@ -74,6 +84,18 @@ export const Chat = ({
     if (setChat) setChat([])
   }, [chatHistory, setChat])
 
+  useEffect(() => {
+    const isLogged = localStorage.getItem('userIsLoggedInChat')
+
+    if (!isLogged) return
+    const userLoggedStorage = JSON.parse(isLogged)
+
+    if (userLoggedStorage.id !== idLivestreaming) return
+
+    setUserIsLoggedInChat(true)
+    setShowLoginWindow(false)
+  }, [idLivestreaming])
+
   return (
     <div className={styles.chatContainer}>
       <div className={styles.liveChatContainer}>
@@ -84,6 +106,19 @@ export const Chat = ({
         <div className={styles.chatArea} ref={chatAreaRef}>
           {ChatMessages}
         </div>
+
+        {showLoginWindow && (
+          <Login
+            setShowLoginWindow={setShowLoginWindow}
+            setUserIsLoggedInChat={setUserIsLoggedInChat}
+            setSendFirstMessage={setSendFirstMessage}
+            content={content}
+            setContent={setContent}
+            infoSocket={infoSocket}
+            idLivestreaming={idLivestreaming}
+          />
+        )}
+
         <form onSubmit={handlerSendMessage} className={styles.inputChatContent}>
           <div className={styles.inputContent}>
             <Input
@@ -92,6 +127,9 @@ export const Chat = ({
               resize='none'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setContent(e.target.value)
+              }
+              onFocus={() =>
+                setShowLoginWindow(!userIsLoggedInChat && sendFirstMessage)
               }
               value={content}
               autoComplete='off'
