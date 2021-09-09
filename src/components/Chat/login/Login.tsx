@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
-import Button from '@vtex/styleguide/lib/Button'
 
 import styles from './Login.css'
 import { InfoSocket } from '../../../typings/livestreaming'
@@ -68,23 +67,6 @@ export const Login = ({
   }
 
   const usernameIsValid = async () => {
-    /*const response = await client.query({
-      query: USERNAME_EXIST,
-      variables: { id, username },
-    })
-
-    const isEmptyUsername = !(username !== null && username.trim() !== '')
-
-    const isValid = !response.data.usernameExist.exist && !isEmptyUsername
-
-    if (!isValid) {
-      const errorMessage = !response.data.usernameExist.exist
-        ? intl.formatMessage(message.loginInvalidUsername)
-        : intl.formatMessage(message.usernameAlreadyExist)
-
-      setErrorUsername(errorMessage)
-    }*/
-
     const isEmptyUsername = !(username !== null && username.trim() !== '')
     setErrorUsername(isEmptyUsername)
 
@@ -165,9 +147,7 @@ export const Login = ({
           ) : null}
         </div>
 
-        <Button type='submit' variation='primary' size='regular' block>
-          <div className={styles.btnText}>CONTINUAR CON EL CHAT</div>
-        </Button>
+        <button type='submit' className={styles.btn}>CONTINUAR CON EL CHAT</button>
       </form>
     </div>
   )

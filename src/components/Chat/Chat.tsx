@@ -1,6 +1,5 @@
 import React, { useRef, useState, useMemo, useEffect } from 'react'
 import Button from '@vtex/styleguide/lib/Button'
-import Input from '@vtex/styleguide/lib/Input'
 
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
@@ -35,8 +34,6 @@ export const Chat = ({
   const [showLoginWindow, setShowLoginWindow] = useState(false)
   const [sendFirstMessage, setSendFirstMessage] = useState(false)
   const [userIsLoggedInChat, setUserIsLoggedInChat] = useState(false)
-  //const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
-
 
   const handlerSendMessage = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -121,10 +118,11 @@ export const Chat = ({
 
         <form onSubmit={handlerSendMessage} className={styles.inputChatContent}>
           <div className={styles.inputContent}>
-            <Input
+            <input
+              className={styles.inputTextChat}
               placeholder={placeholder}
               name='content'
-              resize='none'
+              type="text"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setContent(e.target.value)
               }
