@@ -39,7 +39,7 @@ export const useHighlightProduct = ({
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight) return
-    const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
+    const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
     if (highlightProduct && !highlightProduct?.showProduct)
       localStorage.removeItem('product')
