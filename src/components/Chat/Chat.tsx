@@ -6,7 +6,7 @@ import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
 import MessageRenderer from './MessageRenderer'
 // eslint-disable-next-line no-unused-vars
-import { InfoSocket } from '../../typings/livestreaming'
+import { InfoSocket, Message } from '../../typings/livestreaming'
 import { useChat } from '../../hooks/useChat'
 
 import styles from './chat.css'
@@ -19,6 +19,8 @@ type ChatProps = {
   account: string
 }
 
+const NUMBER_OF_PREVIOUS_MESSAGES = 10
+
 export const Chat = ({
   title,
   placeholder,
@@ -29,6 +31,7 @@ export const Chat = ({
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<string>('')
   const { socket, chat, setChat, sessionId } = infoSocket
+  const [chatFiltered, setChatFiltered] = useState<Message[]>([])
   const { chatHistory } = useChat({
     idLivestreaming,
     account
@@ -55,9 +58,19 @@ export const Chat = ({
   }
 
   const ChatMessages = useMemo(
-    () => MessageRenderer(chatHistory || [], chat),
-    [chatHistory, chat]
+    () => MessageRenderer(chatFiltered || []),
+    [chatFiltered, chat]
   )
+
+  useEffect(() => {
+    if (!chat || !chatAreaRef?.current) return
+
+    if (chat.length > 0)
+      setChatFiltered(chat.slice(-NUMBER_OF_PREVIOUS_MESSAGES))
+
+    if (chatHistory.length > 0)
+      setChatFiltered(chatHistory.slice(-NUMBER_OF_PREVIOUS_MESSAGES))
+  }, [chat, chatHistory])
 
   useEffect(() => {
     if (chatAreaRef?.current) {
@@ -72,7 +85,7 @@ export const Chat = ({
 
   useEffect(() => {
     if (setChat) setChat([])
-  }, [chatHistory, setChat])
+  }, [setChat])
 
   return (
     <div className={styles.chatContainer}>
