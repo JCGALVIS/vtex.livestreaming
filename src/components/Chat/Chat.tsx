@@ -1,8 +1,7 @@
 import React, { useRef, useState, useMemo, useEffect } from 'react'
-import Button from '@vtex/styleguide/lib/Button'
 
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
-import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
+import SendIcon from '../icons/Send'
 import MessageRenderer from './MessageRenderer'
 import { InfoSocket } from '../../typings/livestreaming'
 import { useChat } from '../../hooks/useChat'
@@ -133,10 +132,10 @@ export const Chat = ({
               autoComplete='off'
             />
           </div>
-          <div className={styles.buttonConetnt}>
-            <Button type='submit' variation='primary'>
-              <ArrowRightLivestreaming size='40' viewBox='0 0 400 400' />
-            </Button>
+          <div >
+            <button type='submit'className={styles.btn}>
+              <SendIcon size='21' viewBox='0 0 21 21' />
+            </button>
           </div>
         </form>
       </div>

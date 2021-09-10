@@ -191,14 +191,15 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     showCounter,
     isTransmiting,
     emailIsRequired,
+    highlightProduct,
+    scriptProperties,
     setHearts,
     setChat,
     setIvsRealTime,
     setIsTransmiting,
     sendAccountId,
-    highlightProduct,
-    scriptProperties,
     setScriptProperties,
-    setShowCounter
+    setShowCounter,
+    setEmailIsRequired,
   }
 }

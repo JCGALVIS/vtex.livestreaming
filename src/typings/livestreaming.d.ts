@@ -53,6 +53,7 @@ export declare interface InfoSocket {
     React.SetStateAction<ScriptProperties | undefined>
   >
   setShowCounter: React.Dispatch<React.SetStateAction<boolean | undefined>>
+  setEmailIsRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>
 }
 
 export declare interface Products {

@@ -76,27 +76,8 @@
 }
 
 .buttonConetnt {
-  flex: 0 1 10%;
-}
-
-.buttonConetnt button {
-  border-radius: 0px 1.4rem 1.4rem 0px;
-  background: #e3e4e6;
-  border: 1px solid #e3e4e6;
-  padding: 0.185rem;
-}
-
-.buttonConetnt button div {
-  display: flex;
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-  align-content: center;
-  width: 100%;
-}
-
-.buttonConetnt button svg {
-  height: 25px;
-  width: 25px;
+  width: 40px;
+  height: 40px;
 }
 
 .chatBubbleContainer {
@@ -139,11 +120,27 @@
   outline: none;
   flex: 1 1 auto;
   min-width: 0;
-  width: 100%;
+  width: 85%;
   font: 400 13px Arial;
 }
+
 .inputTextChat::placeholder {
   color: #ffffff;
+}
+
+.btn {
+  border-radius: 0px 20px 20px 0px;
+  background: #141415;
+  border-color: none;
+  border: none;
+  padding-right: 15px;
+  color: #ffffff;
+  height: 40px;
+  border: none;
+}
+
+.btn:hover {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 930px) {
@@ -195,7 +192,9 @@
     align-items: center;
   }
   .profileIcon {
-    display: initial;
+    display: flex;
+    align-items: center;
+    justify-content: start;
   }
   .chatUser {
     font-size: 13px;
@@ -219,18 +218,7 @@
     padding-right: 0;
   }
   .inputContent {
-    margin-right: 10px;
     flex: 0 1 calc(90% - 0.4rem);
-  }
-  .buttonConetnt {
-    text-align: end;
-  }
-  .buttonConetnt button {
-    border-radius: 0;
-  }
-  .buttonConetnt button div svg {
-    width: 40px;
-    height: 40px;
   }
   .chatTextContainer {
     display: flex;
@@ -256,13 +244,36 @@
     height: 40px;
     width: 100%;
     max-width: 100%;
-    border-radius: .25rem;
+    border-radius: 0px;
     box-sizing: border-box;
 
     cursor: text;
     background-color: rgb(255, 255, 255);
+    border-bottom: 1px solid gray;
   }
   .inputTextChat::placeholder {
-    color: rgb(59, 59, 59);
+    color: rgb(118, 118, 118);
+  }
+  .btn {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(118, 118, 118);
+    background: #e3e4e6;
+    border: 1px solid #e3e4e6;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    text-decoration: none;
+    border: 0;
+    border-radius: 0px;
+    padding: 0px;
+  }
+
+  .btn:hover {
+    cursor: pointer;
   }
 }
