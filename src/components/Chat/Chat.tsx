@@ -65,12 +65,8 @@ export const Chat = ({
   useEffect(() => {
     if (!chat || !chatAreaRef?.current) return
 
-    if (chat.length > 0)
-      setChatFiltered(chat.slice(-NUMBER_OF_PREVIOUS_MESSAGES))
-
-    if (chatHistory.length > 0)
-      setChatFiltered(chatHistory.slice(-NUMBER_OF_PREVIOUS_MESSAGES))
-  }, [chat, chatHistory])
+    setChatFiltered(chat.slice(-NUMBER_OF_PREVIOUS_MESSAGES))
+  }, [chat])
 
   useEffect(() => {
     if (chatAreaRef?.current) {
@@ -85,7 +81,7 @@ export const Chat = ({
 
   useEffect(() => {
     if (setChat) setChat([])
-  }, [setChat])
+  }, [setChat, chatHistory])
 
   return (
     <div className={styles.chatContainer}>
