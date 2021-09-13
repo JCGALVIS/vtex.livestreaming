@@ -6,11 +6,13 @@ import { HighlightProduct } from './../typings/livestreaming'
 type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
+  originOfProducts: string
 }
 
 export const useHighlightProduct = ({
   highlightProduct,
-  collectionId
+  collectionId,
+  originOfProducts
 }: useHighlightProductProps) => {
   const [product, setProduct] = useState({
     id: '',
@@ -63,8 +65,7 @@ export const useHighlightProduct = ({
     ) {
       localStorage.setItem('collectionId', collectionId)
 
-      getProducts({ collectionId }).then((data: any) => {
-        console.log('data', data)
+      getProducts({ collectionId, originOfProducts }).then((data: any) => {
         if (data && data.length > 0) {
           localStorage.setItem('products', JSON.stringify(data))
         }
@@ -84,8 +85,6 @@ export const useHighlightProduct = ({
       const product = products.find(
         (product: { id: string | undefined }) => product.id === productId
       )
-
-      console.log('product: ', product)
 
       if (product) {
         setProduct({
