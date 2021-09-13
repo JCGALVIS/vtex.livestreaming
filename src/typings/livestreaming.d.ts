@@ -42,6 +42,7 @@ export declare interface InfoSocket {
   showCounter: boolean | undefined
   isTransmiting: boolean
   emailIsRequired: boolean | undefined
+  question?: Question
   setHearts: React.Dispatch<React.SetStateAction<Heart[]>>
   setChat: React.Dispatch<React.SetStateAction<Message[]>>
   setIsTransmiting: React.Dispatch<React.SetStateAction<boolean>>
@@ -54,6 +55,7 @@ export declare interface InfoSocket {
   >
   setShowCounter: React.Dispatch<React.SetStateAction<boolean | undefined>>
   setEmailIsRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>
+  setQuestion?: React.Dispatch<React.SetStateAction<Question | undefined>>
 }
 
 export declare interface Products {
@@ -64,4 +66,19 @@ export declare interface Products {
   imageUrl: string
   addToCartLink: string
   isAvailable: boolean
+}
+
+export declare interface Question {
+  answers?: Answer[]
+  question?: string
+  index?: number
+  type?: string
+  status?: string
+  time?: number
+  totalVotes?: number
+  date?: number
+}
+declare interface Answer {
+  text: string
+  votes: number
 }

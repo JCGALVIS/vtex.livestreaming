@@ -1,0 +1,24 @@
+.buttonContenModal {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.timeContent {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.answerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.answerText {
+  flex: 1;
+}
+
+.answerVotes {
+  flex: 1;
+}
