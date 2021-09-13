@@ -213,7 +213,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
         <div
           style={
             detector === 'unknown'
-              ? { height: parseInt(height) }
+              ? { height: parseInt(height), maxHeight: parseInt(height) }
               : { height: 'auto' }
           }
           className={`${
