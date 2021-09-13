@@ -5,17 +5,23 @@ import 'vtex.livestreaming/dist/index.css'
 import './app.css'
 
 const App = () => {
+  document.addEventListener('addToCartPortal', () => {
+    alert('Add to cart...')
+  })
+
+
   return (
     <Livestreaming
-      idLivestreaming='83baba75-834a-426e-b2fa-15a11d0c6e5c'
+      idLivestreaming='76e21788-1ff4-49dd-883a-20ca90d94e79'
       account='livestreamingdemo'
-      inactiveSidebarProducts='_INACTIVESIDEBARPRODUCTS'
-      inactiveProductsCarousel='_INACTIVEPRODUCTSCAROUSEL'
+      inactiveSidebarProducts='true'
+      inactiveProductsCarousel='false'
       inactivateChat='true'
       inactivateLike='true'
       inactivateViewers='true'
-      isInfinite='_ISINFINITE'
-      time='_TIME'
+      isInfinite='true'
+      time='10'
+      pdp='false'
     />
   )
 }
