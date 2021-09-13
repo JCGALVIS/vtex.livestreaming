@@ -1,9 +1,9 @@
 .chatContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background-color: unset;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: unset !important;
 }
 
 .liveChatContainer {
@@ -11,16 +11,16 @@
 }
 
 .chatContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
   font-size: 16px;
 }
 
 .chatArea {
-  width: 100%;
-  height: 23vh;
-  overflow: auto;
+  width: 100% !important;
+  height: 23vh !important;
+  overflow: auto !important;
 }
 
 .chatArea::-webkit-scrollbar {
@@ -110,26 +110,26 @@
     height: 100%;
   }
   .liveChatContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: whitesmoke;
-    padding: 0 1rem;
-    margin-bottom: 0.5rem;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: whitesmoke !important;
+    padding: 0 1rem !important;
+    margin-bottom: 0.5rem !important;
   }
   .liveChatText {
     font-size: 15px;
   }
   .chatContent {
-    flex: 1;
+    flex: 1 !important;
     background: whitesmoke;
     font-size: 12px;
     height: 84%;
   }
   .chatArea {
     flex: 1;
-    height: calc(100vh - 169px);
-    overflow-y: scroll;
+    height: calc(100vh - 169px) !important;
+    overflow-y: scroll !important;
   }
   .chatArea::-webkit-scrollbar {
     width: 4px;
