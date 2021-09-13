@@ -41,10 +41,11 @@ export declare interface InfoSocket {
   ivsRealTime: IvsRealTime | undefined
   showCounter: boolean | undefined
   isTransmiting: boolean
+  emailIsRequired: boolean | undefined
   setHearts: React.Dispatch<React.SetStateAction<Heart[]>>
   setChat: React.Dispatch<React.SetStateAction<Message[]>>
   setIsTransmiting: React.Dispatch<React.SetStateAction<boolean>>
-  sendAccountId: () => void
+  sendAccountId: (username?: string, email?: string) => void
   setIvsRealTime: React.Dispatch<React.SetStateAction<IvsRealTime | undefined>>
   highlightProduct?: HighlightProduct | undefined
   scriptProperties?: ScriptProperties | undefined
@@ -52,6 +53,7 @@ export declare interface InfoSocket {
     React.SetStateAction<ScriptProperties | undefined>
   >
   setShowCounter: React.Dispatch<React.SetStateAction<boolean | undefined>>
+  setEmailIsRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>
 }
 
 export declare interface Products {

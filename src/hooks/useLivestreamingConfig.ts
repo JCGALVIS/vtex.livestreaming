@@ -12,6 +12,9 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
     undefined
   )
   const [utm, setUtm] = useState<string | undefined>(undefined)
+  const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>(
+    undefined
+  )
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -30,6 +33,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
 
       setWssStream(data?.webClient?.streamWSS)
       setStreamUrl(data?.webClient?.streamURL)
+      setEmailIsRequired(data?.webClient?.emailIsRequired)
       setCollectionId(data?.collection?.id)
       setUtm(data?.utm)
     }
@@ -37,5 +41,5 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
     getLivestreaming().catch(null)
   }, [id, account])
 
-  return { wssStream, streamUrl, collectionId, utm }
+  return { wssStream, streamUrl, collectionId, utm, emailIsRequired }
 }

@@ -56,7 +56,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
 
-  const { wssStream, streamUrl, collectionId, utm } = useLivestreamingConfig({
+  const { wssStream, streamUrl, collectionId, utm, emailIsRequired } = useLivestreamingConfig({
     id: idLivestreaming,
     account
   })
@@ -67,7 +67,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const info = useWebSocket({ wssStream })
 
-  const { scriptProperties, setScriptProperties, setShowCounter } = info
+  const { scriptProperties, setScriptProperties, setShowCounter, setEmailIsRequired } = info
 
   const getHeight = () => {
     setDetector(getMobileOS())
@@ -103,6 +103,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
       pdp: pdp === 'undefined' ? false : pdp === 'true'
     })
   }, [scriptProperties])
+
+  useEffect(() => {
+    setEmailIsRequired(emailIsRequired)
+  }, [emailIsRequired])
 
   useEffect(() => {
     if (!livestreaminComponentInView || !window.vtexjs) return () => {}
@@ -219,7 +223,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           {scriptProperties?.chat && (
             <Chat
               title='Chat'
-              placeholder='Di algo...'
+              placeholder='Comenta aqui...'
               infoSocket={info}
               idLivestreaming={idLivestreaming}
               account={account}
