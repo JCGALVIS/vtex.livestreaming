@@ -1,3 +1,4 @@
+import { config } from './../config'
 import { apiCall } from './../api/apiCall'
 
 type getProductsProps = {
@@ -44,7 +45,7 @@ const getProductsVtex = async ({ collectionId }: getProductsProps) => {
 }
 
 const getProductsPlatform = async () => {
-  const url = 'http://localhost:3001/productsProtal'
+  const url = config.API_PLATFORM + '/products'
 
   const { data } = await apiCall({ url })
 
