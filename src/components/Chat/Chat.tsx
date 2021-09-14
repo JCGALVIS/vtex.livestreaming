@@ -129,6 +129,7 @@ export const Chat = ({
         <ModalQuestion
           infoSocket={infoSocket}
           idLivestreaming={idLivestreaming}
+          account={account}
         />
 
         <form onSubmit={handlerSendMessage} className={styles.inputChatContent}>

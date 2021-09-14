@@ -7,15 +7,15 @@ import './app.css'
 const App = () => {
   return (
     <Livestreaming
-      idLivestreaming='83baba75-834a-426e-b2fa-15a11d0c6e5c'
+      idLivestreaming='f0f2658b-854e-427d-83d6-eb8259367d81'
       account='livestreamingdemo'
-      inactiveSidebarProducts='_INACTIVESIDEBARPRODUCTS'
-      inactiveProductsCarousel='_INACTIVEPRODUCTSCAROUSEL'
+      inactiveSidebarProducts='true'
+      inactiveProductsCarousel='true'
       inactivateChat='true'
       inactivateLike='true'
       inactivateViewers='true'
-      isInfinite='_ISINFINITE'
-      time='_TIME'
+      isInfinite='true'
+      time='true'
     />
   )
 }

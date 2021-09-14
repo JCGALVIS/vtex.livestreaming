@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import Button  from '@vtex/styleguide/lib/Button'
+import Button from '@vtex/styleguide/lib/Button'
 
 import Modal from '../Modal/Modal'
 import QuestionPoll from './QuestionPoll'
@@ -8,14 +8,20 @@ import QuestionQuiz from './QuestionQuiz'
 import Answer from './Answer'
 import useUpdateVotes from '../../hooks/useUpdateVotes'
 import type { InfoSocket, Question } from '../../typings/liveStreaming'
+import { apiCall } from '../../api/apiCall'
 import styles from './question.css'
 
 declare interface Props {
   infoSocket: InfoSocket
   idLivestreaming: string
+  account: string
 }
 
-export const ModalQuestion = ({infoSocket, idLivestreaming}: Props) => {
+export const ModalQuestion = ({
+  infoSocket,
+  idLivestreaming,
+  account
+}: Props) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [typeQuestion, setTypeQuestion] = useState<string | undefined>('')
   const [isAnswer, setIsAnswer] = useState(false)
@@ -23,9 +29,9 @@ export const ModalQuestion = ({infoSocket, idLivestreaming}: Props) => {
   const [disabledForm, setDisabledForm] = useState(false)
   const [validateForm, setvalidateForm] = useState(false)
   const [pageVisible, setPageVisible] = useState(true)
-  const { saveUpdateVotes } = useUpdateVotes()
-  const { question, setQuestion } = infoSocket
-
+  const { question, setQuestion, socket } = infoSocket
+  const { saveUpdateVotes } = useUpdateVotes({ socket })
+  const [data, setData] = useState<Question | undefined>()
   const showQuestion = useCallback(
     (questiontoShow: Question) => {
       if (!questiontoShow) return
@@ -89,12 +95,42 @@ export const ModalQuestion = ({infoSocket, idLivestreaming}: Props) => {
     showQuestion(question)
   }, [pageVisible, question, showQuestion])
 
+  useEffect(() => {
+    if(!isAnswer) {
+      setData(undefined)
+      return
+    }
+
+    const getQuestion = () => {
+      let URL = '__GET_QUESTION_URL'
+      const { GET_QUESTION_URL } = process.env
+
+      if (GET_QUESTION_URL && GET_QUESTION_URL !== URL) {
+        URL = GET_QUESTION_URL
+      }
+
+      if (!URL) return
+
+      const getData = async () => {
+        console.log('estas veces hice la peticion')
+        const data = await apiCall({
+          url: `${URL}?id=${idLivestreaming}&account=${account}&index=${question?.index || 0}`
+        })
+
+        setData(data)
+      }
+
+      getData().catch(null)
+    }
+
+    getQuestion()
+
+  }, [isAnswer])
+
   return (
     <Modal show={isOpenModal}>
       {validateForm && (
-        <span className="c-danger">
-          Debe seleccionar una respuesta.
-        </span>
+        <span className='c-danger'>Debe seleccionar una respuesta.</span>
       )}
       {!isAnswer &&
         (() => {
@@ -132,11 +168,16 @@ export const ModalQuestion = ({infoSocket, idLivestreaming}: Props) => {
           }
         })()}
 
-      {isAnswer && <Answer index={question?.index || 0} isAnswer={isAnswer} />}
+      {isAnswer && (
+        <Answer
+          isAnswer={isAnswer}
+          data={data}
+        />
+      )}
       <div className={styles.buttonContenModal}>
         {!isAnswer && (
           <Button
-            variation="primary"
+            variation='primary'
             onClick={updateVotes}
             disabled={disabledForm}
           >
@@ -145,7 +186,7 @@ export const ModalQuestion = ({infoSocket, idLivestreaming}: Props) => {
           </Button>
         )}
         {isAnswer && (
-          <Button variation="primary" onClick={closeModal}>
+          <Button variation='primary' onClick={closeModal}>
             Cerrar
           </Button>
         )}
@@ -153,5 +194,3 @@ export const ModalQuestion = ({infoSocket, idLivestreaming}: Props) => {
     </Modal>
   )
 }
-
-

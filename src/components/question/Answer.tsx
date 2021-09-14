@@ -1,41 +1,18 @@
 import React, { useState, useEffect, Fragment } from 'react'
-//import Tag from '@vtex/styleguide/lib/Tag'
-
-//import { useLivestream } from '../../../ClientUseLivestreamContext'
-//import GET_QUESTION from '../../graphql/queries/getQuestion.gql'
 import { Answer as AnswerInterface } from '../../typings/liveStreaming'
-//mport { questions } from '../../../../livestreaming/node/resolvers/livestreaming/queries/questions';
 import styles from './question.css'
-
 interface AnswerProps {
-  index: number
   isAnswer: boolean
+  data: any
 }
 
-const data = {
-  question : {
-    answers: [],
-    question: '',
-    totalVotes: 12,
-    time: 19
-  }
-}
-
-const Answer = ({ index, isAnswer }: AnswerProps) => {
-  console.log(index)
+const Answer = ({ isAnswer, data}: AnswerProps) => {
   const [answers, setAnswers] = useState([
     {
       answer: '',
       votes: 0,
     },
   ])
-
-  /*const { data, refetch } = useQuery(GET_QUESTION, {
-    variables: {
-      idStreaming: livestreaming?.id,
-      index,
-    },
-  })*/
 
   useEffect(() => {
     const option = data?.question?.answers.map((answer: AnswerInterface) => {
@@ -46,13 +23,9 @@ const Answer = ({ index, isAnswer }: AnswerProps) => {
     })
 
     setAnswers(option)
+  }, [ data, isAnswer])
 
-    /*if (isAnswer) {
-      refetch()
-    }*/
-  }, [data, isAnswer/*, refetch*/])
-
-  return (
+  return data === undefined ? <div>Cargando...</div> : (
     <Fragment>
       <div>
         <p>{data?.question?.question}</p>
