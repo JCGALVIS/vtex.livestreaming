@@ -14,6 +14,7 @@ type SliderProductMobileProps = {
   showSliderProducts: boolean
   setShowSliderProducts: React.Dispatch<React.SetStateAction<boolean>>
   pdp: boolean
+  originOfProducts: string
 }
 
 export const SliderProductMobile = ({
@@ -23,7 +24,8 @@ export const SliderProductMobile = ({
   height,
   showSliderProducts,
   setShowSliderProducts,
-  pdp
+  pdp,
+  originOfProducts
 }: SliderProductMobileProps) => {
   return (
     <Transition in={showSliderProducts} timeout={150}>
@@ -55,6 +57,7 @@ export const SliderProductMobile = ({
                   infinite={infinite}
                   height={(parseInt(height) + 50).toString()}
                   pdp={pdp}
+                  originOfProducts={originOfProducts}
                 />
               </div>
             </div>

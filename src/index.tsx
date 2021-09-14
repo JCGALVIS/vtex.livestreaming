@@ -26,6 +26,7 @@ type LivestreamingProps = {
   isInfinite?: string
   time?: string
   pdp?: string
+  originOfProducts?: string
 }
 
 type MarketingData = {
@@ -47,7 +48,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     time,
     inactiveSidebarProducts,
     inactiveProductsCarousel,
-    pdp
+    pdp,
+    originOfProducts
   } = props
 
   const divVideoContent = useRef<HTMLDivElement>(null)
@@ -56,10 +58,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
 
-  const { wssStream, streamUrl, collectionId, utm, emailIsRequired } = useLivestreamingConfig({
-    id: idLivestreaming,
-    account
-  })
+  const { wssStream, streamUrl, collectionId, utm, emailIsRequired } =
+    useLivestreamingConfig({
+      id: idLivestreaming,
+      account
+    })
 
   const { livestreaminComponentInView } = useLivestreamingComponentOnScreen({
     rootMargin: '0px 0px'
@@ -67,7 +70,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const info = useWebSocket({ wssStream })
 
-  const { scriptProperties, setScriptProperties, setShowCounter, setEmailIsRequired } = info
+  const {
+    scriptProperties,
+    setScriptProperties,
+    setShowCounter,
+    setEmailIsRequired
+  } = info
 
   const getHeight = () => {
     setDetector(getMobileOS())
@@ -141,6 +149,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
             showSliderProducts={showSliderProducts}
             setShowSliderProducts={setShowSliderProducts}
             pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+            originOfProducts={
+              originOfProducts === 'platform' ? originOfProducts : ''
+            }
           />
         ) : null}
         <div
@@ -158,6 +169,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
               time={scriptProperties.time}
               height={(parseInt(height) - 58).toString()}
               pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+              originOfProducts={
+                originOfProducts === 'platform' ? originOfProducts : ''
+              }
             />
           )}
         </div>
@@ -187,6 +201,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 streamUrl={streamUrl}
                 collectionId={collectionId}
                 pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+                originOfProducts={
+                  originOfProducts === 'platform' ? originOfProducts : ''
+                }
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -205,6 +222,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   infinite={scriptProperties.infinite}
                   time={scriptProperties.time}
                   pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+                  originOfProducts={
+                    originOfProducts === 'platform' ? originOfProducts : ''
+                  }
                 />
               )}
             </div>
@@ -243,5 +263,6 @@ Livestreaming.defaultProps = {
   inactivateViewers: 'true',
   isInfinite: 'true',
   time: '10',
-  pdp: 'true'
+  pdp: 'true',
+  originOfProducts: 'vtex'
 }
