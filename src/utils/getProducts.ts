@@ -22,7 +22,7 @@ export const getProducts = async ({
 }
 
 const getProductsVtex = async ({ collectionId }: getProductsProps) => {
-  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
+  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   const data = await apiCall({ url })
   if (data && data.length > 0) {
