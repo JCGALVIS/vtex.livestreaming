@@ -42,7 +42,7 @@ const Answer = ({ isAnswer, data}: AnswerProps) => {
       <div className="mt3">
         <ul>
           {answers?.map((answer) => (
-            <li key={answer.answer}>
+            <li key={answer.answer} className={styles.answerContainer}>
               <div className={styles.answerContent}>
                 <div className={styles.answerText}>
                   <span className="mr4">{answer.answer}</span>

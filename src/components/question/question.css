@@ -1,3 +1,8 @@
+.answerContainer {
+  box-sizing: border-box;
+  margin-bottom: 7px;
+}
+
 .buttonContenModal {
   display: flex;
   justify-content: flex-end;
@@ -21,6 +26,7 @@
 
 .answerVotes {
   flex: 1;
+  box-sizing: border-box;
 }
 
 .buttonContenModal > button {
