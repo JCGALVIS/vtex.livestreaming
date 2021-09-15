@@ -9,6 +9,7 @@ import React, {
 
 import Timer from './Timer'
 import { Answer, Question } from '../../typings/liveStreaming'
+import { Checkbox } from '../commonComponents'
 import styles from './question.css'
 
 interface QuestionPollProps {
@@ -84,52 +85,48 @@ const QuestionPoll = ({
         <p>{dataQuestion?.question}</p>
       </div>
       <div>
-        <div className='mb3'>
-          <label htmlFor='option-0'>{optionsQuestion[0]?.name}</label>
-          <input
-            type='checkbox'
+        <div className={styles.checkbox}>
+          <Checkbox
             checked={valueOption.checkOne}
             id='option-0'
             name='checkOne'
             onChange={getInformation}
             value={optionsQuestion[0]?.position}
             disabled={disabledForm}
+            label={optionsQuestion[0]?.name}
           />
         </div>
-        <div className='mb3'>
-          <label htmlFor='option-1'>{optionsQuestion[1]?.name}</label>
-          <input
-            type='checkbox'
+        <div className={styles.checkbox}>
+          <Checkbox
             checked={valueOption.checkTwo}
             id='option-1'
             name='checkTwo'
             onChange={getInformation}
             value={optionsQuestion[1]?.position}
             disabled={disabledForm}
+            label={optionsQuestion[1]?.name}
           />
         </div>
-        <div className='mb3'>
-          <label htmlFor='option-2'>{optionsQuestion[2]?.name}</label>
-          <input
-            type='checkbox'
+        <div className={styles.checkbox}>
+          <Checkbox
             checked={valueOption.checkThree}
             id='option-2'
             name='checkThree'
             onChange={getInformation}
             value={optionsQuestion[2]?.position}
             disabled={disabledForm}
+            label={optionsQuestion[2]?.name}
           />
         </div>
-        <div className='mb3'>
-          <label htmlFor='option-3'>{optionsQuestion[3]?.name}</label>
-          <input
-            type='checkbox'
+        <div className={styles.checkbox}>
+          <Checkbox
             checked={valueOption.checkFour}
             id='option-3'
             name='checkFour'
             onChange={getInformation}
             value={optionsQuestion[3]?.position}
             disabled={disabledForm}
+            label={optionsQuestion[3]?.name}
           />
         </div>
       </div>

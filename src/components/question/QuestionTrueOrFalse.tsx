@@ -9,6 +9,7 @@ import React, {
 
 import Timer from './Timer'
 import { Answer, Question } from '../../typings/liveStreaming'
+import { Radio } from '../commonComponents'
 import styles from './question.css'
 
 interface QuestionTrueOrFalseProps {
@@ -58,15 +59,14 @@ const QuestionTrueOrFalse = ({
       <p>
       {optionsQuestion.map((option: Option) => (
           <div>
-            <input
-              type='radio'
+            <Radio
               id={`${option.label}_${option.value}`}
               name='trueOrFalse'
               value={option.value}
               onChange={saveVotes}
               disabled={timeExpired}
+              label={option.label}
             />
-            <label htmlFor={`${option.label}_${option.value}`}>Email</label>
           </div>
         ))}
       </p>

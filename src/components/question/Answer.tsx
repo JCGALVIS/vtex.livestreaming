@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { Answer as AnswerInterface } from '../../typings/liveStreaming'
+import { Spinner, Badge } from '../commonComponents'
 import styles from './question.css'
 interface AnswerProps {
   isAnswer: boolean
@@ -25,7 +26,7 @@ const Answer = ({ isAnswer, data}: AnswerProps) => {
     setAnswers(option)
   }, [ data, isAnswer])
 
-  return data === undefined ? <div>Cargando...</div> : (
+  return data === undefined ? <Spinner/> : (
     <Fragment>
       <div>
         <p>{data?.question?.question}</p>
@@ -47,7 +48,7 @@ const Answer = ({ isAnswer, data}: AnswerProps) => {
                   <span className="mr4">{answer.answer}</span>
                 </div>
                 <div className={styles.answerVotes}>
-                  <div>{answer.votes}</div>
+                  <Badge value={answer.votes} type='success'/>
                 </div>
               </div>
             </li>

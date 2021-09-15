@@ -22,3 +22,40 @@
 .answerVotes {
   flex: 1;
 }
+
+.buttonContenModal > button {
+  color: #001738;
+  font-weight: bolder;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #e3e4e6;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 0;
+  box-sizing: border-box;
+  padding: 10px 15px;
+}
+
+.buttonContenModal > button:hover {
+  cursor: pointer;
+}
+
+.buttonContenModal > button:disabled {
+  color: #979899;
+  cursor: default;
+}
+
+.errorMessage {
+  text-transform: initial;
+  letter-spacing: 0;
+  color: #e13232;
+  text-align: left;
+  width: 100%;
+  margin: 8px 0px 0px 0px;
+}
+
+.checkbox > input {
+  margin-right: 2px;
+  padding: 2px;
+}

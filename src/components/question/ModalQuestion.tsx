@@ -10,7 +10,6 @@ import useUpdateVotes from '../../hooks/useUpdateVotes'
 import type { InfoSocket, Question } from '../../typings/liveStreaming'
 import { apiCall } from '../../api/apiCall'
 import styles from './question.css'
-
 declare interface Props {
   infoSocket: InfoSocket
   idLivestreaming: string
@@ -112,7 +111,6 @@ export const ModalQuestion = ({
       if (!URL) return
 
       const getData = async () => {
-        console.log('estas veces hice la peticion')
         const data = await apiCall({
           url: `${URL}?id=${idLivestreaming}&account=${account}&index=${question?.index || 0}`
         })
@@ -130,7 +128,7 @@ export const ModalQuestion = ({
   return (
     <Modal show={isOpenModal}>
       {validateForm && (
-        <span className='c-danger'>Debe seleccionar una respuesta.</span>
+        <span className={styles.errorMessage}>Debe seleccionar una respuesta.</span>
       )}
       {!isAnswer &&
         (() => {
@@ -177,16 +175,16 @@ export const ModalQuestion = ({
       <div className={styles.buttonContenModal}>
         {!isAnswer && (
           <Button
-            variation='primary'
             onClick={updateVotes}
             disabled={disabledForm}
+            className={styles.btn}
           >
             {!disabledForm && 'Enviar'}
             {disabledForm && 'Esperando...'}
           </Button>
         )}
-        {isAnswer && (
-          <Button variation='primary' onClick={closeModal}>
+        {isAnswer && data !== undefined && (
+          <Button onClick={closeModal}>
             Cerrar
           </Button>
         )}

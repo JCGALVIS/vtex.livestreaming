@@ -9,6 +9,7 @@ import React, {
 
 import Timer from './Timer'
 import { Answer, Question } from '../../typings/liveStreaming'
+import { Radio } from '../commonComponents'
 import styles from './question.css'
 
 interface QuestionQuizProps {
@@ -72,21 +73,20 @@ const QuestionQuiz = ({
 
   return (
     <Fragment>
-      <div>
+      <div className={styles.text} >
         <p>{dataQuestion?.question}</p>
       </div>
       <p>
         {optionsQuestion.map((option: Option) => (
           <div>
-            <input
-              type='radio'
+            <Radio
               id={`${option.label}_${option.value}`}
               name='questionQuiz'
               value={option.value}
               onChange={saveVotes}
               disabled={disabledForm}
+              label={option.label}
             />
-            <label htmlFor={`${option.label}_${option.value}`}>{option.label}</label>
           </div>
         ))}
       </p>
