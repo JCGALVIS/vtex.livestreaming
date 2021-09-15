@@ -120,8 +120,12 @@
   outline: none;
   flex: 1 1 auto;
   min-width: 0;
-  width: 85%;
-  font: 400 13px Arial;
+  width: 100%;
+  font: 400 13px Arial !important;
+}
+
+.inputTextChat:focus {
+  font-size: 13px;
 }
 
 .inputTextChat::placeholder {
@@ -194,7 +198,7 @@
   .profileIcon {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
   }
   .chatUser {
     font-size: 13px;
