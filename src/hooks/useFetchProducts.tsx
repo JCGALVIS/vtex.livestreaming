@@ -3,9 +3,13 @@ import { getProducts } from '../utils'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
+  originOfProducts: string
 }
 
-export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
+export const useFetchProducts = ({
+  collectionId,
+  originOfProducts
+}: useFetchProductsProps) => {
   const [products, setProducts] = useState({
     data: [
       {
@@ -23,7 +27,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
   useEffect(() => {
     if (collectionId) {
-      getProducts({ collectionId }).then((respon: any) => {
+      getProducts({ collectionId, originOfProducts }).then((respon: any) => {
         if (respon) setProducts({ data: respon, loading: false })
       })
     }

@@ -45,13 +45,15 @@ export const StreamPlayer = ({
   streamUrl,
   infoSocket,
   collectionId,
-  pdp
+  pdp,
+  originOfProducts
 }: {
   player: MediaPlayer
   streamUrl: string | undefined
   infoSocket: InfoSocket
   collectionId: string | undefined
   pdp: boolean
+  originOfProducts: string
 }) => {
   const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
   const [overlay, setOverlay] = useState<boolean>(false)
@@ -151,34 +153,36 @@ export const StreamPlayer = ({
   }
 
   const handleFullScreen = (): void => {
-    if (mainContainer.current) {
-      mainContainer.current.onfullscreenchange = (): void => {
-        const fullScreenElement = getFullScreenElement()
+    if (!mainContainer.current) return
 
-        if (fullScreenElement) return
-        const exitFullScreen = getExitFullScreenElement()
-        if (exitFullScreen)
-          exitFullScreen
-            .bind(document)()
-            .catch((err: Error) => console.error(err))
-        setFullScreen(false)
-      }
+    if (pictureInPicture) handlePictureAndPicture()
 
-      setFullScreen((prev) => {
-        if (prev) {
-          const exitFullScreen = getExitFullScreenElement()
-          if (exitFullScreen) exitFullScreen.bind(document)()
-          return false
-        } else {
-          const requestFullscreen = getRequestFullScreenElement(
-            mainContainer.current
-          )
+    mainContainer.current.onfullscreenchange = (): void => {
+      const fullScreenElement = getFullScreenElement()
 
-          if (requestFullscreen) requestFullscreen.bind(mainContainer.current)()
-          return true
-        }
-      })
+      if (fullScreenElement) return
+      const exitFullScreen = getExitFullScreenElement()
+      if (exitFullScreen)
+        exitFullScreen
+          .bind(document)()
+          .catch((err: Error) => console.error(err))
+      setFullScreen(false)
     }
+
+    setFullScreen((prev) => {
+      if (prev) {
+        const exitFullScreen = getExitFullScreenElement()
+        if (exitFullScreen) exitFullScreen.bind(document)()
+        return false
+      } else {
+        const requestFullscreen = getRequestFullScreenElement(
+          mainContainer.current
+        )
+
+        if (requestFullscreen) requestFullscreen.bind(mainContainer.current)()
+        return true
+      }
+    })
   }
 
   const handleFullScreenMobile = (): void => {
@@ -433,6 +437,7 @@ export const StreamPlayer = ({
             infoSocket={infoSocket}
             collectionId={collectionId}
             pdp={pdp}
+            originOfProducts={originOfProducts}
           />
         )}
         <video

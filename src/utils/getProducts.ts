@@ -1,11 +1,28 @@
+import { config } from './../config'
 import { apiCall } from './../api/apiCall'
 
 type getProductsProps = {
   collectionId?: string | undefined
+  originOfProducts?: string
 }
 
-export const getProducts = async ({ collectionId }: getProductsProps) => {
-  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
+export const getProducts = async ({
+  collectionId,
+  originOfProducts
+}: getProductsProps) => {
+  let products
+
+  if (originOfProducts === 'platform') {
+    products = getProductsPlatform()
+  } else {
+    products = getProductsVtex({ collectionId })
+  }
+
+  return products
+}
+
+const getProductsVtex = async ({ collectionId }: getProductsProps) => {
+  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   const data = await apiCall({ url })
   if (data && data.length > 0) {
@@ -23,5 +40,27 @@ export const getProducts = async ({ collectionId }: getProductsProps) => {
     return products
   }
 
+  return null
+}
+
+const getProductsPlatform = async () => {
+  const url = config.API_PLATFORM + '/products'
+
+  const { data } = await apiCall({ url })
+
+  if (data && data.length > 0) {
+    const products = data.map((product: any) => {
+      return {
+        id: product.id,
+        name: product.title,
+        priceWithDiscount: product.salesPrice,
+        price: product.price,
+        imageUrl: product.pictures[0],
+        addToCartLink: product.link,
+        isAvailable: product.status === 'active'
+      }
+    })
+    return products
+  }
   return null
 }

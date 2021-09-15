@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
-import { apiCall } from '../api/apiCall'
+import { getProducts } from '../utils'
 // eslint-disable-next-line no-unused-vars
 import { HighlightProduct } from './../typings/livestreaming'
 
 type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
+  originOfProducts: string
 }
 
 export const useHighlightProduct = ({
   highlightProduct,
-  collectionId
+  collectionId,
+  originOfProducts
 }: useHighlightProductProps) => {
   const [product, setProduct] = useState({
     id: '',
@@ -39,7 +41,6 @@ export const useHighlightProduct = ({
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight) return
-    const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}`
 
     if (highlightProduct && !highlightProduct?.showProduct)
       localStorage.removeItem('product')
@@ -63,14 +64,12 @@ export const useHighlightProduct = ({
       (!storageCollectionId || collectionId !== storageCollectionId)
     ) {
       localStorage.setItem('collectionId', collectionId)
-      const getProducts = async () => {
-        const data = await apiCall({ url })
+
+      getProducts({ collectionId, originOfProducts }).then((data: any) => {
         if (data && data.length > 0) {
           localStorage.setItem('products', JSON.stringify(data))
         }
-      }
-
-      getProducts()
+      })
     }
 
     const objetProduct = storageProduct && JSON.parse(storageProduct)
@@ -81,25 +80,25 @@ export const useHighlightProduct = ({
     if (storageProducts && isShowProduct) {
       const products = JSON.parse(storageProducts)
 
-      const productId = objetProduct.productId || highlightProduct?.productId
+      const productId = objetProduct.id || highlightProduct?.productId
 
       const product = products.find(
-        (product: { productId: string | undefined }) =>
-          product.productId === productId
+        (product: { id: string | undefined }) => product.id === productId
       )
 
-      setProduct({
-        id: product?.productId,
-        name: product?.productName,
-        priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
-        price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
-        imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.link,
-        isAvailable: product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable
-      })
+      if (product) {
+        setProduct({
+          id: product?.id,
+          name: product?.name,
+          priceWithDiscount: product?.priceWithDiscount,
+          price: product?.price,
+          imageUrl: product?.imageUrl,
+          addToCartLink: product?.addToCartLink,
+          isAvailable: product?.isAvailable
+        })
+        setShowProduct(isShowProduct)
+      }
     }
-
-    setShowProduct(isShowProduct)
   }, [collectionId, highlightProduct])
 
   return { product, showProduct, handlerCloseCard }

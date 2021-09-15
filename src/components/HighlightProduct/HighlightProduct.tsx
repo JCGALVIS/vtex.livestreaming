@@ -12,12 +12,14 @@ interface HighlightProductProps {
   infoSocket: InfoSocket
   collectionId: string | undefined
   pdp: boolean
+  originOfProducts: string
 }
 
 const HighlightProduct = ({
   infoSocket,
   collectionId,
-  pdp
+  pdp,
+  originOfProducts
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -25,7 +27,8 @@ const HighlightProduct = ({
 
   const { product, showProduct, handlerCloseCard } = useHighlightProduct({
     highlightProduct,
-    collectionId
+    collectionId,
+    originOfProducts
   })
 
   useEffect(() => {
