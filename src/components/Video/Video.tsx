@@ -24,7 +24,13 @@ export const Video = ({
 }: VideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
+  const [liveStatus, setLiveStatus] = useState(false)
   const { isTransmiting } = infoSocket
+  const isLive = infoSocket?.ivsRealTime?.status
+
+  useEffect(() => {
+    if (isLive === 'LIVE') setLiveStatus(true)
+  }, [isLive])
 
   useEffect(() => {
     if (!scriptVideoPlayer) {
@@ -56,6 +62,6 @@ export const Video = ({
       originOfProducts={originOfProducts}
     />
   ) : (
-    <NoVideo isLive={infoSocket?.ivsRealTime?.status} />
+    <NoVideo isLive={infoSocket?.ivsRealTime?.status} liveStatus={liveStatus} />
   )
 }
