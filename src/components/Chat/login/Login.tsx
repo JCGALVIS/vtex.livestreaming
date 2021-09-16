@@ -34,6 +34,7 @@ export const Login = ({
   const [errorUsername, setErrorUsername] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
   const [erroMessage, setErrorMessage] = useState('')
+  const [disabledBtn, setDisabledBtn] = useState(false)
 
   const handlerCloseCard = () => {
     setShowLoginWindow(false)
@@ -107,11 +108,16 @@ export const Login = ({
   }
 
   const handlerSendDataToChat = async (event: React.SyntheticEvent) => {
+    setDisabledBtn(true)
     event.preventDefault()
     event.persist()
     const isValid = await usernameIsValid()
 
-    if (!isValid || !sendAccountId || !emailIsValid()) return
+    if (!isValid || !sendAccountId || !emailIsValid()){
+      setDisabledBtn(false)
+
+      return
+    }
 
     sendAccountId(username, email || '')
     sendMessage()
@@ -180,7 +186,7 @@ export const Login = ({
           ) : null}
         </div>
 
-        <button type='submit' className={styles.btn}>CONTINUAR CON EL CHAT</button>
+        <button disabled={disabledBtn} type='submit' className={styles.btn}>CONTINUAR CON EL CHAT</button>
       </form>
     </div>
   )
