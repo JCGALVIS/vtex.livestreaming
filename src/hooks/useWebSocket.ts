@@ -6,7 +6,8 @@ import {
   IvsRealTime,
   InfoSocket,
   HighlightProduct,
-  ScriptProperties
+  ScriptProperties,
+  Question
 } from './../typings/livestreaming'
 import { useSessionId } from './useSessionId'
 import { getDeviceType, getRandomColor } from '../utils'
@@ -34,6 +35,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     ScriptProperties | undefined
   >()
   const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>()
+  const [question, setQuestion] = useState<Question>()
 
   const createWebSocket = useCallback(() => {
     if (!wssStream || socket) return
@@ -125,6 +127,11 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           })
           break
 
+        case 'sendquestion':
+          data.date = Date.now()
+          setQuestion(data)
+          break
+
         default:
           break
       }
@@ -193,6 +200,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     emailIsRequired,
     highlightProduct,
     scriptProperties,
+    question,
     setHearts,
     setChat,
     setIvsRealTime,
@@ -201,5 +209,6 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setScriptProperties,
     setShowCounter,
     setEmailIsRequired,
+    setQuestion,
   }
 }

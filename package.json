@@ -12,9 +12,9 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='__GET_LIVESTREAMING_CONFIG_URL',GET_CHAT_BY_ID_URL='__GET_CHAT_BY_ID_URL',ENVIROMENT='prod' --no-compress --format modern,cjs",
-    "start": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/chat',ENVIROMENT='dev' watch --no-compress --format modern,cjs",
-    "start:prod": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://mtumok1rr4.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://mtumok1rr4.execute-api.us-east-1.amazonaws.com/Prod/chat',ENVIROMENT='prod' watch --no-compress --format modern,cjs",
+    "build": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='__GET_LIVESTREAMING_CONFIG_URL',GET_CHAT_BY_ID_URL='__GET_CHAT_BY_ID_URL',GET_QUESTION_URL='__GET_QUESTION_URL',ENVIROMENT='prod' --no-compress --format modern,cjs",
+    "start": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/chat',GET_QUESTION_URL='https://x5vzeovx68.execute-api.us-east-1.amazonaws.com/Prod/livestreamingquestion',ENVIROMENT='dev' watch --no-compress --format modern,cjs",
+    "start:prod": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://mtumok1rr4.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://mtumok1rr4.execute-api.us-east-1.amazonaws.com/Prod/chat',GET_QUESTION_URL='https://mtumok1rr4.execute-api.us-east-1.amazonaws.com/Prod/livestreamingquestion',ENVIROMENT='prod' watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",

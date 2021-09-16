@@ -1,0 +1,64 @@
+.modal {
+  z-index: 10000;
+}
+
+.modalMain {
+  position: fixed;
+  background: white;
+  height: auto;
+  border-radius: 0.5rem;
+  padding: 1.5rem 3.2rem;
+  transform: translate(2%, -79%);
+  border: 0.1rem solid rgba(0, 0, 0, 0.2);
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  min-width: 350px;
+  box-sizing: border-box;
+  font: 400 16px Arial;
+  word-break: break-word;
+}
+
+.modalClose {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 1.5rem;
+}
+
+.buttonClose {
+  background: transparent;
+  border: 0;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+
+.buttonClose:hover {
+  cursor: pointer;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.displayNone {
+  display: none;
+}
+
+@media screen and (min-width: 1026px) {
+  .modalMain {
+    min-width: 310px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .modalMain {
+    min-width: 300px;
+  }
+}
+
+/* Smartphones (portrait & landscape) */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .modalMain {
+    transform: translate(0%, -110%);
+  }
+}

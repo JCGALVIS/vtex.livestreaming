@@ -7,6 +7,7 @@ import MessageRenderer from './MessageRenderer'
 import { InfoSocket, Message } from '../../typings/livestreaming'
 import { useChat } from '../../hooks/useChat'
 import { Login } from './login/Login'
+import { ModalQuestion } from '../question/ModalQuestion'
 import styles from './chat.css'
 
 type ChatProps = {
@@ -124,6 +125,12 @@ export const Chat = ({
             idLivestreaming={idLivestreaming}
           />
         )}
+
+        <ModalQuestion
+          infoSocket={infoSocket}
+          idLivestreaming={idLivestreaming}
+          account={account}
+        />
 
         <form onSubmit={handlerSendMessage} className={styles.inputChatContent}>
           <div className={styles.inputContent}>
