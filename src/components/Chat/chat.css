@@ -114,18 +114,18 @@
   border: 0;
   color: #ffffff;
   height: 40px;
-  padding-left: 10px;
-  padding-right: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   padding-top: 0;
   outline: none;
   flex: 1 1 auto;
   min-width: 0;
   width: 100%;
-  font: 400 16px Arial !important;
+  font: 400 13px Arial !important;
 }
 
 .inputTextChat:focus {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .inputTextChat::placeholder {
