@@ -56,7 +56,11 @@
 
 .picture {
   max-height: 120px;
+  max-width: 150px;
   mix-blend-mode: unset !important;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .productDeatailContent {

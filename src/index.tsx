@@ -11,6 +11,7 @@ import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingCompo
 import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsMobile'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
+import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
 import { getMobileOS } from './utils'
 
 import styles from './styles.module.css'
@@ -139,6 +140,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
+        <VariationSelector />
         {scriptProperties?.sidebarProducts ||
         scriptProperties?.productsCarousel ? (
           <SliderProductMobile
