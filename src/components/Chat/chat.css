@@ -125,7 +125,6 @@
   font: 400 13px Arial !important;
   height: 40px;
   box-sizing: border-box;
-  width: 105%;
 }
 
 .inputTextChat:focus {
@@ -136,6 +135,7 @@
   padding-left: 12px;
   padding-right: 1px;
   font: 400 16px Arial !important;
+  width: 105%;
 }
 
 .inputTextChatIOS:focus {
