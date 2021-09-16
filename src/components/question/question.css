@@ -1,6 +1,8 @@
 .answerContainer {
   box-sizing: border-box;
   margin-bottom: 7px;
+  list-style: initial;
+  margin-left: 2.5rem;
 }
 
 .buttonContenModal {
