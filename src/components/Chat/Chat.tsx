@@ -8,6 +8,7 @@ import { InfoSocket, Message } from '../../typings/livestreaming'
 import { useChat } from '../../hooks/useChat'
 import { Login } from './login/Login'
 import { ModalQuestion } from '../question/ModalQuestion'
+import { getMobileOS } from '../../utils'
 import styles from './chat.css'
 
 type ChatProps = {
@@ -123,6 +124,7 @@ export const Chat = ({
             setContent={setContent}
             infoSocket={infoSocket}
             idLivestreaming={idLivestreaming}
+            account={account}
           />
         )}
 
@@ -135,7 +137,7 @@ export const Chat = ({
         <form onSubmit={handlerSendMessage} className={styles.inputChatContent}>
           <div className={styles.inputContent}>
             <input
-              className={styles.inputTextChat}
+              className={`${styles.inputTextChat} ${getMobileOS() === 'iOS' && styles.inputTextChatIOS}`}
               placeholder={placeholder}
               name='content'
               type="text"

@@ -54,6 +54,10 @@
   cursor: default;
 }
 
+.errorMessageContainer {
+  margin-bottom: 5px;
+}
+
 .errorMessage {
   text-transform: initial;
   letter-spacing: 0;

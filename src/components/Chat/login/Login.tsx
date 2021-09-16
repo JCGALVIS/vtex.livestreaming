@@ -4,11 +4,13 @@ import IconClose from '@vtex/styleguide/lib/icon/Close'
 import styles from './Login.css'
 import { InfoSocket } from '../../../typings/livestreaming'
 import { useSessionId } from '../../../hooks/useSessionId'
+import { apiCall } from '../../../api/apiCall'
 
 interface Props {
   idLivestreaming: string
   content: string
   infoSocket: InfoSocket
+  account: string
   setShowLoginWindow: React.Dispatch<React.SetStateAction<boolean>>
   setUserIsLoggedInChat: React.Dispatch<React.SetStateAction<boolean>>
   setSendFirstMessage: React.Dispatch<React.SetStateAction<boolean>>
@@ -22,7 +24,8 @@ export const Login = ({
   setUserIsLoggedInChat,
   setSendFirstMessage,
   setContent,
-  infoSocket
+  infoSocket,
+  account
 }: Props) => {
   const [username, setUsername] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -30,6 +33,7 @@ export const Login = ({
   const { sessionId } = useSessionId()
   const [errorUsername, setErrorUsername] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
+  const [erroMessage, setErrorMessage] = useState('')
 
   const handlerCloseCard = () => {
     setShowLoginWindow(false)
@@ -68,9 +72,38 @@ export const Login = ({
 
   const usernameIsValid = async () => {
     const isEmptyUsername = !(username !== null && username.trim() !== '')
-    setErrorUsername(isEmptyUsername)
 
-    return !isEmptyUsername
+    if(isEmptyUsername){
+      setErrorMessage('Nombre no valido')
+      setErrorUsername(true)
+      return false
+    }
+
+    let URL = '__USERNAME_EXIST_URL'
+    const { USERNAME_EXIST_URL } = process.env
+
+    if (USERNAME_EXIST_URL && USERNAME_EXIST_URL !== URL) {
+      URL = USERNAME_EXIST_URL
+    }
+
+    if (!URL) return
+
+    const data = await apiCall({
+      url: `${URL}?id=${idLivestreaming}&account=${account}&username=${username}`
+    })
+
+    const isValid = !data.exist
+
+    if (!isValid) {
+      const errorMessage = !data.exist
+        ? 'Nombre no valido'
+        : 'Este nombre de usuario ya existe'
+
+      setErrorMessage(errorMessage)
+      setErrorUsername(true)
+    }
+
+    return isValid
   }
 
   const handlerSendDataToChat = async (event: React.SyntheticEvent) => {
@@ -80,7 +113,7 @@ export const Login = ({
 
     if (!isValid || !sendAccountId || !emailIsValid()) return
 
-    sendAccountId(username, email)
+    sendAccountId(username, email || '')
     sendMessage()
 
     localStorage.setItem(
@@ -124,7 +157,7 @@ export const Login = ({
             }`}
           />
           {errorUsername ? (
-            <div className={styles.inputErrorMessage}>Nombre no valido</div>
+            <div className={styles.inputErrorMessage}>{erroMessage}</div>
           ) : null}
         </div>
         <div className={styles.inputContainer}>

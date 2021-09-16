@@ -117,15 +117,29 @@
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 0;
+  margin: 0;
   outline: none;
   flex: 1 1 auto;
   min-width: 0;
   width: 100%;
   font: 400 13px Arial !important;
+  height: 40px;
+  box-sizing: border-box;
+  width: 105%;
 }
 
 .inputTextChat:focus {
   font-size: 13px;
+}
+
+.inputTextChatIOS {
+  padding-left: 12px;
+  padding-right: 1px;
+  font: 400 16px Arial !important;
+}
+
+.inputTextChatIOS:focus {
+  font-size: 16px;
 }
 
 .inputTextChat::placeholder {
