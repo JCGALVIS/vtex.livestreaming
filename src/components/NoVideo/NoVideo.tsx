@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './NoVideo.css'
 
 const messages = {
-  noVideo: 'Esperando conexión con el stream.',
+  noVideo: 'Transmisión en vivo.',
   UNKNOWN: 'Transmisión en vivo.',
   LIVE: 'Transmisión en vivo.'
 }
