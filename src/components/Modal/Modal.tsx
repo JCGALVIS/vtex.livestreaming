@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment} from 'react'
+import { getDeviceType  } from '../../utils'
 import styles from './modal.css'
 
 interface ModalProps {
@@ -21,7 +22,7 @@ const Modal: SFC<ModalProps> = (props) => {
 
   return (
     <div className={showHideClassName}>
-      <div className={styles.modalMain}>
+      <div className={`${styles.modalMain} ${getDeviceType() === 'mobile' && styles.modalMainMobile}`}>
         <div className={styles.modalClose} />
         <div>{children}</div>
       </div>
