@@ -113,10 +113,10 @@
 .radio + label {
   line-height: 21px;
   display: inline-block;
-  vertical-align: top;
   cursor: pointer;
   margin-left: 4px;
   font-weight: normal;
+  margin-bottom: 0px;
 }
 .checkbox:not(.switch) {
   border-radius: 3px;
