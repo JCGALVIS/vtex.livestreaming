@@ -111,7 +111,6 @@
 }
 .checkbox + label,
 .radio + label {
-  font-size: 14px;
   line-height: 21px;
   display: inline-block;
   vertical-align: top;
