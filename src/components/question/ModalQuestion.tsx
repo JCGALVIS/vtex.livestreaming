@@ -128,7 +128,9 @@ export const ModalQuestion = ({
   return (
     <Modal show={isOpenModal}>
       {validateForm && (
-        <span className={styles.errorMessage}>Debe seleccionar una respuesta.</span>
+        <div className={styles.errorMessageContainer}>
+          <span className={styles.errorMessage}>Debe seleccionar una respuesta.</span>
+        </div>
       )}
       {!isAnswer &&
         (() => {

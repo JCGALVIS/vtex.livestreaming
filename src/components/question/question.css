@@ -1,6 +1,8 @@
 .answerContainer {
   box-sizing: border-box;
   margin-bottom: 7px;
+  list-style: initial;
+  margin-left: 2.5rem;
 }
 
 .buttonContenModal {
@@ -50,6 +52,10 @@
 .buttonContenModal > button:disabled {
   color: #979899;
   cursor: default;
+}
+
+.errorMessageContainer {
+  margin-bottom: 5px;
 }
 
 .errorMessage {
