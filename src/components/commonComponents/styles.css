@@ -107,6 +107,7 @@
 .checkbox:not(.switch):checked,
 .radio:not(.switch):checked {
   --o: 1;
+  outline: none;
 }
 .checkbox + label,
 .radio + label {
