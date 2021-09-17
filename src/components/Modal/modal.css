@@ -8,7 +8,7 @@
   height: auto;
   border-radius: 0.5rem;
   padding: 3.2rem;
-  transform: translate(0%, -150%);
+  transform: translate(0%, -110%);
   border: 0.1rem solid rgba(0, 0, 0, 0.2);
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
   min-width: 350px;
@@ -44,21 +44,11 @@
   display: none;
 }
 
-@media screen and (min-width: 1026px) {
-  .modalMain {
-    min-width: 310px;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .modalMain {
-    min-width: 300px;
-  }
-}
-
-/* Smartphones (portrait & landscape) */
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-  .modalMain {
-    transform: translate(-5%, -110%);
-  }
+.modalMainMobile {
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 90%;
+  top: 30%;
 }
