@@ -69,6 +69,9 @@ export const StreamPlayer = ({
 
   const videoEl = useRef<HTMLVideoPicture>(null)
   const mainContainer = useRef<HTMLDivElement>(null)
+
+  // eslint-disable-next-line promise/param-names
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
   const handleNothing = () => {}
 
   const handleMainButton = (): void => {
@@ -90,11 +93,14 @@ export const StreamPlayer = ({
 
   const handlePictureAndPicture = (): void => {
     try {
-      if (videoEl.current) {
-        if (pictureInPicture) document.exitPictureInPicture()
-        else videoEl.current.requestPictureInPicture()
-        setPictureInPicture(!pictureInPicture)
-      }
+      if (!videoEl.current) return
+
+      setPictureInPicture((prev) => {
+        if (prev) document.exitPictureInPicture()
+        else if (videoEl.current) videoEl.current.requestPictureInPicture()
+
+        return !prev
+      })
     } catch (err) {
       setPictureInPicture(false)
     }
@@ -152,10 +158,13 @@ export const StreamPlayer = ({
     return requestFullscreen
   }
 
-  const handleFullScreen = (): void => {
+  async function handleFullScreen(): Promise<void> {
     if (!mainContainer.current) return
 
-    if (pictureInPicture) handlePictureAndPicture()
+    if (pictureInPicture) {
+      handlePictureAndPicture()
+      await delay(500)
+    }
 
     mainContainer.current.onfullscreenchange = (): void => {
       const fullScreenElement = getFullScreenElement()
@@ -360,7 +369,41 @@ export const StreamPlayer = ({
     player.play()
     player.setMuted(true)
 
-    return () => {}
+    const vid = document.getElementById('player-video-el') as HTMLVideoElement
+
+    document.addEventListener('webkitfullscreenchange', () => {
+      const fullScreenElement =
+        document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement
+
+      if (fullScreenElement) return
+
+      const exitFullScreen =
+        document.exitFullscreen ||
+        document.mozCancelFullScreen ||
+        document.webkitExitFullscreen ||
+        document.msExitFullscreen
+
+      if (exitFullScreen) exitFullScreen.bind(document)()
+      setFullScreen(false)
+    })
+
+    if (vid) {
+      vid.addEventListener('webkitendfullscreen', () => {
+        // handle end full screen
+        setTimeout(() => {
+          player.setMuted(false)
+          player.play()
+        }, 1000)
+      })
+    }
+
+    return () => {
+      document.removeEventListener('webkitfullscreenchange', () => {})
+      if (vid) vid.removeEventListener('webkitendfullscreen', () => {})
+    }
   }, [player, streamUrl])
 
   useEffect(() => {

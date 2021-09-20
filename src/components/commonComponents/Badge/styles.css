@@ -1,0 +1,22 @@
+.badge {
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  text-transform: initial;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.success {
+  background: #8bc34a;
+  color: white;
+}
+
+.warning {
+  background: #ffb100;
+  color: white;
+}
+
+.error {
+  background: #ff4c4c;
+  color: white;
+}

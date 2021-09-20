@@ -33,9 +33,14 @@
   height: 40px;
   width: 100%;
   max-width: 100%;
-  border: solid .125rem #cacbcc;
-  border-radius: .25rem;
+  border: solid 0.125rem #cacbcc;
+  border-radius: 0.25rem;
   box-sizing: border-box;
+  font-size: 16px !important;
+}
+
+.input:focus {
+  font-size: 16px !important;
 }
 
 .inputContainer {
@@ -77,15 +82,16 @@
   height: 36px;
 }
 
-.inputError{
-  border: solid .125rem #e13232;
-  border-radius: .25rem;
+.inputError {
+  border: solid 0.125rem #e13232;
+  border-radius: 0.25rem;
 }
 
 .inputErrorMessage {
-  font-family: Fabriga, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  font-family: Fabriga, -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   font-weight: normal;
-  font-size: .875rem;
+  font-size: 0.875rem;
   text-transform: initial;
   letter-spacing: 0;
   color: #e13232;
@@ -108,6 +114,7 @@
   border-radius: 10px;
   text-decoration: none;
   border: 0;
+  box-sizing: border-box;
 }
 
 .btn:hover {
