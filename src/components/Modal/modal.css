@@ -10,8 +10,7 @@
   padding: 3.2rem;
   border: 0.1rem solid rgba(0, 0, 0, 0.2);
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
-  min-width: 280px;
-  max-width: 280px;
+  width: 280px;
   box-sizing: border-box;
   font: 400 16px Arial;
   word-break: break-word;
