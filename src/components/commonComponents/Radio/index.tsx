@@ -13,7 +13,7 @@ declare interface Props {
 
 export const Radio = ({ checked, id, name, onChange, value, disabled, label}: Props) => {
   return (
-    <div>
+    <div className={style.container}>
           <input
             type='radio'
             checked={checked}
