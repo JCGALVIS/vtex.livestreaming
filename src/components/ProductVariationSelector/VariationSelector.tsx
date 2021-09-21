@@ -18,7 +18,6 @@ export const VariationSelector = () => {
     <Transition in={show} timeout={150}>
       <CSSTransition in={show} timeout={100} unmountOnExit>
         <Fragment>
-          <div className={styles.backdropContainer} onClick={handleClose} />
           <div className={styles.variationSelector}>
             <div className={styles.container}>
               <div className={styles.content}>
@@ -107,6 +106,7 @@ export const VariationSelector = () => {
                 </div>
               </div>
             </div>
+            <div className={styles.backdropContainer} onClick={handleClose} />
           </div>
         </Fragment>
       </CSSTransition>

@@ -27,6 +27,7 @@ span {
   height: 100%;
   width: 100%;
   overflow: auto;
+  z-index: 1;
 }
 
 .header {
@@ -213,6 +214,7 @@ span {
   background-color: #134cd8;
   border-radius: 4px;
   margin: 6px;
+  text-align: center;
 }
 
 .productButton:hover {
@@ -239,7 +241,6 @@ span {
   opacity: 0.5;
   pointer-events: auto;
   transition: opacity 300ms ease 0s;
-  z-index: 999;
   position: fixed;
   background-color: #3f3f40;
   left: 0;
@@ -264,7 +265,60 @@ span {
 
 @media screen and (min-width: 1024px) {
   .content {
+    height: 90%;
+    width: 90%;
+  }
+
+  .productPictureContainer {
+    flex: 0 1 40%;
+  }
+
+  .productDetailInfo {
+    flex: 0 1 60%;
+  }
+
+  .buttonGroup {
+    flex-direction: row;
+  }
+
+  .productButton {
+    flex: 0 1 calc(50% - 1rem);
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .content {
     height: 80%;
     width: 80%;
+  }
+
+  .productPictureContainer {
+    flex: 0 1 35%;
+  }
+
+  .productDetailInfo {
+    flex: 0 1 65%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .content {
+    height: 65%;
+    width: 75%;
+  }
+
+  .productPictureContainer {
+    flex: 0 1 30%;
+  }
+
+  .productDetailInfo {
+    flex: 0 1 70%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .content {
+    height: 65%;
+    width: 65%;
   }
 }
