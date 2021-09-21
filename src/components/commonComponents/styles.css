@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: center;
+  margin-bottom: 6px;
 }
 
 .checkbox,
@@ -19,13 +20,13 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 0 6px 0 0;
   cursor: pointer;
   border: 1px solid var(--bc, var(--border));
   background: var(--b, var(--background));
   box-sizing: border-box;
   min-height: 18px;
   max-height: 18px;
+  margin: 0px !important;
 }
 
 .radio {
