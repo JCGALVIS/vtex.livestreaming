@@ -185,10 +185,16 @@ input[type='text']:focus {
   background: rgba(255, 255, 255, 0);
   background: -webkit-linear-gradient(
     0deg,
-    rgba(255, 255, 255, 0) 0%,
+    #040008 0%,
+    rgba(255, 255, 255, 0) 50%,
     #040008 100%
   );
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #040008 100%);
+  background: linear-gradient(
+    0deg,
+    #040008 0%,
+    rgba(255, 255, 255, 0) 50%,
+    #040008 100%
+  );
 }
 
 .playerVideoHover[data-visible='off'] {
