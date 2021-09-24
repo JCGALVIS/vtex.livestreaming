@@ -93,9 +93,11 @@ const HighlightProduct = ({
                   <p className={styles.productDiscounted}>
                     {formatterDolar.format(product.priceWithDiscount)}
                   </p>
-                  <p className={styles.productPrice}>
-                    {formatterDolar.format(product.price)}
-                  </p>
+                  {product.price !== product.priceWithDiscount && (
+                    <p className={styles.productPrice}>
+                      {formatterDolar.format(product.price)}
+                    </p>
+                  )}
                 </div>
                 <div className={styles.productAddCartContent}>
                   <ProductButton

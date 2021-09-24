@@ -152,6 +152,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
             originOfProducts={
               originOfProducts === 'platform' ? originOfProducts : ''
             }
+            account={account}
           />
         ) : null}
         <div
@@ -172,6 +173,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts={
                 originOfProducts === 'platform' ? originOfProducts : ''
               }
+              account={account}
             />
           )}
         </div>
@@ -225,6 +227,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts={
                     originOfProducts === 'platform' ? originOfProducts : ''
                   }
+                  account={account}
                 />
               )}
             </div>
