@@ -10,6 +10,7 @@ type FeedProps = {
   collectionId: string | undefined
   pdp: boolean
   originOfProducts: string
+  account: string
 }
 
 export const Feed = ({
@@ -17,7 +18,8 @@ export const Feed = ({
   infoSocket,
   collectionId,
   pdp,
-  originOfProducts
+  originOfProducts,
+  account
 }: FeedProps) => {
   const { IVSPlayer } = window
   const { isPlayerSupported, MediaPlayer } = IVSPlayer
@@ -77,6 +79,7 @@ export const Feed = ({
       collectionId={collectionId}
       pdp={pdp}
       originOfProducts={originOfProducts}
+      account={account}
     />
   ) : null
 }

@@ -206,6 +206,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 originOfProducts={
                   originOfProducts === 'platform' ? originOfProducts : ''
                 }
+                account={account}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />

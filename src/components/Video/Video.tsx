@@ -13,6 +13,7 @@ type VideoProps = {
   collectionId: string | undefined
   pdp: boolean
   originOfProducts: string
+  account: string
 }
 
 export const Video = ({
@@ -20,7 +21,8 @@ export const Video = ({
   infoSocket,
   collectionId,
   pdp,
-  originOfProducts
+  originOfProducts,
+  account
 }: VideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
@@ -60,6 +62,7 @@ export const Video = ({
       collectionId={collectionId}
       pdp={pdp}
       originOfProducts={originOfProducts}
+      account={account}
     />
   ) : (
     <NoVideo isLive={infoSocket?.ivsRealTime?.status} liveStatus={liveStatus} />
