@@ -13,13 +13,15 @@ interface HighlightProductProps {
   collectionId: string | undefined
   pdp: boolean
   originOfProducts: string
+  account: string
 }
 
 const HighlightProduct = ({
   infoSocket,
   collectionId,
   pdp,
-  originOfProducts
+  originOfProducts,
+  account
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -28,7 +30,8 @@ const HighlightProduct = ({
   const { product, showProduct, handlerCloseCard } = useHighlightProduct({
     highlightProduct,
     collectionId,
-    originOfProducts
+    originOfProducts,
+    account
   })
 
   useEffect(() => {
@@ -93,9 +96,11 @@ const HighlightProduct = ({
                   <p className={styles.productDiscounted}>
                     {formatterDolar.format(product.priceWithDiscount)}
                   </p>
-                  <p className={styles.productPrice}>
-                    {formatterDolar.format(product.price)}
-                  </p>
+                  {product.price !== product.priceWithDiscount && (
+                    <p className={styles.productPrice}>
+                      {formatterDolar.format(product.price)}
+                    </p>
+                  )}
                 </div>
                 <div className={styles.productAddCartContent}>
                   <ProductButton
