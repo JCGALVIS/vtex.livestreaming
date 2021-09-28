@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getProducts } from '../utils'
+import { getProducts } from '../api'
 // eslint-disable-next-line no-unused-vars
 import { HighlightProduct } from './../typings/livestreaming'
 
@@ -23,7 +23,8 @@ export const useHighlightProduct = ({
     priceWithDiscount: 0,
     imageUrl: '',
     addToCartLink: '',
-    isAvailable: true
+    isAvailable: true,
+    variationSelector: []
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
 
@@ -36,7 +37,8 @@ export const useHighlightProduct = ({
       priceWithDiscount: 0,
       imageUrl: '',
       addToCartLink: '',
-      isAvailable: true
+      isAvailable: true,
+      variationSelector: []
     })
     localStorage.removeItem('product')
   }
@@ -98,10 +100,13 @@ export const useHighlightProduct = ({
           price: product?.price,
           imageUrl: product?.imageUrl,
           addToCartLink: product?.addToCartLink,
-          isAvailable: product?.isAvailable
+          isAvailable: product?.isAvailable,
+          variationSelector: product?.variationSelector
         })
         setShowProduct(isShowProduct)
       }
+    } else {
+      setShowProduct(isShowProduct)
     }
   }, [collectionId, highlightProduct])
 

@@ -7,10 +7,9 @@ import InfoIcon from '../icons/Info'
 import styles from './variationSelector.css'
 
 export const VariationSelector = () => {
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
 
   const handleClose = () => {
-    console.log('jcg')
     setShow(false)
   }
 

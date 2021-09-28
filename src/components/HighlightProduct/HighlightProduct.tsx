@@ -7,6 +7,7 @@ import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 
 import styles from './highlightProduct.css'
 import ProductButton from '../ProductsButton/ProductButton'
+import ProductVariationButton from '../ProductsButton/ProductVariationButton'
 import { formatterDolar } from '../../utils'
 interface HighlightProductProps {
   infoSocket: InfoSocket
@@ -103,12 +104,19 @@ const HighlightProduct = ({
                   )}
                 </div>
                 <div className={styles.productAddCartContent}>
-                  <ProductButton
-                    addToCartLink={product.addToCartLink}
-                    isAvailable={product.isAvailable}
-                    pdp={pdp}
-                    productId={product.id}
-                  />
+                  {product.variationSelector.length === 0 ? (
+                    <ProductButton
+                      addToCartLink={product.addToCartLink}
+                      isAvailable={product.isAvailable}
+                      pdp={pdp}
+                      productId={product.id}
+                    />
+                  ) : (
+                    <ProductVariationButton
+                      isAvailable={product.isAvailable}
+                      productId={product.id}
+                    />
+                  )}
                 </div>
               </div>
             </div>

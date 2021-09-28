@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getProducts } from '../utils'
+import { getProducts } from '../api'
 
 type useFetchProductsProps = {
   collectionId: string | undefined

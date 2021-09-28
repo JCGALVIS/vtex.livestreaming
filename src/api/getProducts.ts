@@ -36,7 +36,8 @@ const getProductsVtex = async ({ collectionId, account }: getProductsProps) => {
         price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
         imageUrl: product?.items[0]?.images[0]?.imageUrl,
         addToCartLink: product?.link,
-        isAvailable: product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable
+        isAvailable: product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
+        variationSelector: product?.skuSpecifications || []
       }
     })
     return products
