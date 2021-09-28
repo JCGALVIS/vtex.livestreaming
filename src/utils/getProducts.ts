@@ -4,25 +4,27 @@ import { apiCall } from './../api/apiCall'
 type getProductsProps = {
   collectionId?: string | undefined
   originOfProducts?: string
+  account: string
 }
 
 export const getProducts = async ({
   collectionId,
-  originOfProducts
+  originOfProducts,
+  account
 }: getProductsProps) => {
   let products
 
   if (originOfProducts === 'platform') {
     products = getProductsPlatform()
   } else {
-    products = getProductsVtex({ collectionId })
+    products = getProductsVtex({ collectionId, account })
   }
 
   return products
 }
 
-const getProductsVtex = async ({ collectionId }: getProductsProps) => {
-  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
+const getProductsVtex = async ({ collectionId, account }: getProductsProps) => {
+  const url = `https://${account}.myvtex.com/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   const data = await apiCall({ url })
   if (data && data.length > 0) {

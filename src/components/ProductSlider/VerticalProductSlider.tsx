@@ -12,6 +12,7 @@ type VerticalProductSliderProps = {
   height: string
   pdp: boolean
   originOfProducts: string
+  account: string
 }
 
 export const VerticalProductSlider = ({
@@ -20,11 +21,13 @@ export const VerticalProductSlider = ({
   infinite,
   height,
   pdp,
-  originOfProducts
+  originOfProducts,
+  account
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
     collectionId,
-    originOfProducts
+    originOfProducts,
+    account
   })
   const [isMouseOver, setIsMouseOver] = useState(false)
   const delay = time ? time * 1000 : 10000

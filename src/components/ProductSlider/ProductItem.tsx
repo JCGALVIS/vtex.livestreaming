@@ -36,7 +36,11 @@ export const ProductItem = (props: ProductItemProps) => {
       </div>
       <div className={styles.productDeatailContent}>
         <h4 className={styles.productTitle}>{name}</h4>
-        <span className={styles.price}>De {formatterDolar.format(price)}</span>
+        {price !== priceWithDiscount && (
+          <span className={styles.price}>
+            De {formatterDolar.format(price)}
+          </span>
+        )}
         <span className={styles.priceWithDiscount}>
           Para {formatterDolar.format(priceWithDiscount)}
         </span>
