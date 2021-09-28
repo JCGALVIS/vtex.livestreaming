@@ -59,6 +59,7 @@ export const StreamPlayer = ({
 }) => {
   const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
   const [overlay, setOverlay] = useState<boolean>(false)
+  const [inactive, setInactive] = useState<boolean>(false)
   const [muted, setMuted] = useState<boolean>(true)
   const [pictureInPicture, setPictureInPicture] = useState<boolean>(false)
   const [fullScreen, setFullScreen] = useState<boolean>(false)
@@ -462,12 +463,29 @@ export const StreamPlayer = ({
     return () => clearInterval(interval)
   }, [pictureInPicture])
 
+  useEffect(() => {
+    if (!overlay) return
+
+    const timeout = setTimeout(() => {
+      setInactive(true)
+      setOverlay(false)
+    }, 3000)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [overlay])
+
   return (
     <Fragment>
       <div
         ref={mainContainer}
         className={styles.playerUi}
-        onMouseOver={() => setOverlay(true)}
+        onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
+        onMouseMove={() => {
+          setInactive(false)
+          setOverlay(true)
+        }}
         onMouseOut={() => setOverlay(false)}
         onFocus={handleNothing}
         onBlur={handleNothing}
