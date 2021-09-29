@@ -37,6 +37,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>()
   const [question, setQuestion] = useState<Question>()
   const [queueSocket, setQueueSocket] = useState<Queue<number> | undefined>()
+  const [messageToDelete, setMessageToDelete] = useState<Message | undefined>()
 
   const createWebSocket = useCallback(() => {
     let queueSocketInit: Queue<number>
@@ -140,6 +141,10 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           setQuestion(data)
           break
 
+        case 'senddeletemessage':
+          setMessageToDelete(data)
+          break
+
         default:
           break
       }
@@ -209,6 +214,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     highlightProduct,
     scriptProperties,
     question,
+    messageToDelete,
     setHearts,
     setChat,
     setIvsRealTime,
@@ -218,6 +224,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setShowCounter,
     setEmailIsRequired,
     setQuestion,
-    queueSocket
+    queueSocket,
+    setMessageToDelete
   }
 }

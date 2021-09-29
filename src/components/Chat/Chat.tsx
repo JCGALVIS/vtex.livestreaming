@@ -1,14 +1,12 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react'
-
+import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import SendIcon from '../icons/Send'
 import MessageRenderer from './MessageRenderer'
-// eslint-disable-next-line no-unused-vars
 import { InfoSocket, Message } from '../../typings/livestreaming'
 import { useChat } from '../../hooks/useChat'
 import { Login } from './login/Login'
 import { ModalQuestion } from '../question/ModalQuestion'
-import { getMobileOS } from '../../utils'
+import { getMobileOS, getDeviceType } from '../../utils'
 import styles from './chat.css'
 
 type ChatProps = {
@@ -30,7 +28,14 @@ export const Chat = ({
 }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<string>('')
-  const { socket, chat, setChat, sessionId } = infoSocket
+  const {
+    socket,
+    chat,
+    setChat,
+    sessionId,
+    messageToDelete,
+    setMessageToDelete
+  } = infoSocket
   const [chatFiltered, setChatFiltered] = useState<Message[]>([])
   const { chatHistory } = useChat({
     idLivestreaming,
@@ -71,6 +76,35 @@ export const Chat = ({
     [chatFiltered, chat]
   )
 
+  const deleteMessage = useCallback(() => {
+    if (
+      !chat ||
+      chat?.length === 0 ||
+      !messageToDelete ||
+      !setMessageToDelete ||
+      !setChat
+    ) {
+      return
+    }
+
+    const newChat = chat.filter(
+      (row: Message) =>
+        row.username !== messageToDelete?.username ||
+        row.data !== messageToDelete?.data ||
+        row.sendDate !== messageToDelete?.sendDate
+    )
+
+    setChat(newChat)
+    setMessageToDelete(undefined)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messageToDelete])
+
+  useEffect(() => {
+    if (!chat || messageToDelete === undefined) return
+    deleteMessage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messageToDelete])
+
   useEffect(() => {
     if (!chat || !chatAreaRef?.current) return
 
@@ -103,6 +137,20 @@ export const Chat = ({
     setUserIsLoggedInChat(true)
     setShowLoginWindow(false)
   }, [idLivestreaming])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const isMobile = getDeviceType() === 'mobile'
+      const visibilityStateIsHidden =
+        document.visibilityState === ('hidden' || 'msHidden' || 'webkitHidden')
+
+      if (!visibilityStateIsHidden || !setChat || !isMobile) return
+      setChat([])
+    }, 5000)
+
+    return () => clearTimeout(timeout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [document.visibilityState])
 
   return (
     <div className={styles.chatContainer}>
@@ -137,10 +185,12 @@ export const Chat = ({
         <form onSubmit={handlerSendMessage} className={styles.inputChatContent}>
           <div className={styles.inputContent}>
             <input
-              className={`${styles.inputTextChat} ${getMobileOS() === 'iOS' && styles.inputTextChatIOS}`}
+              className={`${styles.inputTextChat} ${
+                getMobileOS() === 'iOS' && styles.inputTextChatIOS
+              }`}
               placeholder={placeholder}
               name='content'
-              type="text"
+              type='text'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setContent(e.target.value)
               }
@@ -151,8 +201,8 @@ export const Chat = ({
               autoComplete='off'
             />
           </div>
-          <div >
-            <button type='submit'className={styles.btn}>
+          <div>
+            <button type='submit' className={styles.btn}>
               <SendIcon size='21' viewBox='0 0 21 21' />
             </button>
           </div>
