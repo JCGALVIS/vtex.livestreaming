@@ -16,7 +16,8 @@ export const Like = ({ infoSocket }: LikeProps) => {
     hearts: socketHearts,
     setHearts,
     sessionId,
-    isTransmiting
+    isTransmiting,
+    queueSocket
   } = infoSocket
 
   const removeHeart = () => {
@@ -24,7 +25,13 @@ export const Like = ({ infoSocket }: LikeProps) => {
   }
 
   const handleClick = () => {
-    setHearts((prev) => [...prev, { id: Date.now(), color: getRandomColor() }])
+    const id = Date.now()
+
+    if (queueSocket && queueSocket.size() <= 4) {
+      setHearts((prev) => [...prev, { id, color: getRandomColor() }])
+      queueSocket.add(id)
+    }
+
     if (socket && socket?.readyState === 1) {
       const sendLike = {
         action: 'sendlike',
@@ -37,7 +44,12 @@ export const Like = ({ infoSocket }: LikeProps) => {
 
   const heartRenderer = (array: Heart[]) =>
     array.map(({ id, color }: Heart) => (
-      <HeartComponent key={id} color={color} removeHeart={removeHeart} />
+      <HeartComponent
+        key={id}
+        color={color}
+        removeHeart={removeHeart}
+        infoSocket={infoSocket}
+      />
     ))
 
   const HeartCollection = useMemo(

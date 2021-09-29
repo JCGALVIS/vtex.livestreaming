@@ -1,3 +1,5 @@
+import { Queue } from '../utils'
+
 export declare interface Message {
   sessionId?: string
   data?: string
@@ -57,6 +59,7 @@ export declare interface InfoSocket {
   setShowCounter: React.Dispatch<React.SetStateAction<boolean | undefined>>
   setEmailIsRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>
   setQuestion?: React.Dispatch<React.SetStateAction<Question | undefined>>
+  queueSocket?: Queue<number> | undefined
   setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>
 }
 
