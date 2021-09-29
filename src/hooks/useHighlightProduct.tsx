@@ -102,6 +102,8 @@ export const useHighlightProduct = ({
         })
         setShowProduct(isShowProduct)
       }
+    } else {
+      setShowProduct(isShowProduct)
     }
   }, [collectionId, highlightProduct])
 
