@@ -10,7 +10,7 @@ import {
   Question
 } from './../typings/livestreaming'
 import { useSessionId } from './useSessionId'
-import { getDeviceType, getRandomColor } from '../utils'
+import { getDeviceType, getRandomColor, Queue } from '../utils'
 
 declare interface Props {
   wssStream: string | undefined
@@ -36,13 +36,17 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   >()
   const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>()
   const [question, setQuestion] = useState<Question>()
+  const [queueSocket, setQueueSocket] = useState<Queue<number> | undefined>()
 
   const createWebSocket = useCallback(() => {
+    let queueSocketInit: Queue<number>
     if (!wssStream || socket) return
     const connection = new WebSocket(wssStream as string)
 
     connection.onopen = () => {
       setIsConnected(true)
+      queueSocketInit = new Queue()
+      setQueueSocket(queueSocketInit)
     }
 
     connection.onclose = () => {
@@ -86,14 +90,18 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
         case 'sendlike':
           if (document.hidden) break
-          if (!(Math.random() < 0.3)) break
-          setHearts((prev) => [
-            ...prev,
-            {
-              id: Date.now(),
-              color: getRandomColor()
-            }
-          ])
+          if (queueSocketInit.size() <= 4) {
+            const id = Date.now()
+
+            setHearts((prev) => [
+              ...prev,
+              {
+                id,
+                color: getRandomColor()
+              }
+            ])
+            queueSocketInit.add(id)
+          }
           break
 
         case 'sendivsdatarealtime':
@@ -210,5 +218,6 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setShowCounter,
     setEmailIsRequired,
     setQuestion,
+    queueSocket
   }
 }

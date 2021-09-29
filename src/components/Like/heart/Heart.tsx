@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { InfoSocket } from '../../../typings/livestreaming'
 import styles from './heart.css'
 
 interface HeartProps {
   color: string
   removeHeart: () => void
+  infoSocket: InfoSocket
 }
 
 const Heart = (props: HeartProps) => {
-  const { color, removeHeart } = props
+  const { color, removeHeart, infoSocket } = props
+  const { queueSocket } = infoSocket
 
   const [done, setDone] = useState(false)
 
@@ -80,7 +83,10 @@ const Heart = (props: HeartProps) => {
     }
 
     removeHeart()
-  }, [done, removeHeart])
+
+    // eslint-disable-next-line no-unused-expressions
+    if (queueSocket) queueSocket?.remove()
+  }, [done, removeHeart, queueSocket])
 
   return (
     <div className={styles.heartOuter} ref={outerRef}>
