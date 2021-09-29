@@ -17,7 +17,6 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   const { showVariation, setShowVariation } = props
 
   useEffect(() => {
-    console.log('showVariation: ', showVariation)
     if (showVariation) setShow(true)
   }, [showVariation])
 
