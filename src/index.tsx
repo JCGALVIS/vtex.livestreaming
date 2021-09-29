@@ -142,6 +142,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
         <VariationSelector
+          account={account}
           showVariation={showVariation}
           setShowVariation={setShowVariation}
         />

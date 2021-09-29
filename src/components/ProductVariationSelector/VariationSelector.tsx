@@ -4,21 +4,28 @@ import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 import { NumericStepper } from '../commonComponents'
 import InfoIcon from '../icons/Info'
+import { useFetchProductById } from '../../hooks/useFetchProductById'
 import styles from './variationSelector.css'
 
 type VariationSelectorProps = {
+  account: string
   showVariation: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const VariationSelector = (props: VariationSelectorProps) => {
   const [show, setShow] = useState(false)
+  const { account, showVariation: productId, setShowVariation } = props
 
-  const { showVariation, setShowVariation } = props
+  const product = useFetchProductById({
+    productId,
+    account
+  })
 
   useEffect(() => {
-    if (showVariation) setShow(true)
-  }, [showVariation])
+    console.log('product: ', product)
+    if (productId) setShow(true)
+  }, [productId, product])
 
   const handleClose = () => {
     setShow(false)
