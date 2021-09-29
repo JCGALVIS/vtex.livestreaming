@@ -33,7 +33,8 @@ export const HorizontalProductSlider = ({
       priceWithDiscount: 0,
       imageUrl: '',
       addToCartLink: '',
-      isAvailable: false
+      isAvailable: false,
+      variationSelector: []
     }
   ])
   const { data: products, loading } = useFetchProducts({

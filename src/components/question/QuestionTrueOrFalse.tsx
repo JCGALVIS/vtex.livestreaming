@@ -24,9 +24,9 @@ declare interface Option {
 
 const QuestionTrueOrFalse = ({
   dataQuestion,
-  setIsAnswer,
+  setIsAnswer
 }: QuestionTrueOrFalseProps) => {
- // const [valueOption, setValueOption] = useState('')
+  // const [valueOption, setValueOption] = useState('')
   const [optionsQuestion, setOptionsQuestion] = useState([{}])
   const [timeExpired, setTimeExpired] = useState(false)
 
@@ -36,7 +36,7 @@ const QuestionTrueOrFalse = ({
       const options = dataQuestion?.answers.map((answer: Answer) => {
         return {
           value: answer.text,
-          label: answer.text === 'true' ? 'Verdadero' : 'Falso',
+          label: answer.text === 'true' ? 'Verdadero' : 'Falso'
         }
       })
 
@@ -57,7 +57,7 @@ const QuestionTrueOrFalse = ({
         <p>{dataQuestion?.question}</p>
       </div>
       <p>
-      {optionsQuestion.map((option: Option) => (
+        {optionsQuestion.map((option: Option) => (
           <div>
             <Radio
               id={`${option.label}_${option.value}`}

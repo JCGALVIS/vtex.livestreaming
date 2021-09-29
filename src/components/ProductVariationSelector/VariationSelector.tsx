@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Transition, CSSTransition } from 'react-transition-group'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
@@ -6,11 +6,24 @@ import { NumericStepper } from '../commonComponents'
 import InfoIcon from '../icons/Info'
 import styles from './variationSelector.css'
 
-export const VariationSelector = () => {
+type VariationSelectorProps = {
+  showVariation: string
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+}
+
+export const VariationSelector = (props: VariationSelectorProps) => {
   const [show, setShow] = useState(false)
+
+  const { showVariation, setShowVariation } = props
+
+  useEffect(() => {
+    console.log('showVariation: ', showVariation)
+    if (showVariation) setShow(true)
+  }, [showVariation])
 
   const handleClose = () => {
     setShow(false)
+    setShowVariation('')
   }
 
   return (

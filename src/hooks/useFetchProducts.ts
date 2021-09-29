@@ -21,7 +21,8 @@ export const useFetchProducts = ({
         priceWithDiscount: 0,
         imageUrl: '',
         addToCartLink: '',
-        isAvailable: false
+        isAvailable: false,
+        variationSelector: []
       }
     ],
     loading: true

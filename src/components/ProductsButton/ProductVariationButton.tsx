@@ -5,10 +5,11 @@ import styles from './productButton.css'
 type ProductButtonProps = {
   isAvailable: boolean
   productId: string
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 const ProductVariationButton = (props: ProductButtonProps) => {
-  const { isAvailable } = props
+  const { isAvailable, setShowVariation, productId } = props
 
   return (
     <Fragment>
@@ -17,6 +18,7 @@ const ProductVariationButton = (props: ProductButtonProps) => {
           !isAvailable && styles.noActive
         }`}
         disabled={!isAvailable}
+        onClick={() => setShowVariation(productId)}
       >
         {isAvailable ? 'Agregar' : 'Indisponible'}
       </button>

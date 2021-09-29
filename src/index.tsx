@@ -55,6 +55,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
+  const [showVariation, setShowVariation] = useState('')
 
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
@@ -140,7 +141,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
-        <VariationSelector />
+        <VariationSelector
+          showVariation={showVariation}
+          setShowVariation={setShowVariation}
+        />
         {scriptProperties?.sidebarProducts ||
         scriptProperties?.productsCarousel ? (
           <SliderProductMobile
@@ -155,6 +159,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts === 'platform' ? originOfProducts : ''
             }
             account={account}
+            setShowVariation={setShowVariation}
           />
         ) : null}
         <div
@@ -176,6 +181,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 originOfProducts === 'platform' ? originOfProducts : ''
               }
               account={account}
+              setShowVariation={setShowVariation}
             />
           )}
         </div>
