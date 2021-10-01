@@ -3,12 +3,8 @@ import { useEffect, useState } from 'react'
 
 type useFetchProductById = {
   productId: string | undefined
-  account: string
 }
-export const useFetchProductById = ({
-  productId,
-  account
-}: useFetchProductById) => {
+export const useFetchProductById = ({ productId }: useFetchProductById) => {
   const [product, setProduct] = useState({
     data: [
       {
@@ -27,7 +23,7 @@ export const useFetchProductById = ({
 
   useEffect(() => {
     if (productId) {
-      getProductById({ productId, account }).then((respon: any) => {
+      getProductById({ productId }).then((respon: any) => {
         console.log('respon: ', respon)
         if (respon) setProduct({ data: respon, loading: false })
       })

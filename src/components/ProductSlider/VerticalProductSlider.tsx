@@ -12,7 +12,6 @@ type VerticalProductSliderProps = {
   height: string
   pdp: boolean
   originOfProducts: string
-  account: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -23,13 +22,11 @@ export const VerticalProductSlider = ({
   height,
   pdp,
   originOfProducts,
-  account,
   setShowVariation
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
     collectionId,
-    originOfProducts,
-    account
+    originOfProducts
   })
   const [isMouseOver, setIsMouseOver] = useState(false)
   const delay = time ? time * 1000 : 10000

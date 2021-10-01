@@ -16,7 +16,6 @@ type SliderProductMobileProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   pdp: boolean
   originOfProducts: string
-  account: string
 }
 
 export const SliderProductMobile = ({
@@ -28,7 +27,6 @@ export const SliderProductMobile = ({
   setShowSliderProducts,
   pdp,
   originOfProducts,
-  account,
   setShowVariation
 }: SliderProductMobileProps) => {
   return (
@@ -62,7 +60,6 @@ export const SliderProductMobile = ({
                   height={(parseInt(height) + 50).toString()}
                   pdp={pdp}
                   originOfProducts={originOfProducts}
-                  account={account}
                   setShowVariation={setShowVariation}
                 />
               </div>

@@ -142,7 +142,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
         <VariationSelector
-          account={account}
           showVariation={showVariation}
           setShowVariation={setShowVariation}
         />
@@ -159,7 +158,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
             originOfProducts={
               originOfProducts === 'platform' ? originOfProducts : ''
             }
-            account={account}
             setShowVariation={setShowVariation}
           />
         ) : null}
@@ -181,7 +179,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts={
                 originOfProducts === 'platform' ? originOfProducts : ''
               }
-              account={account}
               setShowVariation={setShowVariation}
             />
           )}
@@ -215,7 +212,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 originOfProducts={
                   originOfProducts === 'platform' ? originOfProducts : ''
                 }
-                account={account}
+                setShowVariation={setShowVariation}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -237,7 +234,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts={
                     originOfProducts === 'platform' ? originOfProducts : ''
                   }
-                  account={account}
                 />
               )}
             </div>

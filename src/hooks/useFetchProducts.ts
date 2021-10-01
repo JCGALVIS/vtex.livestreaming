@@ -4,13 +4,11 @@ import { getProducts } from '../api'
 type useFetchProductsProps = {
   collectionId: string | undefined
   originOfProducts: string
-  account: string
 }
 
 export const useFetchProducts = ({
   collectionId,
-  originOfProducts,
-  account
+  originOfProducts
 }: useFetchProductsProps) => {
   const [products, setProducts] = useState({
     data: [
@@ -30,11 +28,9 @@ export const useFetchProducts = ({
 
   useEffect(() => {
     if (collectionId) {
-      getProducts({ collectionId, originOfProducts, account }).then(
-        (respon: any) => {
-          if (respon) setProducts({ data: respon, loading: false })
-        }
-      )
+      getProducts({ collectionId, originOfProducts }).then((respon: any) => {
+        if (respon) setProducts({ data: respon, loading: false })
+      })
     }
   }, [collectionId])
 

@@ -14,7 +14,7 @@ interface HighlightProductProps {
   collectionId: string | undefined
   pdp: boolean
   originOfProducts: string
-  account: string
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 const HighlightProduct = ({
@@ -22,7 +22,7 @@ const HighlightProduct = ({
   collectionId,
   pdp,
   originOfProducts,
-  account
+  setShowVariation
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -31,8 +31,7 @@ const HighlightProduct = ({
   const { product, showProduct, handlerCloseCard } = useHighlightProduct({
     highlightProduct,
     collectionId,
-    originOfProducts,
-    account
+    originOfProducts
   })
 
   useEffect(() => {
@@ -115,6 +114,7 @@ const HighlightProduct = ({
                     <ProductVariationButton
                       isAvailable={product.isAvailable}
                       productId={product.id}
+                      setShowVariation={setShowVariation}
                     />
                   )}
                 </div>

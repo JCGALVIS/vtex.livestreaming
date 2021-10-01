@@ -7,14 +7,12 @@ type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
   originOfProducts: string
-  account: string
 }
 
 export const useHighlightProduct = ({
   highlightProduct,
   collectionId,
-  originOfProducts,
-  account
+  originOfProducts
 }: useHighlightProductProps) => {
   const [product, setProduct] = useState({
     id: '',
@@ -69,13 +67,11 @@ export const useHighlightProduct = ({
     ) {
       localStorage.setItem('collectionId', collectionId)
 
-      getProducts({ collectionId, originOfProducts, account }).then(
-        (data: any) => {
-          if (data && data.length > 0) {
-            localStorage.setItem('products', JSON.stringify(data))
-          }
+      getProducts({ collectionId, originOfProducts }).then((data: any) => {
+        if (data && data.length > 0) {
+          localStorage.setItem('products', JSON.stringify(data))
         }
-      )
+      })
     }
 
     const objetProduct = storageProduct && JSON.parse(storageProduct)
