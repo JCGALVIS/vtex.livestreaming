@@ -86,7 +86,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
       switch (action) {
         case 'sendmessage':
-          setChat((prev) => [...prev, { data, username, sendDate }])
+          setChat((prev) => [{ data, username, sendDate }, ...prev])
           break
 
         case 'sendlike':
