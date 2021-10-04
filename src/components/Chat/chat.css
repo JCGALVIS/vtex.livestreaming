@@ -10,6 +10,22 @@
   display: none;
 }
 
+.chatIncomingWrapper {
+  position: absolute;
+  width: 100%;
+  display: flex;
+}
+
+.chatIncomingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 90%;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
 .chatContent {
   display: flex !important;
   flex-direction: column !important;
@@ -21,6 +37,10 @@
   width: 100% !important;
   height: 23vh !important;
   overflow: auto !important;
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  height: 85%;
+  margin-top: 0;
 }
 
 .chatArea::-webkit-scrollbar {
