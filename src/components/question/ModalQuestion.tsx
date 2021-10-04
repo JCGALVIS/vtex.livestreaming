@@ -7,7 +7,7 @@ import QuestionTrueOrFalse from './QuestionTrueOrFalse'
 import QuestionQuiz from './QuestionQuiz'
 import Answer from './Answer'
 import useUpdateVotes from '../../hooks/useUpdateVotes'
-import type { InfoSocket, Question } from '../../typings/liveStreaming'
+import type { InfoSocket, Question } from '../../typings/livestreaming'
 import { apiCall } from '../../api/apiCall'
 import styles from './question.css'
 declare interface Props {

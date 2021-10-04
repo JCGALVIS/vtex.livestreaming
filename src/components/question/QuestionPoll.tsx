@@ -8,7 +8,7 @@ import React, {
 } from 'react'
 
 import Timer from './Timer'
-import { Answer, Question } from '../../typings/liveStreaming'
+import { Answer, Question } from '../../typings/livestreaming'
 import { Checkbox } from '../commonComponents'
 import styles from './question.css'
 
