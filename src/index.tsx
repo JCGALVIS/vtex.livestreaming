@@ -11,6 +11,7 @@ import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingCompo
 import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsMobile'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
+import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
 import { getMobileOS } from './utils'
 
 import styles from './styles.module.css'
@@ -54,6 +55,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
+  const [showVariation, setShowVariation] = useState('')
 
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
@@ -139,6 +141,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
+        <VariationSelector
+          showVariation={showVariation}
+          setShowVariation={setShowVariation}
+          pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+        />
         {scriptProperties?.sidebarProducts ||
         scriptProperties?.productsCarousel ? (
           <SliderProductMobile
@@ -152,7 +159,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
             originOfProducts={
               originOfProducts === 'platform' ? originOfProducts : ''
             }
-            account={account}
+            setShowVariation={setShowVariation}
           />
         ) : null}
         <div
@@ -173,7 +180,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts={
                 originOfProducts === 'platform' ? originOfProducts : ''
               }
-              account={account}
+              setShowVariation={setShowVariation}
             />
           )}
         </div>
@@ -206,7 +213,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 originOfProducts={
                   originOfProducts === 'platform' ? originOfProducts : ''
                 }
-                account={account}
+                setShowVariation={setShowVariation}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -228,7 +235,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts={
                     originOfProducts === 'platform' ? originOfProducts : ''
                   }
-                  account={account}
                 />
               )}
             </div>

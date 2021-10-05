@@ -10,7 +10,7 @@ type FeedProps = {
   collectionId: string | undefined
   pdp: boolean
   originOfProducts: string
-  account: string
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const Feed = ({
@@ -19,7 +19,7 @@ export const Feed = ({
   collectionId,
   pdp,
   originOfProducts,
-  account
+  setShowVariation
 }: FeedProps) => {
   const { IVSPlayer } = window
   const { isPlayerSupported, MediaPlayer } = IVSPlayer
@@ -79,7 +79,7 @@ export const Feed = ({
       collectionId={collectionId}
       pdp={pdp}
       originOfProducts={originOfProducts}
-      account={account}
+      setShowVariation={setShowVariation}
     />
   ) : null
 }

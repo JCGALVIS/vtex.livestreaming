@@ -13,7 +13,6 @@ type HorizontalProductSliderProps = {
   infinite?: boolean
   pdp: boolean
   originOfProducts: string
-  account: string
 }
 
 export const HorizontalProductSlider = ({
@@ -21,8 +20,7 @@ export const HorizontalProductSlider = ({
   time,
   infinite,
   pdp,
-  originOfProducts,
-  account
+  originOfProducts
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
   const [itemsProdcuts, setItemsProdcuts] = useState([
@@ -33,13 +31,13 @@ export const HorizontalProductSlider = ({
       priceWithDiscount: 0,
       imageUrl: '',
       addToCartLink: '',
-      isAvailable: false
+      isAvailable: false,
+      variationSelector: []
     }
   ])
   const { data: products, loading } = useFetchProducts({
     collectionId,
-    originOfProducts,
-    account
+    originOfProducts
   })
 
   const delay = time ? time * 1000 : 10000

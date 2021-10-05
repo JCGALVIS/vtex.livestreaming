@@ -1,16 +1,15 @@
 import { config } from './../config'
 import { apiCall } from './../api/apiCall'
 
-type getProductsProps = {
+type GetProductsProps = {
   collectionId?: string | undefined
   originOfProducts?: string
-  account?: string
 }
 
 export const getProducts = async ({
   collectionId,
   originOfProducts
-}: getProductsProps) => {
+}: GetProductsProps) => {
   let products
 
   if (originOfProducts === 'platform') {
@@ -22,7 +21,7 @@ export const getProducts = async ({
   return products
 }
 
-const getProductsVtex = async ({ collectionId }: getProductsProps) => {
+const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
   const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   const data = await apiCall({ url })
@@ -35,7 +34,11 @@ const getProductsVtex = async ({ collectionId }: getProductsProps) => {
         price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
         imageUrl: product?.items[0]?.images[0]?.imageUrl,
         addToCartLink: product?.link,
-        isAvailable: product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable
+        isAvailable:
+          product?.skuSpecifications >= 0
+            ? true
+            : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
+        variationSelector: product?.skuSpecifications || []
       }
     })
     return products

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getProducts } from '../utils'
+import { getProducts } from '../api'
 // eslint-disable-next-line no-unused-vars
 import { HighlightProduct } from './../typings/livestreaming'
 
@@ -7,14 +7,12 @@ type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
   originOfProducts: string
-  account: string
 }
 
 export const useHighlightProduct = ({
   highlightProduct,
   collectionId,
-  originOfProducts,
-  account
+  originOfProducts
 }: useHighlightProductProps) => {
   const [product, setProduct] = useState({
     id: '',
@@ -23,7 +21,8 @@ export const useHighlightProduct = ({
     priceWithDiscount: 0,
     imageUrl: '',
     addToCartLink: '',
-    isAvailable: true
+    isAvailable: true,
+    variationSelector: []
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
 
@@ -36,7 +35,8 @@ export const useHighlightProduct = ({
       priceWithDiscount: 0,
       imageUrl: '',
       addToCartLink: '',
-      isAvailable: true
+      isAvailable: true,
+      variationSelector: []
     })
     localStorage.removeItem('product')
   }
@@ -67,13 +67,11 @@ export const useHighlightProduct = ({
     ) {
       localStorage.setItem('collectionId', collectionId)
 
-      getProducts({ collectionId, originOfProducts, account }).then(
-        (data: any) => {
-          if (data && data.length > 0) {
-            localStorage.setItem('products', JSON.stringify(data))
-          }
+      getProducts({ collectionId, originOfProducts }).then((data: any) => {
+        if (data && data.length > 0) {
+          localStorage.setItem('products', JSON.stringify(data))
         }
-      )
+      })
     }
 
     const objetProduct = storageProduct && JSON.parse(storageProduct)
@@ -98,7 +96,8 @@ export const useHighlightProduct = ({
           price: product?.price,
           imageUrl: product?.imageUrl,
           addToCartLink: product?.addToCartLink,
-          isAvailable: product?.isAvailable
+          isAvailable: product?.isAvailable,
+          variationSelector: product?.variationSelector
         })
         setShowProduct(isShowProduct)
       }

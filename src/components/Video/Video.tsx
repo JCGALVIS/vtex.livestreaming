@@ -13,7 +13,7 @@ type VideoProps = {
   collectionId: string | undefined
   pdp: boolean
   originOfProducts: string
-  account: string
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const Video = ({
@@ -22,7 +22,7 @@ export const Video = ({
   collectionId,
   pdp,
   originOfProducts,
-  account
+  setShowVariation
 }: VideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
@@ -62,7 +62,7 @@ export const Video = ({
       collectionId={collectionId}
       pdp={pdp}
       originOfProducts={originOfProducts}
-      account={account}
+      setShowVariation={setShowVariation}
     />
   ) : (
     <NoVideo isLive={infoSocket?.ivsRealTime?.status} liveStatus={liveStatus} />
