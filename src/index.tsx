@@ -144,6 +144,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
         <VariationSelector
           showVariation={showVariation}
           setShowVariation={setShowVariation}
+          pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
         />
         {scriptProperties?.sidebarProducts ||
         scriptProperties?.productsCarousel ? (

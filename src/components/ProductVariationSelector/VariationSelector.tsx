@@ -2,28 +2,72 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Transition, CSSTransition } from 'react-transition-group'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
-import { NumericStepper } from '../commonComponents'
-import InfoIcon from '../icons/Info'
 import { useFetchProductById } from '../../hooks/useFetchProductById'
+import { formatterDolar } from '../../utils'
+import { NumericStepper } from '../commonComponents'
+import { ColorVariation } from './ColorVariation'
+import { SizeVariations } from './SizeVariations'
+
 import styles from './variationSelector.css'
+import ProductButton from '../ProductsButton/ProductButton'
 
 type VariationSelectorProps = {
   showVariation: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  pdp: boolean
 }
 
 export const VariationSelector = (props: VariationSelectorProps) => {
+  const { showVariation, setShowVariation, pdp } = props
+  const [productId, setProductId] = useState('')
   const [show, setShow] = useState(false)
-  const { showVariation: productId, setShowVariation } = props
+  const [colorData, setColorData] = useState([
+    { id: '', name: '', position: 0 }
+  ])
+  const [sizeData, setSizeData] = useState([{ id: '', name: '', position: 0 }])
+  const [productData, setProductData] = useState({
+    id: '',
+    name: '',
+    price: 0,
+    priceWithDiscount: 0,
+    imageUrl: '',
+    addToCartLink: '',
+    isAvailable: false,
+    variationSelector: [
+      {
+        field: { id: 0, isActive: true, name: '', position: 0, type: '' },
+        values: [{ id: '', name: '', position: 0 }]
+      }
+    ]
+  })
 
   const product = useFetchProductById({
     productId
   })
 
   useEffect(() => {
-    console.log('product: ', product)
-    if (productId) setShow(true)
-  }, [productId, product])
+    if (showVariation) setProductId(showVariation)
+  }, [showVariation])
+
+  useEffect(() => {
+    if (product) {
+      const color = product.data.variationSelector.find(
+        (item) => item.field.name === 'Color'
+      )
+
+      const size = product.data.variationSelector.find(
+        (item) => item.field.name === 'Talla'
+      )
+
+      if (color) setColorData(color?.values)
+
+      if (size) setSizeData(size?.values)
+
+      setProductData(product.data)
+
+      setShow(product.loading !== true)
+    }
+  }, [product])
 
   const handleClose = () => {
     setShow(false)
@@ -37,84 +81,50 @@ export const VariationSelector = (props: VariationSelectorProps) => {
           <div className={styles.variationSelector}>
             <div className={styles.container}>
               <div className={styles.content}>
-                <div className={styles.header}>
-                  <div className={styles.icon}>
-                    <InfoIcon size='36' viewBox='0 0 24 24' />
-                  </div>
-                  <span className={styles.infoText}>
-                    Selecciona tu opcion para agregar el producto al carrito
-                  </span>
+                <div className={styles.productDetail}>
                   <button className={styles.closeCardBtn} onClick={handleClose}>
                     <IconClose />
                   </button>
-                </div>
-                <div className={styles.productDetail}>
                   <div className={styles.productPictureContainer}>
                     <img
                       className={styles.productPicture}
-                      src='https://livestreamingdemo.vteximg.com.br/arquivos/ids/155396/chaqueta.jpg?v=637564691199270000'
+                      src={productData.imageUrl}
                     />
                   </div>
                   <div className={styles.productDetailInfo}>
                     <div className={styles.productContainer}>
                       <div className={styles.productInfo}>
-                        <h2 className={styles.productTitle}>Chaqueta</h2>
+                        <h2 className={styles.productTitle}>
+                          {productData.name}
+                        </h2>
                         <span>
                           <span className={styles.productPrice}>
-                            $ 10.000,00
-                          </span>
-                          <span className={styles.productSavingPrice}>
-                            {' '}
-                            Ahorre $ 5.000,00
+                            {formatterDolar.format(productData.price)}
                           </span>
                         </span>
                         <span className={styles.productDiscountPrice}>
-                          $ 5.000,00
+                          {formatterDolar.format(productData.priceWithDiscount)}
                         </span>
-                        <span>Hata 1 x $5.000,00 sin interés</span>
                       </div>
                     </div>
                     <div className={styles.productContainer}>
                       <div className={styles.variationContent}>
-                        <span className={styles.titleVariation}>
-                          Seleccionar talla:
-                        </span>
-                        <div className={styles.itemContent}>
-                          <div className={styles.itemSize}>
-                            <div className={styles.itemSizeSelect} />
-                            <div>
-                              <span>XS</span>
-                            </div>
-                          </div>
-                        </div>
+                        <ColorVariation colorData={colorData} />
                       </div>
                       <div className={styles.variationContent}>
-                        <span className={styles.titleVariation}>Color:</span>
-                        <div className={styles.itemContent}>
-                          <div className={styles.itemColor}>
-                            <div className={styles.itemColorSelect} />
-                            <div>
-                              <img
-                                className={styles.productPictureColor}
-                                src='https://livestreamingdemo.vteximg.com.br/arquivos/ids/155396/chaqueta.jpg?v=637564691199270000'
-                              />
-                            </div>
-                          </div>
-                        </div>
+                        <SizeVariations sizeData={sizeData} />
                       </div>
                     </div>
                     <div className={styles.productContainer}>
                       <div className={styles.variationContent}>
                         <NumericStepper />
                         <div className={styles.buttonGroup}>
-                          <button className={styles.productButton}>
-                            Agregar a su carrito
-                          </button>
-                          <a
-                            className={`${styles.productButton} ${styles.buttonPdp}`}
-                          >
-                            Agregar a su carrito
-                          </a>
+                          <ProductButton
+                            productId={productData.id}
+                            addToCartLink={productData.addToCartLink}
+                            isAvailable={productData.isAvailable}
+                            pdp={pdp}
+                          />
                         </div>
                       </div>
                     </div>
