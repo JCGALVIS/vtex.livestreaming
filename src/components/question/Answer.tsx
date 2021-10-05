@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { Answer as AnswerInterface } from '../../typings/liveStreaming'
+import { Answer as AnswerInterface } from '../../typings/livestreaming'
 import { Spinner, Badge } from '../commonComponents'
 import styles from './question.css'
 interface AnswerProps {
