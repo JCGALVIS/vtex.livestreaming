@@ -23,8 +23,9 @@ export const getProducts = async ({
 }
 
 const getProductsVtex = async ({ collectionId }: getProductsProps) => {
-  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
-
+  let url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
+  url = 'http://localhost:3001/products'
+  
   const data = await apiCall({ url })
   if (data && data.length > 0) {
     const products = data.map((product: any) => {
