@@ -95,12 +95,18 @@ export const Chat = ({
       return
     }
 
-    const newChat = chat.filter(
+    let newChat = chat.filter(
       (row: Message) =>
         row.username !== messageToDelete?.username ||
         row.data !== messageToDelete?.data ||
         row.sendDate !== messageToDelete?.sendDate
     )
+
+    if (messageToDelete.all) {
+      newChat = chat.filter(
+        (row: Message) => row.username !== messageToDelete?.username
+      )
+    }
 
     setChat(newChat)
     setMessageToDelete(undefined)

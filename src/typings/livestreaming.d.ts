@@ -5,6 +5,7 @@ export declare interface Message {
   data?: string
   sendDate?: string
   username?: string
+  all?: Boolean
 }
 
 export declare interface Heart {
