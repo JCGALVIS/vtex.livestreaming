@@ -39,10 +39,6 @@ export const ColorVariation = ({ colorData }: ColorVariationProps) => {
 
     console.log('divSelects: ', divSelects)
 
-    divSelects.forEach((item) => {
-      console.log(item)
-    })
-
     if (divSelect) divSelect.style.display = 'initial'
   }
 
