@@ -1,0 +1,47 @@
+.numericStepperContent {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.numericStepperInput {
+  width: 64px;
+  border: 2px solid #e3e4e6;
+  text-align: center;
+  font-size: 16px;
+  box-sizing: border-box;
+  appearance: none;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.numericStepperButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  height: 40px;
+  width: 48px;
+  color: #134cd8;
+  transition: opacity 150ms ease 0s;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 2px solid #e3e4e6;
+  background-color: #fff;
+  font-weight: 700;
+}
+
+.numericStepperInactiveButton {
+  background-color: #f2f4f5;
+  color: #979899;
+}
+
+.numericStepperMinusButton {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.numericStepperPlusButton {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
