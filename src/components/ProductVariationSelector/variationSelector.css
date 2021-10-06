@@ -173,6 +173,10 @@ span {
   width: 100%;
 }
 
+.itemColorBackground:hover {
+  cursor: pointer;
+}
+
 .buttonGroup {
   display: flex;
   flex-direction: column;

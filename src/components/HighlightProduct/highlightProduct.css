@@ -60,6 +60,10 @@
   padding: 0 0.4rem;
 }
 
+.productLink {
+  text-decoration: none;
+}
+
 .productPicture {
   width: 70px;
   height: 70px;

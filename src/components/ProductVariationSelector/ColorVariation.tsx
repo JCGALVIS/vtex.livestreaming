@@ -33,14 +33,32 @@ export const ColorVariation = ({ colorData }: ColorVariationProps) => {
     console.log('color: ', color)
   }, [colorData])
 
+  const handleColorSelect = (colorId: string) => {
+    const divSelect = document.getElementById(colorId)
+    const divSelects = document.querySelectorAll('.divSelectSize')
+
+    console.log('divSelects: ', divSelects)
+
+    divSelects.forEach((item) => {
+      console.log(item)
+    })
+
+    if (divSelect) divSelect.style.display = 'initial'
+  }
+
   return (
     <div className={styles.itemContent}>
       {colorArray.map((color) => (
         <div key={color.id} className={styles.itemColor}>
-          <div className={styles.itemColorSelect} />
+          <div
+            id={color.id}
+            className={`${styles.itemColorSelect} divSelectSize`}
+            style={{ display: 'none' }}
+          />
           <div
             style={{ backgroundColor: color.name }}
             className={styles.itemColorBackground}
+            onClick={() => handleColorSelect(color.id)}
           />
         </div>
       ))}

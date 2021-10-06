@@ -4,7 +4,7 @@ type GetProductByIdProps = {
 }
 
 export const getProductById = async ({ productId }: GetProductByIdProps) => {
-  const url = `/api/catalog_system/pub/products/search?fq=productId:${productId}`
+  const url = `https://livestreamingdemo.myvtex.com/api/catalog_system/pub/products/search?fq=productId:${productId}`
 
   const data = await apiCall({ url })
 
@@ -15,7 +15,9 @@ export const getProductById = async ({ productId }: GetProductByIdProps) => {
       priceWithDiscount: data[0]?.items[0]?.sellers[0]?.commertialOffer.Price,
       price: data[0]?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
       imageUrl: data[0]?.items[0]?.images[0]?.imageUrl,
-      addToCartLink: data[0]?.link,
+      addToCartLink: data[0]?.items[0].complementName
+        ? data[0]?.items[0].complementName
+        : data[0]?.items[0].sellers[0].addToCartLink,
       items: data[0]?.items,
       isAvailable:
         data[0]?.skuSpecifications >= 0
