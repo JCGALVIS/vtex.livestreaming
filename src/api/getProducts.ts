@@ -21,7 +21,7 @@ export const getProducts = async ({
   return products
 }
 
-const getProductsVtex = async ({ collectionId }: getProductsProps) => {
+const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
   let url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
   url = 'http://localhost:3001/products'
   
