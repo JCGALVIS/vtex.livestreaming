@@ -13,6 +13,7 @@ type VerticalProductSliderProps = {
   pdp: boolean
   originOfProducts: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  kuikpay: boolean
 }
 
 export const VerticalProductSlider = ({
@@ -22,7 +23,8 @@ export const VerticalProductSlider = ({
   height,
   pdp,
   originOfProducts,
-  setShowVariation
+  setShowVariation,
+  kuikpay
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
     collectionId,
@@ -98,6 +100,8 @@ export const VerticalProductSlider = ({
               {...product}
               pdp={pdp}
               setShowVariation={setShowVariation}
+              originOfProducts={originOfProducts}
+              kuikpay={kuikpay}
             />
           ))}
       </div>

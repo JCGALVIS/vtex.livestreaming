@@ -3,6 +3,7 @@ import React from 'react'
 import { formatterDolar } from '../../utils'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
 import ProductButton from './../ProductsButton/ProductButton'
+import KuikPayButton from './../ProductsButton/KuikPayButton'
 
 import styles from './productSlider.css'
 
@@ -17,6 +18,8 @@ type ProductItemProps = {
   pdp: boolean
   variationSelector: []
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  originOfProducts: string
+  kuikpay: boolean
 }
 
 export const ProductItem = (props: ProductItemProps) => {
@@ -30,7 +33,9 @@ export const ProductItem = (props: ProductItemProps) => {
     isAvailable,
     pdp,
     variationSelector,
-    setShowVariation
+    setShowVariation,
+    originOfProducts,
+    kuikpay
   } = props
 
   return (
@@ -69,6 +74,9 @@ export const ProductItem = (props: ProductItemProps) => {
               productId={id}
               setShowVariation={setShowVariation}
             />
+          )}
+          {kuikpay && originOfProducts !== 'platform' && (
+            <KuikPayButton productId={id} />
           )}
         </div>
       </div>

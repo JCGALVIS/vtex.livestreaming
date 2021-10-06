@@ -35,6 +35,7 @@ export declare interface ScriptProperties {
   infinite: boolean | undefined
   time: number | undefined
   pdp: boolean | undefined
+  kuikpay: boolean | undefined
 }
 export declare interface InfoSocket {
   socket: WebSocket | undefined

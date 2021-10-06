@@ -8,6 +8,8 @@ import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 import styles from './highlightProduct.css'
 import ProductButton from '../ProductsButton/ProductButton'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
+import KuikPayButton from './../ProductsButton/KuikPayButton'
+
 import { formatterDolar } from '../../utils'
 interface HighlightProductProps {
   infoSocket: InfoSocket
@@ -15,6 +17,7 @@ interface HighlightProductProps {
   pdp: boolean
   originOfProducts: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  kuikpay: boolean
 }
 
 const HighlightProduct = ({
@@ -22,7 +25,8 @@ const HighlightProduct = ({
   collectionId,
   pdp,
   originOfProducts,
-  setShowVariation
+  setShowVariation,
+  kuikpay
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -116,6 +120,9 @@ const HighlightProduct = ({
                       productId={product.id}
                       setShowVariation={setShowVariation}
                     />
+                  )}
+                  {kuikpay && originOfProducts !== 'platform' && (
+                    <KuikPayButton productId={product.id} />
                   )}
                 </div>
               </div>

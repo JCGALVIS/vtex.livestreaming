@@ -6,31 +6,24 @@ import 'kuikpay-sdk/dist/index.css'
 
 import styles from './kuikPayButton.css'
 
-import { cartSimulation } from './services'
+import { cartSimulation } from '../../api'
 
 const windowInfo: any = window
 const { vtexjs } = windowInfo
 
-type ProductItemProps = {
-  id: string
-  name: string
-  price: number
-  priceWithDiscount: number
-  imageUrl: string
-  addToCartLink: string
-  isAvailable: boolean
-  pdp: boolean
+type KuikPayButtonProps = {
+  productId: string
 }
 
-export const KuikPayButton = (props: ProductItemProps) => {
-  const { id } = props
+const KuikPayButton = (props: KuikPayButtonProps) => {
+  const { productId } = props
 
   const [orderForm, setOrderForm] = useState<any>({})
   const [order, setOrder] = useState<any | null>(null)
 
   // Item to add to cart
   const itemToAdd = {
-    id: Number(id),
+    id: Number(productId),
     quantity: 1,
     seller: '1'
   }
@@ -131,3 +124,5 @@ export const KuikPayButton = (props: ProductItemProps) => {
     </div>
   )
 }
+
+export default KuikPayButton
