@@ -1,0 +1,12 @@
+.kuikpay {
+    margin-top: 5px;
+    width: 100%;
+  }
+  
+  .kuikpay a > div {
+    height: 36px !important;
+  }
+  
+  .kuikpay a svg {
+    height: 36px !important;
+  }
