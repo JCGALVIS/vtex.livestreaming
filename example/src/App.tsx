@@ -11,7 +11,7 @@ const App = () => {
 
   return (
     <Livestreaming
-      idLivestreaming='138ec556-456b-4989-ba8a-061b772145d1'
+      idLivestreaming='2127059c-4752-4e55-9720-1ed813e625ba'
       account='livestreamingdemo'
       inactiveSidebarProducts="true"
       inactiveProductsCarousel="true"
@@ -22,6 +22,7 @@ const App = () => {
       time='_TIME'
       pdp="true"
       originOfProducts='_ORIGINOFPRODUCTS'
+      kuikpay="true"
     />
   )
 }

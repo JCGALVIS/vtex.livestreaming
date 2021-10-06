@@ -163,6 +163,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts === 'platform' ? originOfProducts : ''
             }
             setShowVariation={setShowVariation}
+            kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
           />
         ) : null}
         <div
@@ -218,6 +219,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts === 'platform' ? originOfProducts : ''
                 }
                 setShowVariation={setShowVariation}
+                kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
