@@ -28,6 +28,7 @@ type LivestreamingProps = {
   time?: string
   pdp?: string
   originOfProducts?: string
+  kuikpay?: string
 }
 
 type MarketingData = {
@@ -50,7 +51,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactiveSidebarProducts,
     inactiveProductsCarousel,
     pdp,
-    originOfProducts
+    originOfProducts,
+    kuikpay
   } = props
 
   const divVideoContent = useRef<HTMLDivElement>(null)
@@ -110,7 +112,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
       like: inactivateLike === 'undefined' ? true : inactivateLike === 'true',
       infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
       time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
-      pdp: pdp === 'undefined' ? false : pdp === 'true'
+      pdp: pdp === 'undefined' ? false : pdp === 'true',
+      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true',
     })
   }, [scriptProperties])
 
@@ -160,6 +163,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts === 'platform' ? originOfProducts : ''
             }
             setShowVariation={setShowVariation}
+            kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
           />
         ) : null}
         <div
@@ -181,6 +185,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 originOfProducts === 'platform' ? originOfProducts : ''
               }
               setShowVariation={setShowVariation}
+              kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
             />
           )}
         </div>
@@ -214,6 +219,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts === 'platform' ? originOfProducts : ''
                 }
                 setShowVariation={setShowVariation}
+                kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -235,6 +241,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts={
                     originOfProducts === 'platform' ? originOfProducts : ''
                   }
+                  kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
                 />
               )}
             </div>
@@ -274,5 +281,6 @@ Livestreaming.defaultProps = {
   isInfinite: 'true',
   time: '10',
   pdp: 'true',
-  originOfProducts: 'vtex'
+  originOfProducts: 'vtex',
+  kuikpay: 'false'
 }
