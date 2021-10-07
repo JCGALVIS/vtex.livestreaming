@@ -13,6 +13,7 @@ export const useFetchProductById = ({ productId }: useFetchProductById) => {
       priceWithDiscount: 0,
       imageUrl: '',
       addToCartLink: '',
+      items: [],
       isAvailable: false,
       variationSelector: [
         {

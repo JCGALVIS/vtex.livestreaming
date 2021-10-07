@@ -132,7 +132,7 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0px 12px 8px 0px;
+  margin: 0px 10px 8px 0px;
 }
 
 .itemSizeSelect {
@@ -143,6 +143,10 @@ span {
   left: -0.25rem;
   right: -0.25rem;
   border-radius: 6px;
+}
+
+.itemSizeBackground:hover {
+  cursor: pointer;
 }
 
 .itemColor {

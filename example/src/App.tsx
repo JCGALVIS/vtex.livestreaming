@@ -11,16 +11,16 @@ const App = () => {
 
   return (
     <Livestreaming
-      idLivestreaming='d6b21df0-e407-404a-a899-2ffc537c9ded'
-      account='livestreamingdemo'
-      inactiveSidebarProducts='true'
-      inactiveProductsCarousel='false'
-      inactivateChat='true'
-      inactivateLike='true'
-      inactivateViewers='true'
+      idLivestreaming='__IDLIVESTREAMING'
+      account='__ACCOUNT'
+      inactiveSidebarProducts='_INACTIVESIDEBARPRODUCTS'
+      inactiveProductsCarousel='_INACTIVEPRODUCTSCAROUSEL'
+      inactivateChat='_INACTIVATECHAT'
+      inactivateLike='_INACTIVATELIKE'
+      inactivateViewers='_INACTIVATEVIEWERS'
       isInfinite='_ISINFINITE'
       time='_TIME'
-      pdp='true'
+      pdp='_PDP'
       originOfProducts='_ORIGINOFPRODUCTS'
       kuikpay='_KUIKPAY'
     />

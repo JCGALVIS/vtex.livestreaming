@@ -4,7 +4,6 @@ import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 import { useFetchProductById } from '../../hooks/useFetchProductById'
 import { formatterDolar } from '../../utils'
-import { NumericStepper } from '../commonComponents'
 import { ColorVariation } from './ColorVariation'
 import { SizeVariations } from './SizeVariations'
 
@@ -21,6 +20,15 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   const { showVariation, setShowVariation, pdp } = props
   const [productId, setProductId] = useState('')
   const [show, setShow] = useState(false)
+  const [selectedColor, setSelectedColor] = useState('')
+  const [selectedSize, setSelectedSize] = useState('')
+  const [isAvailable, setIsAvailable] = useState(true)
+  const [selectedProduct, setSelectedProduct] = useState({
+    color: '',
+    size: '',
+    imageUrl: '',
+    addToCartLink: ''
+  })
   const [colorData, setColorData] = useState([
     { id: '', name: '', position: 0 }
   ])
@@ -32,6 +40,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     priceWithDiscount: 0,
     imageUrl: '',
     addToCartLink: '',
+    items: [],
     isAvailable: false,
     variationSelector: [
       {
@@ -69,9 +78,31 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     }
   }, [product])
 
+  useEffect(() => {
+    const items = productData.items.map((item: any) => {
+      return {
+        color: item.Color[0],
+        size: item.Talla[0],
+        imageUrl: item.images[0].imageUrl,
+        addToCartLink: item.sellers[0].addToCartLink
+      }
+    })
+
+    const productItem = items.find(
+      (item) => item.color === selectedColor && item.size === selectedSize
+    )
+
+    setIsAvailable(!!productItem)
+    setSelectedSize(productItem ? productItem.size : selectedSize)
+    setSelectedColor(productItem ? productItem.color : selectedColor)
+
+    if (productItem) setSelectedProduct(productItem)
+  }, [selectedColor, selectedSize])
+
   const handleClose = () => {
     setShow(false)
     setShowVariation('')
+    setProductId('')
   }
 
   return (
@@ -88,7 +119,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                   <div className={styles.productPictureContainer}>
                     <img
                       className={styles.productPicture}
-                      src={productData.imageUrl}
+                      src={selectedProduct.imageUrl}
                     />
                   </div>
                   <div className={styles.productDetailInfo}>
@@ -109,20 +140,28 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                     </div>
                     <div className={styles.productContainer}>
                       <div className={styles.variationContent}>
-                        <ColorVariation colorData={colorData} />
+                        <ColorVariation
+                          colorData={colorData}
+                          setSelectedColor={setSelectedColor}
+                        />
                       </div>
                       <div className={styles.variationContent}>
-                        <SizeVariations sizeData={sizeData} />
+                        <SizeVariations
+                          sizeData={sizeData}
+                          setSelectedSize={setSelectedSize}
+                          selectedSize={selectedSize}
+                        />
                       </div>
                     </div>
                     <div className={styles.productContainer}>
                       <div className={styles.variationContent}>
-                        <NumericStepper />
                         <div className={styles.buttonGroup}>
                           <ProductButton
                             productId={productData.id}
-                            addToCartLink={productData.addToCartLink}
-                            isAvailable={productData.isAvailable}
+                            addToCartLink={selectedProduct.addToCartLink}
+                            isAvailable={
+                              isAvailable ? productData.isAvailable : false
+                            }
                             pdp={pdp}
                           />
                         </div>
