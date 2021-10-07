@@ -23,7 +23,7 @@ export const getProducts = async ({
 
 const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
   const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
-  
+
   const data = await apiCall({ url })
   if (data && data.length > 0) {
     const products = data.map((product: any) => {
@@ -61,7 +61,8 @@ const getProductsPlatform = async () => {
         price: product.price,
         imageUrl: product.pictures[0],
         addToCartLink: product.link,
-        isAvailable: product.status === 'active'
+        isAvailable: product.status === 'active',
+        variationSelector: []
       }
     })
     return products
