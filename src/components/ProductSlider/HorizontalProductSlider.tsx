@@ -13,6 +13,7 @@ type HorizontalProductSliderProps = {
   infinite?: boolean
   pdp: boolean
   originOfProducts: string
+  kuikpay: boolean
 }
 
 export const HorizontalProductSlider = ({
@@ -20,7 +21,8 @@ export const HorizontalProductSlider = ({
   time,
   infinite,
   pdp,
-  originOfProducts
+  originOfProducts,
+  kuikpay
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
   const [itemsProdcuts, setItemsProdcuts] = useState([
@@ -107,7 +109,12 @@ export const HorizontalProductSlider = ({
               timeout={100}
             >
               <div className={styles.horizontalProductList}>
-                <ProductItem {...product} pdp={pdp} />
+                <ProductItem
+                  {...product}
+                  pdp={pdp}
+                  originOfProducts={originOfProducts}
+                  kuikpay={kuikpay}
+                />
               </div>
             </CSSTransition>
           ))}

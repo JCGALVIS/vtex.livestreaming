@@ -81,7 +81,8 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         time,
         backgroundWhiteHighlight,
         pdp,
-        emailIsRequired
+        emailIsRequired,
+        kuikpay
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -132,7 +133,8 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             like,
             infinite,
             time,
-            pdp
+            pdp,
+            kuikpay
           })
           break
 

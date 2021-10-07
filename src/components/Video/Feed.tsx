@@ -11,6 +11,7 @@ type FeedProps = {
   pdp: boolean
   originOfProducts: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  kuikpay: boolean
 }
 
 export const Feed = ({
@@ -19,7 +20,8 @@ export const Feed = ({
   collectionId,
   pdp,
   originOfProducts,
-  setShowVariation
+  setShowVariation,
+  kuikpay
 }: FeedProps) => {
   const { IVSPlayer } = window
   const { isPlayerSupported, MediaPlayer } = IVSPlayer
@@ -80,6 +82,7 @@ export const Feed = ({
       pdp={pdp}
       originOfProducts={originOfProducts}
       setShowVariation={setShowVariation}
+      kuikpay={kuikpay}
     />
   ) : null
 }

@@ -48,6 +48,7 @@ type streamPlayerProps = {
   pdp: boolean
   originOfProducts: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  kuikpay: boolean
 }
 
 export const StreamPlayer = ({
@@ -57,7 +58,8 @@ export const StreamPlayer = ({
   collectionId,
   pdp,
   originOfProducts,
-  setShowVariation
+  setShowVariation,
+  kuikpay
 }: streamPlayerProps) => {
   const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
   const [overlay, setOverlay] = useState<boolean>(false)
@@ -504,6 +506,7 @@ export const StreamPlayer = ({
             pdp={pdp}
             originOfProducts={originOfProducts}
             setShowVariation={setShowVariation}
+            kuikpay={kuikpay}
           />
         )}
         <video

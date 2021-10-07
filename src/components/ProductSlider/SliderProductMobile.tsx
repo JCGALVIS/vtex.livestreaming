@@ -16,6 +16,7 @@ type SliderProductMobileProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   pdp: boolean
   originOfProducts: string
+  kuikpay: boolean
 }
 
 export const SliderProductMobile = ({
@@ -27,7 +28,8 @@ export const SliderProductMobile = ({
   setShowSliderProducts,
   pdp,
   originOfProducts,
-  setShowVariation
+  setShowVariation,
+  kuikpay
 }: SliderProductMobileProps) => {
   return (
     <Transition in={showSliderProducts} timeout={150}>
@@ -61,6 +63,7 @@ export const SliderProductMobile = ({
                   pdp={pdp}
                   originOfProducts={originOfProducts}
                   setShowVariation={setShowVariation}
+                  kuikpay={kuikpay}
                 />
               </div>
             </div>

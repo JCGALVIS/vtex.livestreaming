@@ -22,6 +22,7 @@ const App = () => {
       time='_TIME'
       pdp='true'
       originOfProducts='_ORIGINOFPRODUCTS'
+      kuikpay='_KUIKPAY'
     />
   )
 }

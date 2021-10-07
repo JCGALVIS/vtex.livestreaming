@@ -14,6 +14,7 @@ type VideoProps = {
   pdp: boolean
   originOfProducts: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  kuikpay: boolean
 }
 
 export const Video = ({
@@ -22,7 +23,8 @@ export const Video = ({
   collectionId,
   pdp,
   originOfProducts,
-  setShowVariation
+  setShowVariation,
+  kuikpay
 }: VideoProps) => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
   const [isPlayerSupported, setIsPlayerSupported] = useState(false)
@@ -63,6 +65,7 @@ export const Video = ({
       pdp={pdp}
       originOfProducts={originOfProducts}
       setShowVariation={setShowVariation}
+      kuikpay={kuikpay}
     />
   ) : (
     <NoVideo isLive={infoSocket?.ivsRealTime?.status} liveStatus={liveStatus} />

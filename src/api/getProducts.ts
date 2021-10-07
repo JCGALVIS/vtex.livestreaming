@@ -63,7 +63,8 @@ const getProductsPlatform = async () => {
         price: product.price,
         imageUrl: product.pictures[0],
         addToCartLink: product.link,
-        isAvailable: product.status === 'active'
+        isAvailable: product.status === 'active',
+        variationSelector: []
       }
     })
     return products
