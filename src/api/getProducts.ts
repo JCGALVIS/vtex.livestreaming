@@ -22,7 +22,7 @@ export const getProducts = async ({
 }
 
 const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
-  const url = `https://livestreamingdemo.myvtex.com/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
+  const url = `/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   const data = await apiCall({ url })
   if (data && data.length > 0) {
@@ -36,10 +36,9 @@ const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
         addToCartLink: product?.items[0].complementName
           ? product?.items[0].complementName
           : product?.items[0].sellers[0].addToCartLink,
-        isAvailable:
-          product?.skuSpecifications >= 0
-            ? true
-            : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
+        isAvailable: product?.skuSpecifications
+          ? true
+          : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
         variationSelector: product?.skuSpecifications || []
       }
     })

@@ -38,6 +38,8 @@ const HighlightProduct = ({
     originOfProducts
   })
 
+  console.log('product: ', product)
+
   useEffect(() => {
     if (ivsRealTime && ivsRealTime.status === 'LIVE') {
       setShow(showProduct)

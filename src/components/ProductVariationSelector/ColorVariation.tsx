@@ -11,7 +11,7 @@ const coloredItems = {
   negro: '#000000',
   rosa: '#ffc0cb',
   blanco: '#ffffff',
-  amarrillo: '#ffff00',
+  amarillo: '#ffff00',
   azul: '#134cd8',
   verde: '#008000',
   girs: '#808080',

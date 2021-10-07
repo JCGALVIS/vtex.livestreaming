@@ -14,6 +14,7 @@ type HorizontalProductSliderProps = {
   pdp: boolean
   originOfProducts: string
   kuikpay: boolean
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const HorizontalProductSlider = ({
@@ -22,7 +23,8 @@ export const HorizontalProductSlider = ({
   infinite,
   pdp,
   originOfProducts,
-  kuikpay
+  kuikpay,
+  setShowVariation
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
   const [itemsProdcuts, setItemsProdcuts] = useState([
@@ -113,6 +115,7 @@ export const HorizontalProductSlider = ({
                   {...product}
                   pdp={pdp}
                   originOfProducts={originOfProducts}
+                  setShowVariation={setShowVariation}
                   kuikpay={kuikpay}
                 />
               </div>

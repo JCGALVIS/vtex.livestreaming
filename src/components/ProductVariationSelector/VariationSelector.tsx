@@ -27,7 +27,8 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     color: '',
     size: '',
     imageUrl: '',
-    addToCartLink: ''
+    addToCartLink: '',
+    isAvailable: true
   })
   const [colorData, setColorData] = useState([
     { id: '', name: '', position: 0 }
@@ -84,7 +85,8 @@ export const VariationSelector = (props: VariationSelectorProps) => {
         color: item.Color[0],
         size: item.Talla[0],
         imageUrl: item.images[0].imageUrl,
-        addToCartLink: item.sellers[0].addToCartLink
+        addToCartLink: item.sellers[0].addToCartLink,
+        isAvailable: item.sellers[0]?.commertialOffer.IsAvailable
       }
     })
 
@@ -160,7 +162,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                             productId={productData.id}
                             addToCartLink={selectedProduct.addToCartLink}
                             isAvailable={
-                              isAvailable ? productData.isAvailable : false
+                              isAvailable ? selectedProduct.isAvailable : false
                             }
                             pdp={pdp}
                           />

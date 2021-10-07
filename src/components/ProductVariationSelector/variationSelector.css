@@ -27,7 +27,7 @@ span {
   height: 555px;
   width: 100%;
   overflow: auto;
-  z-index: 1;
+  z-index: 1100;
   border-radius: 8px 8px 0px 0px;
   position: absolute;
   bottom: 0;
