@@ -86,7 +86,14 @@ const HighlightProduct = ({
             <IconClose />
           </button>
           <div className={styles.productContainer}>
-            <img className={styles.productPicture} src={product.imageUrl} />
+            <a
+              className={styles.º}
+              href={product.addToCartLink}
+              target='_blank'
+              rel='noreferrer'
+            >
+              <img className={styles.productPicture} src={product.imageUrl} />
+            </a>
             <div
               className={`${styles.productInfo} ${
                 !optionHighlight || optionHighlight === 'white'
@@ -97,14 +104,14 @@ const HighlightProduct = ({
               <p className={styles.productTitle}>{product.name}</p>
               <div className={styles.productPriceContainer}>
                 <div>
-                  <p className={styles.productDiscounted}>
-                    {formatterDolar.format(product.priceWithDiscount)}
-                  </p>
                   {product.price !== product.priceWithDiscount && (
                     <p className={styles.productPrice}>
                       {formatterDolar.format(product.price)}
                     </p>
                   )}
+                  <p className={styles.productDiscounted}>
+                    {formatterDolar.format(product.priceWithDiscount)}
+                  </p>
                 </div>
                 <div className={styles.productAddCartContent}>
                   {product.variationSelector.length === 0 ? (
