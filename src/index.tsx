@@ -113,7 +113,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
       infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
       time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
       pdp: pdp === 'undefined' ? false : pdp === 'true',
-      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true',
+      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true'
     })
   }, [scriptProperties])
 
@@ -163,7 +163,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts === 'platform' ? originOfProducts : ''
             }
             setShowVariation={setShowVariation}
-            kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
+            kuikpay={
+              scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+            }
           />
         ) : null}
         <div
@@ -185,7 +187,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 originOfProducts === 'platform' ? originOfProducts : ''
               }
               setShowVariation={setShowVariation}
-              kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
+              kuikpay={
+                scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+              }
             />
           )}
         </div>
@@ -219,7 +223,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts === 'platform' ? originOfProducts : ''
                 }
                 setShowVariation={setShowVariation}
-                kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
+                kuikpay={
+                  scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+                }
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -241,7 +247,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts={
                     originOfProducts === 'platform' ? originOfProducts : ''
                   }
-                  kuikpay={scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false}
+                  setShowVariation={setShowVariation}
+                  kuikpay={
+                    scriptProperties?.kuikpay
+                      ? scriptProperties?.kuikpay
+                      : false
+                  }
                 />
               )}
             </div>
