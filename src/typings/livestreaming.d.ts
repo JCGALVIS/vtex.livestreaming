@@ -5,6 +5,7 @@ export declare interface Message {
   data?: string
   sendDate?: string
   username?: string
+  all?: Boolean
 }
 
 export declare interface Heart {
@@ -34,6 +35,7 @@ export declare interface ScriptProperties {
   infinite: boolean | undefined
   time: number | undefined
   pdp: boolean | undefined
+  kuikpay: boolean | undefined
 }
 export declare interface InfoSocket {
   socket: WebSocket | undefined

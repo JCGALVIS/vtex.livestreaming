@@ -2,12 +2,12 @@ import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
 import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
 import SendIcon from '../icons/Send'
 import MessageRenderer from './MessageRenderer'
-import { InfoSocket, Message } from '../../typings/livestreaming'
-import { useChat } from '../../hooks/useChat'
+import type { InfoSocket, Message } from '../../typings/livestreaming'
 import { Login } from './login/Login'
 import { ModalQuestion } from '../question/ModalQuestion'
 import { getMobileOS, getDeviceType } from '../../utils'
 import styles from './chat.css'
+import ArrowDown from '../icons/ArrowDown'
 
 type ChatProps = {
   title: string
@@ -27,6 +27,7 @@ export const Chat = ({
   account
 }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
+  const formContainer = useRef<HTMLFormElement>(null)
   const [content, setContent] = useState<string>('')
   const {
     socket,
@@ -37,13 +38,25 @@ export const Chat = ({
     setMessageToDelete
   } = infoSocket
   const [chatFiltered, setChatFiltered] = useState<Message[]>([])
-  const { chatHistory } = useChat({
-    idLivestreaming,
-    account
-  })
   const [showLoginWindow, setShowLoginWindow] = useState(false)
   const [sendFirstMessage, setSendFirstMessage] = useState(false)
   const [userIsLoggedInChat, setUserIsLoggedInChat] = useState(false)
+  const [scrolled, setScrolled] = useState<boolean>(false)
+  const [incoming, setIncoming] = useState(false)
+  const [incomingPosition, setIncomingPosition] = useState(0)
+  const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
+
+  const handleIncoming = (): void => {
+    if (!chatAreaRef?.current) return
+
+    chatAreaRef.current.scrollBy(
+      0,
+      chatAreaRef.current.scrollHeight - chatAreaRef.current.clientHeight
+    )
+
+    chatAreaRef.current.scrollBy(0, 0)
+    setIncoming(false)
+  }
 
   const handlerSendMessage = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -71,11 +84,6 @@ export const Chat = ({
     setContent('')
   }
 
-  const ChatMessages = useMemo(
-    () => MessageRenderer(chatFiltered || []),
-    [chatFiltered, chat]
-  )
-
   const deleteMessage = useCallback(() => {
     if (
       !chat ||
@@ -87,56 +95,23 @@ export const Chat = ({
       return
     }
 
-    const newChat = chat.filter(
+    let newChat = chat.filter(
       (row: Message) =>
         row.username !== messageToDelete?.username ||
         row.data !== messageToDelete?.data ||
         row.sendDate !== messageToDelete?.sendDate
     )
 
+    if (messageToDelete.all) {
+      newChat = chat.filter(
+        (row: Message) => row.username !== messageToDelete?.username
+      )
+    }
+
     setChat(newChat)
     setMessageToDelete(undefined)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageToDelete])
-
-  useEffect(() => {
-    if (!chat || messageToDelete === undefined) return
-    deleteMessage()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageToDelete])
-
-  useEffect(() => {
-    if (!chat || !chatAreaRef?.current) return
-
-    setChatFiltered(chat.slice(-NUMBER_OF_PREVIOUS_MESSAGES))
-  }, [chat])
-
-  useEffect(() => {
-    if (chatAreaRef?.current) {
-      const current = chatAreaRef?.current
-
-      current.scrollBy(0, current.scrollHeight)
-      setTimeout(() => {
-        current.scrollBy(0, current.scrollHeight)
-      }, 300)
-    }
-  }, [ChatMessages])
-
-  useEffect(() => {
-    if (setChat) setChat([])
-  }, [setChat, chatHistory])
-
-  useEffect(() => {
-    const isLogged = localStorage.getItem('userIsLoggedInChat')
-
-    if (!isLogged) return
-    const userLoggedStorage = JSON.parse(isLogged)
-
-    if (userLoggedStorage.id !== idLivestreaming) return
-
-    setUserIsLoggedInChat(true)
-    setShowLoginWindow(false)
-  }, [idLivestreaming])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -152,6 +127,101 @@ export const Chat = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document.visibilityState])
 
+  useEffect(() => {
+    if (!chat || messageToDelete === undefined) return
+    deleteMessage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messageToDelete])
+
+  useEffect(() => {
+    if (scrolled) setIncoming(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chat])
+
+  const ChatMessages = useMemo(
+    () => MessageRenderer(chatFiltered || []),
+    [chatFiltered, chat]
+  )
+
+  useEffect(() => {
+    if (!chat || !chatAreaRef?.current || scrolled) return
+
+    setChatFiltered(chat.slice(0, NUMBER_OF_PREVIOUS_MESSAGES))
+  }, [chat, scrolled])
+
+  useEffect(() => {
+    if (!chatAreaRef?.current) return
+
+    chatAreaRef.current.scrollTop = -1
+    chatAreaRef.current.scrollTop = 0
+  }, [chatFiltered])
+
+  useEffect(() => {
+    if (!setChat || scrolled) return
+
+    const interval = setInterval(
+      () =>
+        setChat((prev: Message[]) =>
+          prev.length > NUMBER_OF_PREVIOUS_MESSAGES
+            ? prev.slice(0, NUMBER_OF_PREVIOUS_MESSAGES)
+            : prev
+        ),
+      10000
+    )
+
+    return () => clearInterval(interval)
+  }, [setChat, scrolled])
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem('userIsLoggedInChat')
+
+    if (!isLogged) return
+    const userLoggedStorage = JSON.parse(isLogged)
+
+    if (userLoggedStorage.id !== idLivestreaming) return
+
+    setUserIsLoggedInChat(true)
+    setShowLoginWindow(false)
+  }, [idLivestreaming])
+
+  useEffect(() => {
+    if (!chatAreaRef?.current) return
+    if (!formContainer?.current) return
+
+    const config = { attributes: false, childList: true, subtree: false }
+    const sizeObeserver = new ResizeObserver((entry: ResizeObserverEntry[]) => {
+      const { height } = entry[0].target.getBoundingClientRect()
+
+      setIncomingPosition(height + 5)
+    })
+
+    const mutationObs = new MutationObserver((mutations: MutationRecord[]) => {
+      const target = mutations[0].target as HTMLDivElement
+
+      target.scrollBy(0, target.scrollHeight - target.clientHeight)
+    })
+
+    mutationObs.observe(chatAreaRef.current, config)
+    sizeObeserver.observe(formContainer.current)
+
+    chatAreaRef.current.addEventListener(
+      'scroll',
+      (event) => {
+        const { scrollTop } = event.target as HTMLDivElement
+
+        setScrolled(scrollTop < 0)
+        if (scrollTop >= 0) setIncoming(false)
+      },
+      { passive: true }
+    )
+
+    return () => {
+      mutationObs.disconnect()
+      sizeObeserver.disconnect()
+      chatAreaRef?.current?.removeEventListener('scroll', () => {})
+    }
+  }, [])
+
   return (
     <div className={styles.chatContainer}>
       <div className={styles.liveChatContainer}>
@@ -162,6 +232,39 @@ export const Chat = ({
         <div className={styles.chatArea} ref={chatAreaRef}>
           {ChatMessages}
         </div>
+
+        {incoming && (
+          <div
+            className={styles.chatIncomingWrapper}
+            style={{
+              bottom: incomingPosition,
+              height: IS_DESKTOP ? 40 : 30,
+              justifyContent: IS_DESKTOP ? 'center' : 'flex-start'
+            }}
+          >
+            <div
+              role='button'
+              tabIndex={0}
+              onClick={handleIncoming}
+              onKeyDown={() => {}}
+              className={styles.chatIncomingContainer}
+              style={{
+                backgroundColor: IS_DESKTOP ? '#2e2e2e' : '#ffffff',
+                color: IS_DESKTOP ? '#f3f3f3' : '#585858'
+              }}
+            >
+              <ArrowDown size={IS_DESKTOP ? 24 : 18} />
+              <span
+                style={{
+                  marginLeft: 5,
+                  fontSize: IS_DESKTOP ? 'unset' : '12px'
+                }}
+              >
+                Mensajes sin leer
+              </span>
+            </div>
+          </div>
+        )}
 
         {showLoginWindow && (
           <Login
@@ -182,7 +285,11 @@ export const Chat = ({
           account={account}
         />
 
-        <form onSubmit={handlerSendMessage} className={styles.inputChatContent}>
+        <form
+          onSubmit={handlerSendMessage}
+          className={styles.inputChatContent}
+          ref={formContainer}
+        >
           <div className={styles.inputContent}>
             <input
               className={`${styles.inputTextChat} ${

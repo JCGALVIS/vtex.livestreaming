@@ -7,13 +7,17 @@ import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 
 import styles from './highlightProduct.css'
 import ProductButton from '../ProductsButton/ProductButton'
+import ProductVariationButton from '../ProductsButton/ProductVariationButton'
+import KuikPayButton from './../ProductsButton/KuikPayButton'
+
 import { formatterDolar } from '../../utils'
 interface HighlightProductProps {
   infoSocket: InfoSocket
   collectionId: string | undefined
   pdp: boolean
   originOfProducts: string
-  account: string
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  kuikpay: boolean
 }
 
 const HighlightProduct = ({
@@ -21,7 +25,8 @@ const HighlightProduct = ({
   collectionId,
   pdp,
   originOfProducts,
-  account
+  setShowVariation,
+  kuikpay
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -30,8 +35,7 @@ const HighlightProduct = ({
   const { product, showProduct, handlerCloseCard } = useHighlightProduct({
     highlightProduct,
     collectionId,
-    originOfProducts,
-    account
+    originOfProducts
   })
 
   useEffect(() => {
@@ -82,7 +86,14 @@ const HighlightProduct = ({
             <IconClose />
           </button>
           <div className={styles.productContainer}>
-            <img className={styles.productPicture} src={product.imageUrl} />
+            <a
+              className={styles.º}
+              href={product.addToCartLink}
+              target='_blank'
+              rel='noreferrer'
+            >
+              <img className={styles.productPicture} src={product.imageUrl} />
+            </a>
             <div
               className={`${styles.productInfo} ${
                 !optionHighlight || optionHighlight === 'white'
@@ -93,22 +104,33 @@ const HighlightProduct = ({
               <p className={styles.productTitle}>{product.name}</p>
               <div className={styles.productPriceContainer}>
                 <div>
-                  <p className={styles.productDiscounted}>
-                    {formatterDolar.format(product.priceWithDiscount)}
-                  </p>
                   {product.price !== product.priceWithDiscount && (
                     <p className={styles.productPrice}>
                       {formatterDolar.format(product.price)}
                     </p>
                   )}
+                  <p className={styles.productDiscounted}>
+                    {formatterDolar.format(product.priceWithDiscount)}
+                  </p>
                 </div>
                 <div className={styles.productAddCartContent}>
-                  <ProductButton
-                    addToCartLink={product.addToCartLink}
-                    isAvailable={product.isAvailable}
-                    pdp={pdp}
-                    productId={product.id}
-                  />
+                  {product.variationSelector.length === 0 ? (
+                    <ProductButton
+                      addToCartLink={product.addToCartLink}
+                      isAvailable={product.isAvailable}
+                      pdp={pdp}
+                      productId={product.id}
+                    />
+                  ) : (
+                    <ProductVariationButton
+                      isAvailable={product.isAvailable}
+                      productId={product.id}
+                      setShowVariation={setShowVariation}
+                    />
+                  )}
+                  {kuikpay && originOfProducts !== 'platform' && (
+                    <KuikPayButton productId={product.id} />
+                  )}
                 </div>
               </div>
             </div>

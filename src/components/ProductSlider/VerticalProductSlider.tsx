@@ -12,7 +12,8 @@ type VerticalProductSliderProps = {
   height: string
   pdp: boolean
   originOfProducts: string
-  account: string
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  kuikpay: boolean
 }
 
 export const VerticalProductSlider = ({
@@ -22,12 +23,12 @@ export const VerticalProductSlider = ({
   height,
   pdp,
   originOfProducts,
-  account
+  setShowVariation,
+  kuikpay
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
     collectionId,
-    originOfProducts,
-    account
+    originOfProducts
   })
   const [isMouseOver, setIsMouseOver] = useState(false)
   const delay = time ? time * 1000 : 10000
@@ -94,7 +95,14 @@ export const VerticalProductSlider = ({
       >
         {products.length > 0 &&
           products.map((product: any) => (
-            <ProductItem key={product.id} {...product} pdp={pdp} />
+            <ProductItem
+              key={product.id}
+              {...product}
+              pdp={pdp}
+              setShowVariation={setShowVariation}
+              originOfProducts={originOfProducts}
+              kuikpay={kuikpay}
+            />
           ))}
       </div>
     </div>

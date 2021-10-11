@@ -11,6 +11,7 @@ import { useLivestreamingComponentOnScreen } from './hooks/useLivestreamingCompo
 import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsMobile'
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
+import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
 import { getMobileOS } from './utils'
 
 import styles from './styles.module.css'
@@ -27,6 +28,7 @@ type LivestreamingProps = {
   time?: string
   pdp?: string
   originOfProducts?: string
+  kuikpay?: string
 }
 
 type MarketingData = {
@@ -49,11 +51,13 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactiveSidebarProducts,
     inactiveProductsCarousel,
     pdp,
-    originOfProducts
+    originOfProducts,
+    kuikpay
   } = props
 
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
+  const [showVariation, setShowVariation] = useState('')
 
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
@@ -108,7 +112,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
       like: inactivateLike === 'undefined' ? true : inactivateLike === 'true',
       infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
       time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
-      pdp: pdp === 'undefined' ? false : pdp === 'true'
+      pdp: pdp === 'undefined' ? false : pdp === 'true',
+      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true'
     })
   }, [scriptProperties])
 
@@ -139,6 +144,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
+        <VariationSelector
+          showVariation={showVariation}
+          setShowVariation={setShowVariation}
+          pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+        />
         {scriptProperties?.sidebarProducts ||
         scriptProperties?.productsCarousel ? (
           <SliderProductMobile
@@ -152,7 +162,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
             originOfProducts={
               originOfProducts === 'platform' ? originOfProducts : ''
             }
-            account={account}
+            setShowVariation={setShowVariation}
+            kuikpay={
+              scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+            }
           />
         ) : null}
         <div
@@ -173,7 +186,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
               originOfProducts={
                 originOfProducts === 'platform' ? originOfProducts : ''
               }
-              account={account}
+              setShowVariation={setShowVariation}
+              kuikpay={
+                scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+              }
             />
           )}
         </div>
@@ -206,7 +222,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 originOfProducts={
                   originOfProducts === 'platform' ? originOfProducts : ''
                 }
-                account={account}
+                setShowVariation={setShowVariation}
+                kuikpay={
+                  scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+                }
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -228,7 +247,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts={
                     originOfProducts === 'platform' ? originOfProducts : ''
                   }
-                  account={account}
+                  setShowVariation={setShowVariation}
+                  kuikpay={
+                    scriptProperties?.kuikpay
+                      ? scriptProperties?.kuikpay
+                      : false
+                  }
                 />
               )}
             </div>
@@ -268,5 +292,6 @@ Livestreaming.defaultProps = {
   isInfinite: 'true',
   time: '10',
   pdp: 'true',
-  originOfProducts: 'vtex'
+  originOfProducts: 'vtex',
+  kuikpay: 'false'
 }

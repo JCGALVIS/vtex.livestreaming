@@ -1,7 +1,9 @@
 import React from 'react'
 
 import { formatterDolar } from '../../utils'
+import ProductVariationButton from '../ProductsButton/ProductVariationButton'
 import ProductButton from './../ProductsButton/ProductButton'
+import KuikPayButton from './../ProductsButton/KuikPayButton'
 
 import styles from './productSlider.css'
 
@@ -14,7 +16,12 @@ type ProductItemProps = {
   addToCartLink: string
   isAvailable: boolean
   pdp: boolean
+  variationSelector: []
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  originOfProducts: string
+  kuikpay: boolean
 }
+
 export const ProductItem = (props: ProductItemProps) => {
   const {
     id,
@@ -24,13 +31,22 @@ export const ProductItem = (props: ProductItemProps) => {
     imageUrl,
     addToCartLink,
     isAvailable,
-    pdp
+    pdp,
+    variationSelector,
+    setShowVariation,
+    originOfProducts,
+    kuikpay
   } = props
 
   return (
     <div className={styles.productItemContent}>
       <div className={styles.pictureContent}>
-        <a className={styles.productLink} href={addToCartLink}>
+        <a
+          className={styles.productLink}
+          href={addToCartLink}
+          target='_blank'
+          rel='noreferrer'
+        >
           <img className={styles.picture} src={imageUrl} />
         </a>
       </div>
@@ -38,19 +54,30 @@ export const ProductItem = (props: ProductItemProps) => {
         <h4 className={styles.productTitle}>{name}</h4>
         {price !== priceWithDiscount && (
           <span className={styles.price}>
-            De {formatterDolar.format(price)}
+            Antes: {formatterDolar.format(price)}
           </span>
         )}
         <span className={styles.priceWithDiscount}>
-          Para {formatterDolar.format(priceWithDiscount)}
+          Ahora: {formatterDolar.format(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          <ProductButton
-            addToCartLink={addToCartLink}
-            isAvailable={isAvailable}
-            pdp={pdp}
-            productId={id}
-          />
+          {variationSelector.length === 0 ? (
+            <ProductButton
+              addToCartLink={addToCartLink}
+              isAvailable={isAvailable}
+              pdp={pdp}
+              productId={id}
+            />
+          ) : (
+            <ProductVariationButton
+              isAvailable={isAvailable}
+              productId={id}
+              setShowVariation={setShowVariation}
+            />
+          )}
+          {kuikpay && originOfProducts !== 'platform' && (
+            <KuikPayButton productId={id} />
+          )}
         </div>
       </div>
     </div>
