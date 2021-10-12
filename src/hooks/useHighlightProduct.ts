@@ -22,7 +22,8 @@ export const useHighlightProduct = ({
     imageUrl: '',
     addToCartLink: '',
     isAvailable: true,
-    variationSelector: []
+    variationSelector: [],
+    pdpLink: ''
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
 
@@ -36,7 +37,8 @@ export const useHighlightProduct = ({
       imageUrl: '',
       addToCartLink: '',
       isAvailable: true,
-      variationSelector: []
+      variationSelector: [],
+      pdpLink: ''
     })
     localStorage.removeItem('product')
   }
@@ -97,7 +99,8 @@ export const useHighlightProduct = ({
           imageUrl: product?.imageUrl,
           addToCartLink: product?.addToCartLink,
           isAvailable: product?.isAvailable,
-          variationSelector: product?.variationSelector
+          variationSelector: product?.variationSelector,
+          pdpLink: product?.pdpLink
         })
         setShowProduct(isShowProduct)
       }

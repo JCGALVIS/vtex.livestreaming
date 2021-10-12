@@ -12,7 +12,7 @@ type HorizontalProductSliderProps = {
   time?: number
   infinite?: boolean
   pdp: boolean
-  originOfProducts: string
+  originOfProducts: string | undefined
   kuikpay: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
@@ -36,7 +36,8 @@ export const HorizontalProductSlider = ({
       imageUrl: '',
       addToCartLink: '',
       isAvailable: false,
-      variationSelector: []
+      variationSelector: [],
+      pdpLink: ''
     }
   ])
   const { data: products, loading } = useFetchProducts({
