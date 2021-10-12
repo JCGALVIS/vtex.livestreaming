@@ -20,7 +20,8 @@ export const useFetchProducts = ({
         imageUrl: '',
         addToCartLink: '',
         isAvailable: false,
-        variationSelector: []
+        variationSelector: [],
+        pdpLink: ''
       }
     ],
     loading: true

@@ -16,6 +16,7 @@ type ProductItemProps = {
   addToCartLink: string
   isAvailable: boolean
   pdp: boolean
+  pdpLink: string
   variationSelector: []
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   originOfProducts: string
@@ -32,6 +33,7 @@ export const ProductItem = (props: ProductItemProps) => {
     addToCartLink,
     isAvailable,
     pdp,
+    pdpLink,
     variationSelector,
     setShowVariation,
     originOfProducts,
@@ -43,7 +45,7 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}
-          href={addToCartLink}
+          href={pdpLink}
           target='_blank'
           rel='noreferrer'
         >
