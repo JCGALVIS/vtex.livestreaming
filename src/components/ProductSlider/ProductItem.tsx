@@ -3,7 +3,7 @@ import React from 'react'
 import { formatterDolar } from '../../utils'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
 import ProductButton from './../ProductsButton/ProductButton'
-import KuikPayButton from './../ProductsButton/KuikPayButton'
+import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 
 import styles from './productSlider.css'
 

@@ -46,7 +46,7 @@ type streamPlayerProps = {
   infoSocket: InfoSocket
   collectionId: string | undefined
   pdp: boolean
-  originOfProducts: string
+  originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   kuikpay: boolean
 }

@@ -14,10 +14,11 @@ type VariationSelectorProps = {
   showVariation: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   pdp: boolean
+  originOfProducts: string | undefined
 }
 
 export const VariationSelector = (props: VariationSelectorProps) => {
-  const { showVariation, setShowVariation, pdp } = props
+  const { showVariation, setShowVariation, pdp, originOfProducts } = props
   const [productId, setProductId] = useState('')
   const [show, setShow] = useState(false)
   const [selectedColor, setSelectedColor] = useState('')
@@ -52,7 +53,8 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   })
 
   const product = useFetchProductById({
-    productId
+    productId,
+    originOfProducts
   })
 
   useEffect(() => {

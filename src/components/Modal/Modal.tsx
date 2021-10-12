@@ -1,12 +1,12 @@
-import React, { useState, useEffect, Fragment} from 'react'
-import { getDeviceType  } from '../../utils'
+import React, { useState, useEffect, Fragment } from 'react'
+import { getDeviceType } from '../../utils'
 import styles from './modal.css'
 
 interface ModalProps {
   show: boolean
 }
 
-const Modal: SFC<ModalProps> = (props) => {
+export const Modal: SFC<ModalProps> = (props) => {
   const { children, show } = props
   const [showHideClassName, setShowHideClassName] = useState('')
 
@@ -18,16 +18,18 @@ const Modal: SFC<ModalProps> = (props) => {
     )
   }, [show])
 
-  if (!show) return <Fragment></Fragment>
+  if (!show) return <Fragment />
 
   return (
     <div className={showHideClassName}>
-      <div className={`${styles.modalMain} ${getDeviceType() === 'mobile' && styles.modalMainMobile}`}>
+      <div
+        className={`${styles.modalMain} ${
+          getDeviceType() === 'mobile' && styles.modalMainMobile
+        }`}
+      >
         <div className={styles.modalClose} />
         <div>{children}</div>
       </div>
     </div>
   )
 }
-
-export default Modal

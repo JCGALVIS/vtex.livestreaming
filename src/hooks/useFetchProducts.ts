@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { getProducts } from '../api'
+import { getProducts } from '../services'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
-  originOfProducts: string
+  originOfProducts: string | undefined
 }
 
 export const useFetchProducts = ({

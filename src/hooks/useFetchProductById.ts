@@ -1,10 +1,14 @@
-import { getProductById } from './../api/getProductById'
+import { getProductById } from './../services'
 import { useEffect, useState } from 'react'
 
 type useFetchProductById = {
   productId: string | undefined
+  originOfProducts: string | undefined
 }
-export const useFetchProductById = ({ productId }: useFetchProductById) => {
+export const useFetchProductById = ({
+  productId,
+  originOfProducts
+}: useFetchProductById) => {
   const [product, setProduct] = useState({
     data: {
       id: '',
@@ -27,7 +31,7 @@ export const useFetchProductById = ({ productId }: useFetchProductById) => {
 
   useEffect(() => {
     if (productId) {
-      getProductById({ productId }).then((respon: any) => {
+      getProductById({ productId, originOfProducts }).then((respon: any) => {
         if (respon) setProduct({ data: respon, loading: false })
       })
     }

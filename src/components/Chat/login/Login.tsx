@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 import styles from './Login.css'
+// eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../../typings/livestreaming'
 import { useSessionId } from '../../../hooks/useSessionId'
-import { apiCall } from '../../../api/apiCall'
+import { apiCall } from '../../../services'
 
 interface Props {
   idLivestreaming: string
@@ -74,7 +75,7 @@ export const Login = ({
   const usernameIsValid = async () => {
     const isEmptyUsername = !(username !== null && username.trim() !== '')
 
-    if(isEmptyUsername){
+    if (isEmptyUsername) {
       setErrorMessage('Nombre no valido')
       setErrorUsername(true)
       return false
@@ -113,7 +114,7 @@ export const Login = ({
     event.persist()
     const isValid = await usernameIsValid()
 
-    if (!isValid || !sendAccountId || !emailIsValid()){
+    if (!isValid || !sendAccountId || !emailIsValid()) {
       setDisabledBtn(false)
 
       return
@@ -176,9 +177,7 @@ export const Login = ({
             }
             value={email}
             autoComplete='off'
-            className={`${styles.input} ${
-              errorEmail ? styles.inputError : ''
-            }`}
+            className={`${styles.input} ${errorEmail ? styles.inputError : ''}`}
           />
 
           {errorEmail ? (
@@ -186,7 +185,9 @@ export const Login = ({
           ) : null}
         </div>
 
-        <button disabled={disabledBtn} type='submit' className={styles.btn}>CONTINUAR CON EL CHAT</button>
+        <button disabled={disabledBtn} type='submit' className={styles.btn}>
+          CONTINUAR CON EL CHAT
+        </button>
       </form>
     </div>
   )

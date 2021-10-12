@@ -6,7 +6,7 @@ import 'kuikpay-sdk/dist/index.css'
 
 import styles from './kuikPayButton.css'
 
-import { cartSimulation } from '../../api'
+import { cartSimulation } from '../../services'
 
 const windowInfo: any = window
 const { vtexjs } = windowInfo
@@ -15,7 +15,7 @@ type KuikPayButtonProps = {
   productId: string
 }
 
-const KuikPayButton = (props: KuikPayButtonProps) => {
+export const KuikPayButton = (props: KuikPayButtonProps) => {
   const { productId } = props
 
   const [orderForm, setOrderForm] = useState<any>({})
@@ -119,10 +119,8 @@ const KuikPayButton = (props: KuikPayButtonProps) => {
         updateOrderFormProfile={handleUpdateOrderFormProfile}
         cartSimulation={cartSimulation}
         clearData={handleClearItems}
-        theme={'kuikpay'}
+        theme='kuikpay'
       />
     </div>
   )
 }
-
-export default KuikPayButton

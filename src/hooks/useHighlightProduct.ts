@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { getProducts } from '../api'
+import { getProducts } from '../services'
 // eslint-disable-next-line no-unused-vars
 import { HighlightProduct } from './../typings/livestreaming'
 
 type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
-  originOfProducts: string
+  originOfProducts: string | undefined
 }
 
 export const useHighlightProduct = ({

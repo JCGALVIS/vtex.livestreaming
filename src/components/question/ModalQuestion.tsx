@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import Button from '@vtex/styleguide/lib/Button'
 
-import Modal from '../Modal/Modal'
+import { Modal } from '../Modal/Modal'
 import QuestionPoll from './QuestionPoll'
 import QuestionTrueOrFalse from './QuestionTrueOrFalse'
 import QuestionQuiz from './QuestionQuiz'
 import Answer from './Answer'
 import useUpdateVotes from '../../hooks/useUpdateVotes'
+// eslint-disable-next-line no-unused-vars
 import type { InfoSocket, Question } from '../../typings/livestreaming'
-import { apiCall } from '../../api/apiCall'
+import { apiCall } from '../../services'
 import styles from './question.css'
 declare interface Props {
   infoSocket: InfoSocket
@@ -95,7 +96,7 @@ export const ModalQuestion = ({
   }, [pageVisible, question, showQuestion])
 
   useEffect(() => {
-    if(!isAnswer) {
+    if (!isAnswer) {
       setData(undefined)
       return
     }
@@ -112,7 +113,9 @@ export const ModalQuestion = ({
 
       const getData = async () => {
         const data = await apiCall({
-          url: `${URL}?id=${idLivestreaming}&account=${account}&index=${question?.index || 0}`
+          url: `${URL}?id=${idLivestreaming}&account=${account}&index=${
+            question?.index || 0
+          }`
         })
 
         setData(data)
@@ -122,14 +125,15 @@ export const ModalQuestion = ({
     }
 
     getQuestion()
-
   }, [isAnswer])
 
   return (
     <Modal show={isOpenModal}>
       {validateForm && (
         <div className={styles.errorMessageContainer}>
-          <span className={styles.errorMessage}>Debe seleccionar una respuesta.</span>
+          <span className={styles.errorMessage}>
+            Debe seleccionar una respuesta.
+          </span>
         </div>
       )}
       {!isAnswer &&
@@ -168,12 +172,7 @@ export const ModalQuestion = ({
           }
         })()}
 
-      {isAnswer && (
-        <Answer
-          isAnswer={isAnswer}
-          data={data}
-        />
-      )}
+      {isAnswer && <Answer isAnswer={isAnswer} data={data} />}
       <div className={styles.buttonContenModal}>
         {!isAnswer && (
           <Button
@@ -186,9 +185,7 @@ export const ModalQuestion = ({
           </Button>
         )}
         {isAnswer && data !== undefined && (
-          <Button onClick={closeModal}>
-            Cerrar
-          </Button>
+          <Button onClick={closeModal}>Cerrar</Button>
         )}
       </div>
     </Modal>

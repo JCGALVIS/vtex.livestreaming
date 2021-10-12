@@ -8,14 +8,14 @@ import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 import styles from './highlightProduct.css'
 import ProductButton from '../ProductsButton/ProductButton'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
-import KuikPayButton from './../ProductsButton/KuikPayButton'
+import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 
 import { formatterDolar } from '../../utils'
 interface HighlightProductProps {
   infoSocket: InfoSocket
   collectionId: string | undefined
   pdp: boolean
-  originOfProducts: string
+  originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   kuikpay: boolean
 }

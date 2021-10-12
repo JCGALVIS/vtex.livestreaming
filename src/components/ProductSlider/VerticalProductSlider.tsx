@@ -11,7 +11,7 @@ type VerticalProductSliderProps = {
   infinite?: boolean
   height: string
   pdp: boolean
-  originOfProducts: string
+  originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   kuikpay: boolean
 }

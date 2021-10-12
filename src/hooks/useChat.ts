@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { apiCall } from '../api/apiCall'
+import { apiCall } from '../services'
 declare interface Props {
   idLivestreaming: string
   account: string

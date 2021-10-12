@@ -148,6 +148,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           showVariation={showVariation}
           setShowVariation={setShowVariation}
           pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+          originOfProducts={originOfProducts === '' ? '' : originOfProducts}
         />
         {scriptProperties?.sidebarProducts ||
         scriptProperties?.productsCarousel ? (
@@ -159,9 +160,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
             showSliderProducts={showSliderProducts}
             setShowSliderProducts={setShowSliderProducts}
             pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-            originOfProducts={
-              originOfProducts === 'platform' ? originOfProducts : ''
-            }
+            originOfProducts={originOfProducts === '' ? '' : originOfProducts}
             setShowVariation={setShowVariation}
             kuikpay={
               scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
@@ -183,9 +182,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               time={scriptProperties.time}
               height={(parseInt(height) - 58).toString()}
               pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-              originOfProducts={
-                originOfProducts === 'platform' ? originOfProducts : ''
-              }
+              originOfProducts={originOfProducts === '' ? '' : originOfProducts}
               setShowVariation={setShowVariation}
               kuikpay={
                 scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
@@ -220,7 +217,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 collectionId={collectionId}
                 pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
                 originOfProducts={
-                  originOfProducts === 'platform' ? originOfProducts : ''
+                  originOfProducts === '' ? '' : originOfProducts
                 }
                 setShowVariation={setShowVariation}
                 kuikpay={

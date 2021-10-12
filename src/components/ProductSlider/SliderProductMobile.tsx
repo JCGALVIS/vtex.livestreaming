@@ -15,7 +15,7 @@ type SliderProductMobileProps = {
   setShowSliderProducts: React.Dispatch<React.SetStateAction<boolean>>
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   pdp: boolean
-  originOfProducts: string
+  originOfProducts: string | undefined
   kuikpay: boolean
 }
 
