@@ -242,7 +242,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   time={scriptProperties.time}
                   pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
                   originOfProducts={
-                    originOfProducts === 'platform' ? originOfProducts : ''
+                    originOfProducts === '' ? '' : originOfProducts
                   }
                   setShowVariation={setShowVariation}
                   kuikpay={

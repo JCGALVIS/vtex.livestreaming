@@ -88,7 +88,7 @@ const HighlightProduct = ({
           <div className={styles.productContainer}>
             <a
               className={styles.º}
-              href={product.addToCartLink}
+              href={product.pdpLink}
               target='_blank'
               rel='noreferrer'
             >
