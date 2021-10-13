@@ -29,7 +29,8 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     size: '',
     imageUrl: '',
     addToCartLink: '',
-    isAvailable: true
+    isAvailable: true,
+    isSize: true
   })
   const [colorData, setColorData] = useState([
     { id: '', name: '', position: 0 }
@@ -68,10 +69,11 @@ export const VariationSelector = (props: VariationSelectorProps) => {
       )
 
       const size = product.data.variationSelector.find(
-        (item) => item.field.name === 'Talla'
+        (item) => item.field.name !== 'Color'
       )
 
-      if (color) setColorData(color?.values)
+      console.log('size: ', size)
+      if (color) setColorData(color ? color?.values : color)
 
       if (size) setSizeData(size?.values)
 
@@ -82,23 +84,38 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   }, [product])
 
   useEffect(() => {
+    console.log('productData: ', productData)
     const items = productData.items.map((item: any) => {
       return {
-        color: item.Color[0],
-        size: item.Talla[0],
+        color: item.Color ? item.Color[0] : [],
+        size: item.Talla ? item.Talla[0] : item['Presentación Fragancias'][0],
         imageUrl: item.images[0].imageUrl,
         addToCartLink: item.sellers[0].addToCartLink,
-        isAvailable: item.sellers[0]?.commertialOffer.IsAvailable
+        isAvailable: item.sellers[0]?.commertialOffer.IsAvailable,
+        isSize: !!item.Talla
       }
     })
 
-    const productItem = items.find(
+    console.log('items: ', items)
+    console.log('selectedSize: ', selectedSize)
+
+    let productItem = items.find(
       (item) => item.color === selectedColor && item.size === selectedSize
     )
 
+    console.log('productItem: ', productItem)
+
+    if (selectedColor.length === 0)
+      productItem = items.find((item) => item.size === selectedSize)
+
+    console.log('productItem: ', productItem)
+
     setIsAvailable(!!productItem)
-    setSelectedSize(productItem ? productItem.size : selectedSize)
-    setSelectedColor(productItem ? productItem.color : selectedColor)
+    console.log('selectedColor: ', selectedColor)
+    if (selectedColor.length > 0) {
+      setSelectedSize(productItem ? productItem.size : selectedSize)
+      setSelectedColor(productItem ? productItem.color : selectedColor)
+    }
 
     if (productItem) setSelectedProduct(productItem)
   }, [selectedColor, selectedSize])
@@ -143,17 +160,20 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                       </div>
                     </div>
                     <div className={styles.productContainer}>
-                      <div className={styles.variationContent}>
-                        <ColorVariation
-                          colorData={colorData}
-                          setSelectedColor={setSelectedColor}
-                        />
-                      </div>
+                      {colorData[0].id !== '' ? (
+                        <div className={styles.variationContent}>
+                          <ColorVariation
+                            colorData={colorData}
+                            setSelectedColor={setSelectedColor}
+                          />
+                        </div>
+                      ) : null}
                       <div className={styles.variationContent}>
                         <SizeVariations
                           sizeData={sizeData}
                           setSelectedSize={setSelectedSize}
                           selectedSize={selectedSize}
+                          isSize={selectedProduct.isSize}
                         />
                       </div>
                     </div>

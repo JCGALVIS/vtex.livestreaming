@@ -6,12 +6,14 @@ type SizeVariationsProps = {
   sizeData: { id: string; name: string; position: number }[]
   setSelectedSize: React.Dispatch<React.SetStateAction<string>>
   selectedSize: string
+  isSize: boolean
 }
 
 export const SizeVariations = ({
   sizeData,
   setSelectedSize,
-  selectedSize
+  selectedSize,
+  isSize
 }: SizeVariationsProps) => {
   useEffect(() => {
     setSelectedSize(sizeData[0].name)
@@ -33,7 +35,11 @@ export const SizeVariations = ({
   return (
     <div className={styles.itemContent}>
       {sizeData.map((size) => (
-        <div key={size.id} className={styles.itemSize}>
+        <div
+          key={size.id}
+          className={styles.itemSize}
+          style={isSize ? { height: 25, width: 25, padding: 0 } : {}}
+        >
           <div
             id={size.id}
             className={`${styles.itemSizeSelect} divSelectColor`}

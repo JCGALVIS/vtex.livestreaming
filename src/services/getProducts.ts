@@ -43,7 +43,8 @@ const getProductsCace = async ({ collectionId }: GetProductsProps) => {
         isAvailable: product?.skuSpecifications
           ? true
           : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
-        variationSelector: product?.skuSpecifications || []
+        variationSelector: product?.skuSpecifications || [],
+        pdpLink: product.link
       }
     })
     return products
@@ -64,13 +65,12 @@ const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
         priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
         price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
         imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.items[0].complementName
-          ? product?.items[0].complementName
-          : product?.items[0].sellers[0].addToCartLink,
+        addToCartLink: product?.items[0].sellers[0].addToCartLink,
         isAvailable: product?.skuSpecifications
           ? true
           : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
-        variationSelector: product?.skuSpecifications || []
+        variationSelector: product?.skuSpecifications || [],
+        pdpLink: product.link
       }
     })
     return products
@@ -94,7 +94,8 @@ const getProductsPlatform = async () => {
         imageUrl: product.pictures[0],
         addToCartLink: product.link,
         isAvailable: product.status === 'active',
-        variationSelector: []
+        variationSelector: [],
+        pdpLink: product.link
       }
     })
     return products
@@ -137,7 +138,8 @@ const getProductByIdCace = async ({ productId }: GetProductsProps) => {
       isAvailable: data[0]?.skuSpecifications
         ? true
         : data[0]?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
-      variationSelector: data[0]?.skuSpecifications
+      variationSelector: data[0]?.skuSpecifications,
+      pdpLink: data[0]?.link
     }
 
     return product
@@ -158,14 +160,13 @@ const getProductByIdVtex = async ({ productId }: GetProductsProps) => {
       priceWithDiscount: data[0]?.items[0]?.sellers[0]?.commertialOffer.Price,
       price: data[0]?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
       imageUrl: data[0]?.items[0]?.images[0]?.imageUrl,
-      addToCartLink: data[0]?.items[0].complementName
-        ? data[0]?.items[0].complementName
-        : data[0]?.items[0].sellers[0].addToCartLink,
+      addToCartLink: data[0]?.items[0].sellers[0].addToCartLink,
       items: data[0]?.items,
       isAvailable: data[0]?.skuSpecifications
         ? true
         : data[0]?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
-      variationSelector: data[0]?.skuSpecifications
+      variationSelector: data[0]?.skuSpecifications,
+      pdpLink: data[0]?.link
     }
 
     return product
