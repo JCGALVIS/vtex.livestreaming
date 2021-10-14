@@ -1,14 +1,14 @@
-span {
-  font-size: 12px;
-  color: #727273;
-  line-height: 16px;
-  margin: 2px 0;
-}
-
 .variationSelector {
   position: fixed;
   inset: 0px;
   z-index: 1300;
+}
+
+.variationSelector span {
+  font-size: 12px !important;
+  color: #727273 !important;
+  line-height: 16px !important;
+  margin: 2px 0 !important;
 }
 
 .container {
@@ -272,7 +272,6 @@ span {
 
 @media screen and (min-width: 1024px) {
   .content {
-    height: 270px;
     width: 420px;
     border-radius: 4px;
   }

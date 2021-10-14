@@ -72,7 +72,6 @@ export const VariationSelector = (props: VariationSelectorProps) => {
         (item) => item.field.name !== 'Color'
       )
 
-      console.log('size: ', size)
       if (color) setColorData(color ? color?.values : color)
 
       if (size) setSizeData(size?.values)
@@ -84,7 +83,6 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   }, [product])
 
   useEffect(() => {
-    console.log('productData: ', productData)
     const items = productData.items.map((item: any) => {
       return {
         color: item.Color ? item.Color[0] : [],
@@ -96,22 +94,14 @@ export const VariationSelector = (props: VariationSelectorProps) => {
       }
     })
 
-    console.log('items: ', items)
-    console.log('selectedSize: ', selectedSize)
-
     let productItem = items.find(
       (item) => item.color === selectedColor && item.size === selectedSize
     )
 
-    console.log('productItem: ', productItem)
-
     if (selectedColor.length === 0)
       productItem = items.find((item) => item.size === selectedSize)
 
-    console.log('productItem: ', productItem)
-
     setIsAvailable(!!productItem)
-    console.log('selectedColor: ', selectedColor)
     if (selectedColor.length > 0) {
       setSelectedSize(productItem ? productItem.size : selectedSize)
       setSelectedColor(productItem ? productItem.color : selectedColor)
