@@ -1,4 +1,4 @@
-import { apiCall } from '.'
+import { apiCall } from './apiCall'
 import { config } from './../config'
 
 type GetProductsProps = {

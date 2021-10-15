@@ -26,7 +26,6 @@ declare interface HighlightProduct {
   livestreamingId?: string
   backgroundWhiteHighlight?: string
 }
-
 export declare interface ScriptProperties {
   sidebarProducts: boolean | undefined
   productsCarousel: boolean | undefined
@@ -88,4 +87,20 @@ export declare interface Question {
 declare interface Answer {
   text: string
   votes: number
+}
+
+export interface OptionsCurrency {
+  symbol: string
+  decimalSeparator: string
+  thousandsSeparator: string
+  numberOfDecimals: number
+  positionSymbol: string
+}
+
+export interface CurrencyFormat {
+  CurrencyDecimalDigits: number
+  CurrencyDecimalSeparator: string
+  CurrencyGroupSeparator: string
+  CurrencyGroupSize: number
+  StartsWithCurrencySymbol: string
 }

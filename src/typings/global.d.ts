@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react'
+import type { CurrencyFormat } from './livestreaming'
 
 declare global {
   interface SFC<P = {}> extends FunctionComponent<P> {
@@ -9,6 +10,8 @@ declare global {
   interface Window {
     IVSPlayer: any
     vtexjs: any
+    currencyFormat: CurrencyFormat
+    currencySymbol: any
   }
 
   interface Document {
@@ -36,4 +39,6 @@ declare global {
     readonly activeClassName?: string
     readonly mutedClassName?: string
   }
+
+  declare const __RUNTIME__: any
 }

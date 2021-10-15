@@ -10,7 +10,7 @@ import ProductButton from '../ProductsButton/ProductButton'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 
-import { formatterDolar } from '../../utils'
+import { currencyFormat } from '../../utils'
 interface HighlightProductProps {
   infoSocket: InfoSocket
   collectionId: string | undefined
@@ -106,11 +106,11 @@ const HighlightProduct = ({
                 <div>
                   {product.price !== product.priceWithDiscount && (
                     <p className={styles.productPrice}>
-                      {formatterDolar.format(product.price)}
+                      {currencyFormat(product.price)}
                     </p>
                   )}
                   <p className={styles.productDiscounted}>
-                    {formatterDolar.format(product.priceWithDiscount)}
+                    {currencyFormat(product.priceWithDiscount)}
                   </p>
                 </div>
                 <div className={styles.productAddCartContent}>

@@ -3,7 +3,7 @@ import { Transition, CSSTransition } from 'react-transition-group'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 import { useFetchProductById } from '../../hooks/useFetchProductById'
-import { formatterDolar } from '../../utils'
+import { currencyFormat } from '../../utils'
 import { ColorVariation } from './ColorVariation'
 import { SizeVariations } from './SizeVariations'
 
@@ -141,11 +141,11 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                         </h2>
                         <span>
                           <span className={styles.productPrice}>
-                            {formatterDolar.format(productData.price)}
+                            {currencyFormat(productData.price)}
                           </span>
                         </span>
                         <span className={styles.productDiscountPrice}>
-                          {formatterDolar.format(productData.priceWithDiscount)}
+                          {currencyFormat(productData.priceWithDiscount)}
                         </span>
                       </div>
                     </div>
