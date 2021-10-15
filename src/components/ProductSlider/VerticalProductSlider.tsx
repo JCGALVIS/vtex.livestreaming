@@ -102,6 +102,7 @@ export const VerticalProductSlider = ({
               setShowVariation={setShowVariation}
               originOfProducts={originOfProducts}
               kuikpay={kuikpay}
+              sectionIdClickedOn='live_shopping_sidebar'
             />
           ))}
       </div>
