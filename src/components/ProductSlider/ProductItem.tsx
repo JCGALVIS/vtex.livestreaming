@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { formatterDolar } from '../../utils'
+import { currencyFormat } from '../../utils'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
 import ProductButton from './../ProductsButton/ProductButton'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
@@ -55,12 +55,10 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.productDeatailContent}>
         <h4 className={styles.productTitle}>{name}</h4>
         {price !== priceWithDiscount && (
-          <span className={styles.price}>
-            Antes: {formatterDolar.format(price)}
-          </span>
+          <span className={styles.price}>Antes: {currencyFormat(price)}</span>
         )}
         <span className={styles.priceWithDiscount}>
-          Ahora: {formatterDolar.format(priceWithDiscount)}
+          Ahora: {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
           {variationSelector.length === 0 ? (
