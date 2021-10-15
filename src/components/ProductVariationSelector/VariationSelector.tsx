@@ -65,11 +65,11 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   useEffect(() => {
     if (product) {
       const color = product.data.variationSelector.find(
-        (item) => item.field.name === 'Color'
+        (item) => item.field.name.indexOf('Color') === 0
       )
 
       const size = product.data.variationSelector.find(
-        (item) => item.field.name !== 'Color'
+        (item) => item.field.name.indexOf('Color') !== 0
       )
 
       if (color) setColorData(color ? color?.values : color)
@@ -85,8 +85,12 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   useEffect(() => {
     const items = productData.items.map((item: any) => {
       return {
-        color: item.Color ? item.Color[0] : [],
-        size: item.Talla ? item.Talla[0] : item['Presentación Fragancias'][0],
+        color: item.Color ? item.Color[0] : item.Color2 ? item.Color2[0] : [],
+        size: item.Talla
+          ? item.Talla[0]
+          : item['Presentación Fragancias']
+          ? item['Presentación Fragancias'][0]
+          : [],
         imageUrl: item.images[0].imageUrl,
         addToCartLink: item.sellers[0].addToCartLink,
         isAvailable: item.sellers[0]?.commertialOffer.IsAvailable,
@@ -101,8 +105,11 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     if (selectedColor.length === 0)
       productItem = items.find((item) => item.size === selectedSize)
 
+    if (selectedSize.length === 0)
+      productItem = items.find((item) => item.color === selectedColor)
+
     setIsAvailable(!!productItem)
-    if (selectedColor.length > 0) {
+    if (selectedColor.length > 0 && selectedSize.length > 0) {
       setSelectedSize(productItem ? productItem.size : selectedSize)
       setSelectedColor(productItem ? productItem.color : selectedColor)
     }
@@ -159,12 +166,14 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                         </div>
                       ) : null}
                       <div className={styles.variationContent}>
-                        <SizeVariations
-                          sizeData={sizeData}
-                          setSelectedSize={setSelectedSize}
-                          selectedSize={selectedSize}
-                          isSize={selectedProduct.isSize}
-                        />
+                        {sizeData[0].id !== '' ? (
+                          <SizeVariations
+                            sizeData={sizeData}
+                            setSelectedSize={setSelectedSize}
+                            selectedSize={selectedSize}
+                            isSize={selectedProduct.isSize}
+                          />
+                        ) : null}
                       </div>
                     </div>
                     <div className={styles.productContainer}>
