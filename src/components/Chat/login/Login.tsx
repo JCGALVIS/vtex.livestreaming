@@ -167,23 +167,27 @@ export const Login = ({
             <div className={styles.inputErrorMessage}>{erroMessage}</div>
           ) : null}
         </div>
-        <div className={styles.inputContainer}>
-          <input
-            placeholder={emailIsRequired ? 'Email*' : 'Email'}
-            id='email'
-            name='email'
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
-            value={email}
-            autoComplete='off'
-            className={`${styles.input} ${errorEmail ? styles.inputError : ''}`}
-          />
+        {emailIsRequired && (
+          <div className={styles.inputContainer}>
+            <input
+              placeholder={emailIsRequired ? 'Email*' : 'Email'}
+              id='email'
+              name='email'
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
+              value={email}
+              autoComplete='off'
+              className={`${styles.input} ${
+                errorEmail ? styles.inputError : ''
+              }`}
+            />
 
-          {errorEmail ? (
-            <div className={styles.inputErrorMessage}>Email no valido</div>
-          ) : null}
-        </div>
+            {errorEmail ? (
+              <div className={styles.inputErrorMessage}>Email no valido</div>
+            ) : null}
+          </div>
+        )}
 
         <button disabled={disabledBtn} type='submit' className={styles.btn}>
           CONTINUAR CON EL CHAT
