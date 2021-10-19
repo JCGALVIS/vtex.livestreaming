@@ -78,7 +78,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
     scriptProperties,
     setScriptProperties,
     setShowCounter,
-    setEmailIsRequired
+    setEmailIsRequired,
+    socket,
+    sessionId
   } = info
 
   const getHeight = () => {
@@ -140,6 +142,31 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
     return () => clearTimeout(setUTM)
   }, [livestreaminComponentInView, utm])
+
+  useEffect(() => {
+    document.addEventListener('addToCartPortal', () => {
+      setTimeout(() => {
+        if (!socket || !window.vtexjs) return
+
+        const sectionIdClickedOn = localStorage.getItem(
+          'sectionIdClickedOnForAddToCart'
+        )
+
+        socket.send(
+          JSON.stringify({
+            action: 'sendaddtocart',
+            data: undefined,
+            sectionIdClickedOn,
+            orderForm: window.vtexjs.checkout.orderForm.orderFormId,
+            sessionId,
+            email: ''
+          })
+        )
+
+        localStorage.removeItem('sectionIdClickedOnForAddToCart')
+      }, 2000)
+    })
+  }, [])
 
   return (
     <div className={styles.livestreaming}>

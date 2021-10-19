@@ -8,10 +8,12 @@ type ProductButtonProps = {
   isAvailable: boolean
   pdp: boolean
   productId: string
+  sectionIdClickedOn?: string
 }
 
 const ProductButton = (props: ProductButtonProps) => {
-  const { addToCartLink, isAvailable, pdp, productId } = props
+  const { addToCartLink, isAvailable, pdp, productId, sectionIdClickedOn } =
+    props
 
   return (
     <Fragment>
@@ -20,7 +22,14 @@ const ProductButton = (props: ProductButtonProps) => {
           !isAvailable && styles.noActive
         }`}
         disabled={!isAvailable}
-        onClick={() => addToCart(productId, pdp)}
+        onClick={() => {
+          addToCart(productId, pdp)
+          if (!sectionIdClickedOn) return
+          localStorage.setItem(
+            'sectionIdClickedOnForAddToCart',
+            sectionIdClickedOn
+          )
+        }}
       >
         {isAvailable ? 'Agregar' : 'Indisponible'}
       </button>

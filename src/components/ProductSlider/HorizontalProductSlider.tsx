@@ -118,6 +118,7 @@ export const HorizontalProductSlider = ({
                   originOfProducts={originOfProducts}
                   setShowVariation={setShowVariation}
                   kuikpay={kuikpay}
+                  sectionIdClickedOn='live_shopping_carousel'
                 />
               </div>
             </CSSTransition>

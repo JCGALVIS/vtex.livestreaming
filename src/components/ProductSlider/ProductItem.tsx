@@ -21,6 +21,7 @@ type ProductItemProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   originOfProducts: string
   kuikpay: boolean
+  sectionIdClickedOn?: string
 }
 
 export const ProductItem = (props: ProductItemProps) => {
@@ -37,7 +38,8 @@ export const ProductItem = (props: ProductItemProps) => {
     variationSelector,
     setShowVariation,
     originOfProducts,
-    kuikpay
+    kuikpay,
+    sectionIdClickedOn
   } = props
 
   return (
@@ -67,6 +69,7 @@ export const ProductItem = (props: ProductItemProps) => {
               isAvailable={isAvailable}
               pdp={pdp}
               productId={id}
+              sectionIdClickedOn={sectionIdClickedOn}
             />
           ) : (
             <ProductVariationButton
