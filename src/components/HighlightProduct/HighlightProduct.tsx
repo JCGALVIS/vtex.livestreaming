@@ -120,6 +120,7 @@ const HighlightProduct = ({
                       isAvailable={product.isAvailable}
                       pdp={pdp}
                       productId={product.id}
+                      productName={product.name}
                       sectionIdClickedOn='live_shopping_highlight_product'
                     />
                   ) : (

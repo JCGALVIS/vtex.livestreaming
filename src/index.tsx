@@ -12,8 +12,7 @@ import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsM
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
-import { getMobileOS } from './utils'
-import { calcHeightApp } from './utils'
+import { getMobileOS, calcHeightApp } from './utils'
 
 import styles from './styles.module.css'
 
@@ -155,14 +154,23 @@ export const Livestreaming = (props: LivestreamingProps) => {
       setTimeout(() => {
         if (!socket || !window.vtexjs) return
 
-        const sectionIdClickedOn = localStorage.getItem(
+        const eventAddToCartStorage = localStorage.getItem(
           'sectionIdClickedOnForAddToCart'
+        )
+
+        if (!eventAddToCartStorage) return
+
+        const { productId, productName, sectionIdClickedOn } = JSON.parse(
+          eventAddToCartStorage
         )
 
         socket.send(
           JSON.stringify({
             action: 'sendaddtocart',
-            data: undefined,
+            data: {
+              name: productName,
+              productId
+            },
             sectionIdClickedOn,
             orderForm: window.vtexjs.checkout.orderForm.orderFormId,
             sessionId,
@@ -171,9 +179,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
         )
 
         localStorage.removeItem('sectionIdClickedOnForAddToCart')
-      }, 2000)
+      }, 1000)
     })
-  }, [])
+  }, [socket])
 
   useEffect(() => {
     if (!detector) return

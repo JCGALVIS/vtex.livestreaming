@@ -69,6 +69,7 @@ export const ProductItem = (props: ProductItemProps) => {
               isAvailable={isAvailable}
               pdp={pdp}
               productId={id}
+              productName={name}
               sectionIdClickedOn={sectionIdClickedOn}
             />
           ) : (
