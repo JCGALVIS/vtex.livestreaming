@@ -28,7 +28,7 @@ input[type='text']:focus {
 .livestreamingContent {
   display: flex;
   justify-content: space-between;
-  height: 71vh;
+  /*height: 71vh;*/
   position: relative;
 }
 
