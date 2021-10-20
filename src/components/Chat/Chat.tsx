@@ -5,7 +5,7 @@ import MessageRenderer from './MessageRenderer'
 import type { InfoSocket, Message } from '../../typings/livestreaming'
 import { Login } from './login/Login'
 import { ModalQuestion } from '../question/ModalQuestion'
-import { getMobileOS, getDeviceType } from '../../utils'
+import { getDeviceType } from '../../utils'
 import styles from './chat.css'
 import ArrowDown from '../icons/ArrowDown'
 
@@ -292,9 +292,7 @@ export const Chat = ({
         >
           <div className={styles.inputContent}>
             <input
-              className={`${styles.inputTextChat} ${
-                getMobileOS() === 'iOS' && styles.inputTextChatIOS
-              }`}
+              className={styles.inputTextChat}
               placeholder={placeholder}
               name='content'
               type='text'

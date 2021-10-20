@@ -1,9 +1,10 @@
 import React from 'react'
-import { Message } from '../../typings/livestreaming'
+import type { Message } from '../../typings/livestreaming'
 import ProfileIcon from '../icons/ProfileIcon'
 import styles from './chat.css'
 
 const messageRenderer = (chatFiltered: Message[]) => {
+  console.log('chatFiltered: ', chatFiltered)
   const IS_DESKTOP = window.screen.width >= 1025
 
   const getUserName = (username?: string) => {
@@ -15,9 +16,14 @@ const messageRenderer = (chatFiltered: Message[]) => {
   }
 
   return chatFiltered.map((value: Message, index: number) => {
+    const isAdmin = value?.isAdmin
     return IS_DESKTOP ? (
       <div key={index} className={styles.chatBubbleContainer}>
-        <div className={styles.chatBubble}>
+        <div
+          className={`${styles.chatBubble} ${
+            isAdmin && styles.chatBubbleAdmin
+          }`}
+        >
           <div className={styles.chatLayout}>
             <div className={styles.profileIcon}>
               <ProfileIcon size='40' viewBox='0 0 400 400' />
@@ -34,7 +40,12 @@ const messageRenderer = (chatFiltered: Message[]) => {
       </div>
     ) : (
       <div key={index} className={styles.chatBubbleContainer}>
-        <div key={index} className={styles.chatBubble}>
+        <div
+          key={index}
+          className={`${styles.chatBubble} ${
+            isAdmin && styles.chatBubbleAdmin
+          }`}
+        >
           <span className={`${styles.chatMessage} mv3`}>
             <b>
               {getUserName(value?.username)}

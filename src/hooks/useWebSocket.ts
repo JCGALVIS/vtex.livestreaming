@@ -82,12 +82,13 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         backgroundWhiteHighlight,
         pdp,
         emailIsRequired,
-        kuikpay
+        kuikpay,
+        isAdmin
       } = JSON.parse(event.data)
 
       switch (action) {
         case 'sendmessage':
-          setChat((prev) => [{ data, username, sendDate }, ...prev])
+          setChat((prev) => [{ data, username, sendDate, isAdmin }, ...prev])
           break
 
         case 'sendlike':

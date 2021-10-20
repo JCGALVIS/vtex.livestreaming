@@ -1,7 +1,7 @@
 .chatContainer {
   display: flex !important;
   flex-direction: column !important;
-  width: 100% !important;
+  width: 234px !important;
   height: 100% !important;
   background-color: unset !important;
 }
@@ -50,13 +50,19 @@
 .chatBubble {
   max-width: 250px;
   width: auto;
-  background-color: rgba(20, 20, 21, 0.5);
+  background-color: rgba(20, 20, 21, 0.4);
   color: #ffffff;
   display: inline-block;
   border-radius: 20px;
   padding: 3px 12px;
   margin: 3px 0;
   border-bottom: none;
+}
+
+.chatBubbleAdmin {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  color: #323845;
 }
 
 .profileIcon {
@@ -128,12 +134,11 @@
 }
 
 .inputTextChat {
-  background-color: #141415;
+  background-color: rgba(20, 20, 21, 0.4);
   border-radius: 20px 0px 0px 20px;
   box-shadow: none;
   border: 0;
   color: #ffffff;
-  height: 40px;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 0;
@@ -141,24 +146,13 @@
   outline: none;
   flex: 1 1 auto;
   min-width: 0;
-  width: 100%;
-  font: 400 13px Arial !important;
+  width: 192px;
+  font: 400 16px Arial !important;
   height: 40px;
   box-sizing: border-box;
 }
 
 .inputTextChat:focus {
-  font-size: 13px;
-}
-
-.inputTextChatIOS {
-  padding-left: 12px;
-  padding-right: 1px;
-  font: 400 16px Arial !important;
-  width: 105%;
-}
-
-.inputTextChatIOS:focus {
   font-size: 16px;
 }
 
@@ -167,10 +161,11 @@
 }
 
 .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0px 20px 20px 0px;
-  background: #141415;
-  border-color: none;
-  border: none;
+  background: rgba(20, 20, 21, 0.4);
   padding-right: 15px;
   color: #ffffff;
   height: 40px;
