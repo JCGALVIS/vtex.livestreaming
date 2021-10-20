@@ -13,6 +13,7 @@ import { HorizontalProductSlider } from './components/ProductSlider/HorizontalPr
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
 import { getMobileOS } from './utils'
+import { calcHeightApp } from './utils'
 
 import styles from './styles.module.css'
 
@@ -61,6 +62,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
+  const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
 
   const { wssStream, streamUrl, collectionId, utm, emailIsRequired } =
     useLivestreamingConfig({
@@ -81,8 +83,13 @@ export const Livestreaming = (props: LivestreamingProps) => {
     setEmailIsRequired
   } = info
 
-  const getHeight = () => {
+  const mobileOS = getMobileOS();
+
+  useEffect(() => {
     setDetector(getMobileOS())
+  }, [mobileOS])
+
+  const getHeight = () => {
     if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
       setHeight(divVideoContent.current?.clientHeight.toString())
   }
@@ -141,9 +148,19 @@ export const Livestreaming = (props: LivestreamingProps) => {
     return () => clearTimeout(setUTM)
   }, [livestreaminComponentInView, utm])
 
+  useEffect(() => {
+    if (!detector) return
+    setHeightPlayerUI(calcHeightApp())
+  }, [detector])
+
   return (
-    <div className={styles.livestreaming}>
-      <div className={styles.livestreamingContent}>
+    <div className={`live-shopping-app ${styles.livestreaming}`}>
+      <div
+        className={styles.livestreamingContent}
+        style={{
+          height: detector !== 'unknown' ? `${heightPlayerUI}px` : ''
+        }}
+      >
         <VariationSelector
           showVariation={showVariation}
           setShowVariation={setShowVariation}

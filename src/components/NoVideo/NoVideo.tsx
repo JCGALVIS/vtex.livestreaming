@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getMobileOS } from '../../utils'
+import { calcHeightApp } from '../../utils'
 import styles from './NoVideo.css'
 
 const messages = {
@@ -13,8 +15,28 @@ type NoVideoProps = {
 }
 
 export const NoVideo = ({ isLive, liveStatus }: NoVideoProps) => {
+
+  const [detector, setDetector] = useState('')
+  const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
+
+  const mobileOS = getMobileOS();
+
+  useEffect(() => {
+    setDetector(getMobileOS())
+  }, [mobileOS])
+
+  useEffect(() => {
+    if (!detector) return
+    setHeightPlayerUI(calcHeightApp())
+  }, [detector])
+
   return (
-    <div className={styles.noVideoContainer}>
+    <div
+      className={styles.noVideoContainer}
+      style={{
+        height: detector !== 'unknown' ? `${heightPlayerUI}px` : ''
+      }}
+    >
       <span className={styles.noVideoText}>
         {isLive && (isLive === 'LIVE' || (liveStatus && isLive === 'UNKNOWN'))
           ? messages[isLive]
