@@ -2,10 +2,10 @@
 export const addToCart = (idProduct: string, pdp: boolean) => {
   const event = new CustomEvent('addToCartPortal')
 
-  if (!pdp) {
-    document.dispatchEvent(event)
-  } else {
+  if (pdp) {
     const link = document.getElementById(`add-cart-${idProduct}`)
     if (link) link.click()
   }
+
+  document.dispatchEvent(event)
 }
