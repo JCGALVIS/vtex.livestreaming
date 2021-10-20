@@ -21,6 +21,7 @@ import FullscreenIcon from '../icons/FullscreenIcon'
 import FullscreenExitIcon from '../icons/FullscreenExitIcon'
 import LoadingIcon from '../icons/LoadingIcon'
 import { getMobileOS } from '../../utils'
+import { calcHeightApp } from '../../utils'
 import HighlightProduct from '../HighlightProduct/HighlightProduct'
 // eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../typings/livestreaming'
@@ -76,6 +77,20 @@ export const StreamPlayer = ({
 
   const videoEl = useRef<HTMLVideoPicture>(null)
   const mainContainer = useRef<HTMLDivElement>(null)
+
+  const [detector, setDetector] = useState('')
+  const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
+
+  const mobileOS = getMobileOS();
+
+  useEffect(() => {
+    setDetector(getMobileOS())
+  }, [mobileOS])
+
+  useEffect(() => {
+    if (!detector) return
+    setHeightPlayerUI(calcHeightApp())
+  }, [detector])
 
   // eslint-disable-next-line promise/param-names
   const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
@@ -479,7 +494,7 @@ export const StreamPlayer = ({
       clearTimeout(timeout)
     }
   }, [overlay])
-
+  
   return (
     <Fragment>
       <div
@@ -494,7 +509,11 @@ export const StreamPlayer = ({
         onFocus={handleNothing}
         onBlur={handleNothing}
         style={{
-          height: fullScreen ? '100vh' : '',
+          height: detector !== 'unknown'
+            ? `${heightPlayerUI}px`
+            : fullScreen
+            ? '100vh'
+            : '',
           maxHeight: pictureInPicture ? (9 * mainContainerWidth) / 16 : '',
           paddingBottom: fullScreen ? 'unset' : ''
         }}
