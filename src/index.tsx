@@ -181,7 +181,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [detector])
 
   return (
-    <div className={`live-shopping-app ${styles.livestreaming}`}>
+    <div className={styles.livestreaming} id="live-shopping">
       <div
         className={styles.livestreamingContent}
         style={{
