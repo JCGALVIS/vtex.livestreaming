@@ -2,9 +2,9 @@ const calcHeightApp = () => {
   const totalHeight = document?.documentElement?.clientHeight
   
   const liveShoppingElement =
-    document.getElementsByClassName('live-shopping-app')
+    document.getElementById('live-shopping')
 
-  const topLiveShoppingElement = liveShoppingElement[0].getBoundingClientRect().top;
+  const topLiveShoppingElement = liveShoppingElement?.getBoundingClientRect()?.top || 0;
 
   let heightApp = totalHeight - topLiveShoppingElement
 
