@@ -1,42 +1,16 @@
-const calcHeightElmBeforeApp = () => {
-  const bodyElement = document.getElementsByTagName('body')
-
-  if (!bodyElement.length) return null
-
-  const childrenElement = bodyElement[0]?.children
-  let acumHeight = 0
-
-  for (let i = 0; i < childrenElement.length; i++) {
-    const children = childrenElement[i].outerHTML
-
-    acumHeight += childrenElement[i].clientHeight
-
-    if (children.includes('live-shopping-app')) {
-      const liveShoppingElement =
-        document.getElementsByClassName('live-shopping-app')
-
-      if (liveShoppingElement.length)
-        acumHeight -= liveShoppingElement[0]?.children[0]?.clientHeight
-
-      break
-    }
-  }
-
-  return acumHeight
-}
-
 const calcHeightApp = () => {
   const totalHeight = document?.documentElement?.clientHeight
-    let heightElmBeforeApp = calcHeightElmBeforeApp()
-    let calcHeightPlayerUI = totalHeight
+  
+  const liveShoppingElement =
+    document.getElementsByClassName('live-shopping-app')
 
-    if (heightElmBeforeApp) {
-      calcHeightPlayerUI = totalHeight - heightElmBeforeApp
+  const topLiveShoppingElement = liveShoppingElement[0].getBoundingClientRect().top;
 
-      if (calcHeightPlayerUI <= 300) calcHeightPlayerUI = 415
-    }
+  let heightApp = totalHeight - topLiveShoppingElement
 
-    return calcHeightPlayerUI
+  if (heightApp <= 300) heightApp = 415
+
+  return heightApp
 }
 
-export { calcHeightApp } 
+export { calcHeightApp }
