@@ -6,6 +6,8 @@ export declare interface Message {
   sendDate?: string
   username?: string
   all?: Boolean
+  isAdmin?: Boolean
+  color?: string
 }
 
 export declare interface Heart {

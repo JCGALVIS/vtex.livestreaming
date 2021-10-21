@@ -1,9 +1,11 @@
 import React from 'react'
-import { Message } from '../../typings/livestreaming'
-import ProfileIcon from '../icons/ProfileIcon'
+import tinyColor from 'tinycolor2'
+
+import type { Message } from '../../typings/livestreaming'
 import styles from './chat.css'
 
 const messageRenderer = (chatFiltered: Message[]) => {
+  console.log('chatFiltered: ', chatFiltered)
   const IS_DESKTOP = window.screen.width >= 1025
 
   const getUserName = (username?: string) => {
@@ -15,29 +17,44 @@ const messageRenderer = (chatFiltered: Message[]) => {
   }
 
   return chatFiltered.map((value: Message, index: number) => {
+    const isAdmin = value?.isAdmin
+    const userName = getUserName(value?.username)
+    const backgroundColor = `${value.color || '#000000'}66`
+
+    console.log('backgroundColor: ', backgroundColor)
+    const color = tinyColor(backgroundColor).isLight() ? '#323845' : '#fff'
+
     return IS_DESKTOP ? (
       <div key={index} className={styles.chatBubbleContainer}>
-        <div className={styles.chatBubble}>
+        <div
+          className={`${styles.chatBubble} ${
+            isAdmin && styles.chatBubbleAdmin
+          }`}
+        >
           <div className={styles.chatLayout}>
             <div className={styles.profileIcon}>
-              <ProfileIcon size='40' viewBox='0 0 400 400' />
+              <div className={styles.initialName} style={{ backgroundColor }}>
+                <span style={{ color }}>{userName[0]}</span>
+              </div>
+              <span className={`${styles.chatUser} t-mini`}>{userName}</span>
             </div>
             <div className={styles.chatTextContainer}>
-              <span className={`${styles.chatUser} t-mini`}>
-                {getUserName(value?.username)}
-              </span>
               <span className={`${styles.chatMessage} mv3`}>{value.data}</span>
             </div>
-            <br />
           </div>
         </div>
       </div>
     ) : (
       <div key={index} className={styles.chatBubbleContainer}>
-        <div key={index} className={styles.chatBubble}>
+        <div
+          key={index}
+          className={`${styles.chatBubble} ${
+            isAdmin && styles.chatBubbleAdmin
+          }`}
+        >
           <span className={`${styles.chatMessage} mv3`}>
             <b>
-              {getUserName(value?.username)}
+              {userName}
               {': '}
             </b>
             {value.data}

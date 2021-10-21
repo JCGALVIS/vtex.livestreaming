@@ -12,8 +12,7 @@ import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsM
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
-import { getMobileOS } from './utils'
-import { calcHeightApp } from './utils'
+import { getMobileOS, calcHeightApp } from './utils'
 
 import styles from './styles.module.css'
 
@@ -311,7 +310,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
         >
           {scriptProperties?.chat && (
             <Chat
-              title='Chat'
+              title='Chat en vivo'
               placeholder='Comenta aqui...'
               infoSocket={info}
               idLivestreaming={idLivestreaming}

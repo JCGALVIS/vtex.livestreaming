@@ -1,13 +1,15 @@
 import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
-import MessageLivestreamingIcon from '../icons/MessageLivestreamingIcon'
+
+import ChatIcon from '../icons/ChatIcon'
 import SendIcon from '../icons/Send'
 import MessageRenderer from './MessageRenderer'
 import type { InfoSocket, Message } from '../../typings/livestreaming'
 import { Login } from './login/Login'
 import { ModalQuestion } from '../question/ModalQuestion'
-import { getMobileOS, getDeviceType } from '../../utils'
-import styles from './chat.css'
+import { getDeviceType } from '../../utils'
 import ArrowDown from '../icons/ArrowDown'
+
+import styles from './chat.css'
 
 type ChatProps = {
   title: string
@@ -110,7 +112,6 @@ export const Chat = ({
 
     setChat(newChat)
     setMessageToDelete(undefined)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageToDelete])
 
   useEffect(() => {
@@ -124,18 +125,15 @@ export const Chat = ({
     }, 5000)
 
     return () => clearTimeout(timeout)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document.visibilityState])
 
   useEffect(() => {
     if (!chat || messageToDelete === undefined) return
     deleteMessage()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageToDelete])
 
   useEffect(() => {
     if (scrolled) setIncoming(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat])
 
   const ChatMessages = useMemo(
@@ -225,8 +223,8 @@ export const Chat = ({
   return (
     <div className={styles.chatContainer}>
       <div className={styles.liveChatContainer}>
+        <ChatIcon />
         <p className={styles.liveChatText}>{title}</p>
-        <MessageLivestreamingIcon size='40' viewBox='0 0 400 400' />
       </div>
       <div className={styles.chatContent}>
         <div className={styles.chatArea} ref={chatAreaRef}>
@@ -292,9 +290,7 @@ export const Chat = ({
         >
           <div className={styles.inputContent}>
             <input
-              className={`${styles.inputTextChat} ${
-                getMobileOS() === 'iOS' && styles.inputTextChatIOS
-              }`}
+              className={styles.inputTextChat}
               placeholder={placeholder}
               name='content'
               type='text'
