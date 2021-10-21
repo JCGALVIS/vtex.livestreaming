@@ -1,6 +1,7 @@
 import React from 'react'
+import tinyColor from 'tinycolor2'
+
 import type { Message } from '../../typings/livestreaming'
-import ProfileIcon from '../icons/ProfileIcon'
 import styles from './chat.css'
 
 const messageRenderer = (chatFiltered: Message[]) => {
@@ -17,6 +18,12 @@ const messageRenderer = (chatFiltered: Message[]) => {
 
   return chatFiltered.map((value: Message, index: number) => {
     const isAdmin = value?.isAdmin
+    const userName = getUserName(value?.username)
+    const backgroundColor = `${value.color || '#000000'}66`
+
+    console.log('backgroundColor: ', backgroundColor)
+    const color = tinyColor(backgroundColor).isLight() ? '#323845' : '#fff'
+
     return IS_DESKTOP ? (
       <div key={index} className={styles.chatBubbleContainer}>
         <div
@@ -26,15 +33,14 @@ const messageRenderer = (chatFiltered: Message[]) => {
         >
           <div className={styles.chatLayout}>
             <div className={styles.profileIcon}>
-              <ProfileIcon size='40' viewBox='0 0 400 400' />
+              <div className={styles.initialName} style={{ backgroundColor }}>
+                <span style={{ color }}>{userName[0]}</span>
+              </div>
+              <span className={`${styles.chatUser} t-mini`}>{userName}</span>
             </div>
             <div className={styles.chatTextContainer}>
-              <span className={`${styles.chatUser} t-mini`}>
-                {getUserName(value?.username)}
-              </span>
               <span className={`${styles.chatMessage} mv3`}>{value.data}</span>
             </div>
-            <br />
           </div>
         </div>
       </div>
@@ -48,7 +54,7 @@ const messageRenderer = (chatFiltered: Message[]) => {
         >
           <span className={`${styles.chatMessage} mv3`}>
             <b>
-              {getUserName(value?.username)}
+              {userName}
               {': '}
             </b>
             {value.data}

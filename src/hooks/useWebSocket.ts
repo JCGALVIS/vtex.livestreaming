@@ -88,7 +88,18 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
       switch (action) {
         case 'sendmessage':
-          setChat((prev) => [{ data, username, sendDate, isAdmin }, ...prev])
+          setChat((prev) => [
+            {
+              data,
+              username,
+              sendDate,
+              isAdmin,
+              color:
+                prev.find((i) => i.username === username)?.color ||
+                getRandomColor()
+            },
+            ...prev
+          ])
           break
 
         case 'sendlike':
