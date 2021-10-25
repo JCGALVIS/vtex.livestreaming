@@ -128,6 +128,8 @@ const HighlightProduct = ({
                       isAvailable={product.isAvailable}
                       productId={product.id}
                       setShowVariation={setShowVariation}
+                      sectionIdClickedOn='live_shopping_highlight_product'
+                      productName={product.name}
                     />
                   )}
                   {kuikpay && originOfProducts !== 'platform' && (

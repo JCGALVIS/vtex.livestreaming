@@ -77,6 +77,8 @@ export const ProductItem = (props: ProductItemProps) => {
               isAvailable={isAvailable}
               productId={id}
               setShowVariation={setShowVariation}
+              sectionIdClickedOn={sectionIdClickedOn}
+              productName={name}
             />
           )}
           {kuikpay && originOfProducts !== 'platform' && (
