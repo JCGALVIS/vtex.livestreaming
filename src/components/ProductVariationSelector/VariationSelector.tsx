@@ -82,7 +82,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
           addToCartLink: filter.sellers[0].addToCartLink,
           isAvailable: filter.sellers[0]?.commertialOffer.IsAvailable,
           price: filter.sellers[0]?.commertialOffer.ListPrice,
-          priceWithDiscount: filter.sellers[0]?.commertialOffer.ListPrice
+          priceWithDiscount: filter.sellers[0]?.commertialOffer.Price
         }
       })
 
