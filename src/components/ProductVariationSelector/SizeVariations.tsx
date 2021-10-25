@@ -1,62 +1,108 @@
-import React, { useEffect } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react'
+import type { Values, VariationSelector } from '../../typings/livestreaming'
 
 import styles from './variationSelector.css'
 
 type SizeVariationsProps = {
-  sizeData: { id: string; name: string; position: number }[]
-  setSelectedSize: React.Dispatch<React.SetStateAction<string>>
-  selectedSize: string
-  isSize: boolean
+  variations: VariationSelector[]
+  setSelectedSize: React.Dispatch<React.SetStateAction<Values[]>>
+  selectedSize: Values[]
 }
 
 export const SizeVariations = ({
-  sizeData,
+  variations,
   setSelectedSize,
-  selectedSize,
-  isSize
+  selectedSize
 }: SizeVariationsProps) => {
+  const [filteredVariation, setFilteredVariation] = useState<
+    VariationSelector[]
+  >([])
+
   useEffect(() => {
-    setSelectedSize(sizeData[0].name)
-  }, [sizeData])
+    const otherVariations = variations?.filter(
+      (item) => item.field.name.indexOf('Color') !== 0
+    )
 
-  const handleSizeSelect = (sizeId: string, sizeName: string) => {
-    setSelectedSize(sizeName)
+    if (otherVariations) setFilteredVariation(otherVariations)
+
+    const selectVariation = otherVariations.map((variation) => {
+      return {
+        id: variation.values[0].id,
+        name: variation.values[0].name,
+        variationId: variation.field.id,
+        variationName: variation.field.name
+      }
+    })
+
+    if (selectedSize.length === 0) setSelectedSize(selectVariation)
+  }, [variations])
+
+  const handleSizeSelect = (
+    sizeId: string,
+    value: Values,
+    variation: number,
+    variationName: string
+  ) => {
+    const selectItem = selectedSize.filter(
+      (select) => select.variationId !== variation
+    )
+    value.variationId = variation
+    value.variationName = variationName
+
+    selectItem.push(value)
+    setSelectedSize(selectItem)
+
     const divSelect = document.getElementById(sizeId)
-    const divSelects = document.querySelectorAll('.divSelectColor')
+    const divSelects = document.querySelectorAll(`.divSelectColor-${variation}`)
 
-    divSelects.forEach((item) => {
-      item.removeAttribute('style')
-      item.setAttribute('style', 'display: none')
+    divSelects.forEach((item: HTMLElement) => {
+      if (item.style.display === 'initial') {
+        item.removeAttribute('style')
+        item.setAttribute('style', 'display: none')
+      }
     })
 
     if (divSelect) divSelect.style.display = 'initial'
   }
 
   return (
-    <div className={styles.itemContent}>
-      {sizeData.map((size) => (
-        <div
-          key={size.id}
-          className={styles.itemSize}
-          style={isSize ? { height: 25, width: 25, padding: 0 } : {}}
-        >
-          <div
-            id={size.id}
-            className={`${styles.itemSizeSelect} divSelectColor`}
-            style={
-              selectedSize === size.name
-                ? { display: 'initial' }
-                : { display: 'none' }
-            }
-          />
-          <div
-            className={styles.itemSizeBackground}
-            onClick={() => handleSizeSelect(size.id, size.name)}
-          >
-            <span>{size.name}</span>
+    <div className={styles.variationContent}>
+      {filteredVariation?.length > 0 &&
+        filteredVariation.map((variation) => (
+          <div key={variation.field.id} className={styles.itemContent}>
+            {variation.values.map((value) => (
+              <div key={value.id} className={styles.itemSize}>
+                <div
+                  id={value.id}
+                  className={`${styles.itemSizeSelect} divSelectColor-${variation.field.id}`}
+                  style={
+                    selectedSize.length > 0
+                      ? selectedSize.find(
+                          (select) => select.name === value.name
+                        )
+                        ? { display: 'initial' }
+                        : { display: 'none' }
+                      : { display: 'none' }
+                  }
+                />
+                <div
+                  className={styles.itemSizeBackground}
+                  onClick={() =>
+                    handleSizeSelect(
+                      value.id,
+                      value,
+                      variation.field.id,
+                      variation.field.name
+                    )
+                  }
+                >
+                  <span>{value.name}</span>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   )
 }
