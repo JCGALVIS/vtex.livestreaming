@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { getProductById } from './../services'
 import { useEffect, useState } from 'react'
 import type { Products } from '../typings/livestreaming'
@@ -11,14 +12,15 @@ export const useFetchProductById = ({
   originOfProducts
 }: useFetchProductById) => {
   const [product, setProduct] = useState<Products>()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
+    setLoading(false)
     if (productId) {
       getProductById({ productId, originOfProducts }).then((respon: any) => {
         if (respon) {
           setProduct(respon)
-          setLoading(false)
+          setLoading(true)
         }
       })
     }

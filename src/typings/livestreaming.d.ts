@@ -65,7 +65,17 @@ export declare interface InfoSocket {
   setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>
 }
 
+export interface ProductImages {
+  imageUrl: string
+}
+
+export interface ProductSellers {
+  addToCartLink: string
+  commertialOffer: { IsAvailable: boolean; ListPrice: number; Price: number }
+}
 export interface ProductItems {
+  images: ProductImages[]
+  sellers: ProductSellers[]
   variations: string[]
 }
 
@@ -80,7 +90,10 @@ export interface Field {
 export interface Values {
   id: string
   name: string
-  position: number
+  position?: number
+  selectValue?: string
+  variationId?: number
+  variationName?: string
 }
 export interface VariationSelector {
   field: Field

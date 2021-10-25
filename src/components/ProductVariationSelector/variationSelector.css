@@ -134,6 +134,7 @@
   justify-content: center;
   margin: 0px 10px 8px 0px;
   padding: 0 4px;
+  min-width: 30px;
 }
 
 .itemSizeSelect {
@@ -188,6 +189,7 @@
   align-items: center;
   width: 100%;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .productButton {
@@ -238,8 +240,8 @@
 
 @media screen and (min-width: 568px) {
   .content {
-    height: 300px;
-    width: 420px;
+    height: auto;
+    width: 500px;
     border-radius: 4px;
     position: relative;
   }
@@ -263,6 +265,7 @@
 
   .buttonGroup {
     flex-direction: row;
+    margin-bottom: 0;
   }
 
   .productButton {
@@ -271,11 +274,6 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .content {
-    width: 420px;
-    border-radius: 4px;
-  }
-
   .productPictureContainer {
     flex: 0 1 50%;
   }
