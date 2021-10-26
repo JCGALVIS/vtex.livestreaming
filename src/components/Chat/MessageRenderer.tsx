@@ -5,7 +5,6 @@ import type { Message } from '../../typings/livestreaming'
 import styles from './chat.css'
 
 const messageRenderer = (chatFiltered: Message[]) => {
-  console.log('chatFiltered: ', chatFiltered)
   const IS_DESKTOP = window.screen.width >= 1025
 
   const getUserName = (username?: string) => {
@@ -21,7 +20,6 @@ const messageRenderer = (chatFiltered: Message[]) => {
     const userName = getUserName(value?.username)
     const backgroundColor = `${value.color || '#000000'}66`
 
-    console.log('backgroundColor: ', backgroundColor)
     const color = tinyColor(backgroundColor).isLight() ? '#323845' : '#fff'
 
     return IS_DESKTOP ? (

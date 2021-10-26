@@ -25,6 +25,7 @@ export const currencyFormat = (number: number) => {
   const numberAsString = number.toFixed(options.numberOfDecimals)
 
   let separatorPosition = numberAsString.indexOf(options.decimalSeparator)
+
   if (separatorPosition === -1) separatorPosition = numberAsString.length
   let formattedWithoutDecimals = ''
   let index = separatorPosition
@@ -32,15 +33,22 @@ export const currencyFormat = (number: number) => {
   while (index >= 0) {
     const lowerLimit = index - FIGURES_MILES
     formattedWithoutDecimals =
-      (lowerLimit > 0 ? options.thousandsSeparator : '') +
+      (lowerLimit > 0 ? options.decimalSeparator : '') +
       numberAsString.substring(lowerLimit, index) +
       formattedWithoutDecimals
     index -= FIGURES_MILES
   }
+
+  formattedWithoutDecimals = formattedWithoutDecimals.replace(
+    options.thousandsSeparator,
+    ''
+  )
+
   const formattedWithoutSymbol = `${formattedWithoutDecimals}${numberAsString.substr(
     separatorPosition,
     options.numberOfDecimals + 1
   )}`
+
   return options.positionSymbol === 'i'
     ? options.symbol + formattedWithoutSymbol
     : formattedWithoutSymbol + options.symbol
