@@ -12,7 +12,7 @@ import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsM
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
-import { getMobileOS } from './utils'
+import { getMobileOS, calcHeightApp } from './utils'
 
 import styles from './styles.module.css'
 
@@ -61,6 +61,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
+  const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
 
   const { wssStream, streamUrl, collectionId, utm, emailIsRequired } =
     useLivestreamingConfig({
@@ -78,11 +79,18 @@ export const Livestreaming = (props: LivestreamingProps) => {
     scriptProperties,
     setScriptProperties,
     setShowCounter,
-    setEmailIsRequired
+    setEmailIsRequired,
+    socket,
+    sessionId
   } = info
 
-  const getHeight = () => {
+  const mobileOS = getMobileOS()
+
+  useEffect(() => {
     setDetector(getMobileOS())
+  }, [mobileOS])
+
+  const getHeight = () => {
     if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
       setHeight(divVideoContent.current?.clientHeight.toString())
   }
@@ -141,9 +149,53 @@ export const Livestreaming = (props: LivestreamingProps) => {
     return () => clearTimeout(setUTM)
   }, [livestreaminComponentInView, utm])
 
+  useEffect(() => {
+    document.addEventListener('addToCartPortal', () => {
+      setTimeout(() => {
+        if (!socket || !window.vtexjs) return
+
+        const eventAddToCartStorage = localStorage.getItem(
+          'sectionIdClickedOnForAddToCart'
+        )
+
+        if (!eventAddToCartStorage) return
+
+        const { productId, productName, sectionIdClickedOn } = JSON.parse(
+          eventAddToCartStorage
+        )
+
+        socket.send(
+          JSON.stringify({
+            action: 'sendaddtocart',
+            data: {
+              name: productName,
+              productId
+            },
+            sectionIdClickedOn,
+            orderForm: window.vtexjs.checkout.orderForm.orderFormId,
+            sessionId,
+            email: ''
+          })
+        )
+
+        localStorage.removeItem('sectionIdClickedOnForAddToCart')
+      }, 1000)
+    })
+  }, [socket])
+
+  useEffect(() => {
+    if (!detector) return
+    setHeightPlayerUI(calcHeightApp())
+  }, [detector])
+
   return (
-    <div className={styles.livestreaming}>
-      <div className={styles.livestreamingContent}>
+    <div className={styles.livestreaming} id="live-shopping">
+      <div
+        className={styles.livestreamingContent}
+        style={{
+          height: detector !== 'unknown' ? `${heightPlayerUI}px` : ''
+        }}
+      >
         <VariationSelector
           showVariation={showVariation}
           setShowVariation={setShowVariation}
@@ -267,7 +319,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
         >
           {scriptProperties?.chat && (
             <Chat
-              title='Chat'
+              title='Chat en vivo'
               placeholder='Comenta aqui...'
               infoSocket={info}
               idLivestreaming={idLivestreaming}

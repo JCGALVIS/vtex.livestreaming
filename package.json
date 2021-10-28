@@ -1,6 +1,6 @@
 {
   "name": "@jcgalvis/vtex.livestreaming",
-  "version": "1.5.27",
+  "version": "1.5.30",
   "description": "Made with create-react-library",
   "author": "JCGALVIS",
   "license": "MIT",
@@ -70,6 +70,7 @@
     "jquery": "^3.6.0",
     "kuikpay-sdk": "0.0.65",
     "react-transition-group": "^4.4.2",
+    "tinycolor": "^0.0.1",
     "uuid": "^8.3.2",
     "vtex-tachyons": "^3.2.2"
   }

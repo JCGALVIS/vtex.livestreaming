@@ -72,7 +72,7 @@ export const Login = ({
     return isValid
   }
 
-  const usernameIsValid = async () => {
+  const usernameIsValid = () => {
     const isEmptyUsername = !(username !== null && username.trim() !== '')
 
     if (isEmptyUsername) {
@@ -81,6 +81,10 @@ export const Login = ({
       return false
     }
 
+    return true
+  }
+
+  const defineUsername = async () => {
     let URL = '__USERNAME_EXIST_URL'
     const { USERNAME_EXIST_URL } = process.env
 
@@ -94,18 +98,7 @@ export const Login = ({
       url: `${URL}?id=${idLivestreaming}&account=${account}&username=${username}`
     })
 
-    const isValid = !data.exist
-
-    if (!isValid) {
-      const errorMessage = !data.exist
-        ? 'Nombre no valido'
-        : 'Este nombre de usuario ya existe'
-
-      setErrorMessage(errorMessage)
-      setErrorUsername(true)
-    }
-
-    return isValid
+    return !data.exist ? username : `${username} ${data.number}`
   }
 
   const handlerSendDataToChat = async (event: React.SyntheticEvent) => {
@@ -120,7 +113,9 @@ export const Login = ({
       return
     }
 
-    sendAccountId(username, email || '')
+    const newUsername = await defineUsername()
+
+    sendAccountId(newUsername, email || '')
     sendMessage()
 
     localStorage.setItem(
@@ -167,23 +162,27 @@ export const Login = ({
             <div className={styles.inputErrorMessage}>{erroMessage}</div>
           ) : null}
         </div>
-        <div className={styles.inputContainer}>
-          <input
-            placeholder={emailIsRequired ? 'Email*' : 'Email'}
-            id='email'
-            name='email'
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
-            value={email}
-            autoComplete='off'
-            className={`${styles.input} ${errorEmail ? styles.inputError : ''}`}
-          />
+        {emailIsRequired && (
+          <div className={styles.inputContainer}>
+            <input
+              placeholder={emailIsRequired ? 'Email*' : 'Email'}
+              id='email'
+              name='email'
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
+              value={email}
+              autoComplete='off'
+              className={`${styles.input} ${
+                errorEmail ? styles.inputError : ''
+              }`}
+            />
 
-          {errorEmail ? (
-            <div className={styles.inputErrorMessage}>Email no valido</div>
-          ) : null}
-        </div>
+            {errorEmail ? (
+              <div className={styles.inputErrorMessage}>Email no valido</div>
+            ) : null}
+          </div>
+        )}
 
         <button disabled={disabledBtn} type='submit' className={styles.btn}>
           CONTINUAR CON EL CHAT

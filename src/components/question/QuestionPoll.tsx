@@ -8,7 +8,7 @@ import React, {
 } from 'react'
 
 import Timer from './Timer'
-import { Answer, Question } from '../../typings/livestreaming'
+import type { Answer, Question } from '../../typings/livestreaming'
 import { Checkbox } from '../commonComponents'
 import styles from './question.css'
 
@@ -19,36 +19,33 @@ interface QuestionPollProps {
   disabledForm: boolean
 }
 
+interface PollAnswer {
+  label: string
+  value: number
+  checked: boolean
+}
+
 const QuestionPoll = ({
   dataQuestion,
   setIsAnswer,
   setIndexAnswer,
   disabledForm
 }: QuestionPollProps) => {
-  const [valueOption, setValueOption] = useState({
-    checkOne: false,
-    checkTwo: false,
-    checkThree: false,
-    checkFour: false
-  })
-
   const [indexData, setIndexData] = useState<number[]>([])
-  const [optionsQuestion, setOptionsQuestion] = useState([
-    {
-      name: '',
-      position: 0
-    }
-  ])
+  const [optionsQuestion, setOptionsQuestion] = useState<PollAnswer[]>([])
 
   const [timeExpired, setTimeExpired] = useState(false)
 
   const getInformation = (e: SyntheticEvent) => {
-    const { name, checked, value } = e.target as HTMLInputElement
+    const { checked, value } = e.target as HTMLInputElement
 
-    setValueOption({
-      ...valueOption,
-      [name]: checked
-    })
+    setOptionsQuestion((prev) =>
+      prev.map((item) => {
+        if (Number(value) === item.value) item.checked = checked
+
+        return item
+      })
+    )
 
     const dataIndex = indexData
 
@@ -66,8 +63,9 @@ const QuestionPoll = ({
       const options = dataQuestion?.answers.map(
         (answer: Answer, index: number) => {
           return {
-            name: answer.text,
-            position: index
+            label: answer.text,
+            value: index,
+            checked: false
           }
         }
       )
@@ -85,50 +83,19 @@ const QuestionPoll = ({
         <p>{dataQuestion?.question}</p>
       </div>
       <div>
-        <div className={styles.checkbox}>
-          <Checkbox
-            checked={valueOption.checkOne}
-            id='option-0'
-            name='checkOne'
-            onChange={getInformation}
-            value={optionsQuestion[0]?.position}
-            disabled={disabledForm}
-            label={optionsQuestion[0]?.name}
-          />
-        </div>
-        <div className={styles.checkbox}>
-          <Checkbox
-            checked={valueOption.checkTwo}
-            id='option-1'
-            name='checkTwo'
-            onChange={getInformation}
-            value={optionsQuestion[1]?.position}
-            disabled={disabledForm}
-            label={optionsQuestion[1]?.name}
-          />
-        </div>
-        <div className={styles.checkbox}>
-          <Checkbox
-            checked={valueOption.checkThree}
-            id='option-2'
-            name='checkThree'
-            onChange={getInformation}
-            value={optionsQuestion[2]?.position}
-            disabled={disabledForm}
-            label={optionsQuestion[2]?.name}
-          />
-        </div>
-        <div className={styles.checkbox}>
-          <Checkbox
-            checked={valueOption.checkFour}
-            id='option-3'
-            name='checkFour'
-            onChange={getInformation}
-            value={optionsQuestion[3]?.position}
-            disabled={disabledForm}
-            label={optionsQuestion[3]?.name}
-          />
-        </div>
+        {optionsQuestion.map((item) => (
+          <div className={styles.checkbox} key={item.value}>
+            <Checkbox
+              checked={item.checked}
+              id={`option-${item.value}`}
+              label={item.label}
+              name={`check-${item.value}`}
+              onChange={getInformation}
+              value={item.value}
+              disabled={disabledForm}
+            />
+          </div>
+        ))}
       </div>
       <div className={styles.timeContent}>
         <Timer time={dataQuestion?.time || 0} setTimeExpired={setTimeExpired} />

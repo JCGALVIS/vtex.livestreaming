@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { formatterDolar } from '../../utils'
+import { currencyFormat } from '../../utils'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
 import ProductButton from './../ProductsButton/ProductButton'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
@@ -21,6 +21,7 @@ type ProductItemProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   originOfProducts: string
   kuikpay: boolean
+  sectionIdClickedOn?: string
 }
 
 export const ProductItem = (props: ProductItemProps) => {
@@ -37,7 +38,8 @@ export const ProductItem = (props: ProductItemProps) => {
     variationSelector,
     setShowVariation,
     originOfProducts,
-    kuikpay
+    kuikpay,
+    sectionIdClickedOn
   } = props
 
   return (
@@ -55,12 +57,10 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.productDeatailContent}>
         <h4 className={styles.productTitle}>{name}</h4>
         {price !== priceWithDiscount && (
-          <span className={styles.price}>
-            Antes: {formatterDolar.format(price)}
-          </span>
+          <span className={styles.price}>Antes: {currencyFormat(price)}</span>
         )}
         <span className={styles.priceWithDiscount}>
-          Ahora: {formatterDolar.format(priceWithDiscount)}
+          Ahora: {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
           {variationSelector.length === 0 ? (
@@ -69,12 +69,16 @@ export const ProductItem = (props: ProductItemProps) => {
               isAvailable={isAvailable}
               pdp={pdp}
               productId={id}
+              productName={name}
+              sectionIdClickedOn={sectionIdClickedOn}
             />
           ) : (
             <ProductVariationButton
               isAvailable={isAvailable}
               productId={id}
               setShowVariation={setShowVariation}
+              sectionIdClickedOn={sectionIdClickedOn}
+              productName={name}
             />
           )}
           {kuikpay && originOfProducts !== 'platform' && (
