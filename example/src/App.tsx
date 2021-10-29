@@ -5,10 +5,6 @@ import 'vtex.livestreaming/dist/index.css'
 import './app.css'
 
 const App = () => {
-  document.addEventListener('addToCartPortal', () => {
-    alert('Add to cart...')
-  })
-
   return (
     <Livestreaming
       idLivestreaming='__IDLIVESTREAMING'
