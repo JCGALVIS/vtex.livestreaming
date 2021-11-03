@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Video } from './components/Video/Video'
+
+import { Feed } from './components/Video/Feed'
 import { Chat } from './components/Chat/Chat'
 import { Like } from './components/Like/Like'
 import { Viewers } from './components/Viewers/Viewers'
@@ -12,6 +13,7 @@ import { ButtonProductsMobile } from './components/ProductSlider/ButtonProductsM
 import { HorizontalProductSlider } from './components/ProductSlider/HorizontalProductSlider'
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
+import { useIsPlayerSupported } from './hooks'
 import { getMobileOS, calcHeightApp } from './utils'
 
 import styles from './styles.module.css'
@@ -62,6 +64,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
   const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
+
+  const { isPlayerSupported } = useIsPlayerSupported()
 
   const { wssStream, streamUrl, collectionId, utm, emailIsRequired } =
     useLivestreamingConfig({
@@ -189,7 +193,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [detector])
 
   return (
-    <div className={styles.livestreaming} id="live-shopping">
+    <div className={styles.livestreaming} id='live-shopping'>
       <div
         className={styles.livestreamingContent}
         style={{
@@ -263,18 +267,19 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   />
                 </div>
               ) : null}
-              <Video
-                infoSocket={info}
-                streamUrl={streamUrl}
+              <Feed
                 collectionId={collectionId}
-                pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-                originOfProducts={
-                  originOfProducts === '' ? '' : originOfProducts
-                }
-                setShowVariation={setShowVariation}
+                infoSocket={info}
+                isPlayerSupported={isPlayerSupported}
                 kuikpay={
                   scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
                 }
+                originOfProducts={
+                  originOfProducts === '' ? '' : originOfProducts
+                }
+                pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+                setShowVariation={setShowVariation}
+                streamUrl={streamUrl}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />

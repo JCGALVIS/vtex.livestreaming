@@ -81,7 +81,7 @@ export const StreamPlayer = ({
   const [detector, setDetector] = useState('')
   const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
 
-  const mobileOS = getMobileOS();
+  const mobileOS = getMobileOS()
 
   useEffect(() => {
     setDetector(getMobileOS())
@@ -494,7 +494,7 @@ export const StreamPlayer = ({
       clearTimeout(timeout)
     }
   }, [overlay])
-  
+
   return (
     <Fragment>
       <div
@@ -509,11 +509,12 @@ export const StreamPlayer = ({
         onFocus={handleNothing}
         onBlur={handleNothing}
         style={{
-          height: detector !== 'unknown'
-            ? `${heightPlayerUI}px`
-            : fullScreen
-            ? '100vh'
-            : '',
+          height:
+            detector !== 'unknown'
+              ? `${heightPlayerUI}px`
+              : fullScreen
+              ? '100vh'
+              : '',
           maxHeight: pictureInPicture ? (9 * mainContainerWidth) / 16 : '',
           paddingBottom: fullScreen ? 'unset' : ''
         }}
