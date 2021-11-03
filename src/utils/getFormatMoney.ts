@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import type { OptionsCurrency } from './../typings/livestreaming'
 import constants from './constant'
 

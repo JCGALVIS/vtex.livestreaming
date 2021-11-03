@@ -1,8 +1,16 @@
+import { addToCart } from './addToCart'
+import { calcHeightApp } from './calcHeightElmBeforeApp'
+import { currencyFormat } from './getFormatMoney'
+import { getMobileOS, getDeviceType } from './getMobileOs'
+import { getRandomColor } from './getRandomColor'
 import Queue from './Queue'
-export * from './addToCart'
-export * from './getFormatMoney'
-export * from './getMobileOs'
-export * from './getRandomColor'
-export * from './calcHeightElmBeforeApp'
 
-export { Queue }
+export {
+  addToCart,
+  calcHeightApp,
+  currencyFormat,
+  getDeviceType,
+  getMobileOS,
+  getRandomColor,
+  Queue
+}

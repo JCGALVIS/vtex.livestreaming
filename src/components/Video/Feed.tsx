@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import type { InfoSocket } from '../../typings/livestreaming'
 import { NoVideo } from '../NoVideo/NoVideo'
-import { StreamPlayer } from './StreamPlayer'
+import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 
 type FeedProps = {
   collectionId: string | undefined
@@ -63,6 +63,7 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
+    player.current.load(streamUrl)
 
     player.current.addEventListener(READY, onStateChange)
     player.current.addEventListener(PLAYING, onStateChange)
@@ -86,7 +87,6 @@ export const Feed = ({
   return isPlayerSupported && isTransmiting && playerCurrent ? (
     <StreamPlayer
       player={player.current}
-      streamUrl={streamUrl}
       infoSocket={infoSocket}
       collectionId={collectionId}
       pdp={pdp}
