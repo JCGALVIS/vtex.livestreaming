@@ -42,7 +42,7 @@ const ProductButton = (props: ProductButtonProps) => {
           localStorage.setItem('sectionIdClickedOnForAddToCart', eventAddToCart)
         }}
       >
-        {isAvailable ? 'Agregar' : 'Indisponible'}
+        {isAvailable ? 'Agregar' : 'Agotado'}
       </button>
       <div>
         <a
