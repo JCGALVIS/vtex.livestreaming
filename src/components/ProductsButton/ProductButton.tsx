@@ -5,6 +5,7 @@ import styles from './productButton.css'
 
 type ProductButtonProps = {
   addToCartLink: string
+  handleClose?: () => void
   isAvailable: boolean
   pdp: boolean
   productId: string
@@ -15,6 +16,7 @@ type ProductButtonProps = {
 const ProductButton = (props: ProductButtonProps) => {
   const {
     addToCartLink,
+    handleClose,
     isAvailable,
     pdp,
     productId,
@@ -31,6 +33,8 @@ const ProductButton = (props: ProductButtonProps) => {
         disabled={!isAvailable}
         onClick={() => {
           addToCart(productId, pdp)
+
+          if (handleClose) handleClose()
           if (!sectionIdClickedOn) return
 
           const eventAddToCart = JSON.stringify({
