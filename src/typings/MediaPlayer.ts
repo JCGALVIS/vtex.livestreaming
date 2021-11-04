@@ -54,3 +54,13 @@ export interface MediaPlayer {
   setQuality: (quality: Quality, adaptive?: boolean) => void
   setVolume: (volume: number) => void
 }
+
+export interface HTMLVideoPicture {
+  requestPictureInPicture(): void
+  onleavepictureinpicture(): void
+  webkitEnterFullscreen(): void
+  webkitExitFullScreen(): void
+  webkitDisplayingFullscreen: boolean
+}
+
+export type StreamPlayerType = HTMLVideoPicture & HTMLVideoElement

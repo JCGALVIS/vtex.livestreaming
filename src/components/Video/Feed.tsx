@@ -1,39 +1,46 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { InfoSocket } from '../../typings/livestreaming'
 
-import { StreamPlayer } from './StreamPlayer'
+import type { InfoSocket } from '../../typings/livestreaming'
+import { NoVideo } from '../NoVideo/NoVideo'
+import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 
 type FeedProps = {
-  streamUrl: string | undefined
-  infoSocket: InfoSocket
   collectionId: string | undefined
-  pdp: boolean
-  originOfProducts: string | undefined
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  infoSocket: InfoSocket
+  isPlayerSupported: boolean
   kuikpay: boolean
+  originOfProducts: string | undefined
+  pdp: boolean
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  streamUrl: string | undefined
 }
 
 export const Feed = ({
-  streamUrl,
-  infoSocket,
   collectionId,
-  pdp,
+  infoSocket,
+  isPlayerSupported,
+  kuikpay,
   originOfProducts,
+  pdp,
   setShowVariation,
-  kuikpay
+  streamUrl
 }: FeedProps) => {
   const { IVSPlayer } = window
-  const { isPlayerSupported, MediaPlayer } = IVSPlayer
-
-  const player: typeof MediaPlayer = useRef(null)
+  const { MediaPlayer } = IVSPlayer
 
   const [playerCurrent, setPlayerCurrent] = useState(false)
+  const [liveStatus, setLiveStatus] = useState(false)
+  const player: typeof MediaPlayer = useRef(null)
+
+  const { isTransmiting } = infoSocket
+  const isLive = infoSocket?.ivsRealTime?.status
 
   useEffect(() => {
-    const { ENDED, PLAYING, READY } = IVSPlayer.PlayerState
-    const { ERROR } = IVSPlayer.PlayerEventType
+    if (isLive === 'LIVE') setLiveStatus(true)
+  }, [isLive])
 
+  useEffect(() => {
     if (!isPlayerSupported) {
       console.warn(
         'The current browser does not support the Amazon IVS player.'
@@ -41,6 +48,9 @@ export const Feed = ({
 
       return
     }
+
+    const { ENDED, PLAYING, READY } = IVSPlayer.PlayerState
+    const { ERROR } = IVSPlayer.PlayerEventType
 
     const onStateChange = () => {}
 
@@ -53,6 +63,7 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
+    player.current.load(streamUrl)
 
     player.current.addEventListener(READY, onStateChange)
     player.current.addEventListener(PLAYING, onStateChange)
@@ -73,10 +84,9 @@ export const Feed = ({
     return null
   }
 
-  return playerCurrent ? (
+  return isPlayerSupported && isTransmiting && playerCurrent ? (
     <StreamPlayer
       player={player.current}
-      streamUrl={streamUrl}
       infoSocket={infoSocket}
       collectionId={collectionId}
       pdp={pdp}
@@ -84,5 +94,7 @@ export const Feed = ({
       setShowVariation={setShowVariation}
       kuikpay={kuikpay}
     />
-  ) : null
+  ) : (
+    <NoVideo isLive={isLive} liveStatus={liveStatus} />
+  )
 }

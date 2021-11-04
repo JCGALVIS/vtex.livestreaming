@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useMemo } from 'react'
 import IconHeart from '../icons/HeartIcon'
 import HeartComponent from './heart/Heart'
-import styles from './like.css'
-// eslint-disable-next-line no-unused-vars
-import { Heart, InfoSocket } from '../../typings/livestreaming'
+import type { Heart, InfoSocket } from '../../typings/livestreaming'
 import { getRandomColor } from '../../utils'
+
+import styles from './like.css'
 
 interface LikeProps {
   infoSocket: InfoSocket
@@ -60,7 +61,7 @@ export const Like = ({ infoSocket }: LikeProps) => {
   return isTransmiting ? (
     <div className={styles.likeWrapper}>
       <button className={styles.likeButton} onClick={handleClick}>
-        <IconHeart size='42' viewBox='0 0 400 400' />
+        <IconHeart size='30' viewBox='0 0 400 400' />
       </button>
       {HeartCollection}
     </div>

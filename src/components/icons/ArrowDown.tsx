@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import type { FunctionComponent } from 'react'
 import React from 'react'
 

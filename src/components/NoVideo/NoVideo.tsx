@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getMobileOS } from '../../utils'
-import { calcHeightApp } from '../../utils'
+import { getMobileOS, calcHeightApp } from '../../utils'
 import styles from './NoVideo.css'
 
 const messages = {
@@ -15,11 +14,10 @@ type NoVideoProps = {
 }
 
 export const NoVideo = ({ isLive, liveStatus }: NoVideoProps) => {
-
   const [detector, setDetector] = useState('')
   const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
 
-  const mobileOS = getMobileOS();
+  const mobileOS = getMobileOS()
 
   useEffect(() => {
     setDetector(getMobileOS())
