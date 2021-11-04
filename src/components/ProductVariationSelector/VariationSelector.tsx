@@ -151,12 +151,13 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                       <div className={styles.variationContent}>
                         <div className={styles.buttonGroup}>
                           <ProductButton
-                            productId={product?.id || ''}
                             addToCartLink={selectedProduct.addToCartLink}
+                            handleClose={handleClose}
                             isAvailable={
                               isAvailable ? selectedProduct.isAvailable : false
                             }
                             pdp={pdp}
+                            productId={product?.id || ''}
                           />
                         </div>
                       </div>
