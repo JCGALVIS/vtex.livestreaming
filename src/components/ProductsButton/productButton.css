@@ -1,5 +1,6 @@
 .productAddCart {
   width: 100%;
+  min-width: 110px;
   display: block;
   height: 36px;
   color: #001738;
