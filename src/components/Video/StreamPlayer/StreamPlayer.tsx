@@ -13,6 +13,7 @@ import type {
   StreamPlayerType
 } from '../../../typings/MediaPlayer'
 import {
+  Close,
   FullscreenExitIcon,
   FullscreenIcon,
   LoadingIcon,
@@ -21,6 +22,7 @@ import {
   PictureAndPictureAltIcon,
   PictureAndPictureIcon,
   PlayIcon,
+  VerticalDots,
   VolumeOffIcon,
   VolumeUpIcon
 } from '../../icons'
@@ -57,8 +59,6 @@ export const StreamPlayer = ({
   setShowVariation,
   kuikpay
 }: streamPlayerProps) => {
-  const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
-
   const [
     { height: mainContainerHeight, width: mainContainerWidth },
     setMainContainerDims
@@ -73,20 +73,25 @@ export const StreamPlayer = ({
   const mobileOS = getMobileOS()
 
   const {
+    BUFFERING,
     firstTimeMuted,
     fullScreen,
     handleFullScreen,
     handleFullScreenMobile,
     handleMainButton,
+    handleMobileOptions,
     handleMute,
     handleNothing,
     handlePictureAndPicture,
+    IDLE,
     inactive,
     muted,
     overlay,
     pictureInPicture,
+    PLAYING,
     setInactive,
     setOverlay,
+    showOptions,
     status
   } = usePlayerFunctions({ player, videoEl, mainContainer })
 
@@ -135,6 +140,19 @@ export const StreamPlayer = ({
               <div
                 role='button'
                 tabIndex={0}
+                className={`${styles.playerVideoMuteButtonPosition} ${styles.playerVideoButtonFlex}`}
+                onClick={handleMute}
+                onKeyDown={handleNothing}
+              >
+                {mute ? (
+                  <VolumeOffIcon size='40' viewBox='0 0 400 400' />
+                ) : (
+                  <VolumeUpIcon size='40' viewBox='0 0 400 400' />
+                )}
+              </div>
+              <div
+                role='button'
+                tabIndex={0}
                 className={`${styles.playerVideoPictureButtonPosition} ${styles.playerVideoButtonFlex}`}
                 onClick={handlePictureAndPicture}
                 onKeyDown={handleNothing}
@@ -146,19 +164,6 @@ export const StreamPlayer = ({
                     <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
                   )
                 ) : null}
-              </div>
-              <div
-                role='button'
-                tabIndex={0}
-                className={`${styles.playerVideoMuteButtonPosition} ${styles.playerVideoButtonFlex}`}
-                onClick={handleMute}
-                onKeyDown={handleNothing}
-              >
-                {mute ? (
-                  <VolumeOffIcon size='40' viewBox='0 0 400 400' />
-                ) : (
-                  <VolumeUpIcon size='40' viewBox='0 0 400 400' />
-                )}
               </div>
               <div
                 role='button'
@@ -284,36 +289,55 @@ export const StreamPlayer = ({
             <Fragment />
           )}
           <div
-            role='button'
-            tabIndex={0}
-            onClick={handleFullScreenMobile}
-            onKeyDown={handleFullScreenMobile}
-            className={styles.playerVideoMobileFullscreen}
+            className={styles.playerVideoMobileOptions}
+            onClick={handleMobileOptions}
+            onKeyDown={handleMobileOptions}
           >
-            {fullScreen ? (
-              <FullscreenExitIcon size='42' viewBox='0 0 400 400' />
+            {showOptions ? (
+              <Close size='42' viewBox='0 0 400 400' />
             ) : (
-              <FullscreenIcon size='42' viewBox='0 0 400 400' />
+              <VerticalDots size='42' viewBox='0 0 400 400' />
             )}
-          </div>
-          {!!videoEl?.current?.requestPictureInPicture && (
             <div
-              role='button'
-              tabIndex={0}
-              onClick={handlePictureAndPicture}
-              onKeyDown={handlePictureAndPicture}
-              className={styles.playerVideoMobilePicture}
+              className={styles.playerVideoMobileOptionsContent}
+              data-display={`${showOptions}`}
             >
-              {!!videoEl?.current?.requestPictureInPicture &&
-              getMobileOS() !== 'Android' ? (
-                pictureInPicture ? (
-                  <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+              <div
+                role='button'
+                tabIndex={0}
+                onClick={handleFullScreenMobile}
+                onKeyDown={handleFullScreenMobile}
+                className={styles.playerVideoMobileFullscreen}
+              >
+                {fullScreen ? (
+                  <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
                 ) : (
-                  <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-                )
-              ) : null}
+                  <FullscreenIcon size='40' viewBox='0 0 400 400' />
+                )}
+              </div>
+              {!!videoEl?.current?.requestPictureInPicture && (
+                <div
+                  role='button'
+                  tabIndex={0}
+                  onClick={handlePictureAndPicture}
+                  onKeyDown={handlePictureAndPicture}
+                  className={styles.playerVideoMobilePicture}
+                >
+                  {!!videoEl?.current?.requestPictureInPicture &&
+                  getMobileOS() !== 'Android' ? (
+                    pictureInPicture ? (
+                      <PictureAndPictureIcon size='32' viewBox='0 0 400 400' />
+                    ) : (
+                      <PictureAndPictureAltIcon
+                        size='32'
+                        viewBox='0 0 400 400'
+                      />
+                    )
+                  ) : null}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </Fragment>

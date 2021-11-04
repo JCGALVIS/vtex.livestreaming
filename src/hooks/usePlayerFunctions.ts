@@ -12,7 +12,7 @@ type PlayerFuntionsProps = {
 
 const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const { mainContainer, player, videoEl } = props
-  const { PLAYING, IDLE } = window.IVSPlayer.PlayerState
+  const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
 
   const [pictureInPicture, setPictureInPicture] = useState<boolean>(false)
   const [fullScreen, setFullScreen] = useState<boolean>(false)
@@ -21,6 +21,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const [status, setStatus] = useState<string>(IDLE)
   const [overlay, setOverlay] = useState<boolean>(false)
   const [inactive, setInactive] = useState<boolean>(false)
+  const [showOptions, setShowOptions] = useState<boolean>(false)
 
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
@@ -316,21 +317,28 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     }
   }, [overlay])
 
+  const handleMobileOptions = () => setShowOptions((prev) => !prev)
+
   return {
+    BUFFERING,
     firstTimeMuted,
     fullScreen,
     handleFullScreen,
     handleFullScreenMobile,
     handleMainButton,
+    handleMobileOptions,
     handleMute,
     handleNothing,
     handlePictureAndPicture,
+    IDLE,
     inactive,
     muted,
     overlay,
     pictureInPicture,
+    PLAYING,
     setInactive,
     setOverlay,
+    showOptions,
     status
   }
 }

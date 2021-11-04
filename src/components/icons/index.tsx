@@ -2,6 +2,7 @@ import ArrowDown from './ArrowDown'
 import ArrowLeft from './ArrowLeft'
 import ArrowRightLivestreaming from './ArrowRightLivestreaming'
 import ChatIcon from './ChatIcon'
+import Close from './Close'
 import FullscreenExitIcon from './FullscreenExitIcon'
 import FullscreenIcon from './FullscreenIcon'
 import HeartIcon from './HeartIcon'
@@ -15,6 +16,7 @@ import PictureAndPictureIcon from './PictureAndPictureIcon'
 import PlayIcon from './PlayIcon'
 import ProfileIcon from './ProfileIcon'
 import Send from './Send'
+import VerticalDots from './VerticalDots'
 import ViewersIcon from './ViewersIcon'
 import VolumeOffIcon from './VolumeOffIcon'
 import VolumeUpIcon from './VolumeUpIcon'
@@ -24,6 +26,7 @@ export {
   ArrowLeft,
   ArrowRightLivestreaming,
   ChatIcon,
+  Close,
   FullscreenExitIcon,
   FullscreenIcon,
   HeartIcon,
@@ -37,6 +40,7 @@ export {
   PlayIcon,
   ProfileIcon,
   Send,
+  VerticalDots,
   ViewersIcon,
   VolumeOffIcon,
   VolumeUpIcon
