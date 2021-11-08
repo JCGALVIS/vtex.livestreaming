@@ -3,9 +3,10 @@ import React from 'react'
 import tinyColor from 'tinycolor2'
 
 import type { Message } from '../../typings/livestreaming'
+import { PinIcon } from '../icons'
 import styles from './chat.css'
 
-const messageRenderer = (chatFiltered: Message[]) => {
+const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
   const IS_DESKTOP = window.screen.width >= 1025
 
   const getUserName = (username?: string) => {
@@ -33,9 +34,10 @@ const messageRenderer = (chatFiltered: Message[]) => {
           <div className={styles.chatLayout}>
             <div className={styles.profileIcon}>
               <div className={styles.initialName} style={{ backgroundColor }}>
-                <span style={{ color }}>{userName[0]}</span>
+                <span style={{ color }}>{userName[0]}</span>{' '}
               </div>
               <span className={`${styles.chatUser} t-mini`}>{userName}</span>
+              {pinned && <PinIcon color='#fff' size={16} />}
             </div>
             <div className={styles.chatTextContainer}>
               <span className={`${styles.chatMessage} mv3`}>{value.data}</span>
@@ -55,6 +57,7 @@ const messageRenderer = (chatFiltered: Message[]) => {
             <b>
               {userName}
               {': '}
+              {pinned && <PinIcon color='#000' size={12} />}
             </b>
             {value.data}
           </span>

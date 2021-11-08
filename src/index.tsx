@@ -17,6 +17,7 @@ import { useIsPlayerSupported } from './hooks'
 import { getMobileOS, calcHeightApp } from './utils'
 
 import styles from './styles.module.css'
+import { Message } from './typings/livestreaming'
 
 type LivestreamingProps = {
   account: string
@@ -64,14 +65,21 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
   const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
+  const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
-  const { wssStream, streamUrl, collectionId, utm, emailIsRequired } =
-    useLivestreamingConfig({
-      id: idLivestreaming,
-      account
-    })
+  const {
+    wssStream,
+    streamUrl,
+    collectionId,
+    utm,
+    emailIsRequired,
+    pinnedMessage: initPinnedMessage
+  } = useLivestreamingConfig({
+    id: idLivestreaming,
+    account
+  })
 
   const { livestreaminComponentInView } = useLivestreamingComponentOnScreen({
     rootMargin: '0px 0px'
@@ -85,7 +93,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     setShowCounter,
     setEmailIsRequired,
     socket,
-    sessionId
+    sessionId,
+    pinnedMessage: socketPinnedMessage
   } = info
 
   const mobileOS = getMobileOS()
@@ -191,6 +200,15 @@ export const Livestreaming = (props: LivestreamingProps) => {
     if (!detector) return
     setHeightPlayerUI(calcHeightApp())
   }, [detector])
+
+  useEffect(() => {
+    console.log({ initPinnedMessage, socketPinnedMessage })
+    if (socketPinnedMessage) {
+      setPinnedMessage(socketPinnedMessage)
+    } else {
+      setPinnedMessage(initPinnedMessage)
+    }
+  }, [initPinnedMessage, socketPinnedMessage])
 
   return (
     <div className={styles.livestreaming} id='live-shopping'>
@@ -329,6 +347,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               infoSocket={info}
               idLivestreaming={idLivestreaming}
               account={account}
+              pinnedMessage={pinnedMessage}
             />
           )}
         </div>

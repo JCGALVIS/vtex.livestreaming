@@ -20,6 +20,7 @@ import VerticalDots from './VerticalDots'
 import ViewersIcon from './ViewersIcon'
 import VolumeOffIcon from './VolumeOffIcon'
 import VolumeUpIcon from './VolumeUpIcon'
+import PinIcon from './PinIcon'
 
 export {
   ArrowDown,
@@ -43,5 +44,6 @@ export {
   VerticalDots,
   ViewersIcon,
   VolumeOffIcon,
-  VolumeUpIcon
+  VolumeUpIcon,
+  PinIcon
 }

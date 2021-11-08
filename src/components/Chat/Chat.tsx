@@ -17,6 +17,7 @@ type ChatProps = {
   infoSocket: InfoSocket
   idLivestreaming: string
   account: string
+  pinnedMessage: Message | undefined
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
@@ -26,7 +27,8 @@ export const Chat = ({
   placeholder,
   infoSocket,
   idLivestreaming,
-  account
+  account,
+  pinnedMessage
 }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const formContainer = useRef<HTMLFormElement>(null)
@@ -223,10 +225,17 @@ export const Chat = ({
   return (
     <div className={styles.chatContainer}>
       <div className={styles.liveChatContainer}>
-        <ChatIcon />
-        <p className={styles.liveChatText}>{title}</p>
+        <div className={styles.liveChatHeader}>
+          <ChatIcon />
+          <p className={styles.liveChatText}>{title}</p>
+        </div>
       </div>
       <div className={styles.chatContent}>
+        {pinnedMessage && pinnedMessage?.data && (
+          <div className={styles.liveChatPinnedMessage}>
+            {MessageRenderer([pinnedMessage], true)}
+          </div>
+        )}
         <div className={styles.chatArea} ref={chatAreaRef}>
           {ChatMessages}
         </div>
