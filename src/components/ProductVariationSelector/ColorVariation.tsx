@@ -38,6 +38,7 @@ export const ColorVariation = ({
   const [colorArray, setColorArray] = useState<VariationSelector[]>([])
 
   useEffect(() => {
+    if (variations.length <= 0) return
     const color = variations?.filter(
       (item) => item.field.name.indexOf('Color') === 0
     )

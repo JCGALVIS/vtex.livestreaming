@@ -14,7 +14,7 @@ import { HorizontalProductSlider } from './components/ProductSlider/HorizontalPr
 import { SliderProductMobile } from './components/ProductSlider/SliderProductMobile'
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
 import { useIsPlayerSupported } from './hooks'
-import { getMobileOS, calcHeightApp } from './utils'
+import { getMobileOS } from './utils'
 
 import styles from './styles.module.css'
 
@@ -63,7 +63,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
-  const [heightPlayerUI, setHeightPlayerUI] = useState<number>(0)
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
@@ -88,13 +87,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
     sessionId
   } = info
 
-  const mobileOS = getMobileOS()
-
-  useEffect(() => {
-    setDetector(getMobileOS())
-  }, [mobileOS])
-
   const getHeight = () => {
+    setDetector(getMobileOS())
+
     if (divVideoContent.current && divVideoContent.current?.clientHeight > 0)
       setHeight(divVideoContent.current?.clientHeight.toString())
   }
@@ -187,19 +182,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
     })
   }, [socket])
 
-  useEffect(() => {
-    if (!detector) return
-    setHeightPlayerUI(calcHeightApp())
-  }, [detector])
-
   return (
-    <div className={styles.livestreaming} id='live-shopping'>
-      <div
-        className={styles.livestreamingContent}
-        style={{
-          height: detector !== 'unknown' ? `${heightPlayerUI}px` : ''
-        }}
-      >
+    <div className={styles.livestreaming}>
+      <div className={styles.livestreamingContent}>
         <VariationSelector
           showVariation={showVariation}
           setShowVariation={setShowVariation}
@@ -271,13 +256,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 collectionId={collectionId}
                 infoSocket={info}
                 isPlayerSupported={isPlayerSupported}
-                kuikpay={
-                  scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
-                }
                 originOfProducts={
                   originOfProducts === '' ? '' : originOfProducts
                 }
-                pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
                 setShowVariation={setShowVariation}
                 streamUrl={streamUrl}
               />

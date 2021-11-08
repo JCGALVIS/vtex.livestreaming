@@ -44,20 +44,16 @@ type streamPlayerProps = {
   player: MediaPlayer
   infoSocket: InfoSocket
   collectionId: string | undefined
-  pdp: boolean
   originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  kuikpay: boolean
 }
 
 export const StreamPlayer = ({
   player,
   infoSocket,
   collectionId,
-  pdp,
   originOfProducts,
-  setShowVariation,
-  kuikpay
+  setShowVariation
 }: streamPlayerProps) => {
   const [
     { height: mainContainerHeight, width: mainContainerWidth },
@@ -242,10 +238,8 @@ export const StreamPlayer = ({
           <HighlightProduct
             infoSocket={infoSocket}
             collectionId={collectionId}
-            pdp={pdp}
             originOfProducts={originOfProducts}
             setShowVariation={setShowVariation}
-            kuikpay={kuikpay}
           />
         )}
         <video
