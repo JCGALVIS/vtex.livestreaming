@@ -120,6 +120,8 @@
   position: relative;
   width: 100%;
   height: auto;
+  background: #f8f7fc !important;
+  padding: 0 10px;
 }
 
 .horizontalProductListContent {
@@ -127,6 +129,7 @@
   justify-content: space-around;
   overflow-x: hidden;
   max-width: 100%;
+  padding: 8px 0;
 }
 
 .horizontalProductList {
