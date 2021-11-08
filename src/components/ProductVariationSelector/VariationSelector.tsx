@@ -146,7 +146,10 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                       </div>
                     </div>
                     <div className={styles.productContainer}>
-                      {show && product ? (
+                      {show &&
+                      product &&
+                      product.variationSelector &&
+                      product.variationSelector?.length > 0 ? (
                         <div className={styles.variationContent}>
                           <ColorVariation
                             variations={product.variationSelector || []}
@@ -155,7 +158,10 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                         </div>
                       ) : null}
 
-                      {show && product ? (
+                      {show &&
+                      product &&
+                      product.variationSelector &&
+                      product.variationSelector?.length > 0 ? (
                         <SizeVariations
                           variations={product.variationSelector || []}
                           setSelectedSize={setSelectedSize}

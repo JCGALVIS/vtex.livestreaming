@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import type { Values, VariationSelector } from '../../typings/livestreaming'
 
 import styles from './variationSelector.css'
@@ -36,6 +36,7 @@ export const ColorVariation = ({
   setSelectedColor
 }: ColorVariationProps) => {
   const [colorArray, setColorArray] = useState<VariationSelector[]>([])
+  const [title, setTitle] = useState('')
 
   useEffect(() => {
     if (variations.length <= 0) return
@@ -53,6 +54,8 @@ export const ColorVariation = ({
         variationName: color.field.name
       }
     })
+
+    setTitle(colorFormatted[0].variationName)
 
     setSelectedColor(colorFormatted)
   }, [variations])
@@ -80,31 +83,36 @@ export const ColorVariation = ({
   }
 
   return (
-    <div className={styles.itemContent}>
-      {colorArray.length > 0 &&
-        colorArray[0].values.map((color, index) => (
-          <div key={color.id} className={styles.itemColor}>
-            <div
-              id={color.id}
-              className={`${styles.itemColorSelect} divSelectSize`}
-              style={index === 0 ? { display: 'initial' } : { display: 'none' }}
-            />
-            <div
-              style={{
-                backgroundColor: coloredItems[color.name.toLowerCase()]
-              }}
-              className={styles.itemColorBackground}
-              onClick={() =>
-                handleColorSelect(
-                  color.id,
-                  color,
-                  colorArray[0].field.id,
-                  colorArray[0].field.name
-                )
-              }
-            />
-          </div>
-        ))}
-    </div>
+    <Fragment>
+      <h2 className={styles.titleVariation}>{title}:</h2>
+      <div className={styles.itemContent}>
+        {colorArray.length > 0 &&
+          colorArray[0].values.map((color, index) => (
+            <div key={color.id} className={styles.itemColor}>
+              <div
+                id={color.id}
+                className={`${styles.itemColorSelect} divSelectSize`}
+                style={
+                  index === 0 ? { display: 'initial' } : { display: 'none' }
+                }
+              />
+              <div
+                style={{
+                  backgroundColor: coloredItems[color.name.toLowerCase()]
+                }}
+                className={styles.itemColorBackground}
+                onClick={() =>
+                  handleColorSelect(
+                    color.id,
+                    color,
+                    colorArray[0].field.id,
+                    colorArray[0].field.name
+                  )
+                }
+              />
+            </div>
+          ))}
+      </div>
+    </Fragment>
   )
 }
