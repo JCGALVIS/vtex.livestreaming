@@ -43,6 +43,10 @@
   margin-top: 0;
 }
 
+.liveChatPinnedMessage .chatArea {
+  height: auto !important;
+}
+
 .chatArea::-webkit-scrollbar {
   width: 0;
 }

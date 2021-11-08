@@ -231,7 +231,7 @@ export const Chat = ({
         </div>
       </div>
       <div className={styles.chatContent}>
-        {pinnedMessage && pinnedMessage?.data && (
+        {pinnedMessage && pinnedMessage?.data && IS_DESKTOP && (
           <div className={styles.liveChatPinnedMessage}>
             {MessageRenderer([pinnedMessage], true)}
           </div>
@@ -239,6 +239,14 @@ export const Chat = ({
         <div className={styles.chatArea} ref={chatAreaRef}>
           {ChatMessages}
         </div>
+
+        {pinnedMessage && pinnedMessage?.data && !IS_DESKTOP && (
+          <div className={styles.liveChatPinnedMessage}>
+            <div className={styles.chatArea}>
+              {MessageRenderer([pinnedMessage], true)}
+            </div>
+          </div>
+        )}
 
         {incoming && (
           <div
