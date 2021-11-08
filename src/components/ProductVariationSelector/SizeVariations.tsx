@@ -20,6 +20,7 @@ export const SizeVariations = ({
   >([])
 
   useEffect(() => {
+    if (variations.length <= 0) return
     const otherVariations = variations?.filter(
       (item) => item.field.name.indexOf('Color') !== 0
     )

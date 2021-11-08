@@ -27,22 +27,6 @@ export const useHighlightProduct = ({
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
 
-  const handlerCloseCard = () => {
-    setShowProduct(false)
-    setProduct({
-      id: '',
-      name: '',
-      price: 0,
-      priceWithDiscount: 0,
-      imageUrl: '',
-      addToCartLink: '',
-      isAvailable: true,
-      variationSelector: [],
-      pdpLink: ''
-    })
-    localStorage.removeItem('product')
-  }
-
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight) return
 
@@ -109,5 +93,5 @@ export const useHighlightProduct = ({
     }
   }, [collectionId, highlightProduct])
 
-  return { product, showProduct, handlerCloseCard }
+  return { product, showProduct }
 }
