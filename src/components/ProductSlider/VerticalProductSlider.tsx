@@ -85,7 +85,7 @@ export const VerticalProductSlider = ({
   return !loading ? (
     <div className={styles.verticalProductSliderContent}>
       <div className={styles.verticalProductSliderTitle}>
-        <h1 className={styles.title}>Productos</h1>
+        <p className={styles.title}>Productos destacados</p>
       </div>
       <div
         style={{ height: parseInt(height) }}
