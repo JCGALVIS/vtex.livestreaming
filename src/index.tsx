@@ -202,7 +202,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [detector])
 
   useEffect(() => {
-    console.log({ initPinnedMessage, socketPinnedMessage })
     if (socketPinnedMessage) {
       setPinnedMessage(socketPinnedMessage)
     } else {
