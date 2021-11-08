@@ -117,6 +117,14 @@
   width: 100%;
 }
 
+.titleVariation {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 4px 0;
+}
+
 .itemContent {
   display: flex;
   flex-wrap: wrap;
