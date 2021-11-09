@@ -65,6 +65,7 @@ export declare interface InfoSocket {
   setQuestion?: React.Dispatch<React.SetStateAction<Question | undefined>>
   queueSocket?: Queue<number> | undefined
   setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>
+  pinnedMessage: Message | undefined
 }
 
 export interface ProductImages {

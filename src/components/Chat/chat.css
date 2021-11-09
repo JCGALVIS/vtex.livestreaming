@@ -43,6 +43,10 @@
   margin-top: 0;
 }
 
+.liveChatPinnedMessage .chatArea {
+  height: auto !important;
+}
+
 .chatArea::-webkit-scrollbar {
   width: 0;
 }
@@ -67,6 +71,10 @@
 
 .profileIcon {
   display: none;
+}
+
+.profileIcon svg {
+  margin-left: .5rem;
 }
 
 .chatUser {
@@ -133,6 +141,11 @@
   font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
+.chatMessage svg {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
 .inputTextChat {
   background-color: rgba(20, 20, 21, 0.4);
   border-radius: 20px 0px 0px 20px;
@@ -185,9 +198,22 @@
 
   .liveChatContainer {
     display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .liveChatHeader {
+    display: flex !important;
     align-items: center !important;
     padding: 0 6px !important;
     height: 56px !important;
+  }
+
+  .liveChatPinnedMessage {
+    width: 100% !important;
+  }
+
+  .liveChatPinnedMessage .chatBubble {
+    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
   }
 
   .liveChatText {
@@ -235,7 +261,7 @@
     display: flex;
     max-width: 100%;
     border-radius: 6px;
-    margin: 6px;
+    margin: 6px 10px;
     padding: 10px;
   }
 
