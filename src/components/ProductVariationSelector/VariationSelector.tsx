@@ -90,6 +90,22 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     }
   }, [selectedColor, selectedSize])
 
+  useEffect(() => {
+    if (!product?.variationSelector) {
+      const selectedProduct = product?.items?.map((filter) => {
+        return {
+          imageUrl: filter.images[0].imageUrl,
+          addToCartLink: filter.sellers[0].addToCartLink,
+          isAvailable: filter.sellers[0]?.commertialOffer.IsAvailable,
+          price: filter.sellers[0]?.commertialOffer.ListPrice,
+          priceWithDiscount: filter.sellers[0]?.commertialOffer.Price
+        }
+      })
+
+      if (selectedProduct) setSelectedProduct(selectedProduct[0])
+    }
+  }, [product])
+
   const handleClose = () => {
     setShow(false)
     setShowVariation('')
@@ -130,7 +146,10 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                       </div>
                     </div>
                     <div className={styles.productContainer}>
-                      {show && product ? (
+                      {show &&
+                      product &&
+                      product.variationSelector &&
+                      product.variationSelector?.length > 0 ? (
                         <div className={styles.variationContent}>
                           <ColorVariation
                             variations={product.variationSelector || []}
@@ -139,7 +158,10 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                         </div>
                       ) : null}
 
-                      {show && product ? (
+                      {show &&
+                      product &&
+                      product.variationSelector &&
+                      product.variationSelector?.length > 0 ? (
                         <SizeVariations
                           variations={product.variationSelector || []}
                           setSelectedSize={setSelectedSize}

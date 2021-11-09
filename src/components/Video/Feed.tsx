@@ -9,9 +9,7 @@ type FeedProps = {
   collectionId: string | undefined
   infoSocket: InfoSocket
   isPlayerSupported: boolean
-  kuikpay: boolean
   originOfProducts: string | undefined
-  pdp: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   streamUrl: string | undefined
 }
@@ -20,9 +18,7 @@ export const Feed = ({
   collectionId,
   infoSocket,
   isPlayerSupported,
-  kuikpay,
   originOfProducts,
-  pdp,
   setShowVariation,
   streamUrl
 }: FeedProps) => {
@@ -89,10 +85,8 @@ export const Feed = ({
       player={player.current}
       infoSocket={infoSocket}
       collectionId={collectionId}
-      pdp={pdp}
       originOfProducts={originOfProducts}
       setShowVariation={setShowVariation}
-      kuikpay={kuikpay}
     />
   ) : (
     <NoVideo isLive={isLive} liveStatus={liveStatus} />

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import type { Values, VariationSelector } from '../../typings/livestreaming'
 
 import styles from './variationSelector.css'
@@ -20,6 +20,7 @@ export const SizeVariations = ({
   >([])
 
   useEffect(() => {
+    if (variations.length <= 0) return
     const otherVariations = variations?.filter(
       (item) => item.field.name.indexOf('Color') !== 0
     )
@@ -70,38 +71,41 @@ export const SizeVariations = ({
     <div className={styles.variationContent}>
       {filteredVariation?.length > 0 &&
         filteredVariation.map((variation) => (
-          <div key={variation.field.id} className={styles.itemContent}>
-            {variation.values.map((value) => (
-              <div key={value.id} className={styles.itemSize}>
-                <div
-                  id={value.id}
-                  className={`${styles.itemSizeSelect} divSelectColor-${variation.field.id}`}
-                  style={
-                    selectedSize.length > 0
-                      ? selectedSize.find(
-                          (select) => select.name === value.name
-                        )
-                        ? { display: 'initial' }
+          <Fragment key={variation.field.id}>
+            <h2 className={styles.titleVariation}>{variation.field.name}:</h2>
+            <div className={styles.itemContent}>
+              {variation.values.map((value) => (
+                <div key={value.id} className={styles.itemSize}>
+                  <div
+                    id={value.id}
+                    className={`${styles.itemSizeSelect} divSelectColor-${variation.field.id}`}
+                    style={
+                      selectedSize.length > 0
+                        ? selectedSize.find(
+                            (select) => select.name === value.name
+                          )
+                          ? { display: 'initial' }
+                          : { display: 'none' }
                         : { display: 'none' }
-                      : { display: 'none' }
-                  }
-                />
-                <div
-                  className={styles.itemSizeBackground}
-                  onClick={() =>
-                    handleSizeSelect(
-                      value.id,
-                      value,
-                      variation.field.id,
-                      variation.field.name
-                    )
-                  }
-                >
-                  <span>{value.name}</span>
+                    }
+                  />
+                  <div
+                    className={styles.itemSizeBackground}
+                    onClick={() =>
+                      handleSizeSelect(
+                        value.id,
+                        value,
+                        variation.field.id,
+                        variation.field.name
+                      )
+                    }
+                  >
+                    <span>{value.name}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Fragment>
         ))}
     </div>
   )
