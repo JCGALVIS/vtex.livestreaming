@@ -17,6 +17,7 @@ import { useIsPlayerSupported } from './hooks'
 import { getMobileOS } from './utils'
 
 import styles from './styles.module.css'
+import { Message } from './typings/livestreaming'
 
 type LivestreamingProps = {
   account: string
@@ -63,14 +64,21 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
+  const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
-  const { wssStream, streamUrl, collectionId, utm, emailIsRequired } =
-    useLivestreamingConfig({
-      id: idLivestreaming,
-      account
-    })
+  const {
+    wssStream,
+    streamUrl,
+    collectionId,
+    utm,
+    emailIsRequired,
+    pinnedMessage: initPinnedMessage
+  } = useLivestreamingConfig({
+    id: idLivestreaming,
+    account
+  })
 
   const { livestreaminComponentInView } = useLivestreamingComponentOnScreen({
     rootMargin: '0px 0px'
@@ -84,7 +92,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     setShowCounter,
     setEmailIsRequired,
     socket,
-    sessionId
+    sessionId,
+    pinnedMessage: socketPinnedMessage
   } = info
 
   const getHeight = () => {
@@ -181,6 +190,14 @@ export const Livestreaming = (props: LivestreamingProps) => {
       }, 1000)
     })
   }, [socket])
+
+  useEffect(() => {
+    if (socketPinnedMessage) {
+      setPinnedMessage(socketPinnedMessage)
+    } else {
+      setPinnedMessage(initPinnedMessage)
+    }
+  }, [initPinnedMessage, socketPinnedMessage])
 
   return (
     <div className={styles.livestreaming}>
@@ -310,6 +327,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               infoSocket={info}
               idLivestreaming={idLivestreaming}
               account={account}
+              pinnedMessage={pinnedMessage}
             />
           )}
         </div>

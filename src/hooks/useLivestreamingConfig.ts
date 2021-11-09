@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { apiCall } from '../services'
+import { Message } from '../typings/livestreaming'
 declare interface Props {
   id: string
   account: string
@@ -15,6 +16,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
   const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>(
     undefined
   )
+  const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -36,10 +38,18 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
       setEmailIsRequired(data?.webClient?.emailIsRequired)
       setCollectionId(data?.collection?.id)
       setUtm(data?.utm)
+      setPinnedMessage(data?.pinnedMessage)
     }
 
     getLivestreaming().catch(null)
   }, [id, account])
 
-  return { wssStream, streamUrl, collectionId, utm, emailIsRequired }
+  return {
+    wssStream,
+    streamUrl,
+    collectionId,
+    utm,
+    emailIsRequired,
+    pinnedMessage
+  }
 }
