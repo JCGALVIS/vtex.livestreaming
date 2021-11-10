@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react'
 
 import { Feed } from './components/Video/Feed'
@@ -15,9 +16,9 @@ import { SliderProductMobile } from './components/ProductSlider/SliderProductMob
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
 import { useIsPlayerSupported } from './hooks'
 import { getMobileOS } from './utils'
+import type { Message } from './typings/livestreaming'
 
 import styles from './styles.module.css'
-import { Message } from './typings/livestreaming'
 
 type LivestreamingProps = {
   account: string
@@ -63,8 +64,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [showVariation, setShowVariation] = useState('')
 
   const [height, setHeight] = useState('0')
+  const [width, setWidth] = useState(0)
   const [detector, setDetector] = useState('')
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
+  const [transmitionType, setTransmitionType] = useState<string | undefined>()
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
@@ -75,6 +78,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
     utm,
     emailIsRequired,
     pinnedMessage: initPinnedMessage,
+    transmitionType: initTransmitionType,
     recordPath
   } = useLivestreamingConfig({
     id: idLivestreaming,
@@ -94,7 +98,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     setEmailIsRequired,
     socket,
     sessionId,
-    pinnedMessage: socketPinnedMessage
+    pinnedMessage: socketPinnedMessage,
+    transmitiontype: socketTransmitiontype
   } = info
 
   const getHeight = () => {
@@ -200,6 +205,14 @@ export const Livestreaming = (props: LivestreamingProps) => {
     }
   }, [initPinnedMessage, socketPinnedMessage])
 
+  useEffect(() => {
+    if (socketTransmitiontype) {
+      setTransmitionType(socketTransmitiontype)
+    } else {
+      setTransmitionType(initTransmitionType)
+    }
+  }, [initTransmitionType, socketTransmitiontype])
+
   return (
     <div className={styles.livestreaming}>
       <div className={styles.livestreamingContent}>
@@ -250,7 +263,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
           )}
         </div>
         <div
-          style={{ height: parseInt(height) }}
+          style={{ height: parseInt(height), width: width }}
           className={`${styles.videoContainer} ${
             !scriptProperties?.sidebarProducts && styles.videoContainerChat
           } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
@@ -259,7 +272,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
             styles.videoContainerFull
           }`}
         >
-          <div ref={divVideoContent} className={styles.fittedContainer}>
+          <div
+            ref={divVideoContent}
+            className={styles.fittedContainer}
+            style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
+          >
             <div className={styles.videoContent}>
               {scriptProperties?.sidebarProducts ||
               scriptProperties?.productsCarousel ? (
@@ -278,7 +295,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   originOfProducts === '' ? '' : originOfProducts
                 }
                 setShowVariation={setShowVariation}
+                setWidth={setWidth}
                 streamUrl={streamUrl}
+                transmitionType={transmitionType}
                 recordPath={recordPath}
               />
               <div className={styles.liveContent}>
@@ -287,7 +306,13 @@ export const Livestreaming = (props: LivestreamingProps) => {
               <div className={styles.viewersContent}>
                 <Viewers infoSocket={info} />
               </div>
-              <div className={styles.likeContent}>
+              <div
+                className={
+                  detector === 'unknown' && transmitionType === 'vertical'
+                    ? styles.likeContentVertical
+                    : styles.likeContent
+                }
+              >
                 {scriptProperties?.like && <Like infoSocket={info} />}
               </div>
             </div>
@@ -307,6 +332,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                       ? scriptProperties?.kuikpay
                       : false
                   }
+                  transmitionType={transmitionType}
                 />
               )}
             </div>

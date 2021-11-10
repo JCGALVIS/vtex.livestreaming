@@ -39,6 +39,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [queueSocket, setQueueSocket] = useState<Queue<number> | undefined>()
   const [messageToDelete, setMessageToDelete] = useState<Message | undefined>()
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
+  const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
 
   const createWebSocket = useCallback(() => {
     let queueSocketInit: Queue<number>
@@ -170,6 +171,10 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           setPinnedMessage({})
           break
 
+        case 'sendtransmitiontype':
+          setTransmitiontype(data)
+          break
+
         default:
           break
       }
@@ -251,6 +256,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setQuestion,
     queueSocket,
     setMessageToDelete,
-    pinnedMessage
+    pinnedMessage,
+    transmitiontype
   }
 }

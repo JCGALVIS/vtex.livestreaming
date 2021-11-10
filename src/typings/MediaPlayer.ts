@@ -64,3 +64,33 @@ export interface HTMLVideoPicture {
 }
 
 export type StreamPlayerType = HTMLVideoPicture & HTMLVideoElement
+
+export type Dimensions = {
+  width: number
+  height: number
+}
+
+export type PlayerControls = {
+  BUFFERING: string
+  firstTimeMuted: boolean
+  fullScreen: boolean
+  handleFullScreen: () => void
+  handleFullScreenMobile: () => void
+  handleMainButton: () => void
+  handleMobileOptions: () => void
+  handleMute: () => void
+  handleNothing: () => void
+  handlePictureAndPicture: () => void
+  IDLE: string
+  inactive: boolean
+  isVerticalLayout: boolean
+  muted: boolean
+  overlay: boolean
+  pictureInPicture: boolean
+  PLAYING: string
+  setInactive: React.Dispatch<React.SetStateAction<boolean>>
+  setOverlay: React.Dispatch<React.SetStateAction<boolean>>
+  showOptions: boolean
+  status: string
+  videoEl: React.RefObject<StreamPlayerType>
+}

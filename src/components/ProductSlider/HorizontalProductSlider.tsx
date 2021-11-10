@@ -15,6 +15,7 @@ type HorizontalProductSliderProps = {
   originOfProducts: string | undefined
   kuikpay: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  transmitionType: string | undefined
 }
 
 export const HorizontalProductSlider = ({
@@ -24,7 +25,8 @@ export const HorizontalProductSlider = ({
   pdp,
   originOfProducts,
   kuikpay,
-  setShowVariation
+  setShowVariation,
+  transmitionType
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
   const [itemsProdcuts, setItemsProdcuts] = useState([
@@ -40,6 +42,7 @@ export const HorizontalProductSlider = ({
       pdpLink: ''
     }
   ])
+  const [index, setIndex] = useState(3)
   const { data: products, loading } = useFetchProducts({
     collectionId,
     originOfProducts
@@ -48,8 +51,16 @@ export const HorizontalProductSlider = ({
   const delay = time ? time * 1000 : 10000
 
   useEffect(() => {
+    if (transmitionType === 'vertical') {
+      setIndex(1)
+    } else {
+      setIndex(3)
+    }
+  }, [transmitionType])
+
+  useEffect(() => {
     if (products && products[0]) {
-      setItemsProdcuts(products.slice(0, 3))
+      setItemsProdcuts(products.slice(0, index))
       setSelectedProductIndex(0)
     }
   }, [products])
@@ -71,10 +82,10 @@ export const HorizontalProductSlider = ({
     if (products && products.length > 0) {
       setSelectedProductIndex(newIdx)
 
-      if (products.length >= newIdx + 3) {
-        setItemsProdcuts(products.slice(newIdx, newIdx + 3))
+      if (products.length >= newIdx + index) {
+        setItemsProdcuts(products.slice(newIdx, newIdx + index))
       } else {
-        setItemsProdcuts(products.slice(0, 3))
+        setItemsProdcuts(products.slice(0, index))
         setSelectedProductIndex(0)
       }
     }

@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import { apiCall } from '../services'
-import { Message } from '../typings/livestreaming'
+import type { Message } from '../typings/livestreaming'
 declare interface Props {
   id: string
   account: string
@@ -17,6 +18,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
     undefined
   )
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
+  const [transmitionType, setTransmitionType] = useState<string | undefined>()
   const [recordPath, setRecordPath] = useState<string | undefined>(undefined)
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
       setCollectionId(data?.collection?.id)
       setUtm(data?.utm)
       setPinnedMessage(data?.pinnedMessage)
+      setTransmitionType(data?.webClient?.transmitionType)
       setRecordPath(data?.webClient?.recordPath)
     }
 
@@ -53,6 +56,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
     utm,
     emailIsRequired,
     pinnedMessage,
+    transmitionType,
     recordPath
   }
 }
