@@ -11,7 +11,9 @@ type FeedProps = {
   isPlayerSupported: boolean
   originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  setWidth: React.Dispatch<React.SetStateAction<string | number>>
   streamUrl: string | undefined
+  transmitionType: string | undefined
 }
 
 export const Feed = ({
@@ -20,7 +22,9 @@ export const Feed = ({
   isPlayerSupported,
   originOfProducts,
   setShowVariation,
-  streamUrl
+  setWidth,
+  streamUrl,
+  transmitionType
 }: FeedProps) => {
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
@@ -87,8 +91,15 @@ export const Feed = ({
       collectionId={collectionId}
       originOfProducts={originOfProducts}
       setShowVariation={setShowVariation}
+      setWidth={setWidth}
+      transmitionType={transmitionType}
     />
   ) : (
-    <NoVideo isLive={isLive} liveStatus={liveStatus} />
+    <NoVideo
+      isLive={isLive}
+      liveStatus={liveStatus}
+      setWidth={setWidth}
+      transmitionType={transmitionType}
+    />
   )
 }

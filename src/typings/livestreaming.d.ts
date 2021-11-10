@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Queue } from '../utils'
 
 export declare interface Message {
@@ -65,6 +66,7 @@ export declare interface InfoSocket {
   queueSocket?: Queue<number> | undefined
   setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>
   pinnedMessage: Message | undefined
+  transmitiontype: string | undefined
 }
 
 export interface ProductImages {

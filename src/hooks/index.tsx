@@ -1,4 +1,5 @@
 import useIsPlayerSupported from './useIsPlayerSupported'
 import usePlayerFunctions from './usePlayerFunctions'
+import usePlayerLayout from './usePlayerLayout'
 
-export { useIsPlayerSupported, usePlayerFunctions }
+export { usePlayerFunctions, usePlayerLayout, useIsPlayerSupported }
