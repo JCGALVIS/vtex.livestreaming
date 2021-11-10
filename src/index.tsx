@@ -74,7 +74,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     collectionId,
     utm,
     emailIsRequired,
-    pinnedMessage: initPinnedMessage
+    pinnedMessage: initPinnedMessage,
+    recordPath
   } = useLivestreamingConfig({
     id: idLivestreaming,
     account
@@ -278,6 +279,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 }
                 setShowVariation={setShowVariation}
                 streamUrl={streamUrl}
+                recordPath={recordPath}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
