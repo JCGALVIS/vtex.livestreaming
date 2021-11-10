@@ -14,6 +14,7 @@ type FeedProps = {
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
   streamUrl: string | undefined
   transmitionType: string | undefined
+  recordPath: string | undefined
 }
 
 export const Feed = ({
@@ -24,7 +25,8 @@ export const Feed = ({
   setShowVariation,
   setWidth,
   streamUrl,
-  transmitionType
+  transmitionType,
+  recordPath
 }: FeedProps) => {
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
@@ -63,7 +65,12 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
-    player.current.load(streamUrl)
+
+    if (isTransmiting) {
+      player.current.load(streamUrl)
+    } else if (!isTransmiting && recordPath) {
+      player.current.load(`${recordPath}/media/hls/master.m3u8`)
+    }
 
     player.current.addEventListener(READY, onStateChange)
     player.current.addEventListener(PLAYING, onStateChange)
@@ -78,13 +85,14 @@ export const Feed = ({
       player.current.removeEventListener(ENDED, onStateChange)
       player.current.removeEventListener(ERROR, onError)
     }
-  }, [IVSPlayer, isPlayerSupported, streamUrl])
+  }, [IVSPlayer, isPlayerSupported, streamUrl, recordPath])
 
   if (!isPlayerSupported) {
     return null
   }
 
-  return isPlayerSupported && isTransmiting && playerCurrent ? (
+  return (isPlayerSupported && isTransmiting && playerCurrent) ||
+    (!isTransmiting && recordPath) ? (
     <StreamPlayer
       player={player.current}
       infoSocket={infoSocket}

@@ -9,6 +9,7 @@ export declare interface Message {
   all?: Boolean
   isAdmin?: Boolean
   color?: string
+  responseAdmin?: boolean
 }
 
 export declare interface Heart {
