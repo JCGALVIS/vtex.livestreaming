@@ -84,7 +84,8 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         pdp,
         emailIsRequired,
         kuikpay,
-        isAdmin
+        isAdmin,
+        responseAdmin
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -95,6 +96,7 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
               username,
               sendDate,
               isAdmin,
+              responseAdmin,
               color:
                 prev.find((i) => i.username === username)?.color ||
                 getRandomColor()
