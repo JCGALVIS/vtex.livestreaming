@@ -313,7 +313,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
                     : styles.likeContent
                 }
               >
-                {scriptProperties?.like && <Like infoSocket={info} />}
+                {scriptProperties?.like ? (
+                  !info.isTransmiting && recordPath ? null : (
+                    <Like infoSocket={info} />
+                  )
+                ) : null}
               </div>
             </div>
             <div className={styles.horizontalProductsContent}>
@@ -348,16 +352,18 @@ export const Livestreaming = (props: LivestreamingProps) => {
             scriptProperties?.chat ? styles.chatContent : styles.displayNone
           }`}
         >
-          {scriptProperties?.chat && (
-            <Chat
-              title='Chat en vivo'
-              placeholder='Comenta aqui...'
-              infoSocket={info}
-              idLivestreaming={idLivestreaming}
-              account={account}
-              pinnedMessage={pinnedMessage}
-            />
-          )}
+          {scriptProperties?.chat ? (
+            !info.isTransmiting && recordPath ? null : (
+              <Chat
+                title='Chat en vivo'
+                placeholder='Comenta aqui...'
+                infoSocket={info}
+                idLivestreaming={idLivestreaming}
+                account={account}
+                pinnedMessage={pinnedMessage}
+              />
+            )
+          ) : null}
         </div>
       </div>
     </div>
