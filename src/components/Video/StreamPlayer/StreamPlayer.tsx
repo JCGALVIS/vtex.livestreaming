@@ -74,7 +74,7 @@ export const StreamPlayer = ({
   useEffect(() => {
     setDetector(mobileOS)
     setWidth(dimensions.width)
-  }, [mobileOS, dimensions])
+  }, [mobileOS, dimensions, pictureInPicture])
 
   const ControlWrapper = useMemo(() => {
     const isMobile = windowDimensions.width <= 640
@@ -158,8 +158,12 @@ export const StreamPlayer = ({
       >
         {collectionId && (
           <HighlightProduct
-            infoSocket={infoSocket}
             collectionId={collectionId}
+            fullScreen={fullScreen}
+            handleFullScreen={
+              detector ? handleFullScreen : handleFullScreenMobile
+            }
+            infoSocket={infoSocket}
             originOfProducts={originOfProducts}
             setShowVariation={setShowVariation}
           />
@@ -172,7 +176,11 @@ export const StreamPlayer = ({
           muted={muted}
           id='player-video-el'
           style={{
-            objectFit: detector ? 'cover' : isVerticalLayout ? 'cover' : 'fill'
+            objectFit: detector
+              ? 'contain'
+              : isVerticalLayout
+              ? 'cover'
+              : 'fill'
           }}
         />
         {ControlWrapper}

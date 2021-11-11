@@ -12,9 +12,9 @@ type FeedProps = {
   originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
+  recordPath: string | undefined
   streamUrl: string | undefined
   transmitionType: string | undefined
-  recordPath: string | undefined
 }
 
 export const Feed = ({
@@ -24,23 +24,33 @@ export const Feed = ({
   originOfProducts,
   setShowVariation,
   setWidth,
+  recordPath,
   streamUrl,
-  transmitionType,
-  recordPath
+  transmitionType
 }: FeedProps) => {
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
 
   const [playerCurrent, setPlayerCurrent] = useState(false)
   const [liveStatus, setLiveStatus] = useState(false)
+  const [playbackUrl, setPlaybackUrl] = useState<string | undefined>()
+  const [loading, setLoading] = useState(false)
   const player: typeof MediaPlayer = useRef(null)
 
-  const { isTransmiting } = infoSocket
   const isLive = infoSocket?.ivsRealTime?.status
 
   useEffect(() => {
     if (isLive === 'LIVE') setLiveStatus(true)
   }, [isLive])
+
+  useEffect(() => {
+    const url =
+      streamUrl || (recordPath && `${recordPath}/media/hls/master.m3u8`)
+
+    if (url) {
+      setPlaybackUrl(url)
+    }
+  }, [streamUrl, recordPath, loading])
 
   useEffect(() => {
     if (!isPlayerSupported) {
@@ -51,10 +61,15 @@ export const Feed = ({
       return
     }
 
+    if (!playbackUrl) return
+
     const { ENDED, PLAYING, READY } = IVSPlayer.PlayerState
     const { ERROR } = IVSPlayer.PlayerEventType
 
-    const onStateChange = () => {}
+    const onStateChange = () => {
+      const newState = player.current.getState()
+      setLoading(newState !== PLAYING)
+    }
 
     const onError = (err: Error) => {
       console.warn('Player Event - ERROR:', err.message)
@@ -65,12 +80,7 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
-
-    if (isTransmiting) {
-      player.current.load(streamUrl)
-    } else if (!isTransmiting && recordPath) {
-      player.current.load(`${recordPath}/media/hls/master.m3u8`)
-    }
+    player.current.load(playbackUrl)
 
     player.current.addEventListener(READY, onStateChange)
     player.current.addEventListener(PLAYING, onStateChange)
@@ -85,14 +95,13 @@ export const Feed = ({
       player.current.removeEventListener(ENDED, onStateChange)
       player.current.removeEventListener(ERROR, onError)
     }
-  }, [IVSPlayer, isPlayerSupported, streamUrl, recordPath])
+  }, [IVSPlayer, isPlayerSupported, playbackUrl])
 
   if (!isPlayerSupported) {
     return null
   }
 
-  return (isPlayerSupported && isTransmiting && playerCurrent) ||
-    (!isTransmiting && recordPath) ? (
+  return playerCurrent && (liveStatus || (!liveStatus && recordPath)) ? (
     <StreamPlayer
       player={player.current}
       infoSocket={infoSocket}
