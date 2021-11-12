@@ -23,10 +23,12 @@ const PlayIcon = ({ size, viewBox }: Props) => {
           cx='50'
           cy='50'
           r='44.5'
-          fill='none'
-          stroke='currentColor'
-          strokeMiterlimit='10'
-          strokeWidth='2px'
+          style={{
+            fill: '#000000',
+            fillOpacity: 0.5,
+            stroke: 'none',
+            strokeWidth: 0.398621
+          }}
         />
         <polygon
           points='36.77 71.25 36.77 29.15 73.65 50.2 36.77 71.25'

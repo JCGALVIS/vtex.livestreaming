@@ -23,10 +23,12 @@ const PlayIcon = ({ size, viewBox }: Props) => {
           cx='50'
           cy='50'
           r='45.5'
-          fill='none'
-          stroke='currentColor'
-          strokeMiterlimit='10'
-          strokeWidth='2px'
+          style={{
+            fill: '#000000',
+            fillOpacity: 0.5,
+            stroke: 'none',
+            strokeWidth: 0.398621
+          }}
         />
         <rect
           x='52.87'

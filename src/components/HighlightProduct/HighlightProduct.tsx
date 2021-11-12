@@ -6,15 +6,19 @@ import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 
 import styles from './highlightProduct.css'
 interface HighlightProductProps {
-  infoSocket: InfoSocket
   collectionId: string | undefined
+  fullScreen: boolean
+  handleFullScreen: () => void
   originOfProducts: string | undefined
+  infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 const HighlightProduct = ({
-  infoSocket,
   collectionId,
+  fullScreen,
+  handleFullScreen,
+  infoSocket,
   originOfProducts,
   setShowVariation
 }: HighlightProductProps) => {
@@ -68,6 +72,7 @@ const HighlightProduct = ({
           <div
             className={styles.productContainer}
             onClick={() => {
+              if (fullScreen) handleFullScreen()
               setShowVariation(product.id)
             }}
           >

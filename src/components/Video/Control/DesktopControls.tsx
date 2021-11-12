@@ -16,6 +16,8 @@ import {
 import type { PlayerControls } from '../../../typings/MediaPlayer'
 
 import styles from '../../../styles.module.css'
+import { Like } from '../../Like/Like'
+import { InfoSocket } from '../../../typings/livestreaming'
 
 interface IndicatorInterface {
   mute: boolean
@@ -26,6 +28,7 @@ interface IndicatorInterface {
 
 export const DesktopControls = (props: PlayerControls) => {
   const {
+    activateLike,
     BUFFERING,
     firstTimeMuted,
     fullScreen,
@@ -34,21 +37,65 @@ export const DesktopControls = (props: PlayerControls) => {
     handleMute,
     handleNothing,
     handlePictureAndPicture,
+    handleVolume,
     IDLE,
+    infoSocket,
     muted,
     overlay,
     pictureInPicture,
     PLAYING,
     status,
-    videoEl
+    videoEl,
+    volume
   } = props
 
   const buttonRenderer = (
+    activateLike: boolean,
     playerStatus: string,
+    BUFFERING: string,
+    overlay: boolean,
+    firstTimeMuted: boolean,
+    volume: number,
+    infoSocket: InfoSocket,
     { mute, picture, screen, firstMuted }: IndicatorInterface
   ): JSX.Element => {
     return (
       <Fragment>
+        <div
+          role='button'
+          tabIndex={0}
+          className={`${styles.playerVideoPictureButtonPosition} ${styles.playerVideoButtonFlex}`}
+          onClick={handlePictureAndPicture}
+          onKeyDown={handleNothing}
+        >
+          {videoEl?.current?.requestPictureInPicture ? (
+            picture ? (
+              <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
+            ) : (
+              <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
+            )
+          ) : null}
+        </div>
+        <div
+          role='button'
+          tabIndex={0}
+          className={`${styles.playerVideoFullscreenButtonPosition} ${styles.playerVideoButtonFlex}`}
+          onClick={handleFullScreen}
+          onKeyDown={handleNothing}
+        >
+          {screen ? (
+            <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
+          ) : (
+            <FullscreenIcon size='40' viewBox='0 0 400 400' />
+          )}
+        </div>
+        <div
+          role='button'
+          tabIndex={0}
+          className={styles.playerVideoLikeButtonPosition}
+        >
+          {activateLike && <Like infoSocket={infoSocket} />}
+        </div>
         {playerStatus === PLAYING || playerStatus === IDLE ? (
           firstMuted ? (
             <div
@@ -65,10 +112,17 @@ export const DesktopControls = (props: PlayerControls) => {
               <div
                 role='button'
                 tabIndex={0}
-                className={`${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
+                className={`${styles.playerVideoHover} ${styles.playerVideoCentralButtonPosition} ${styles.playerVideoCentralButtonBackground}`}
                 onClick={handleMainButton}
                 onKeyDown={handleNothing}
                 data-status={playerStatus}
+                data-visible={
+                  status === BUFFERING || firstTimeMuted
+                    ? BUFFERING
+                    : overlay
+                    ? 'on'
+                    : 'off'
+                }
               >
                 {playerStatus === PLAYING ? (
                   <PauseIcon size='100' viewBox='0 0 400 400' />
@@ -79,9 +133,16 @@ export const DesktopControls = (props: PlayerControls) => {
               <div
                 role='button'
                 tabIndex={0}
-                className={`${styles.playerVideoMuteButtonPosition} ${styles.playerVideoButtonFlex}`}
+                className={`${styles.playerVideoHover} ${styles.playerVideoMuteButtonPosition}`}
                 onClick={handleMute}
                 onKeyDown={handleNothing}
+                data-visible={
+                  status === BUFFERING || firstTimeMuted
+                    ? BUFFERING
+                    : overlay
+                    ? 'on'
+                    : 'off'
+                }
               >
                 {mute ? (
                   <VolumeOffIcon size='40' viewBox='0 0 400 400' />
@@ -90,32 +151,23 @@ export const DesktopControls = (props: PlayerControls) => {
                 )}
               </div>
               <div
-                role='button'
-                tabIndex={0}
-                className={`${styles.playerVideoPictureButtonPosition} ${styles.playerVideoButtonFlex}`}
-                onClick={handlePictureAndPicture}
-                onKeyDown={handleNothing}
+                className={`${styles.playerVideoHover} ${styles.playerVideoVolumeRangePosition} ${styles.playerVideoVolumeRangeStack}`}
+                data-visible={
+                  status === BUFFERING || firstTimeMuted
+                    ? BUFFERING
+                    : overlay
+                    ? 'on'
+                    : 'off'
+                }
               >
-                {videoEl?.current?.requestPictureInPicture ? (
-                  picture ? (
-                    <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
-                  ) : (
-                    <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-                  )
-                ) : null}
-              </div>
-              <div
-                role='button'
-                tabIndex={0}
-                className={`${styles.playerVideoFullscreenButtonPosition} ${styles.playerVideoButtonFlex}`}
-                onClick={handleFullScreen}
-                onKeyDown={handleNothing}
-              >
-                {screen ? (
-                  <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
-                ) : (
-                  <FullscreenIcon size='40' viewBox='0 0 400 400' />
-                )}
+                <input
+                  type='range'
+                  min='0'
+                  max='100'
+                  value={muted ? 0 : volume}
+                  className={styles.playerVolumeRange}
+                  onChange={handleVolume}
+                />
               </div>
             </Fragment>
           )
@@ -133,27 +185,38 @@ export const DesktopControls = (props: PlayerControls) => {
 
   const MainButtonRenderer = useMemo(
     () =>
-      buttonRenderer(status, {
-        mute: muted,
-        picture: pictureInPicture,
-        screen: fullScreen,
-        firstMuted: firstTimeMuted
-      }),
-    [status, muted, pictureInPicture, fullScreen, firstTimeMuted]
+      buttonRenderer(
+        activateLike,
+        status,
+        BUFFERING,
+        overlay,
+        firstTimeMuted,
+        volume,
+        infoSocket,
+        {
+          mute: muted,
+          picture: pictureInPicture,
+          screen: fullScreen,
+          firstMuted: firstTimeMuted
+        }
+      ),
+    [
+      activateLike,
+      status,
+      muted,
+      pictureInPicture,
+      fullScreen,
+      firstTimeMuted,
+      BUFFERING,
+      overlay,
+      firstTimeMuted,
+      volume,
+      infoSocket
+    ]
   )
 
   return (
-    <div
-      className={`${styles.playerVideoHover} ${styles.playerVideoGrid}`}
-      style={{ height: '100%' }}
-      data-visible={
-        status === BUFFERING || firstTimeMuted
-          ? BUFFERING
-          : overlay
-          ? 'on'
-          : 'off'
-      }
-    >
+    <div className={styles.playerVideoGrid} style={{ height: '100%' }}>
       {MainButtonRenderer}
     </div>
   )

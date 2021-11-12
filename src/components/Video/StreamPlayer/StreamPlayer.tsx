@@ -11,20 +11,22 @@ import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import styles from '../../../styles.module.css'
 
 type streamPlayerProps = {
-  player: MediaPlayer
-  infoSocket: InfoSocket
+  activateLike: boolean
   collectionId: string | undefined
+  infoSocket: InfoSocket
   originOfProducts: string | undefined
+  player: MediaPlayer
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
   transmitionType: string | undefined
 }
 
 export const StreamPlayer = ({
-  player,
-  infoSocket,
+  activateLike,
   collectionId,
+  infoSocket,
   originOfProducts,
+  player,
   setShowVariation,
   setWidth,
   transmitionType
@@ -52,6 +54,7 @@ export const StreamPlayer = ({
     handleMute,
     handleNothing,
     handlePictureAndPicture,
+    handleVolume,
     IDLE,
     inactive,
     muted,
@@ -61,7 +64,8 @@ export const StreamPlayer = ({
     setInactive,
     setOverlay,
     showOptions,
-    status
+    status,
+    volume
   } = usePlayerFunctions({ player, videoEl, mainContainer })
 
   const dimensions = fullScreen
@@ -74,12 +78,13 @@ export const StreamPlayer = ({
   useEffect(() => {
     setDetector(mobileOS)
     setWidth(dimensions.width)
-  }, [mobileOS, dimensions])
+  }, [mobileOS, dimensions, pictureInPicture])
 
   const ControlWrapper = useMemo(() => {
     const isMobile = windowDimensions.width <= 640
 
     const props = {
+      activateLike,
       BUFFERING,
       firstTimeMuted,
       fullScreen,
@@ -90,8 +95,10 @@ export const StreamPlayer = ({
       handleMute,
       handleNothing,
       handlePictureAndPicture,
+      handleVolume,
       IDLE,
       inactive,
+      infoSocket,
       isVerticalLayout,
       muted,
       overlay,
@@ -101,7 +108,8 @@ export const StreamPlayer = ({
       setOverlay,
       showOptions,
       status,
-      videoEl
+      videoEl,
+      volume
     }
 
     return (
@@ -114,6 +122,7 @@ export const StreamPlayer = ({
       </Fragment>
     )
   }, [
+    activateLike,
     BUFFERING,
     firstTimeMuted,
     fullScreen,
@@ -124,8 +133,10 @@ export const StreamPlayer = ({
     handleMute,
     handleNothing,
     handlePictureAndPicture,
+    handleVolume,
     IDLE,
     inactive,
+    infoSocket,
     isVerticalLayout,
     muted,
     overlay,
@@ -135,7 +146,8 @@ export const StreamPlayer = ({
     setOverlay,
     showOptions,
     status,
-    videoEl
+    videoEl,
+    volume
   ])
 
   return (
@@ -158,8 +170,12 @@ export const StreamPlayer = ({
       >
         {collectionId && (
           <HighlightProduct
-            infoSocket={infoSocket}
             collectionId={collectionId}
+            fullScreen={fullScreen}
+            handleFullScreen={
+              detector ? handleFullScreen : handleFullScreenMobile
+            }
+            infoSocket={infoSocket}
             originOfProducts={originOfProducts}
             setShowVariation={setShowVariation}
           />
@@ -172,7 +188,11 @@ export const StreamPlayer = ({
           muted={muted}
           id='player-video-el'
           style={{
-            objectFit: detector ? 'cover' : isVerticalLayout ? 'cover' : 'fill'
+            objectFit: detector
+              ? 'contain'
+              : isVerticalLayout
+              ? 'contain'
+              : 'fill'
           }}
         />
         {ControlWrapper}
