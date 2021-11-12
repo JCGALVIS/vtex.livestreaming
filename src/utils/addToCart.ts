@@ -9,7 +9,7 @@ export const addToCart = (idProduct: string, pdp: boolean) => {
       seller: '1'
     }
 
-    window.vtexjs.addToCart([item], null, 1).done(() => {
+    window.vtexjs.checkout.addToCart([item], null, 1).done(() => {
       alert('PRODUCTO AGREGADO AL CARRITO!')
     })
   }
