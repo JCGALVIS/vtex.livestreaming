@@ -262,7 +262,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
           )}
         </div>
         <div
-          style={{ height: parseInt(height), width: width }}
+          style={
+            detector === 'unknown'
+              ? { height: parseInt(height), width: width }
+              : { width: '100%' }
+          }
           className={`${styles.videoContainer} ${
             !scriptProperties?.sidebarProducts && styles.videoContainerChat
           } ${!scriptProperties?.chat && styles.videoContainerProducts} ${

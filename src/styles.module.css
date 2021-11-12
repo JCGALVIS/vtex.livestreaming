@@ -272,10 +272,10 @@ input[type='text']:focus {
   -webkit-appearance: none;
   appearance: none;
   background: #ededed;
-  height: 4px;
+  height: 4px !important;
   width: 100%;
   max-width: 100px;
-  margin-top: 2px;
+  min-height: 4px !important;
 }
 
 .playerVolumeRange::-webkit-slider-thumb {

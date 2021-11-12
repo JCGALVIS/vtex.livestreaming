@@ -42,7 +42,7 @@ export const HorizontalProductSlider = ({
       pdpLink: ''
     }
   ])
-  const [index, setIndex] = useState(3)
+  const [index, setIndex] = useState(2)
   const { data: products, loading } = useFetchProducts({
     collectionId,
     originOfProducts
@@ -52,9 +52,11 @@ export const HorizontalProductSlider = ({
 
   useEffect(() => {
     if (transmitionType === 'vertical') {
+      console.log('jcg 1')
       setIndex(1)
     } else {
-      setIndex(3)
+      console.log('jcg 2')
+      setIndex(2)
     }
   }, [transmitionType])
 
@@ -63,7 +65,7 @@ export const HorizontalProductSlider = ({
       setItemsProdcuts(products.slice(0, index))
       setSelectedProductIndex(0)
     }
-  }, [products])
+  }, [products, index])
 
   useEffect(() => {
     if (loading) return
@@ -76,7 +78,7 @@ export const HorizontalProductSlider = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [infinite, delay, loading, itemsProdcuts, selectedProductIndex])
+  }, [infinite, delay, loading, itemsProdcuts, selectedProductIndex, index])
 
   const handleProductMovement = (newIdx: number) => {
     if (products && products.length > 0) {

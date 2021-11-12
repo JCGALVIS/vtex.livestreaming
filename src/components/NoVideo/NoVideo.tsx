@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { getMobileOS } from '../../utils'
 import styles from './NoVideo.css'
 
 const messages = {
@@ -32,8 +33,10 @@ export const NoVideo = ({
     <div
       className={styles.noVideoContainer}
       style={
-        transmitionType === 'vertical'
-          ? { height: '495px', width: '278.438px' }
+        getMobileOS() === 'unknown'
+          ? transmitionType === 'vertical'
+            ? { height: '495px', width: '278.438px' }
+            : { width: '100%' }
           : { width: '100%' }
       }
     >

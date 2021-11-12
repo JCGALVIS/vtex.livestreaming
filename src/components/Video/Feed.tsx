@@ -53,6 +53,8 @@ export const Feed = ({
     if (url) {
       setPlaybackUrl(url)
     }
+
+    return () => {}
   }, [streamUrl, recordPath, loading])
 
   useEffect(() => {
@@ -83,7 +85,11 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
-    player.current.load(playbackUrl)
+    if (streamUrl && isTransmiting) {
+      player.current.load(playbackUrl)
+    } else if (recordPath && !streamUrl && !isTransmiting) {
+      player.current.load(playbackUrl)
+    }
 
     player.current.addEventListener(READY, onStateChange)
     player.current.addEventListener(PLAYING, onStateChange)
@@ -98,7 +104,7 @@ export const Feed = ({
       player.current.removeEventListener(ENDED, onStateChange)
       player.current.removeEventListener(ERROR, onError)
     }
-  }, [IVSPlayer, isPlayerSupported, playbackUrl])
+  }, [IVSPlayer, isPlayerSupported, playbackUrl, isTransmiting])
 
   if (!isPlayerSupported) {
     return null
