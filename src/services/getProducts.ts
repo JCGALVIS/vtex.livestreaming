@@ -44,7 +44,8 @@ const getProductsCace = async ({ collectionId }: GetProductsProps) => {
           ? true
           : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
         variationSelector: product?.skuSpecifications || [],
-        pdpLink: product.link
+        pdpLink: product.link,
+        skuId: product.items[0].itemId
       }
     })
     return products
@@ -70,7 +71,8 @@ const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
           ? true
           : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
         variationSelector: product?.skuSpecifications || [],
-        pdpLink: product.link
+        pdpLink: product.link,
+        skuId: product.items[0].itemId
       }
     })
     return products
@@ -95,7 +97,8 @@ const getProductsPlatform = async () => {
         addToCartLink: product.link,
         isAvailable: product.status === 'active',
         variationSelector: [],
-        pdpLink: product.link
+        pdpLink: product.link,
+        skuId: product.items[0].itemId
       }
     })
     return products

@@ -31,7 +31,8 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     addToCartLink: '',
     isAvailable: true,
     price: 0,
-    priceWithDiscount: 0
+    priceWithDiscount: 0,
+    skuId: ''
   })
 
   const { product, loading } = useFetchProductById({
@@ -82,7 +83,8 @@ export const VariationSelector = (props: VariationSelectorProps) => {
           addToCartLink: filter.sellers[0].addToCartLink,
           isAvailable: filter.sellers[0]?.commertialOffer.IsAvailable,
           price: filter.sellers[0]?.commertialOffer.ListPrice,
-          priceWithDiscount: filter.sellers[0]?.commertialOffer.Price
+          priceWithDiscount: filter.sellers[0]?.commertialOffer.Price,
+          skuId: filter.itemId
         }
       })
 
@@ -98,7 +100,8 @@ export const VariationSelector = (props: VariationSelectorProps) => {
           addToCartLink: filter.sellers[0].addToCartLink,
           isAvailable: filter.sellers[0]?.commertialOffer.IsAvailable,
           price: filter.sellers[0]?.commertialOffer.ListPrice,
-          priceWithDiscount: filter.sellers[0]?.commertialOffer.Price
+          priceWithDiscount: filter.sellers[0]?.commertialOffer.Price,
+          skuId: filter.itemId
         }
       })
 
@@ -179,7 +182,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                               isAvailable ? selectedProduct.isAvailable : false
                             }
                             pdp={pdp}
-                            productId={product?.id || ''}
+                            productId={selectedProduct.skuId}
                           />
                         </div>
                       </div>

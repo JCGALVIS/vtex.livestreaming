@@ -79,6 +79,7 @@ export interface ProductSellers {
   commertialOffer: { IsAvailable: boolean; ListPrice: number; Price: number }
 }
 export interface ProductItems {
+  itemId: string
   images: ProductImages[]
   sellers: ProductSellers[]
   variations: string[]

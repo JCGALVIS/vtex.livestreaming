@@ -19,6 +19,7 @@ type ProductItemProps = {
   pdpLink: string
   variationSelector: []
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  skuId: string
   originOfProducts: string
   kuikpay: boolean
   sectionIdClickedOn?: string
@@ -37,6 +38,7 @@ export const ProductItem = (props: ProductItemProps) => {
     pdpLink,
     variationSelector,
     setShowVariation,
+    skuId,
     originOfProducts,
     kuikpay,
     sectionIdClickedOn
@@ -68,7 +70,7 @@ export const ProductItem = (props: ProductItemProps) => {
               addToCartLink={addToCartLink}
               isAvailable={isAvailable}
               pdp={pdp}
-              productId={id}
+              productId={skuId}
               productName={name}
               sectionIdClickedOn={sectionIdClickedOn}
             />

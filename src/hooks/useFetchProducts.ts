@@ -21,7 +21,8 @@ export const useFetchProducts = ({
         addToCartLink: '',
         isAvailable: false,
         variationSelector: [],
-        pdpLink: ''
+        pdpLink: '',
+        skuId: ''
       }
     ],
     loading: true

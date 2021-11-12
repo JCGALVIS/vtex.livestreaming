@@ -52,10 +52,8 @@ export const HorizontalProductSlider = ({
 
   useEffect(() => {
     if (transmitionType === 'vertical') {
-      console.log('jcg 1')
       setIndex(1)
     } else {
-      console.log('jcg 2')
       setIndex(2)
     }
   }, [transmitionType])
