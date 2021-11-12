@@ -9,14 +9,19 @@ import {
   MutedIcon,
   PictureAndPictureAltIcon,
   PictureAndPictureIcon,
-  VerticalDots
+  VerticalDots,
+  VolumeOffIcon,
+  VolumeUpIcon
 } from '../../icons'
+import { Like } from '../../Like/Like'
 import type { PlayerControls } from '../../../typings/MediaPlayer'
 
 import styles from '../../../styles.module.css'
 
 export const MobileControls = (props: PlayerControls) => {
   const {
+    activateLike,
+    BUFFERING,
     firstTimeMuted,
     fullScreen,
     handleFullScreenMobile,
@@ -24,9 +29,15 @@ export const MobileControls = (props: PlayerControls) => {
     handleMobileOptions,
     handleNothing,
     handlePictureAndPicture,
+    handleVolume,
+    infoSocket,
+    muted,
     showOptions,
+    status,
+    overlay,
     pictureInPicture,
-    videoEl
+    videoEl,
+    volume
   } = props
 
   return (
@@ -44,53 +55,101 @@ export const MobileControls = (props: PlayerControls) => {
       ) : (
         <Fragment />
       )}
-      <div
-        className={styles.playerVideoMobileOptions}
-        onClick={handleMobileOptions}
-        onKeyDown={handleMobileOptions}
-      >
-        {showOptions ? (
-          <Close size='42' viewBox='0 0 400 400' />
-        ) : (
-          <VerticalDots size='42' viewBox='0 0 400 400' />
-        )}
+      <Fragment>
         <div
-          className={styles.playerVideoMobileOptionsContent}
-          data-display={`${showOptions}`}
+          role='button'
+          tabIndex={0}
+          className={`${styles.playerVideoHover} ${styles.playerVideoMobileMuteButtonPosition}`}
+          onClick={handleMute}
+          onKeyDown={handleNothing}
+          data-visible={
+            status === BUFFERING || firstTimeMuted
+              ? 'off'
+              : overlay
+              ? 'on'
+              : 'off'
+          }
         >
+          {muted ? (
+            <VolumeOffIcon size='40' viewBox='0 0 400 400' />
+          ) : (
+            <VolumeUpIcon size='40' viewBox='0 0 400 400' />
+          )}
+        </div>
+        <div
+          className={`${styles.playerVideoHover} ${styles.playerVideoMobileVolumeRangePosition} ${styles.playerVideoVolumeRangeStack}`}
+          data-visible={
+            status === BUFFERING || firstTimeMuted
+              ? 'off'
+              : overlay
+              ? 'on'
+              : 'off'
+          }
+        >
+          <input
+            type='range'
+            min='0'
+            max='100'
+            value={muted ? 0 : volume}
+            className={styles.playerVolumeRange}
+            onChange={handleVolume}
+          />
+        </div>
+        <div
+          role='button'
+          tabIndex={0}
+          className={styles.playerVideoMobileLikeButtonPosition}
+        >
+          {activateLike && <Like infoSocket={infoSocket} />}
+        </div>
+        <div
+          className={styles.playerVideoMobileOptions}
+          onClick={handleMobileOptions}
+          onKeyDown={handleMobileOptions}
+        >
+          {showOptions ? (
+            <Close size='42' viewBox='0 0 400 400' />
+          ) : (
+            <VerticalDots size='42' viewBox='0 0 400 400' />
+          )}
           <div
-            role='button'
-            tabIndex={0}
-            onClick={handleFullScreenMobile}
-            onKeyDown={handleFullScreenMobile}
-            className={styles.playerVideoMobileFullscreen}
+            className={styles.playerVideoMobileOptionsContent}
+            data-display={`${showOptions}`}
           >
-            {fullScreen ? (
-              <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
-            ) : (
-              <FullscreenIcon size='40' viewBox='0 0 400 400' />
-            )}
-          </div>
-          {!!videoEl?.current?.requestPictureInPicture && (
             <div
               role='button'
               tabIndex={0}
-              onClick={handlePictureAndPicture}
-              onKeyDown={handlePictureAndPicture}
-              className={styles.playerVideoMobilePicture}
+              onClick={handleFullScreenMobile}
+              onKeyDown={handleFullScreenMobile}
+              className={styles.playerVideoMobileFullscreen}
             >
-              {!!videoEl?.current?.requestPictureInPicture &&
-              getMobileOS() !== 'Android' ? (
-                pictureInPicture ? (
-                  <PictureAndPictureIcon size='32' viewBox='0 0 400 400' />
-                ) : (
-                  <PictureAndPictureAltIcon size='32' viewBox='0 0 400 400' />
-                )
-              ) : null}
+              {fullScreen ? (
+                <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
+              ) : (
+                <FullscreenIcon size='40' viewBox='0 0 400 400' />
+              )}
             </div>
-          )}
+            {!!videoEl?.current?.requestPictureInPicture && (
+              <div
+                role='button'
+                tabIndex={0}
+                onClick={handlePictureAndPicture}
+                onKeyDown={handlePictureAndPicture}
+                className={styles.playerVideoMobilePicture}
+              >
+                {!!videoEl?.current?.requestPictureInPicture &&
+                getMobileOS() !== 'Android' ? (
+                  pictureInPicture ? (
+                    <PictureAndPictureIcon size='32' viewBox='0 0 400 400' />
+                  ) : (
+                    <PictureAndPictureAltIcon size='32' viewBox='0 0 400 400' />
+                  )
+                ) : null}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </Fragment>
     </div>
   )
 }

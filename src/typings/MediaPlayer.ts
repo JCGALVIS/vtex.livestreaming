@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+import { ChangeEvent } from 'react'
+import type { InfoSocket } from './livestreaming'
 type LogLevel = 'debug' | 'error' | 'info' | 'warn'
 type PlayerState = 'Buffering' | 'Ended' | 'Idle' | 'Playing' | 'Ready'
 
@@ -71,6 +74,7 @@ export type Dimensions = {
 }
 
 export type PlayerControls = {
+  activateLike: boolean
   BUFFERING: string
   firstTimeMuted: boolean
   fullScreen: boolean
@@ -81,8 +85,10 @@ export type PlayerControls = {
   handleMute: () => void
   handleNothing: () => void
   handlePictureAndPicture: () => void
+  handleVolume: (e: ChangeEvent<HTMLInputElement>) => void
   IDLE: string
   inactive: boolean
+  infoSocket: InfoSocket
   isVerticalLayout: boolean
   muted: boolean
   overlay: boolean
@@ -93,4 +99,5 @@ export type PlayerControls = {
   showOptions: boolean
   status: string
   videoEl: React.RefObject<StreamPlayerType>
+  volume: number
 }

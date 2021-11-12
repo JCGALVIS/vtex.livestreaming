@@ -39,8 +39,8 @@ input[type='text']:focus {
 
 .likeContent {
   position: absolute;
-  bottom: 16px;
-  right: 20px;
+  bottom: 17px;
+  right: 21px;
 }
 
 .likeContentVertical {
@@ -165,6 +165,37 @@ input[type='text']:focus {
   grid-template-columns: auto 95px 42px 42px 45px 0.4rem;
   grid-template-rows: auto 58px auto 36px 1rem;
 }
+
+.playerVideoMobileMuteButtonPosition {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: #ffffff;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
+.playerVideoMobileVolumeRangePosition {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
+.playerVideoMobileLikeButtonPosition {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: flex-start;
+  color: #ffffff;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
 .playerVideoMobileMuted {
   display: flex;
   justify-content: center;
@@ -201,6 +232,7 @@ input[type='text']:focus {
   color: #ffffff;
   margin-bottom: 10px;
 }
+
 .playerVideoMobilePicture {
   display: flex;
   justify-content: center;
@@ -208,15 +240,51 @@ input[type='text']:focus {
   color: #ffffff;
   margin-bottom: 10px;
 }
+
 .playerVideoMuteButtonPosition {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
   color: #ffffff;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 4;
-  grid-row-end: 5;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 42px;
+  width: 42px;
+  border: 1px solid transparent;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+
+.playerVideoVolumeRangePosition {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+
+.playerVideoVolumeRangeStack {
+  display: flex;
+  align-items: center;
+}
+
+.playerVolumeRange {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ededed;
+  height: 4px;
+  width: 100%;
+  max-width: 100px;
+  margin-top: 2px;
+}
+
+.playerVolumeRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 5px;
+  height: 15px;
+  background: rgb(255, 255, 255);
+  cursor: pointer;
 }
 
 .playerVideoMobileMuted,
@@ -251,6 +319,9 @@ input[type='text']:focus {
   display: grid;
   grid-template-columns: 22px 43.5px 87px auto 100px auto 43.5px 10px 43.5px 10px 43.5px 22px;
   grid-template-rows: 10% auto 100px auto 43.5px 17px;
+  position: absolute;
+  max-width: 100%;
+  min-width: 100%;
 }
 
 .playerVideoButtonFlex {
@@ -273,6 +344,13 @@ input[type='text']:focus {
   grid-row-end: 6;
 }
 
+.playerVideoLikeButtonPosition {
+  grid-column-start: 7;
+  grid-column-end: 8;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+
 .playerVideoFullscreenButtonPosition {
   grid-column-start: 9;
   grid-column-end: 10;
@@ -283,13 +361,6 @@ input[type='text']:focus {
 .playerVideoLikeButtonPosition {
   grid-column-start: 11;
   grid-column-end: 12;
-  grid-row-start: 5;
-  grid-row-end: 6;
-}
-
-.playerVideoMuteButtonPosition {
-  grid-column-start: 2;
-  grid-column-end: 3;
   grid-row-start: 5;
   grid-row-end: 6;
 }

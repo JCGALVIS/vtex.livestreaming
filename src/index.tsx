@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { Feed } from './components/Video/Feed'
 import { Chat } from './components/Chat/Chat'
-import { Like } from './components/Like/Like'
 import { Viewers } from './components/Viewers/Viewers'
 import { Live } from './components/Live/Live'
 import { VerticalProductSlider } from './components/ProductSlider/VerticalProductSlider'
@@ -288,6 +287,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 </div>
               ) : null}
               <Feed
+                activateLike={
+                  scriptProperties?.like ? scriptProperties?.like : true
+                }
                 collectionId={collectionId}
                 infoSocket={info}
                 isPlayerSupported={isPlayerSupported}
@@ -305,15 +307,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
               </div>
               <div className={styles.viewersContent}>
                 <Viewers infoSocket={info} />
-              </div>
-              <div
-                className={
-                  detector === 'unknown' && transmitionType === 'vertical'
-                    ? styles.likeContentVertical
-                    : styles.likeContent
-                }
-              >
-                {scriptProperties?.like && <Like infoSocket={info} />}
               </div>
             </div>
             <div className={styles.horizontalProductsContent}>

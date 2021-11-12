@@ -6,6 +6,7 @@ import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 
 type FeedProps = {
+  activateLike: boolean
   collectionId: string | undefined
   infoSocket: InfoSocket
   isPlayerSupported: boolean
@@ -18,6 +19,7 @@ type FeedProps = {
 }
 
 export const Feed = ({
+  activateLike,
   collectionId,
   infoSocket,
   isPlayerSupported,
@@ -37,6 +39,7 @@ export const Feed = ({
   const [loading, setLoading] = useState(false)
   const player: typeof MediaPlayer = useRef(null)
 
+  const { isTransmiting } = infoSocket
   const isLive = infoSocket?.ivsRealTime?.status
 
   useEffect(() => {
@@ -101,12 +104,15 @@ export const Feed = ({
     return null
   }
 
-  return playerCurrent && (liveStatus || (!liveStatus && recordPath)) ? (
+  return playerCurrent &&
+    ((streamUrl && isTransmiting) ||
+      (recordPath && !streamUrl && !isTransmiting)) ? (
     <StreamPlayer
-      player={player.current}
-      infoSocket={infoSocket}
+      activateLike={activateLike}
       collectionId={collectionId}
+      infoSocket={infoSocket}
       originOfProducts={originOfProducts}
+      player={player.current}
       setShowVariation={setShowVariation}
       setWidth={setWidth}
       transmitionType={transmitionType}

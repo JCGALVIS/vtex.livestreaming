@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { useState, useCallback, useEffect, useLayoutEffect } from 'react'
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  ChangeEvent
+} from 'react'
 
 import type { MediaPlayer, StreamPlayerType } from '../typings/MediaPlayer'
 import { getMobileOS } from '../utils'
@@ -22,6 +28,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const [overlay, setOverlay] = useState<boolean>(false)
   const [inactive, setInactive] = useState<boolean>(false)
   const [showOptions, setShowOptions] = useState<boolean>(false)
+  const [volume, setVolume] = useState<number>(100)
 
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
@@ -189,12 +196,33 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const handleMute = () => {
     setMuted((prev) => {
       player.setMuted(!prev)
+      if (prev) {
+        setVolume((prevVol) => {
+          const newVol = prevVol === 0 ? 100 : prevVol
+
+          player.setVolume(newVol / 100)
+
+          return newVol
+        })
+      }
 
       return !prev
     })
     if (firstTimeMuted) {
       setFirstTimeMuted(false)
     }
+  }
+
+  const handleVolume = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value)
+
+    const isMuted = value === 0
+
+    setFirstTimeMuted(false)
+    setVolume(value)
+    player.setVolume(value / 100)
+    setMuted(isMuted)
+    player.setMuted(isMuted)
   }
 
   const checkIfWebKit = useCallback((): boolean => {
@@ -330,6 +358,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     handleMute,
     handleNothing,
     handlePictureAndPicture,
+    handleVolume,
     IDLE,
     inactive,
     muted,
@@ -339,7 +368,8 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     setInactive,
     setOverlay,
     showOptions,
-    status
+    status,
+    volume
   }
 }
 
