@@ -288,7 +288,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               ) : null}
               <Feed
                 activateLike={
-                  scriptProperties?.like ? scriptProperties?.like : true
+                  scriptProperties?.like ? scriptProperties?.like : false
                 }
                 collectionId={collectionId}
                 infoSocket={info}
