@@ -84,7 +84,7 @@ export const ProductItem = (props: ProductItemProps) => {
             />
           )}
           {kuikpay && originOfProducts !== 'platform' && (
-            <KuikPayButton productId={id} />
+            <KuikPayButton productId={skuId} />
           )}
         </div>
       </div>
