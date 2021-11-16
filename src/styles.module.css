@@ -90,14 +90,6 @@ input[type='text']:focus {
     position: relative;
   }
 
-  .videoContainerChat {
-    flex: 0 1 75% !important;
-  }
-
-  .videoContainerProducts {
-    flex: 0 1 95% !important;
-  }
-
   .videoContainerFull {
     flex: 1 !important;
   }

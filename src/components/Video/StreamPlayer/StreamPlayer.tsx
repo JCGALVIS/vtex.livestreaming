@@ -188,7 +188,11 @@ export const StreamPlayer = ({
           muted={muted}
           id='player-video-el'
           style={{
-            objectFit: detector ? 'fill' : isVerticalLayout ? 'contain' : 'fill'
+            objectFit: detector
+              ? 'cover'
+              : isVerticalLayout
+              ? 'contain'
+              : 'fill'
           }}
         />
         {ControlWrapper}
