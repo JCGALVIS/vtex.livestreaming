@@ -13,6 +13,7 @@ type VerticalProductSliderProps = {
   pdp: boolean
   originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
   kuikpay: boolean
 }
 
@@ -24,6 +25,7 @@ export const VerticalProductSlider = ({
   pdp,
   originOfProducts,
   setShowVariation,
+  setLoading,
   kuikpay
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
@@ -36,6 +38,7 @@ export const VerticalProductSlider = ({
   const productLisRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    setLoading(loading)
     if (loading) return
     if (!infinite) return
     if (!productLisRef?.current) return

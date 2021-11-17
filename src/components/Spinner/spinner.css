@@ -1,0 +1,50 @@
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  position: absolute;
+  z-index: 100;
+  background-color: #ffffff;
+}
+
+.loadingContent {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingItem {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #e7e7e7;
+  border-radius: 50%;
+  animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #e7e7e7 transparent transparent transparent;
+}
+
+.loadingAnimationOne {
+  animation-delay: -0.45s;
+}
+
+.loadingAnimationTwo {
+  animation-delay: -0.3s;
+}
+
+.loadingAnimationThree {
+  animation-delay: -0.15s;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

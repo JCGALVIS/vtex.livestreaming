@@ -18,6 +18,7 @@ import { getMobileOS } from './utils'
 import type { Message } from './typings/livestreaming'
 
 import styles from './styles.module.css'
+import { Spinner } from './components/Spinner/Spinner'
 
 type LivestreamingProps = {
   account: string
@@ -63,10 +64,11 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [showVariation, setShowVariation] = useState('')
 
   const [height, setHeight] = useState('0')
-  const [width, setWidth] = useState(0)
+  const [width, setWidth] = useState<string | number>(0)
   const [detector, setDetector] = useState('')
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
+  const [loading, setLoading] = useState(true)
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
@@ -210,8 +212,21 @@ export const Livestreaming = (props: LivestreamingProps) => {
     }
   }, [initTransmitionType, socketTransmitiontype])
 
+  useEffect(() => {
+    console.log(
+      'scriptProperties?.sidebarProducts: ',
+      scriptProperties?.sidebarProducts
+    )
+    if (!scriptProperties?.sidebarProducts) {
+      setTimeout(() => {
+        setLoading(false)
+      }, 3000)
+    }
+  }, [scriptProperties])
+
   return (
     <div className={styles.livestreaming}>
+      {loading && <Spinner />}
       <div className={styles.livestreamingContent}>
         <VariationSelector
           showVariation={showVariation}
@@ -231,6 +246,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
             pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
             originOfProducts={originOfProducts === '' ? '' : originOfProducts}
             setShowVariation={setShowVariation}
+            setLoading={setLoading}
             kuikpay={
               scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
             }
@@ -253,6 +269,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
               originOfProducts={originOfProducts === '' ? '' : originOfProducts}
               setShowVariation={setShowVariation}
+              setLoading={setLoading}
               kuikpay={
                 scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
               }
