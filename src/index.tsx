@@ -213,10 +213,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [initTransmitionType, socketTransmitiontype])
 
   useEffect(() => {
-    console.log(
-      'scriptProperties?.sidebarProducts: ',
-      scriptProperties?.sidebarProducts
-    )
     if (!scriptProperties?.sidebarProducts) {
       setTimeout(() => {
         setLoading(false)

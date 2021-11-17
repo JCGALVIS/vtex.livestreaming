@@ -23,6 +23,7 @@ input[type='text']:focus {
 .livestreaming {
   height: 100%;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .livestreamingContent {
