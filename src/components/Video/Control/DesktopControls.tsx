@@ -190,6 +190,11 @@ export const DesktopControls = (props: PlayerControls) => {
                   className={styles.playerVideoProgressBar}
                   onChange={handleVideoProgress}
                 />
+                <div
+                  style={{ width: `${progress}%` }}
+                  className={styles.percentProgressBar}
+                />
+                <div className={styles.noPercentProgressBar} />
               </div>
             </Fragment>
           )

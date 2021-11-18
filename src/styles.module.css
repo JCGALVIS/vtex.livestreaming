@@ -257,6 +257,8 @@ input[type='text']:focus {
 }
 
 .playerVideoProgressBarPosition {
+  grid-column-start: 0;
+  grid-column-end: 13;
   grid-row-start: 4;
   grid-row-end: 5;
 }
@@ -265,25 +267,45 @@ input[type='text']:focus {
   height: 4px !important;
   width: 100%;
   -webkit-appearance: none !important;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: transparent;
   border-radius: 20px;
   height: 4px;
+  position: relative;
+  z-index: 2;
 }
 
 .playerVideoProgressBar::-webkit-slider-thumb {
   -webkit-appearance: none !important;
   appearance: none;
-  width: 10px;
-  height: 10px;
+  width: 13px;
+  height: 13px;
   border-radius: 100%;
   background-color: rgb(255, 255, 255);
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .playerVideoProgressBarRangeStack {
   display: flex;
   align-items: flex-end;
   height: calc(100% - 8px);
+}
+
+.percentProgressBar{
+  height: 4px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  margin-bottom: 2px;
+  z-index: 1;
+}
+
+.noPercentProgressBar{
+  height: 4px;
+  background-color: rgb(255, 255, 255, 0.4);
+  position: absolute;
+  margin-bottom: 2px;
+  z-index: 1;
+  width: 100%;
 }
 
 .playerVideoVolumeRangeStack {
