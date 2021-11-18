@@ -29,6 +29,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const [inactive, setInactive] = useState<boolean>(false)
   const [showOptions, setShowOptions] = useState<boolean>(false)
   const [volume, setVolume] = useState<number>(100)
+  const [progress, setProgress] = useState(0)
 
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
@@ -347,6 +348,19 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
 
   const handleMobileOptions = () => setShowOptions((prev) => !prev)
 
+  const handleVideoProgress = (e: ChangeEvent<HTMLInputElement>) => {
+    if(!videoEl.current) return
+    const manualChange = Number(e.target.value);
+    setProgress(manualChange)
+    videoEl.current.currentTime = (videoEl.current?.duration / 100) * manualChange;
+  };
+
+  const handleOnTimeUpdate = () => {
+    if(!videoEl.current) return
+    const progress = (videoEl.current.currentTime / videoEl.current.duration) * 100;
+    setProgress(progress)
+  };
+
   return {
     BUFFERING,
     firstTimeMuted,
@@ -369,7 +383,10 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     setOverlay,
     showOptions,
     status,
-    volume
+    volume,
+    progress,
+    handleVideoProgress,
+    handleOnTimeUpdate
   }
 }
 

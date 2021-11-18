@@ -100,4 +100,7 @@ export type PlayerControls = {
   status: string
   videoEl: React.RefObject<StreamPlayerType>
   volume: number
+  progress: number
+  handleVideoProgress: (e: ChangeEvent<HTMLInputElement>) => void
+  handleOnTimeUpdate: () => void
 }

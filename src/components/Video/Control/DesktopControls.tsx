@@ -46,7 +46,9 @@ export const DesktopControls = (props: PlayerControls) => {
     PLAYING,
     status,
     videoEl,
-    volume
+    volume,
+    progress,
+    handleVideoProgress
   } = props
 
   const buttonRenderer = (
@@ -167,6 +169,25 @@ export const DesktopControls = (props: PlayerControls) => {
                   value={muted ? 0 : volume}
                   className={styles.playerVolumeRange}
                   onChange={handleVolume}
+                />
+              </div>
+              <div
+                className={`${styles.playerVideoHover} ${styles.playerVideoProgressBarPosition} ${styles.playerVideoProgressBarRangeStack}`}
+                data-visible={
+                  status === BUFFERING || firstTimeMuted
+                    ? BUFFERING
+                    : overlay
+                    ? 'on'
+                    : 'off'
+                }
+              >
+                <input
+                  type='range'
+                  min='0'
+                  max='100'
+                  className={styles.playerVideoProgressBar}
+                  onChange={handleVideoProgress}
+                  value={progress}
                 />
               </div>
             </Fragment>
