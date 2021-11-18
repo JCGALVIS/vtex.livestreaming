@@ -213,13 +213,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [initTransmitionType, socketTransmitiontype])
 
   useEffect(() => {
-    console.log('streamUrl: ', streamUrl)
     if (!scriptProperties?.sidebarProducts) {
       setTimeout(() => {
         setLoading(false)
       }, 3000)
     }
-  }, [scriptProperties, streamUrl])
+  }, [scriptProperties])
 
   return (
     <div className={styles.livestreaming}>
@@ -357,7 +356,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
             scriptProperties?.chat ? styles.chatContent : styles.displayNone
           }`}
         >
-          {scriptProperties?.chat && !recordPath ? (
+          {scriptProperties?.chat && streamUrl && (
             <Chat
               title='Chat en vivo'
               placeholder='Comenta aqui...'
@@ -366,7 +365,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               account={account}
               pinnedMessage={pinnedMessage}
             />
-          ) : null}
+          )}
         </div>
       </div>
     </div>

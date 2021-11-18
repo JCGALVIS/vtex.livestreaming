@@ -114,7 +114,7 @@ export const StreamPlayer = ({
 
     return (
       <Fragment>
-        {isMobile || isVerticalLayout ? (
+        {!fullScreen && (isMobile || isVerticalLayout) ? (
           <MobileControls {...props} />
         ) : (
           <DesktopControls {...props} />
@@ -165,7 +165,8 @@ export const StreamPlayer = ({
         onBlur={handleNothing}
         style={{
           height: dimensions.height,
-          width: dimensions.width
+          width: dimensions.width,
+          maxHeight: !isVerticalLayout ? '340px' : '100%'
         }}
       >
         {collectionId && (
@@ -188,11 +189,7 @@ export const StreamPlayer = ({
           muted={muted}
           id='player-video-el'
           style={{
-            objectFit: detector
-              ? 'cover'
-              : isVerticalLayout
-              ? 'contain'
-              : 'fill'
+            objectFit: 'contain'
           }}
         />
         {ControlWrapper}
