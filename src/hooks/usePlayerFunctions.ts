@@ -350,9 +350,9 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
 
   const handleVideoProgress = (e: ChangeEvent<HTMLInputElement>) => {
     if(!videoEl.current) return
-    const manualChange = Number(e.target.value);
-    setProgress(manualChange)
-    videoEl.current.currentTime = (videoEl.current?.duration / 100) * manualChange;
+    const value = Number(e.target.value);
+    setProgress(value)
+    videoEl.current.currentTime = (videoEl.current?.duration / 100) * value;
   };
 
   const handleOnTimeUpdate = () => {

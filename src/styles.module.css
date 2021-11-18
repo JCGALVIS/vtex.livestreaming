@@ -283,7 +283,7 @@ input[type='text']:focus {
 .playerVideoProgressBarRangeStack {
   display: flex;
   align-items: flex-end;
-  height: calc(100% - 3px);
+  height: calc(100% - 8px);
 }
 
 .playerVideoVolumeRangeStack {

@@ -59,6 +59,7 @@ export const DesktopControls = (props: PlayerControls) => {
     firstTimeMuted: boolean,
     volume: number,
     infoSocket: InfoSocket,
+    progress: number,
     { mute, picture, screen, firstMuted }: IndicatorInterface
   ): JSX.Element => {
     return (
@@ -185,9 +186,9 @@ export const DesktopControls = (props: PlayerControls) => {
                   type='range'
                   min='0'
                   max='100'
+                  value={progress}
                   className={styles.playerVideoProgressBar}
                   onChange={handleVideoProgress}
-                  value={progress}
                 />
               </div>
             </Fragment>
@@ -214,6 +215,7 @@ export const DesktopControls = (props: PlayerControls) => {
         firstTimeMuted,
         volume,
         infoSocket,
+        progress,
         {
           mute: muted,
           picture: pictureInPicture,
@@ -232,7 +234,8 @@ export const DesktopControls = (props: PlayerControls) => {
       overlay,
       firstTimeMuted,
       volume,
-      infoSocket
+      infoSocket,
+      progress
     ]
   )
 
