@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { ProductItem } from './ProductItem'
 import { useFetchProducts } from './../../hooks/useFetchProducts'
+import { FormattedMessage } from 'react-intl'
 
 import styles from './productSlider.css'
 
@@ -88,7 +89,9 @@ export const VerticalProductSlider = ({
   return !loading ? (
     <div className={styles.verticalProductSliderContent}>
       <div className={styles.verticalProductSliderTitle}>
-        <p className={styles.title}>Productos destacados</p>
+        <p className={styles.title}>
+          <FormattedMessage id='store/text.products' />
+        </p>
       </div>
       <div
         style={{ height: parseInt(height) }}

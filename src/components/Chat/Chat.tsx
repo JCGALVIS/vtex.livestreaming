@@ -10,10 +10,9 @@ import { getDeviceType } from '../../utils'
 import ArrowDown from '../icons/ArrowDown'
 
 import styles from './chat.css'
+import { useIntl } from 'react-intl'
 
 type ChatProps = {
-  title: string
-  placeholder: string
   infoSocket: InfoSocket
   idLivestreaming: string
   account: string
@@ -23,8 +22,6 @@ type ChatProps = {
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
 
 export const Chat = ({
-  title,
-  placeholder,
   infoSocket,
   idLivestreaming,
   account,
@@ -49,7 +46,7 @@ export const Chat = ({
   const [incoming, setIncoming] = useState(false)
   const [incomingPosition, setIncomingPosition] = useState(0)
   const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
-
+  const { formatMessage } = useIntl()
   const handleIncoming = (): void => {
     if (!chatAreaRef?.current) return
 
@@ -227,7 +224,9 @@ export const Chat = ({
       <div className={styles.liveChatContainer}>
         <div className={styles.liveChatHeader}>
           <ChatIcon />
-          <p className={styles.liveChatText}>{title}</p>
+          <p className={styles.liveChatText}>
+            {formatMessage({ id: 'store/live.chat' })}
+          </p>
         </div>
       </div>
       <div className={styles.chatContent}>
@@ -275,7 +274,7 @@ export const Chat = ({
                   fontSize: IS_DESKTOP ? 'unset' : '12px'
                 }}
               >
-                Mensajes sin leer
+                {formatMessage({ id: "store/text.unread-messages'" })}
               </span>
             </div>
           </div>
@@ -308,7 +307,7 @@ export const Chat = ({
           <div className={styles.inputContent}>
             <input
               className={styles.inputTextChat}
-              placeholder={placeholder}
+              placeholder={formatMessage({ id: 'store/text.chat-placeholder' })}
               name='content'
               type='text'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

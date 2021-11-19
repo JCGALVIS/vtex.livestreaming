@@ -6,6 +6,7 @@ import ProductButton from './../ProductsButton/ProductButton'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 
 import styles from './productSlider.css'
+import { FormattedMessage } from 'react-intl'
 
 type ProductItemProps = {
   id: string
@@ -59,10 +60,14 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.productDeatailContent}>
         <h4 className={styles.productTitle}>{name}</h4>
         {price !== priceWithDiscount && (
-          <span className={styles.price}>Antes: {currencyFormat(price)}</span>
+          <span className={styles.price}>
+            <FormattedMessage id='store/text.before' /> :{' '}
+            {currencyFormat(price)}
+          </span>
         )}
         <span className={styles.priceWithDiscount}>
-          Ahora: {currencyFormat(priceWithDiscount)}
+          <FormattedMessage id='store/text.now' /> :{' '}
+          {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
           {variationSelector.length === 0 ? (

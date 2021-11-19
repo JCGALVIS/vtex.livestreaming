@@ -11,6 +11,7 @@ import Timer from './Timer'
 import { Answer, Question } from '../../typings/livestreaming'
 import { Radio } from '../commonComponents'
 import styles from './question.css'
+import { FormattedMessage } from 'react-intl'
 
 interface QuestionTrueOrFalseProps {
   dataQuestion?: Question
@@ -31,12 +32,16 @@ const QuestionTrueOrFalse = ({
   const [timeExpired, setTimeExpired] = useState(false)
 
   useEffect(() => {
-    // eslint-disable-next-line vtex/prefer-early-return
     if (dataQuestion?.answers) {
       const options = dataQuestion?.answers.map((answer: Answer) => {
         return {
           value: answer.text,
-          label: answer.text === 'true' ? 'Verdadero' : 'Falso'
+          label:
+            answer.text === 'true' ? (
+              <FormattedMessage id='store/text.true' />
+            ) : (
+              <FormattedMessage id='store/text.false' />
+            )
         }
       })
 
@@ -48,7 +53,7 @@ const QuestionTrueOrFalse = ({
   const saveVotes = (e: SyntheticEvent) => {
     const { value } = e.target as HTMLInputElement
     console.log(value)
-    //setValueOption(value)
+    // setValueOption(value)
   }
 
   return (

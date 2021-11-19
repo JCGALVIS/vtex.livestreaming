@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 interface TimerProps {
   time: number
@@ -27,12 +28,11 @@ const Timer = ({ time, setTimeExpired }: TimerProps) => {
   return (
     <span>
       <b>
-        Tiempo:
+        <FormattedMessage id='store/time' />:
       </b>
       &nbsp;
       {timeQuestion}
-      &nbsp;
-      Segundos
+      &nbsp; <FormattedMessage id='store/seconds' />
     </span>
   )
 }
