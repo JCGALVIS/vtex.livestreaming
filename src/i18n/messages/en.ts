@@ -17,7 +17,7 @@ export default {
     'store/live.chat-login-username-already-exist':
       'This username already exists',
     'store/seconds': 'Second',
-    'store/text.add': 'Add',
+    'store/text.add': 'Add to cart',
     'store/text.anonymous-user': 'Anonymous',
     'store/text.before': 'Before',
     'store/text.chat-placeholder': 'Comment here...',
