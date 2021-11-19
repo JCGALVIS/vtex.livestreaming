@@ -210,6 +210,28 @@ input[type='text']:focus {
   grid-row-start: 4;
   grid-row-end: 5;
 }
+
+.playerVideoMobileProgressBarPosition {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+
+.playerVideoMobileProgressBarRangeStack {
+  display: flex;
+  align-items: flex-end;
+  height: calc(100% + 3px);
+}
+
+.playerVideoMobileProgressBar::-webkit-slider-thumb {
+  background: transparent !important;
+}
+
+.progressBarHeigth {
+  height: 7px !important;
+}
+
 .playerVideoMobileOptionsContent {
   position: absolute;
   bottom: 50px;
@@ -282,7 +304,6 @@ input[type='text']:focus {
   border-radius: 100%;
   background-color: rgb(255, 255, 255);
   cursor: pointer;
-  margin-right: 10px;
 }
 
 .playerVideoProgressBarRangeStack {
@@ -297,6 +318,7 @@ input[type='text']:focus {
   position: absolute;
   margin-bottom: 2px;
   z-index: 1;
+  border-radius: 20px;
 }
 
 .noPercentProgressBar{
@@ -306,6 +328,7 @@ input[type='text']:focus {
   margin-bottom: 2px;
   z-index: 1;
   width: 100%;
+  border-radius: 20px;
 }
 
 .playerVideoVolumeRangeStack {

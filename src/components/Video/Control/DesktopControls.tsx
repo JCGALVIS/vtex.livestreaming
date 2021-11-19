@@ -172,30 +172,32 @@ export const DesktopControls = (props: PlayerControls) => {
                   onChange={handleVolume}
                 />
               </div>
-              <div
-                className={`${styles.playerVideoHover} ${styles.playerVideoProgressBarPosition} ${styles.playerVideoProgressBarRangeStack}`}
-                data-visible={
-                  status === BUFFERING || firstTimeMuted
-                    ? BUFFERING
-                    : overlay
-                    ? 'on'
-                    : 'off'
-                }
-              >
-                <input
-                  type='range'
-                  min='0'
-                  max='100'
-                  value={progress}
-                  className={styles.playerVideoProgressBar}
-                  onChange={handleVideoProgress}
-                />
+              {!infoSocket.socket && (
                 <div
-                  style={{ width: `${progress}%` }}
-                  className={styles.percentProgressBar}
-                />
-                <div className={styles.noPercentProgressBar} />
-              </div>
+                  className={`${styles.playerVideoHover} ${styles.playerVideoProgressBarPosition} ${styles.playerVideoProgressBarRangeStack}`}
+                  data-visible={
+                    status === BUFFERING || firstTimeMuted
+                      ? BUFFERING
+                      : overlay
+                      ? 'on'
+                      : 'off'
+                  }
+                >
+                  <input
+                    type='range'
+                    min='0'
+                    max='100'
+                    value={progress}
+                    className={styles.playerVideoProgressBar}
+                    onChange={handleVideoProgress}
+                  />
+                  <div
+                    style={{ width: `${progress}%` }}
+                    className={styles.percentProgressBar}
+                  />
+                  <div className={styles.noPercentProgressBar} />
+                </div>
+              )}
             </Fragment>
           )
         ) : status === BUFFERING ? (
