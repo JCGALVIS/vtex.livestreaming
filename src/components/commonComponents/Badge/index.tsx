@@ -6,15 +6,6 @@ declare interface Props {
   type: 'error' | 'warning' | 'success'
 }
 
-export const Badge = ({
-  value,
-  type,
-}: Props) => {
-  return (
-    <span
-      className={`${styles.badge} ${styles[type]}`}
-    >
-      {value}
-    </span>
-  )
+export const Badge = ({ value, type }: Props) => {
+  return <span className={`${styles.badge} ${styles[type]}`}>{value}</span>
 }

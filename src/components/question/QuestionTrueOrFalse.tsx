@@ -63,7 +63,7 @@ const QuestionTrueOrFalse = ({
       </div>
       <p>
         {optionsQuestion.map((option: Option) => (
-          <div>
+          <div key={`${option.label}_${option.value}`}>
             <Radio
               id={`${option.label}_${option.value}`}
               name='trueOrFalse'

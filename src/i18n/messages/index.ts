@@ -5,5 +5,5 @@ import pt from './pt'
 export default {
   ...es,
   ...en,
-  ...pt,
+  ...pt
 }
