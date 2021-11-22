@@ -20,6 +20,13 @@ import type { Message } from './typings/livestreaming'
 import styles from './styles.module.css'
 import { Spinner } from './components/Spinner/Spinner'
 
+import { LivestreamingProvider } from './hooks/context'
+import {
+  useLivestreamingReducer,
+  useSetLivestreaming,
+  useSetChatHistory
+} from './hooks/reducer'
+
 type LivestreamingProps = {
   account: string
   idLivestreaming: string
@@ -58,6 +65,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
     originOfProducts,
     kuikpay
   } = props
+
+  const [state, dispatch] = useLivestreamingReducer()
+  useSetLivestreaming(idLivestreaming, account, dispatch)
+  useSetChatHistory(idLivestreaming, account, dispatch)
 
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
@@ -222,47 +233,25 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [scriptProperties, streamUrl])
 
   return (
-    <div className={styles.livestreaming}>
-      {loading && <Spinner />}
-      <div className={styles.livestreamingContent}>
-        <VariationSelector
-          showVariation={showVariation}
-          setShowVariation={setShowVariation}
-          pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-          originOfProducts={originOfProducts === '' ? '' : originOfProducts}
-        />
-        {scriptProperties?.sidebarProducts ||
-        scriptProperties?.productsCarousel ? (
-          <SliderProductMobile
-            collectionId={collectionId}
-            infinite={scriptProperties?.infinite}
-            time={scriptProperties?.time}
-            height={height}
-            showSliderProducts={showSliderProducts}
-            setShowSliderProducts={setShowSliderProducts}
+    <LivestreamingProvider value={state} dispatch={dispatch}>
+      <div className={styles.livestreaming}>
+        {loading && <Spinner />}
+        <div className={styles.livestreamingContent}>
+          <VariationSelector
+            showVariation={showVariation}
+            setShowVariation={setShowVariation}
             pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
             originOfProducts={originOfProducts === '' ? '' : originOfProducts}
-            setShowVariation={setShowVariation}
-            setLoading={setLoading}
-            kuikpay={
-              scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
-            }
           />
-        ) : null}
-        <div
-          style={{ height: parseInt(height) }}
-          className={`${
-            scriptProperties?.sidebarProducts
-              ? styles.sliderProductContent
-              : styles.displayNone
-          }`}
-        >
-          {scriptProperties?.sidebarProducts && (
-            <VerticalProductSlider
+          {scriptProperties?.sidebarProducts ||
+          scriptProperties?.productsCarousel ? (
+            <SliderProductMobile
               collectionId={collectionId}
-              infinite={scriptProperties.infinite}
-              time={scriptProperties.time}
-              height={(parseInt(height) - 58).toString()}
+              infinite={scriptProperties?.infinite}
+              time={scriptProperties?.time}
+              height={height}
+              showSliderProducts={showSliderProducts}
+              setShowSliderProducts={setShowSliderProducts}
               pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
               originOfProducts={originOfProducts === '' ? '' : originOfProducts}
               setShowVariation={setShowVariation}
@@ -271,105 +260,131 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
               }
             />
-          )}
-        </div>
-        <div
-          style={
-            detector === 'unknown'
-              ? { height: parseInt(height), width: width }
-              : { width: '100%' }
-          }
-          className={`${styles.videoContainer} ${
-            !scriptProperties?.sidebarProducts && styles.videoContainerChat
-          } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
-            !scriptProperties?.sidebarProducts &&
-            !scriptProperties?.chat &&
-            styles.videoContainerFull
-          }`}
-        >
+          ) : null}
           <div
-            ref={divVideoContent}
-            className={styles.fittedContainer}
-            style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
+            style={{ height: parseInt(height) }}
+            className={`${
+              scriptProperties?.sidebarProducts
+                ? styles.sliderProductContent
+                : styles.displayNone
+            }`}
           >
-            <div className={styles.videoContent}>
-              {scriptProperties?.sidebarProducts ||
-              scriptProperties?.productsCarousel ? (
-                <div className={styles.buttonProductContent}>
-                  <ButtonProductsMobile
-                    collectionId={collectionId}
-                    setShowSliderProducts={setShowSliderProducts}
-                  />
-                </div>
-              ) : null}
-              <Feed
-                activateLike={
-                  scriptProperties?.like ? scriptProperties?.like : false
-                }
+            {scriptProperties?.sidebarProducts && (
+              <VerticalProductSlider
                 collectionId={collectionId}
-                infoSocket={info}
-                isPlayerSupported={isPlayerSupported}
+                infinite={scriptProperties.infinite}
+                time={scriptProperties.time}
+                height={(parseInt(height) - 58).toString()}
+                pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
                 originOfProducts={
                   originOfProducts === '' ? '' : originOfProducts
                 }
                 setShowVariation={setShowVariation}
-                setWidth={setWidth}
-                streamUrl={streamUrl}
-                transmitionType={transmitionType}
-                recordPath={recordPath}
+                setLoading={setLoading}
+                kuikpay={
+                  scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+                }
               />
-              <div className={styles.liveContent}>
-                <Live infoSocket={info} />
-              </div>
-              <div className={styles.viewersContent}>
-                <Viewers infoSocket={info} />
-              </div>
-            </div>
-            <div className={styles.horizontalProductsContent}>
-              {scriptProperties?.productsCarousel && (
-                <HorizontalProductSlider
+            )}
+          </div>
+          <div
+            style={
+              detector === 'unknown'
+                ? { height: parseInt(height), width: width }
+                : { width: '100%' }
+            }
+            className={`${styles.videoContainer} ${
+              !scriptProperties?.sidebarProducts && styles.videoContainerChat
+            } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
+              !scriptProperties?.sidebarProducts &&
+              !scriptProperties?.chat &&
+              styles.videoContainerFull
+            }`}
+          >
+            <div
+              ref={divVideoContent}
+              className={styles.fittedContainer}
+              style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
+            >
+              <div className={styles.videoContent}>
+                {scriptProperties?.sidebarProducts ||
+                scriptProperties?.productsCarousel ? (
+                  <div className={styles.buttonProductContent}>
+                    <ButtonProductsMobile
+                      collectionId={collectionId}
+                      setShowSliderProducts={setShowSliderProducts}
+                    />
+                  </div>
+                ) : null}
+                <Feed
+                  activateLike={
+                    scriptProperties?.like ? scriptProperties?.like : false
+                  }
                   collectionId={collectionId}
-                  infinite={scriptProperties.infinite}
-                  time={scriptProperties.time}
-                  pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+                  infoSocket={info}
+                  isPlayerSupported={isPlayerSupported}
                   originOfProducts={
                     originOfProducts === '' ? '' : originOfProducts
                   }
                   setShowVariation={setShowVariation}
-                  kuikpay={
-                    scriptProperties?.kuikpay
-                      ? scriptProperties?.kuikpay
-                      : false
-                  }
+                  setWidth={setWidth}
+                  streamUrl={streamUrl}
                   transmitionType={transmitionType}
+                  recordPath={recordPath}
                 />
-              )}
+                <div className={styles.liveContent}>
+                  <Live infoSocket={info} />
+                </div>
+                <div className={styles.viewersContent}>
+                  <Viewers infoSocket={info} />
+                </div>
+              </div>
+              <div className={styles.horizontalProductsContent}>
+                {scriptProperties?.productsCarousel && (
+                  <HorizontalProductSlider
+                    collectionId={collectionId}
+                    infinite={scriptProperties.infinite}
+                    time={scriptProperties.time}
+                    pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+                    originOfProducts={
+                      originOfProducts === '' ? '' : originOfProducts
+                    }
+                    setShowVariation={setShowVariation}
+                    kuikpay={
+                      scriptProperties?.kuikpay
+                        ? scriptProperties?.kuikpay
+                        : false
+                    }
+                    transmitionType={transmitionType}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          style={
-            detector === 'unknown'
-              ? { height: parseInt(height), maxHeight: parseInt(height) }
-              : { height: 'auto' }
-          }
-          className={`${
-            scriptProperties?.chat ? styles.chatContent : styles.displayNone
-          }`}
-        >
-          {scriptProperties?.chat && !recordPath ? (
-            <Chat
-              title='Chat en vivo'
-              placeholder='Comenta aqui...'
-              infoSocket={info}
-              idLivestreaming={idLivestreaming}
-              account={account}
-              pinnedMessage={pinnedMessage}
-            />
-          ) : null}
+          <div
+            style={
+              detector === 'unknown'
+                ? { height: parseInt(height), maxHeight: parseInt(height) }
+                : { height: 'auto' }
+            }
+            className={`${
+              scriptProperties?.chat ? styles.chatContent : styles.displayNone
+            }`}
+          >
+            {scriptProperties?.chat ? (
+              <Chat
+                title='Chat en vivo'
+                placeholder='Comenta aqui...'
+                infoSocket={info}
+                idLivestreaming={idLivestreaming}
+                account={account}
+                pinnedMessage={pinnedMessage}
+              />
+            ) : null}
+          </div>
         </div>
       </div>
-    </div>
+    </LivestreamingProvider>
   )
 }
 

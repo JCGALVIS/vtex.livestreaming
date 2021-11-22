@@ -19,11 +19,10 @@ export const useChat = ({ idLivestreaming, account }: Props) => {
     if (!URL) return
 
     const getChat = async () => {
-      const data = await apiCall({
-        url: `${URL}?id=${idLivestreaming}&account=${account}`
+      const { data } = await apiCall({
+        url: `${URL}/${account}/${idLivestreaming}`
       })
-
-      setChatHistory(data?.reverse())
+      setChatHistory(data)
     }
 
     getChat().catch(null)

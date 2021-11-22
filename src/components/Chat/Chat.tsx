@@ -8,8 +8,8 @@ import { Login } from './login/Login'
 import { ModalQuestion } from '../question/ModalQuestion'
 import { getDeviceType } from '../../utils'
 import ArrowDown from '../icons/ArrowDown'
-
 import styles from './chat.css'
+import { useLivestreamingContext } from '../../hooks/context'
 
 type ChatProps = {
   title: string
@@ -49,6 +49,7 @@ export const Chat = ({
   const [incoming, setIncoming] = useState(false)
   const [incomingPosition, setIncomingPosition] = useState(0)
   const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
+  const { chat: chatFinalized } = useLivestreamingContext()
 
   const handleIncoming = (): void => {
     if (!chatAreaRef?.current) return
@@ -139,8 +140,8 @@ export const Chat = ({
   }, [chat])
 
   const ChatMessages = useMemo(
-    () => MessageRenderer(chatFiltered || []),
-    [chatFiltered, chat]
+    () => MessageRenderer(chatFinalized || []),
+    [chatFiltered, chat, chatFinalized]
   )
 
   useEffect(() => {

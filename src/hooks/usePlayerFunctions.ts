@@ -9,6 +9,7 @@ import {
 
 import type { MediaPlayer, StreamPlayerType } from '../typings/MediaPlayer'
 import { getMobileOS } from '../utils'
+import { useLivestreamingContext } from './context/livestreamingContext'
 
 type PlayerFuntionsProps = {
   mainContainer: React.RefObject<HTMLDivElement>
@@ -30,6 +31,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false)
   const [volume, setVolume] = useState<number>(100)
   const [progress, setProgress] = useState(0)
+  const { chatHistory, chat, handleSetChat } = useLivestreamingContext()
 
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
@@ -349,17 +351,29 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const handleMobileOptions = () => setShowOptions((prev) => !prev)
 
   const handleVideoProgress = (e: ChangeEvent<HTMLInputElement>) => {
-    if(!videoEl.current) return
-    const value = Number(e.target.value);
+    if (!videoEl.current) return
+    const value = Number(e.target.value)
     setProgress(value)
-    videoEl.current.currentTime = (videoEl.current?.duration / 100) * value;
-  };
+    videoEl.current.currentTime = (videoEl.current?.duration / 100) * value
+  }
 
   const handleOnTimeUpdate = () => {
-    if(!videoEl.current) return
-    const progress = (videoEl.current.currentTime / videoEl.current.duration) * 100;
+    if (!videoEl.current) return
+    const progress =
+      (videoEl.current.currentTime / videoEl.current.duration) * 100
     setProgress(progress)
-  };
+
+    const newChat = chatHistory.filter((message) => {
+      if (videoEl.current?.currentTime && message?.second) {
+        if (message?.second <= videoEl.current?.currentTime) return true
+      }
+
+      return false
+    })
+    if (chat !== newChat) {
+      handleSetChat(newChat)
+    }
+  }
 
   return {
     BUFFERING,

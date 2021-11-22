@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState, useMemo, useLayoutEffect } from 'react'
 
-import type { Dimensions, StreamPlayerType } from '../typings/MediaPlayer'
+import type { Dimensions } from '../typings/MediaPlayer'
 import { getDeviceType } from '../utils'
+import { useLivestreamingContext } from './context'
 
 const initialDimensions: Dimensions = {
   width: 0,
@@ -10,7 +11,7 @@ const initialDimensions: Dimensions = {
 }
 
 const usePlayerLayout = (transmitionType: string | undefined) => {
-  const videoEl = useRef<StreamPlayerType>(null)
+  const { videoEl } = useLivestreamingContext()
   const mainContainer = useRef<HTMLDivElement>(null)
 
   const [windowDimensions, setWindowDimensions] =
