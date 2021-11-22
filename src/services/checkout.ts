@@ -3,7 +3,7 @@ import { apiCall } from './apiCall'
 export const cartSimulation = async (body: any) => {
   const url = `/api/checkout/pub/orderforms/simulation`
 
-  const method = "POST"
+  const method = 'POST'
 
   const headers = new Headers()
   headers.append('Accept', 'application/json')

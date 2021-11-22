@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { getMobileOS } from '../../utils'
 import styles from './NoVideo.css'
+import { FormattedMessage } from 'react-intl'
 
 const messages = {
-  noVideo: 'Transmisión en vivo.',
-  UNKNOWN: 'Transmisión en vivo.',
-  LIVE: 'Transmisión en vivo.'
+  noVideo: <FormattedMessage id='store/text.live-no-video' />,
+  UNKNOWN: <FormattedMessage id='store/text.live-no-video' />,
+  LIVE: <FormattedMessage id='store/text.live-no-video' />
 }
 
 type NoVideoProps = {

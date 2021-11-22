@@ -7,10 +7,10 @@ import QuestionTrueOrFalse from './QuestionTrueOrFalse'
 import QuestionQuiz from './QuestionQuiz'
 import Answer from './Answer'
 import useUpdateVotes from '../../hooks/useUpdateVotes'
-// eslint-disable-next-line no-unused-vars
 import type { InfoSocket, Question } from '../../typings/livestreaming'
 import { apiCall } from '../../services'
 import styles from './question.css'
+import { FormattedMessage } from 'react-intl'
 declare interface Props {
   infoSocket: InfoSocket
   idLivestreaming: string
@@ -132,7 +132,7 @@ export const ModalQuestion = ({
       {validateForm && (
         <div className={styles.errorMessageContainer}>
           <span className={styles.errorMessage}>
-            Debe seleccionar una respuesta.
+            <FormattedMessage id='store/text.select-answer' />
           </span>
         </div>
       )}
@@ -180,12 +180,14 @@ export const ModalQuestion = ({
             disabled={disabledForm}
             className={styles.btn}
           >
-            {!disabledForm && 'Enviar'}
-            {disabledForm && 'Esperando...'}
+            {!disabledForm && <FormattedMessage id='store/button.send' />}
+            {disabledForm && <FormattedMessage id='store/button.expecting' />}
           </Button>
         )}
         {isAnswer && data !== undefined && (
-          <Button onClick={closeModal}>Cerrar</Button>
+          <Button onClick={closeModal}>
+            <FormattedMessage id='store/button.close' />
+          </Button>
         )}
       </div>
     </Modal>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import styles from './productSlider.css'
 
@@ -16,7 +17,7 @@ export const ButtonProductsMobile = ({
       className={styles.buttonMobile}
       onClick={() => setShowSliderProducts(true)}
     >
-      Productos
+      <FormattedMessage id='store/text.live-products' />
     </button>
   ) : null
 }

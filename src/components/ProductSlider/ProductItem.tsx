@@ -6,7 +6,9 @@ import ProductButton from './../ProductsButton/ProductButton'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 
 import styles from './productSlider.css'
+import { useIntl } from 'react-intl'
 
+const SPANISH_CODE = 'es'
 type ProductItemProps = {
   id: string
   name: string
@@ -43,7 +45,8 @@ export const ProductItem = (props: ProductItemProps) => {
     kuikpay,
     sectionIdClickedOn
   } = props
-
+  const { formatMessage, locale } = useIntl()
+  const isSpanish = locale === SPANISH_CODE
   return (
     <div className={styles.productItemContent}>
       <div className={styles.pictureContent}>
@@ -59,10 +62,14 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.productDeatailContent}>
         <h4 className={styles.productTitle}>{name}</h4>
         {price !== priceWithDiscount && (
-          <span className={styles.price}>Antes: {currencyFormat(price)}</span>
+          <span className={styles.price}>
+            {isSpanish ? formatMessage({ id: 'store/text.before' }) + ': ' : ''}
+            {currencyFormat(price)}
+          </span>
         )}
         <span className={styles.priceWithDiscount}>
-          Ahora: {currencyFormat(priceWithDiscount)}
+          {isSpanish ? formatMessage({ id: 'store/text.now' }) + ': ' : ''}
+          {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
           {variationSelector.length === 0 ? (

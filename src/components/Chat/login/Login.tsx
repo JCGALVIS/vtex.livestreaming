@@ -6,6 +6,7 @@ import styles from './Login.css'
 import { InfoSocket } from '../../../typings/livestreaming'
 import { useSessionId } from '../../../hooks/useSessionId'
 import { apiCall } from '../../../services'
+import { useIntl } from 'react-intl'
 
 interface Props {
   idLivestreaming: string
@@ -28,6 +29,7 @@ export const Login = ({
   infoSocket,
   account
 }: Props) => {
+  const { formatMessage } = useIntl()
   const [username, setUsername] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const { sendAccountId, socket, emailIsRequired } = infoSocket
@@ -139,14 +141,16 @@ export const Login = ({
       <form onSubmit={handlerSendDataToChat} className={styles.loginForm}>
         <div className={styles.inputContainer}>
           <label className={styles.label} htmlFor='content'>
-            Ingrese su nombre para continuar
+            {formatMessage({ id: 'store/live.chat-login' })}
           </label>
         </div>
 
         <div className={styles.inputContainer}>
           <input
             maxLength={15}
-            placeholder='Nombre*'
+            placeholder={formatMessage({
+              id: 'store/live.chat-login-name-placeholder'
+            })}
             id='name'
             name='name'
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -165,7 +169,15 @@ export const Login = ({
         {emailIsRequired && (
           <div className={styles.inputContainer}>
             <input
-              placeholder={emailIsRequired ? 'Email*' : 'Email'}
+              placeholder={
+                emailIsRequired
+                  ? formatMessage({
+                      id: 'store/live.chat-login-email-required-placeholder'
+                    })
+                  : formatMessage({
+                      id: 'store/live.chat-login-email-no-required-placeholder'
+                    })
+              }
               id='email'
               name='email'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -179,13 +191,15 @@ export const Login = ({
             />
 
             {errorEmail ? (
-              <div className={styles.inputErrorMessage}>Email no valido</div>
+              <div className={styles.inputErrorMessage}>
+                {formatMessage({ id: 'store/live.chat-login-invalid-email' })}
+              </div>
             ) : null}
           </div>
         )}
 
         <button disabled={disabledBtn} type='submit' className={styles.btn}>
-          CONTINUAR CON EL CHAT
+          {formatMessage({ id: 'store/live.chat-login-btn' })}
         </button>
       </form>
     </div>

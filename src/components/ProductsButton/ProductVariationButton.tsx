@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-
+import { useIntl } from 'react-intl'
 import styles from './productButton.css'
 
 type ProductButtonProps = {
@@ -19,6 +19,7 @@ const ProductVariationButton = (props: ProductButtonProps) => {
     productName
   } = props
 
+  const { formatMessage } = useIntl()
   return (
     <Fragment>
       <button
@@ -37,7 +38,9 @@ const ProductVariationButton = (props: ProductButtonProps) => {
           localStorage.setItem('sectionIdClickedOnForAddToCart', eventAddToCart)
         }}
       >
-        {isAvailable ? 'Agregar' : 'Agotado'}
+        {isAvailable
+          ? formatMessage({ id: 'store/text.add' })
+          : formatMessage({ id: 'store/text.not-stock' })}
       </button>
     </Fragment>
   )
