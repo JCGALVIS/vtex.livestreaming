@@ -114,7 +114,9 @@ export const StreamPlayer = ({
 
     return (
       <Fragment>
-        {!fullScreen && (isMobile || isVerticalLayout) ? (
+        {isMobile ? (
+          <MobileControls {...props} />
+        ) : !fullScreen && isVerticalLayout ? (
           <MobileControls {...props} />
         ) : (
           <DesktopControls {...props} />
