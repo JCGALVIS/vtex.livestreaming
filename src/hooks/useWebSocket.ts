@@ -86,7 +86,8 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         emailIsRequired,
         kuikpay,
         isAdmin,
-        responseAdmin
+        responseAdmin,
+        isInGlobalPage
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -150,7 +151,8 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             infinite,
             time,
             pdp,
-            kuikpay
+            kuikpay,
+            isInGlobalPage
           })
           break
 

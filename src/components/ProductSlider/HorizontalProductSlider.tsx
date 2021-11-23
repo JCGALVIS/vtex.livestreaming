@@ -16,6 +16,7 @@ type HorizontalProductSliderProps = {
   kuikpay: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
+  isInGlobalPage: boolean
 }
 
 export const HorizontalProductSlider = ({
@@ -26,7 +27,8 @@ export const HorizontalProductSlider = ({
   originOfProducts,
   kuikpay,
   setShowVariation,
-  transmitionType
+  transmitionType,
+  isInGlobalPage
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
   const [itemsProdcuts, setItemsProdcuts] = useState([
@@ -130,6 +132,7 @@ export const HorizontalProductSlider = ({
                   setShowVariation={setShowVariation}
                   kuikpay={kuikpay}
                   sectionIdClickedOn='live_shopping_carousel'
+                  isInGlobalPage={isInGlobalPage}
                 />
               </div>
             </CSSTransition>

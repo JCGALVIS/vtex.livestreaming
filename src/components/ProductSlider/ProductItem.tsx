@@ -25,6 +25,7 @@ type ProductItemProps = {
   originOfProducts: string
   kuikpay: boolean
   sectionIdClickedOn?: string
+  isInGlobalPage: boolean
 }
 
 export const ProductItem = (props: ProductItemProps) => {
@@ -43,7 +44,8 @@ export const ProductItem = (props: ProductItemProps) => {
     skuId,
     originOfProducts,
     kuikpay,
-    sectionIdClickedOn
+    sectionIdClickedOn,
+    isInGlobalPage
   } = props
   const { formatMessage, locale } = useIntl()
   const isSpanish = locale === SPANISH_CODE
@@ -72,14 +74,15 @@ export const ProductItem = (props: ProductItemProps) => {
           {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          {variationSelector.length === 0 ? (
+          {variationSelector.length === 0 || isInGlobalPage ? (
             <ProductButton
-              addToCartLink={addToCartLink}
+              addToCartLink={isInGlobalPage ? pdpLink : addToCartLink}
               isAvailable={isAvailable}
               pdp={pdp}
               productId={skuId}
               productName={name}
               sectionIdClickedOn={sectionIdClickedOn}
+              isInGlobalPage={isInGlobalPage}
             />
           ) : (
             <ProductVariationButton

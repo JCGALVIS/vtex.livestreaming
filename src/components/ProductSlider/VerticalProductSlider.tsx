@@ -16,6 +16,7 @@ type VerticalProductSliderProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
   kuikpay: boolean
+  isInGlobalPage: boolean
 }
 
 export const VerticalProductSlider = ({
@@ -27,7 +28,8 @@ export const VerticalProductSlider = ({
   originOfProducts,
   setShowVariation,
   setLoading,
-  kuikpay
+  kuikpay,
+  isInGlobalPage
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
     collectionId,
@@ -109,6 +111,7 @@ export const VerticalProductSlider = ({
               originOfProducts={originOfProducts}
               kuikpay={kuikpay}
               sectionIdClickedOn='live_shopping_sidebar'
+              isInGlobalPage={isInGlobalPage}
             />
           ))}
       </div>
