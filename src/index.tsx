@@ -406,5 +406,5 @@ Livestreaming.defaultProps = {
   pdp: 'true',
   originOfProducts: 'vtex',
   kuikpay: 'false',
-  isInGlobalPage: 'true'
+  isInGlobalPage: 'false'
 }
