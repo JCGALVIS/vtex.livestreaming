@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useContext } from 'react'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 import { SettingContext } from '../context/SettingContext'
+import { ActionsContext } from '../context/ActionsContext'
 import {
   ButtonProductsMobile,
   Chat,
@@ -23,7 +24,7 @@ import {
   useWebSocket
 } from './../hooks'
 import { getMobileOS } from './../utils'
-import type { LivestreamingProps, Message } from './../typings/livestreaming'
+import type { Message } from './../typings/livestreaming'
 
 import styles from './../styles.module.css'
 import styles2 from './liveShopping.css'
@@ -36,22 +37,7 @@ type OrderForm = {
   marketingData: MarketingData
 }
 
-export const LiveShopping = (props: LivestreamingProps) => {
-  const {
-    inactivateLike,
-    inactivateViewers,
-    inactivateChat,
-    idLivestreaming,
-    account,
-    isInfinite,
-    time,
-    inactiveSidebarProducts,
-    inactiveProductsCarousel,
-    pdp,
-    originOfProducts,
-    kuikpay
-  } = props
-
+export const LiveShopping = () => {
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
   const [showVariation, setShowVariation] = useState('')
@@ -63,6 +49,19 @@ export const LiveShopping = (props: LivestreamingProps) => {
   const [loading, setLoading] = useState(true)
 
   const { isPlayerSupported } = useIsPlayerSupported()
+
+  const {
+    setting: {
+      account,
+      idLivestreaming,
+      originOfProducts,
+      showChat,
+      showProductsCarousel,
+      showSidebarProducts,
+      showViewers
+    },
+    setSetting
+  } = useContext(ActionsContext)
 
   const { isModalLive, setIsModalLive } = useContext(SettingContext)
 
@@ -88,7 +87,6 @@ export const LiveShopping = (props: LivestreamingProps) => {
 
   const {
     scriptProperties,
-    setScriptProperties,
     setShowCounter,
     setEmailIsRequired,
     socket,
@@ -112,25 +110,32 @@ export const LiveShopping = (props: LivestreamingProps) => {
   }, [info, divVideoContent])
 
   useEffect(() => {
-    if (scriptProperties) return
-    setShowCounter(
-      inactivateViewers === 'undefined' ? true : inactivateViewers === 'true'
-    )
-    setScriptProperties({
-      sidebarProducts:
-        inactiveSidebarProducts === 'undefined'
-          ? false
-          : inactiveSidebarProducts === 'true',
-      productsCarousel:
-        inactiveSidebarProducts === 'undefined'
-          ? false
-          : inactiveProductsCarousel === 'true',
-      chat: inactivateChat === 'undefined' ? true : inactivateChat === 'true',
-      like: inactivateLike === 'undefined' ? true : inactivateLike === 'true',
-      infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
-      time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
-      pdp: pdp === 'undefined' ? false : pdp === 'true',
-      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true'
+    if (!scriptProperties) return
+    const {
+      chat,
+      infinite,
+      kuikpay,
+      like,
+      pdp,
+      productsCarousel,
+      sidebarProducts,
+      time
+    } = scriptProperties
+
+    setShowCounter(showViewers)
+    setSetting({
+      account,
+      idLivestreaming,
+      isInfinite: infinite,
+      kuikpay: kuikpay,
+      originOfProducts,
+      redirectTo: pdp,
+      showChat: chat,
+      showLike: like,
+      showProductsCarousel: productsCarousel,
+      showSidebarProducts: sidebarProducts,
+      showViewers,
+      time
     })
   }, [scriptProperties])
 
@@ -225,48 +230,31 @@ export const LiveShopping = (props: LivestreamingProps) => {
         <VariationSelector
           showVariation={showVariation}
           setShowVariation={setShowVariation}
-          pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-          originOfProducts={originOfProducts === '' ? '' : originOfProducts}
         />
-        {scriptProperties?.sidebarProducts ||
-        scriptProperties?.productsCarousel ? (
+        {showSidebarProducts || showProductsCarousel ? (
           <SliderProductMobile
             collectionId={collectionId}
-            infinite={scriptProperties?.infinite}
-            time={scriptProperties?.time}
             height={height}
             showSliderProducts={showSliderProducts}
             setShowSliderProducts={setShowSliderProducts}
-            pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-            originOfProducts={originOfProducts === '' ? '' : originOfProducts}
             setShowVariation={setShowVariation}
             setLoading={setLoading}
-            kuikpay={
-              scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
-            }
           />
         ) : null}
         <div
           style={{ height: parseInt(height) }}
           className={`${
-            scriptProperties?.sidebarProducts
+            showSidebarProducts
               ? styles.sliderProductContent
               : styles.displayNone
           }`}
         >
-          {scriptProperties?.sidebarProducts && (
+          {showSidebarProducts && (
             <VerticalProductSlider
               collectionId={collectionId}
-              infinite={scriptProperties.infinite}
-              time={scriptProperties.time}
               height={(parseInt(height) - 58).toString()}
-              pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-              originOfProducts={originOfProducts === '' ? '' : originOfProducts}
               setShowVariation={setShowVariation}
               setLoading={setLoading}
-              kuikpay={
-                scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
-              }
             />
           )}
         </div>
@@ -276,13 +264,7 @@ export const LiveShopping = (props: LivestreamingProps) => {
               ? { height: parseInt(height), width: width }
               : { width: '100%' }
           }
-          className={`${styles.videoContainer} ${
-            !scriptProperties?.sidebarProducts && styles.videoContainerChat
-          } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
-            !scriptProperties?.sidebarProducts &&
-            !scriptProperties?.chat &&
-            styles.videoContainerFull
-          }`}
+          className={styles.videoContainer}
         >
           <div
             ref={divVideoContent}
@@ -297,8 +279,7 @@ export const LiveShopping = (props: LivestreamingProps) => {
               }`}
             >
               <div className={styles2.buttonProductContent}>
-                {scriptProperties?.sidebarProducts ||
-                scriptProperties?.productsCarousel ? (
+                {showSidebarProducts || showProductsCarousel ? (
                   <ButtonProductsMobile
                     collectionId={collectionId}
                     setShowSliderProducts={setShowSliderProducts}
@@ -320,15 +301,9 @@ export const LiveShopping = (props: LivestreamingProps) => {
                 )}
               </div>
               <Feed
-                activateLike={
-                  scriptProperties?.like ? scriptProperties?.like : false
-                }
                 collectionId={collectionId}
                 infoSocket={info}
                 isPlayerSupported={isPlayerSupported}
-                originOfProducts={
-                  originOfProducts === '' ? '' : originOfProducts
-                }
                 setShowVariation={setShowVariation}
                 setWidth={setWidth}
                 streamUrl={streamUrl}
@@ -343,21 +318,10 @@ export const LiveShopping = (props: LivestreamingProps) => {
               </div>
             </div>
             <div className={styles.horizontalProductsContent}>
-              {scriptProperties?.productsCarousel && (
+              {showProductsCarousel && (
                 <HorizontalProductSlider
                   collectionId={collectionId}
-                  infinite={scriptProperties.infinite}
-                  time={scriptProperties.time}
-                  pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-                  originOfProducts={
-                    originOfProducts === '' ? '' : originOfProducts
-                  }
                   setShowVariation={setShowVariation}
-                  kuikpay={
-                    scriptProperties?.kuikpay
-                      ? scriptProperties?.kuikpay
-                      : false
-                  }
                   transmitionType={transmitionType}
                 />
               )}
@@ -370,17 +334,10 @@ export const LiveShopping = (props: LivestreamingProps) => {
               ? { height: parseInt(height), maxHeight: parseInt(height) }
               : { height: 'auto' }
           }
-          className={`${
-            scriptProperties?.chat ? styles.chatContent : styles.displayNone
-          }`}
+          className={`${showChat ? styles.chatContent : styles.displayNone}`}
         >
-          {scriptProperties?.chat && streamUrl && (
-            <Chat
-              infoSocket={info}
-              idLivestreaming={idLivestreaming}
-              account={account}
-              pinnedMessage={pinnedMessage}
-            />
+          {showChat && streamUrl && (
+            <Chat infoSocket={info} pinnedMessage={pinnedMessage} />
           )}
         </div>
       </div>

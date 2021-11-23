@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 import styles from './Login.css'
@@ -7,12 +7,11 @@ import { InfoSocket } from '../../../typings/livestreaming'
 import { useSessionId } from '../../../hooks/useSessionId'
 import { apiCall } from '../../../services'
 import { useIntl } from 'react-intl'
+import { ActionsContext } from '../../../context/ActionsContext'
 
 interface Props {
-  idLivestreaming: string
   content: string
   infoSocket: InfoSocket
-  account: string
   setShowLoginWindow: React.Dispatch<React.SetStateAction<boolean>>
   setUserIsLoggedInChat: React.Dispatch<React.SetStateAction<boolean>>
   setSendFirstMessage: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,14 +19,12 @@ interface Props {
 }
 
 export const Login = ({
-  idLivestreaming,
   content,
   setShowLoginWindow,
   setUserIsLoggedInChat,
   setSendFirstMessage,
   setContent,
-  infoSocket,
-  account
+  infoSocket
 }: Props) => {
   const { formatMessage } = useIntl()
   const [username, setUsername] = useState<string>('')
@@ -38,6 +35,10 @@ export const Login = ({
   const [errorEmail, setErrorEmail] = useState(false)
   const [erroMessage, setErrorMessage] = useState('')
   const [disabledBtn, setDisabledBtn] = useState(false)
+
+  const {
+    setting: { account, idLivestreaming }
+  } = useContext(ActionsContext)
 
   const handlerCloseCard = () => {
     setShowLoginWindow(false)

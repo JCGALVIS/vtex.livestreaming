@@ -191,13 +191,17 @@
   cursor: pointer;
 }
 
+.productAddCartContent {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
 .buttonGroup {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .productButton {
@@ -271,9 +275,12 @@
     flex: 0 1 50%;
   }
 
+  .productAddCartContent {
+    margin-bottom: 0;
+  }
+
   .buttonGroup {
     flex-direction: row;
-    margin-bottom: 0;
   }
 
   .productButton {

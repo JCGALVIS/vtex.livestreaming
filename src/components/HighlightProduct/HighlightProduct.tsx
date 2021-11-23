@@ -1,15 +1,15 @@
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { useState, Fragment, useEffect, useContext } from 'react'
 
 // eslint-disable-next-line no-unused-vars
 import { InfoSocket } from '../../typings/livestreaming'
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 
 import styles from './highlightProduct.css'
+import { ActionsContext } from '../../context/ActionsContext'
 interface HighlightProductProps {
   collectionId: string | undefined
   fullScreen: boolean
   handleFullScreen: () => void
-  originOfProducts: string | undefined
   infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
@@ -19,12 +19,15 @@ const HighlightProduct = ({
   fullScreen,
   handleFullScreen,
   infoSocket,
-  originOfProducts,
   setShowVariation
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
   const { ivsRealTime, highlightProduct } = infoSocket
+
+  const {
+    setting: { originOfProducts }
+  } = useContext(ActionsContext)
 
   const { product, showProduct } = useHighlightProduct({
     highlightProduct,

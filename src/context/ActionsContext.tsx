@@ -3,16 +3,29 @@ import React, { createContext, useState, FC } from 'react'
 import type { LivestreamingProps } from '../typings/livestreaming'
 
 type ActionCtx = {
-  setting: LivestreamingProps | null
+  setting: LivestreamingProps
   setSetting: (livestreamingProps: LivestreamingProps) => void
 }
 
 const actionsDefault: ActionCtx = {
-  setting: null,
+  setting: {
+    account: '',
+    idLivestreaming: '',
+    isInfinite: true,
+    kuikpay: false,
+    originOfProducts: '',
+    redirectTo: true,
+    showChat: true,
+    showLike: true,
+    showProductsCarousel: false,
+    showSidebarProducts: false,
+    showViewers: true,
+    time: 10
+  },
   setSetting: () => {}
 }
 
-const ActionsContext = createContext<ActionCtx>(actionsDefault)
+export const ActionsContext = createContext<ActionCtx>(actionsDefault)
 
 type ActionsProviderProps = {
   props: LivestreamingProps
@@ -25,37 +38,43 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
   const {
     account,
     idLivestreaming,
-    inactiveSidebarProducts,
-    inactiveProductsCarousel,
-    inactivateChat,
-    inactivateLike,
-    inactivateViewers,
     isInfinite,
-    time,
-    pdp,
+    kuikpay,
     originOfProducts,
-    kuikpay
+    redirectTo,
+    showChat,
+    showLike,
+    showProductsCarousel,
+    showSidebarProducts,
+    showViewers,
+    time
   } = props
 
-  const [setting, setSetting] = useState<LivestreamingProps | null>({
+  const [setting, setSetting] = useState<LivestreamingProps>({
     account,
     idLivestreaming,
-    inactiveSidebarProducts,
-    inactiveProductsCarousel,
-    inactivateChat,
-    inactivateLike,
-    inactivateViewers,
-    isInfinite,
-    time,
-    pdp,
+    isInfinite: isInfinite === undefined ? true : isInfinite === true,
+    kuikpay: kuikpay === undefined ? false : kuikpay === true,
     originOfProducts,
-    kuikpay
+    redirectTo: redirectTo === undefined ? true : redirectTo === true,
+    showChat: showChat === undefined ? true : showChat === true,
+    showLike: showLike === undefined ? true : showLike === true,
+    showProductsCarousel:
+      showProductsCarousel === undefined
+        ? false
+        : showProductsCarousel === true,
+    showSidebarProducts:
+      showSidebarProducts === undefined ? false : showSidebarProducts === true,
+    showViewers: showViewers === undefined ? true : showViewers === true,
+    time
   })
 
   const context: ActionCtx = {
     setting,
     setSetting
   }
+
+  // console.log('context: ', context)
 
   return (
     <ActionsContext.Provider value={context}>

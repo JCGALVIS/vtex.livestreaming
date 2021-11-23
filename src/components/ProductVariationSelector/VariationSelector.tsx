@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState, useContext } from 'react'
 import { Transition, CSSTransition } from 'react-transition-group'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
@@ -7,20 +7,20 @@ import { useFetchProductById } from '../../hooks/useFetchProductById'
 import { currencyFormat } from '../../utils'
 import { ColorVariation } from './ColorVariation'
 import { SizeVariations } from './SizeVariations'
-
-import styles from './variationSelector.css'
 import type { Values } from '../../typings/livestreaming'
 import ProductButton from '../ProductsButton/ProductButton'
+import { ActionsContext } from '../../context/ActionsContext'
+
+import styles from './variationSelector.css'
+import { KuikPayButton } from '../ProductsButton/KuikPayButton'
 
 type VariationSelectorProps = {
   showVariation: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  pdp: boolean
-  originOfProducts: string | undefined
 }
 
 export const VariationSelector = (props: VariationSelectorProps) => {
-  const { showVariation, setShowVariation, pdp, originOfProducts } = props
+  const { showVariation, setShowVariation } = props
   const [productId, setProductId] = useState('')
   const [show, setShow] = useState(false)
   const [selectedColor, setSelectedColor] = useState<Values[]>()
@@ -34,6 +34,10 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     priceWithDiscount: 0,
     skuId: ''
   })
+
+  const {
+    setting: { kuikpay, originOfProducts }
+  } = useContext(ActionsContext)
 
   const { product, loading } = useFetchProductById({
     productId,
@@ -174,16 +178,22 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                     </div>
                     <div className={styles.productContainer}>
                       <div className={styles.variationContent}>
-                        <div className={styles.buttonGroup}>
-                          <ProductButton
-                            addToCartLink={selectedProduct.addToCartLink}
-                            handleClose={handleClose}
-                            isAvailable={
-                              isAvailable ? selectedProduct.isAvailable : false
-                            }
-                            pdp={pdp}
-                            productId={selectedProduct.skuId}
-                          />
+                        <div className={styles.productAddCartContent}>
+                          <div className={styles.buttonGroup}>
+                            <ProductButton
+                              addToCartLink={selectedProduct.addToCartLink}
+                              handleClose={handleClose}
+                              isAvailable={
+                                isAvailable
+                                  ? selectedProduct.isAvailable
+                                  : false
+                              }
+                              productId={selectedProduct.skuId}
+                            />
+                          </div>
+                          {kuikpay && originOfProducts !== 'platform' && (
+                            <KuikPayButton productId={selectedProduct.skuId} />
+                          )}
                         </div>
                       </div>
                     </div>

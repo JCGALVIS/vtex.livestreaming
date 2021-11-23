@@ -27,7 +27,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
     <I18nProvider locale={locale}>
       <ActionsProvider props={props}>
         <SettingProvider {...settingProps}>
-          <LiveShopping {...props} />
+          <LiveShopping />
         </SettingProvider>
       </ActionsProvider>
     </I18nProvider>

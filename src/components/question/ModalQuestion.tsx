@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import Button from '@vtex/styleguide/lib/Button'
 
 import { Modal } from '../Modal/Modal'
@@ -11,17 +11,12 @@ import type { InfoSocket, Question } from '../../typings/livestreaming'
 import { apiCall } from '../../services'
 import styles from './question.css'
 import { FormattedMessage } from 'react-intl'
+import { ActionsContext } from '../../context/ActionsContext'
 declare interface Props {
   infoSocket: InfoSocket
-  idLivestreaming: string
-  account: string
 }
 
-export const ModalQuestion = ({
-  infoSocket,
-  idLivestreaming,
-  account
-}: Props) => {
+export const ModalQuestion = ({ infoSocket }: Props) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [typeQuestion, setTypeQuestion] = useState<string | undefined>('')
   const [isAnswer, setIsAnswer] = useState(false)
@@ -32,6 +27,11 @@ export const ModalQuestion = ({
   const { question, setQuestion, socket } = infoSocket
   const { saveUpdateVotes } = useUpdateVotes({ socket })
   const [data, setData] = useState<Question | undefined>()
+
+  const {
+    setting: { account, idLivestreaming }
+  } = useContext(ActionsContext)
+
   const showQuestion = useCallback(
     (questiontoShow: Question) => {
       if (!questiontoShow) return
@@ -64,7 +64,6 @@ export const ModalQuestion = ({
   }
 
   useEffect(() => {
-    // document.addEventListener('visibilitychange', handleVisibilityChange, false)
     window.addEventListener('blur', () => {
       setPageVisible(false)
     })

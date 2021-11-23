@@ -74,7 +74,6 @@ export type Dimensions = {
 }
 
 export type PlayerControls = {
-  activateLike: boolean
   BUFFERING: string
   firstTimeMuted: boolean
   fullScreen: boolean

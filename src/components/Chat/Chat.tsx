@@ -1,4 +1,11 @@
-import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react'
+import React, {
+  useRef,
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+  useContext
+} from 'react'
 
 import ChatIcon from '../icons/ChatIcon'
 import SendIcon from '../icons/Send'
@@ -11,22 +18,16 @@ import ArrowDown from '../icons/ArrowDown'
 
 import styles from './chat.css'
 import { useIntl } from 'react-intl'
+import { ActionsContext } from '../../context/ActionsContext'
 
 type ChatProps = {
   infoSocket: InfoSocket
-  idLivestreaming: string
-  account: string
   pinnedMessage: Message | undefined
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
 
-export const Chat = ({
-  infoSocket,
-  idLivestreaming,
-  account,
-  pinnedMessage
-}: ChatProps) => {
+export const Chat = ({ infoSocket, pinnedMessage }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const formContainer = useRef<HTMLFormElement>(null)
   const [content, setContent] = useState<string>('')
@@ -47,6 +48,11 @@ export const Chat = ({
   const [incomingPosition, setIncomingPosition] = useState(0)
   const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
   const { formatMessage } = useIntl()
+
+  const {
+    setting: { idLivestreaming }
+  } = useContext(ActionsContext)
+
   const handleIncoming = (): void => {
     if (!chatAreaRef?.current) return
 
@@ -288,16 +294,10 @@ export const Chat = ({
             content={content}
             setContent={setContent}
             infoSocket={infoSocket}
-            idLivestreaming={idLivestreaming}
-            account={account}
           />
         )}
 
-        <ModalQuestion
-          infoSocket={infoSocket}
-          idLivestreaming={idLivestreaming}
-          account={account}
-        />
+        <ModalQuestion infoSocket={infoSocket} />
 
         <form
           onSubmit={handlerSendMessage}

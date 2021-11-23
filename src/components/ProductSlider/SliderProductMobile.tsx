@@ -8,30 +8,20 @@ import styles from './productSlider.css'
 
 type SliderProductMobileProps = {
   collectionId: string | undefined
-  time?: number
-  infinite?: boolean
   height: string
   showSliderProducts: boolean
   setShowSliderProducts: React.Dispatch<React.SetStateAction<boolean>>
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  pdp: boolean
-  originOfProducts: string | undefined
-  kuikpay: boolean
 }
 
 export const SliderProductMobile = ({
   collectionId,
-  time,
-  infinite,
   height,
   showSliderProducts,
   setShowSliderProducts,
-  pdp,
-  originOfProducts,
   setShowVariation,
-  setLoading,
-  kuikpay
+  setLoading
 }: SliderProductMobileProps) => {
   return (
     <Transition in={showSliderProducts} timeout={150}>
@@ -59,14 +49,9 @@ export const SliderProductMobile = ({
               <div>
                 <VerticalProductSlider
                   collectionId={collectionId}
-                  time={time}
-                  infinite={infinite}
                   height={(parseInt(height) + 50).toString()}
-                  pdp={pdp}
-                  originOfProducts={originOfProducts}
                   setShowVariation={setShowVariation}
                   setLoading={setLoading}
-                  kuikpay={kuikpay}
                 />
               </div>
             </div>

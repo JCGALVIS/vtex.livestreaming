@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { currencyFormat } from '../../utils'
 import ProductVariationButton from '../ProductsButton/ProductVariationButton'
@@ -7,6 +7,7 @@ import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 
 import styles from './productSlider.css'
 import { useIntl } from 'react-intl'
+import { ActionsContext } from '../../context/ActionsContext'
 
 const SPANISH_CODE = 'es'
 type ProductItemProps = {
@@ -17,13 +18,10 @@ type ProductItemProps = {
   imageUrl: string
   addToCartLink: string
   isAvailable: boolean
-  pdp: boolean
   pdpLink: string
   variationSelector: []
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   skuId: string
-  originOfProducts: string
-  kuikpay: boolean
   sectionIdClickedOn?: string
 }
 
@@ -36,15 +34,17 @@ export const ProductItem = (props: ProductItemProps) => {
     imageUrl,
     addToCartLink,
     isAvailable,
-    pdp,
     pdpLink,
     variationSelector,
     setShowVariation,
     skuId,
-    originOfProducts,
-    kuikpay,
     sectionIdClickedOn
   } = props
+
+  const {
+    setting: { kuikpay, originOfProducts }
+  } = useContext(ActionsContext)
+
   const { formatMessage, locale } = useIntl()
   const isSpanish = locale === SPANISH_CODE
   return (
@@ -76,7 +76,6 @@ export const ProductItem = (props: ProductItemProps) => {
             <ProductButton
               addToCartLink={addToCartLink}
               isAvailable={isAvailable}
-              pdp={pdp}
               productId={skuId}
               productName={name}
               sectionIdClickedOn={sectionIdClickedOn}

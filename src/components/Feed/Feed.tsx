@@ -6,11 +6,9 @@ import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 
 type FeedProps = {
-  activateLike: boolean
   collectionId: string | undefined
   infoSocket: InfoSocket
   isPlayerSupported: boolean
-  originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
   recordPath: string | undefined
@@ -19,11 +17,9 @@ type FeedProps = {
 }
 
 export const Feed = ({
-  activateLike,
   collectionId,
   infoSocket,
   isPlayerSupported,
-  originOfProducts,
   setShowVariation,
   setWidth,
   recordPath,
@@ -114,10 +110,8 @@ export const Feed = ({
     ((streamUrl && isTransmiting) ||
       (recordPath && !streamUrl && !isTransmiting)) ? (
     <StreamPlayer
-      activateLike={activateLike}
       collectionId={collectionId}
       infoSocket={infoSocket}
-      originOfProducts={originOfProducts}
       player={player.current}
       setShowVariation={setShowVariation}
       setWidth={setWidth}

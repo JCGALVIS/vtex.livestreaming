@@ -19,10 +19,8 @@ import styles from '../../../styles.module.css'
 import styles2 from './streamPlayer.css'
 
 type streamPlayerProps = {
-  activateLike: boolean
   collectionId: string | undefined
   infoSocket: InfoSocket
-  originOfProducts: string | undefined
   player: MediaPlayer
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
@@ -30,10 +28,8 @@ type streamPlayerProps = {
 }
 
 export const StreamPlayer = ({
-  activateLike,
   collectionId,
   infoSocket,
-  originOfProducts,
   player,
   setShowVariation,
   setWidth,
@@ -94,7 +90,6 @@ export const StreamPlayer = ({
     const isMobile = windowDimensions.width <= 640
 
     const props = {
-      activateLike,
       BUFFERING,
       firstTimeMuted,
       fullScreen,
@@ -134,7 +129,6 @@ export const StreamPlayer = ({
       </Fragment>
     )
   }, [
-    activateLike,
     BUFFERING,
     firstTimeMuted,
     fullScreen,
@@ -191,7 +185,6 @@ export const StreamPlayer = ({
               detector ? handleFullScreen : handleFullScreenMobile
             }
             infoSocket={infoSocket}
-            originOfProducts={originOfProducts}
             setShowVariation={setShowVariation}
           />
         )}
