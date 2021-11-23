@@ -1,6 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { Queue } from '../utils'
 
+type LivestreamingProps = {
+  account: string
+  idLivestreaming: string
+  inactiveSidebarProducts?: string
+  inactiveProductsCarousel?: string
+  inactivateChat?: string
+  inactivateLike?: string
+  inactivateViewers?: string
+  isInfinite?: string
+  time?: string
+  pdp?: string
+  originOfProducts?: string
+  kuikpay?: string
+}
+
 export declare interface Message {
   sessionId?: string
   data?: string

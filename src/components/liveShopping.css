@@ -1,0 +1,55 @@
+.heightPopoup {
+  height: 100% !important;
+}
+
+.livestreaming {
+  height: 100%;
+  margin-bottom: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.livestreamingContent {
+  display: flex;
+  justify-content: center;
+  height: 71vh;
+  position: relative;
+  width: 100%;
+}
+
+.livePopoup {
+  position: fixed;
+  height: 100%;
+  z-index: 100;
+  top: 0;
+}
+
+.buttonProductContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 1.4rem;
+  right: 1rem;
+  z-index: 1;
+  height: auto;
+}
+
+.closePopoup {
+  background-color: #808080;
+  border-radius: 500%;
+  display: flex;
+  height: 20px;
+  width: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4px;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 930px) {
+  .livestreamingContent {
+    height: auto;
+  }
+}

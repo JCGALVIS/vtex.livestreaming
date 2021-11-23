@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { getMobileOS } from '../../utils'
 import styles from './NoVideo.css'
 import { FormattedMessage } from 'react-intl'
+import { SettingContext } from '../../context/SettingContext'
 
 const messages = {
   noVideo: <FormattedMessage id='store/text.live-no-video' />,
@@ -22,6 +23,8 @@ export const NoVideo = ({
   setWidth,
   transmitionType
 }: NoVideoProps) => {
+  const { isModalLive } = useContext(SettingContext)
+
   useEffect(() => {
     if (transmitionType === 'vertical') {
       setWidth('278.438px')
@@ -32,7 +35,9 @@ export const NoVideo = ({
 
   return (
     <div
-      className={styles.noVideoContainer}
+      className={`${isModalLive && styles.noVideoContainerPopoup} ${
+        styles.noVideoContainer
+      }`}
       style={
         getMobileOS() === 'unknown'
           ? transmitionType === 'vertical'

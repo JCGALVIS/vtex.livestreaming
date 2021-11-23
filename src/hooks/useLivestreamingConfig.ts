@@ -7,7 +7,7 @@ declare interface Props {
   account: string
 }
 
-export const useLivestreamingConfig = ({ id, account }: Props) => {
+const useLivestreamingConfig = ({ id, account }: Props) => {
   const [wssStream, setWssStream] = useState<string | undefined>(undefined)
   const [streamUrl, setStreamUrl] = useState<string | undefined>(undefined)
   const [collectionId, setCollectionId] = useState<string | undefined>(
@@ -20,6 +20,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
   const [recordPath, setRecordPath] = useState<string | undefined>(undefined)
+  const [isModalLive, setIsModalLive] = useState<boolean | undefined>()
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -44,6 +45,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
       setPinnedMessage(data?.pinnedMessage)
       setTransmitionType(data?.webClient?.transmitionType)
       setRecordPath(data?.webClient?.recordPath)
+      setIsModalLive(data?.webClient.modalLive)
     }
 
     getLivestreaming().catch(null)
@@ -57,6 +59,10 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
     emailIsRequired,
     pinnedMessage,
     transmitionType,
-    recordPath
+    recordPath,
+    isModalLive,
+    setIsModalLive
   }
 }
+
+export default useLivestreamingConfig

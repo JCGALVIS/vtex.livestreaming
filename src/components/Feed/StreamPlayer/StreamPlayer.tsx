@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useMemo, Fragment } from 'react'
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  Fragment,
+  useContext
+} from 'react'
 
+import { SettingContext } from '../../../context/SettingContext'
 import type { MediaPlayer } from '../../../typings/MediaPlayer'
 import { getDeviceType } from '../../../utils'
 import type { InfoSocket } from '../../../typings/livestreaming'
@@ -9,6 +16,7 @@ import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 
 import styles from '../../../styles.module.css'
+import styles2 from './streamPlayer.css'
 
 type streamPlayerProps = {
   activateLike: boolean
@@ -32,6 +40,8 @@ export const StreamPlayer = ({
   transmitionType
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
+
+  const { isModalLive } = useContext(SettingContext)
 
   const mobileOS = getDeviceType() === 'mobile'
 
@@ -156,7 +166,9 @@ export const StreamPlayer = ({
     <Fragment>
       <div
         ref={mainContainer}
-        className={styles.playerUi}
+        className={`${isModalLive && styles2.playerUiPopoup} ${
+          styles2.playerUi
+        }`}
         onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
         onMouseMove={() => {
           setInactive(false)

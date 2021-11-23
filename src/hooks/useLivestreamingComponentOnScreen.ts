@@ -4,7 +4,7 @@ declare interface Option {
   rootMargin: string
 }
 
-export const useLivestreamingComponentOnScreen = (option: Option) => {
+const useLivestreamingComponentOnScreen = (option: Option) => {
   const livestreaminComponent = document.getElementById('live-shopping-app')
   const [inView, setInView] = useState(false)
 
@@ -26,3 +26,5 @@ export const useLivestreamingComponentOnScreen = (option: Option) => {
 
   return { livestreaminComponentInView: inView }
 }
+
+export default useLivestreamingComponentOnScreen
