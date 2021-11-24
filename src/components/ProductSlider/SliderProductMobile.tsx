@@ -18,6 +18,7 @@ type SliderProductMobileProps = {
   pdp: boolean
   originOfProducts: string | undefined
   kuikpay: boolean
+  isInGlobalPage: boolean
 }
 
 export const SliderProductMobile = ({
@@ -31,7 +32,8 @@ export const SliderProductMobile = ({
   originOfProducts,
   setShowVariation,
   setLoading,
-  kuikpay
+  kuikpay,
+  isInGlobalPage
 }: SliderProductMobileProps) => {
   return (
     <Transition in={showSliderProducts} timeout={150}>
@@ -67,6 +69,7 @@ export const SliderProductMobile = ({
                   setShowVariation={setShowVariation}
                   setLoading={setLoading}
                   kuikpay={kuikpay}
+                  isInGlobalPage={isInGlobalPage}
                 />
               </div>
             </div>

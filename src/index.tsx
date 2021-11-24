@@ -35,6 +35,7 @@ type LivestreamingProps = {
   pdp?: string
   originOfProducts?: string
   kuikpay?: string
+  isInGlobalPage?: string
 }
 
 type MarketingData = {
@@ -58,7 +59,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactiveProductsCarousel,
     pdp,
     originOfProducts,
-    kuikpay
+    kuikpay,
+    isInGlobalPage
   } = props
 
   const divVideoContent = useRef<HTMLDivElement>(null)
@@ -138,7 +140,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
       infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
       time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
       pdp: pdp === 'undefined' ? false : pdp === 'true',
-      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true'
+      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true',
+      isInGlobalPage: isInGlobalPage === 'undefined' ? false : isInGlobalPage === 'true'
     })
   }, [scriptProperties])
 
@@ -236,6 +239,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
             setShowVariation={setShowVariation}
             pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
             originOfProducts={originOfProducts === '' ? '' : originOfProducts}
+            isInGlobalPage={
+              scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
+            }
           />
           {scriptProperties?.sidebarProducts ||
           scriptProperties?.productsCarousel ? (
@@ -252,6 +258,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
               setLoading={setLoading}
               kuikpay={
                 scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+              }
+              isInGlobalPage={
+                scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
               }
             />
           ) : null}
@@ -277,6 +286,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 setLoading={setLoading}
                 kuikpay={
                   scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+                }
+                isInGlobalPage={
+                  scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
                 }
               />
             )}
@@ -350,6 +362,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                         : false
                     }
                     transmitionType={transmitionType}
+                    isInGlobalPage={
+                      scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
+                    }
                   />
                 )}
               </div>
@@ -390,5 +405,6 @@ Livestreaming.defaultProps = {
   time: '10',
   pdp: 'true',
   originOfProducts: 'vtex',
-  kuikpay: 'false'
+  kuikpay: 'false',
+  isInGlobalPage: 'false'
 }

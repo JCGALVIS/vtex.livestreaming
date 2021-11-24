@@ -12,6 +12,7 @@ type ProductButtonProps = {
   productId: string
   productName?: string
   sectionIdClickedOn?: string
+  isInGlobalPage: boolean
 }
 
 const ProductButton = (props: ProductButtonProps) => {
@@ -22,7 +23,8 @@ const ProductButton = (props: ProductButtonProps) => {
     pdp,
     productId,
     productName,
-    sectionIdClickedOn
+    sectionIdClickedOn,
+    isInGlobalPage
   } = props
 
   const { formatMessage } = useIntl()
@@ -35,7 +37,7 @@ const ProductButton = (props: ProductButtonProps) => {
         }`}
         disabled={!isAvailable}
         onClick={() => {
-          addToCart(productId, pdp)
+          addToCart(productId, pdp, isInGlobalPage)
 
           if (handleClose) handleClose()
           if (!sectionIdClickedOn) return

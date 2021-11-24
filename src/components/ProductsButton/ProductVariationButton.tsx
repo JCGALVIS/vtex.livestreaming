@@ -16,10 +16,11 @@ const ProductVariationButton = (props: ProductButtonProps) => {
     setShowVariation,
     productId,
     sectionIdClickedOn,
-    productName
+    productName,
   } = props
 
   const { formatMessage } = useIntl()
+
   return (
     <Fragment>
       <button
