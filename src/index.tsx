@@ -228,10 +228,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   useEffect(() => {
     const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
-    const availableLng = [LOCALES.en, LOCALES.es, LOCALES.pt]
+    const languageAvailable = [LOCALES.en, LOCALES.es, LOCALES.pt]
 
     setLocale(
-      availableLng.includes(languageBrowser) ? languageBrowser : LOCALES.en
+      languageAvailable.includes(languageBrowser) ? languageBrowser : LOCALES.en
     )
   }, [])
 
