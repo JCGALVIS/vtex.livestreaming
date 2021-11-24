@@ -15,6 +15,8 @@ import { SliderProductMobile } from './components/ProductSlider/SliderProductMob
 import { VariationSelector } from './components/ProductVariationSelector/VariationSelector'
 import { useIsPlayerSupported } from './hooks'
 import { getMobileOS } from './utils'
+import { LOCALES, I18nProvider } from './i18n'
+
 import type { Message } from './typings/livestreaming'
 
 import styles from './styles.module.css'
@@ -40,6 +42,7 @@ type LivestreamingProps = {
   pdp?: string
   originOfProducts?: string
   kuikpay?: string
+  isInGlobalPage?: string
 }
 
 type MarketingData = {
@@ -63,7 +66,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     inactiveProductsCarousel,
     pdp,
     originOfProducts,
-    kuikpay
+    kuikpay,
+    isInGlobalPage
   } = props
 
   const [state, dispatch] = useLivestreamingReducer()
@@ -73,7 +77,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
   const [showVariation, setShowVariation] = useState('')
-
+  const [locale, setLocale] = useState(LOCALES.en)
   const [height, setHeight] = useState('0')
   const [width, setWidth] = useState<string | number>(0)
   const [detector, setDetector] = useState('')
@@ -147,7 +151,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
       infinite: isInfinite === 'undefined' ? true : isInfinite === 'true',
       time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
       pdp: pdp === 'undefined' ? false : pdp === 'true',
-      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true'
+      kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true',
+      isInGlobalPage:
+        isInGlobalPage === 'undefined' ? false : isInGlobalPage === 'true'
     })
   }, [scriptProperties])
 
@@ -224,57 +230,43 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [initTransmitionType, socketTransmitiontype])
 
   useEffect(() => {
-    console.log('streamUrl: ', streamUrl)
     if (!scriptProperties?.sidebarProducts) {
       setTimeout(() => {
         setLoading(false)
       }, 3000)
     }
-  }, [scriptProperties, streamUrl])
+  }, [scriptProperties])
+
+  useEffect(() => {
+    setLocale((window.navigator.language || LOCALES.en).trim().split(/-|_/)[0])
+  }, [])
 
   return (
-    <LivestreamingProvider value={state} dispatch={dispatch}>
-      <div className={styles.livestreaming}>
-        {loading && <Spinner />}
-        <div className={styles.livestreamingContent}>
-          <VariationSelector
-            showVariation={showVariation}
-            setShowVariation={setShowVariation}
-            pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
-            originOfProducts={originOfProducts === '' ? '' : originOfProducts}
-          />
-          {scriptProperties?.sidebarProducts ||
-          scriptProperties?.productsCarousel ? (
-            <SliderProductMobile
-              collectionId={collectionId}
-              infinite={scriptProperties?.infinite}
-              time={scriptProperties?.time}
-              height={height}
-              showSliderProducts={showSliderProducts}
-              setShowSliderProducts={setShowSliderProducts}
+    <I18nProvider locale={locale}>
+      <LivestreamingProvider value={state} dispatch={dispatch}>
+        <div className={styles.livestreaming}>
+          {loading && <Spinner />}
+          <div className={styles.livestreamingContent}>
+            <VariationSelector
+              showVariation={showVariation}
+              setShowVariation={setShowVariation}
               pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
               originOfProducts={originOfProducts === '' ? '' : originOfProducts}
-              setShowVariation={setShowVariation}
-              setLoading={setLoading}
-              kuikpay={
-                scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
+              isInGlobalPage={
+                scriptProperties?.isInGlobalPage
+                  ? scriptProperties?.isInGlobalPage
+                  : false
               }
             />
-          ) : null}
-          <div
-            style={{ height: parseInt(height) }}
-            className={`${
-              scriptProperties?.sidebarProducts
-                ? styles.sliderProductContent
-                : styles.displayNone
-            }`}
-          >
-            {scriptProperties?.sidebarProducts && (
-              <VerticalProductSlider
+            {scriptProperties?.sidebarProducts ||
+            scriptProperties?.productsCarousel ? (
+              <SliderProductMobile
                 collectionId={collectionId}
-                infinite={scriptProperties.infinite}
-                time={scriptProperties.time}
-                height={(parseInt(height) - 58).toString()}
+                infinite={scriptProperties?.infinite}
+                time={scriptProperties?.time}
+                height={height}
+                showSliderProducts={showSliderProducts}
+                setShowSliderProducts={setShowSliderProducts}
                 pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
                 originOfProducts={
                   originOfProducts === '' ? '' : originOfProducts
@@ -284,107 +276,152 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 kuikpay={
                   scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
                 }
+                isInGlobalPage={
+                  scriptProperties?.isInGlobalPage
+                    ? scriptProperties?.isInGlobalPage
+                    : false
+                }
               />
-            )}
-          </div>
-          <div
-            style={
-              detector === 'unknown'
-                ? { height: parseInt(height), width: width }
-                : { width: '100%' }
-            }
-            className={`${styles.videoContainer} ${
-              !scriptProperties?.sidebarProducts && styles.videoContainerChat
-            } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
-              !scriptProperties?.sidebarProducts &&
-              !scriptProperties?.chat &&
-              styles.videoContainerFull
-            }`}
-          >
+            ) : null}
             <div
-              ref={divVideoContent}
-              className={styles.fittedContainer}
-              style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
+              style={{ height: parseInt(height) }}
+              className={`${
+                scriptProperties?.sidebarProducts
+                  ? styles.sliderProductContent
+                  : styles.displayNone
+              }`}
             >
-              <div className={styles.videoContent}>
-                {scriptProperties?.sidebarProducts ||
-                scriptProperties?.productsCarousel ? (
-                  <div className={styles.buttonProductContent}>
-                    <ButtonProductsMobile
-                      collectionId={collectionId}
-                      setShowSliderProducts={setShowSliderProducts}
-                    />
-                  </div>
-                ) : null}
-                <Feed
-                  activateLike={
-                    scriptProperties?.like ? scriptProperties?.like : false
-                  }
+              {scriptProperties?.sidebarProducts && (
+                <VerticalProductSlider
                   collectionId={collectionId}
-                  infoSocket={info}
-                  isPlayerSupported={isPlayerSupported}
+                  infinite={scriptProperties.infinite}
+                  time={scriptProperties.time}
+                  height={(parseInt(height) - 58).toString()}
+                  pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
                   originOfProducts={
                     originOfProducts === '' ? '' : originOfProducts
                   }
                   setShowVariation={setShowVariation}
-                  setWidth={setWidth}
-                  streamUrl={streamUrl}
-                  transmitionType={transmitionType}
-                  recordPath={recordPath}
+                  setLoading={setLoading}
+                  kuikpay={
+                    scriptProperties?.kuikpay
+                      ? scriptProperties?.kuikpay
+                      : false
+                  }
+                  isInGlobalPage={
+                    scriptProperties?.isInGlobalPage
+                      ? scriptProperties?.isInGlobalPage
+                      : false
+                  }
                 />
-                <div className={styles.liveContent}>
-                  <Live infoSocket={info} />
-                </div>
-                <div className={styles.viewersContent}>
-                  <Viewers infoSocket={info} />
-                </div>
-              </div>
-              <div className={styles.horizontalProductsContent}>
-                {scriptProperties?.productsCarousel && (
-                  <HorizontalProductSlider
+              )}
+            </div>
+            <div
+              style={
+                detector === 'unknown'
+                  ? { height: parseInt(height), width: width }
+                  : { width: '100%' }
+              }
+              className={`${styles.videoContainer} ${
+                !scriptProperties?.sidebarProducts && styles.videoContainerChat
+              } ${!scriptProperties?.chat && styles.videoContainerProducts} ${
+                !scriptProperties?.sidebarProducts &&
+                !scriptProperties?.chat &&
+                styles.videoContainerFull
+              }`}
+            >
+              <div
+                ref={divVideoContent}
+                className={styles.fittedContainer}
+                style={
+                  transmitionType === 'horizontal' ? { width: '100%' } : {}
+                }
+              >
+                <div className={styles.videoContent}>
+                  {scriptProperties?.sidebarProducts ||
+                  scriptProperties?.productsCarousel ? (
+                    <div className={styles.buttonProductContent}>
+                      <ButtonProductsMobile
+                        collectionId={collectionId}
+                        setShowSliderProducts={setShowSliderProducts}
+                      />
+                    </div>
+                  ) : null}
+                  <Feed
+                    activateLike={
+                      scriptProperties?.like ? scriptProperties?.like : false
+                    }
                     collectionId={collectionId}
-                    infinite={scriptProperties.infinite}
-                    time={scriptProperties.time}
-                    pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
+                    infoSocket={info}
+                    isPlayerSupported={isPlayerSupported}
                     originOfProducts={
                       originOfProducts === '' ? '' : originOfProducts
                     }
                     setShowVariation={setShowVariation}
-                    kuikpay={
-                      scriptProperties?.kuikpay
-                        ? scriptProperties?.kuikpay
-                        : false
-                    }
+                    setWidth={setWidth}
+                    streamUrl={streamUrl}
                     transmitionType={transmitionType}
+                    recordPath={recordPath}
                   />
-                )}
+                  <div className={styles.liveContent}>
+                    <Live infoSocket={info} />
+                  </div>
+                  <div className={styles.viewersContent}>
+                    <Viewers infoSocket={info} />
+                  </div>
+                </div>
+                <div className={styles.horizontalProductsContent}>
+                  {scriptProperties?.productsCarousel && (
+                    <HorizontalProductSlider
+                      collectionId={collectionId}
+                      infinite={scriptProperties.infinite}
+                      time={scriptProperties.time}
+                      pdp={
+                        scriptProperties?.pdp ? scriptProperties?.pdp : false
+                      }
+                      originOfProducts={
+                        originOfProducts === '' ? '' : originOfProducts
+                      }
+                      setShowVariation={setShowVariation}
+                      kuikpay={
+                        scriptProperties?.kuikpay
+                          ? scriptProperties?.kuikpay
+                          : false
+                      }
+                      transmitionType={transmitionType}
+                      isInGlobalPage={
+                        scriptProperties?.isInGlobalPage
+                          ? scriptProperties?.isInGlobalPage
+                          : false
+                      }
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            style={
-              detector === 'unknown'
-                ? { height: parseInt(height), maxHeight: parseInt(height) }
-                : { height: 'auto' }
-            }
-            className={`${
-              scriptProperties?.chat ? styles.chatContent : styles.displayNone
-            }`}
-          >
-            {scriptProperties?.chat ? (
-              <Chat
-                title='Chat en vivo'
-                placeholder='Comenta aqui...'
-                infoSocket={info}
-                idLivestreaming={idLivestreaming}
-                account={account}
-                pinnedMessage={pinnedMessage}
-              />
-            ) : null}
+            <div
+              style={
+                detector === 'unknown'
+                  ? { height: parseInt(height), maxHeight: parseInt(height) }
+                  : { height: 'auto' }
+              }
+              className={`${
+                scriptProperties?.chat ? styles.chatContent : styles.displayNone
+              }`}
+            >
+              {scriptProperties?.chat && (
+                <Chat
+                  infoSocket={info}
+                  idLivestreaming={idLivestreaming}
+                  account={account}
+                  pinnedMessage={pinnedMessage}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </LivestreamingProvider>
+      </LivestreamingProvider>
+    </I18nProvider>
   )
 }
 
@@ -398,5 +435,6 @@ Livestreaming.defaultProps = {
   time: '10',
   pdp: 'true',
   originOfProducts: 'vtex',
-  kuikpay: 'false'
+  kuikpay: 'false',
+  isInGlobalPage: 'false'
 }

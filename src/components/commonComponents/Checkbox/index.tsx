@@ -11,20 +11,28 @@ declare interface Props {
   label?: string
 }
 
-export const Checkbox = ({ checked, id, name, onChange, value, disabled, label}: Props) => {
+export const Checkbox = ({
+  checked,
+  id,
+  name,
+  onChange,
+  value,
+  disabled,
+  label
+}: Props) => {
   return (
-    <div className={style.container} >
-          <input
-            type='checkbox'
-            checked={checked}
-            id={id}
-            name={name}
-            onChange={onChange}
-            value={value}
-            disabled={disabled}
-            className={style.checkbox}
-          />
-          <label htmlFor={id}>{label}</label>
+    <div className={style.container}>
+      <input
+        type='checkbox'
+        checked={checked}
+        id={id}
+        name={name}
+        onChange={onChange}
+        value={value}
+        disabled={disabled}
+        className={style.checkbox}
+      />
+      <label htmlFor={id}>{label}</label>
     </div>
   )
 }

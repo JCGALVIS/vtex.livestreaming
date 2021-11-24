@@ -23,8 +23,8 @@ export const Spinner = ({
         borderRight: `${borderWidth}px solid ${color}`,
         borderBottom: `${borderWidth}px solid ${color}`,
         width: size,
-        height: size,
+        height: size
       }}
-    ></div>
+    />
   )
 }

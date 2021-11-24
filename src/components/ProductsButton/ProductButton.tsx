@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { useIntl } from 'react-intl'
 import { addToCart } from '../../utils'
 
 import styles from './productButton.css'
@@ -11,6 +12,7 @@ type ProductButtonProps = {
   productId: string
   productName?: string
   sectionIdClickedOn?: string
+  isInGlobalPage: boolean
 }
 
 const ProductButton = (props: ProductButtonProps) => {
@@ -21,8 +23,11 @@ const ProductButton = (props: ProductButtonProps) => {
     pdp,
     productId,
     productName,
-    sectionIdClickedOn
+    sectionIdClickedOn,
+    isInGlobalPage
   } = props
+
+  const { formatMessage } = useIntl()
 
   return (
     <Fragment>
@@ -32,7 +37,7 @@ const ProductButton = (props: ProductButtonProps) => {
         }`}
         disabled={!isAvailable}
         onClick={() => {
-          addToCart(productId, pdp)
+          addToCart(productId, pdp, isInGlobalPage)
 
           if (handleClose) handleClose()
           if (!sectionIdClickedOn) return
@@ -46,7 +51,9 @@ const ProductButton = (props: ProductButtonProps) => {
           localStorage.setItem('sectionIdClickedOnForAddToCart', eventAddToCart)
         }}
       >
-        {isAvailable ? 'Agregar' : 'Agotado'}
+        {isAvailable
+          ? formatMessage({ id: 'store/text.add' })
+          : formatMessage({ id: 'store/text.not-stock' })}
       </button>
       <div>
         <a

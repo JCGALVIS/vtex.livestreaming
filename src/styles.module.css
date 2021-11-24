@@ -24,6 +24,8 @@ input[type='text']:focus {
   height: 100%;
   margin-bottom: 1rem;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .livestreamingContent {
@@ -31,6 +33,7 @@ input[type='text']:focus {
   justify-content: center;
   height: 71vh;
   position: relative;
+  width: 100%;
 }
 
 .videoContent {
@@ -89,11 +92,12 @@ input[type='text']:focus {
 
   .videoContainer {
     position: relative;
+    max-width: 44vw;
   }
-
+  /*
   .videoContainerFull {
-    flex: 1 !important;
-  }
+    flex: 1 !important; */
+  /* } */
 
   .chatContent {
     position: relative;

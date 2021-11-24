@@ -3,7 +3,7 @@ declare interface Props {
   socket: WebSocket | undefined
 }
 
-const useUpdateVotes = ({socket}: Props) => {
+const useUpdateVotes = ({ socket }: Props) => {
   const [loadingUpdate, setLoading] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
 
@@ -12,13 +12,13 @@ const useUpdateVotes = ({socket}: Props) => {
     indexQuestion: number,
     indexAnswers: number[]
   ) => {
-    if(!socket) return
+    if (!socket) return
 
     const data = {
       action: 'sendanswer',
       idStreaming,
       indexQuestion,
-      indexAnswers,
+      indexAnswers
     }
 
     socket.send(JSON.stringify(data))
@@ -42,7 +42,7 @@ const useUpdateVotes = ({socket}: Props) => {
   return {
     loadingUpdate,
     saveUpdateVotes,
-    alertMessage,
+    alertMessage
   }
 }
 

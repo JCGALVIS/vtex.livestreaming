@@ -10,9 +10,8 @@ const Icon = ({
   size,
   viewBox,
   activeClassName,
-  mutedClassName,
+  mutedClassName
 }: IconProps) => {
-
   return (
     <Svg
       fill='none'
@@ -31,7 +30,7 @@ const Icon = ({
 Icon.defaultProps = {
   isActive: true,
   size: 16,
-  viewBox: '0 0 16 16',
+  viewBox: '0 0 16 16'
 }
 
 export default Icon

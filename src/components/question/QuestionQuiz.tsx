@@ -73,12 +73,12 @@ const QuestionQuiz = ({
 
   return (
     <Fragment>
-      <div className={styles.text} >
+      <div className={styles.text}>
         <p>{dataQuestion?.question}</p>
       </div>
       <p>
         {optionsQuestion.map((option: Option) => (
-          <div>
+          <div key={`${option.label}_${option.value}`}>
             <Radio
               id={`${option.label}_${option.value}`}
               name='questionQuiz'

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { ProductItem } from './ProductItem'
 import { useFetchProducts } from './../../hooks/useFetchProducts'
+import { FormattedMessage } from 'react-intl'
 
 import styles from './productSlider.css'
 
@@ -15,6 +16,7 @@ type VerticalProductSliderProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
   kuikpay: boolean
+  isInGlobalPage: boolean
 }
 
 export const VerticalProductSlider = ({
@@ -26,7 +28,8 @@ export const VerticalProductSlider = ({
   originOfProducts,
   setShowVariation,
   setLoading,
-  kuikpay
+  kuikpay,
+  isInGlobalPage
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
     collectionId,
@@ -88,7 +91,9 @@ export const VerticalProductSlider = ({
   return !loading ? (
     <div className={styles.verticalProductSliderContent}>
       <div className={styles.verticalProductSliderTitle}>
-        <p className={styles.title}>Productos destacados</p>
+        <p className={styles.title}>
+          <FormattedMessage id='store/text.products' />
+        </p>
       </div>
       <div
         style={{ height: parseInt(height) }}
@@ -106,6 +111,7 @@ export const VerticalProductSlider = ({
               originOfProducts={originOfProducts}
               kuikpay={kuikpay}
               sectionIdClickedOn='live_shopping_sidebar'
+              isInGlobalPage={isInGlobalPage}
             />
           ))}
       </div>
