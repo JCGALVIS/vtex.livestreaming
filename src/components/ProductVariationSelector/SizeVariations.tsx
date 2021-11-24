@@ -25,18 +25,22 @@ export const SizeVariations = ({
       (item) => item.field.name.indexOf('Color') !== 0
     )
 
-    if (otherVariations) setFilteredVariation(otherVariations)
+    if (otherVariations && otherVariations.length > 0) {
+      setFilteredVariation(otherVariations)
 
-    const selectVariation = otherVariations.map((variation) => {
-      return {
-        id: variation.values[0].id,
-        name: variation.values[0].name,
-        variationId: variation.field.id,
-        variationName: variation.field.name
-      }
-    })
+      const selectVariation = otherVariations.map((variation) => {
+        return {
+          id: variation.values[0].id,
+          name: variation.values[0].name,
+          variationId: variation.field.id,
+          variationName: variation.field.name
+        }
+      })
 
-    if (selectedSize.length === 0) setSelectedSize(selectVariation)
+      console.log('selectVariation: ', selectVariation)
+
+      if (selectedSize.length === 0) setSelectedSize(selectVariation)
+    }
   }, [variations])
 
   const handleSizeSelect = (
