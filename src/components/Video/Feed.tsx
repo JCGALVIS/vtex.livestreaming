@@ -35,8 +35,6 @@ export const Feed = ({
 
   const [playerCurrent, setPlayerCurrent] = useState(false)
   const [liveStatus, setLiveStatus] = useState(false)
-  const [playbackUrl, setPlaybackUrl] = useState<string | undefined>()
-  const [loading, setLoading] = useState(false)
   const player: typeof MediaPlayer = useRef(null)
 
   const { isTransmiting } = infoSocket
@@ -47,17 +45,6 @@ export const Feed = ({
   }, [isLive])
 
   useEffect(() => {
-    const url =
-      streamUrl || (recordPath && `${recordPath}/media/hls/master.m3u8`)
-
-    if (url) {
-      setPlaybackUrl(url)
-    }
-
-    return () => {}
-  }, [streamUrl, recordPath, loading])
-
-  useEffect(() => {
     if (!isPlayerSupported) {
       console.warn(
         'The current browser does not support the Amazon IVS player.'
@@ -66,14 +53,12 @@ export const Feed = ({
       return
     }
 
-    if (!playbackUrl) return
-
     const { ENDED, PLAYING, READY } = IVSPlayer.PlayerState
     const { ERROR } = IVSPlayer.PlayerEventType
 
     const onStateChange = () => {
       const newState = player.current.getState()
-      setLoading(newState !== PLAYING)
+      console.warn(newState)
     }
 
     const onError = (err: Error) => {
@@ -85,10 +70,10 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
-    if (streamUrl && isTransmiting) {
-      player.current.load(playbackUrl)
-    } else if (recordPath && !streamUrl && !isTransmiting) {
-      player.current.load(playbackUrl)
+    if (streamUrl) {
+      player.current.load(streamUrl)
+    } else if (recordPath && !streamUrl) {
+      player.current.load(`${recordPath}/media/hls/master.m3u8`)
     }
 
     player.current.addEventListener(READY, onStateChange)
@@ -104,7 +89,7 @@ export const Feed = ({
       player.current.removeEventListener(ENDED, onStateChange)
       player.current.removeEventListener(ERROR, onError)
     }
-  }, [IVSPlayer, isPlayerSupported, playbackUrl, isTransmiting])
+  }, [IVSPlayer, isPlayerSupported, streamUrl, recordPath])
 
   if (!isPlayerSupported) {
     return null
