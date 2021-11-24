@@ -64,7 +64,7 @@ const Answer = ({ isAnswer, data }: AnswerProps) => {
             <b>
               <FormattedMessage id='store/time' />:
             </b>{' '}
-            {data?.question?.time} <FormattedMessage id="store/seconds'" />:
+            {data?.question?.time} <FormattedMessage id='store/seconds' />:
           </span>
         </p>
       </div>

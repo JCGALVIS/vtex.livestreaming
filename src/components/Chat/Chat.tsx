@@ -274,7 +274,7 @@ export const Chat = ({
                   fontSize: IS_DESKTOP ? 'unset' : '12px'
                 }}
               >
-                {formatMessage({ id: "store/text.unread-messages'" })}
+                {formatMessage({ id: 'store/text.unread-messages' })}
               </span>
             </div>
           </div>
