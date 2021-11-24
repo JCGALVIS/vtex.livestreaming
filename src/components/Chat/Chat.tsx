@@ -140,7 +140,8 @@ export const Chat = ({
   }, [chat])
 
   const ChatMessages = useMemo(
-    () => MessageRenderer(chatFinalized || []),
+    () =>
+      MessageRenderer(infoSocket.socket ? chatFiltered : chatFinalized || []),
     [chatFiltered, chat, chatFinalized]
   )
 
@@ -222,6 +223,11 @@ export const Chat = ({
       chatAreaRef?.current?.removeEventListener('scroll', () => {})
     }
   }, [])
+
+  useEffect(() => {
+    if (!chatFinalized.length || infoSocket.socket) return
+    setChatFiltered(chatFinalized)
+  }, [chatFinalized])
 
   return (
     <div className={styles.chatContainer}>

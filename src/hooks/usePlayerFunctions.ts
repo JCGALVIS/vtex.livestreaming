@@ -364,15 +364,13 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     setProgress(progress)
 
     const newChat = chatHistory.filter((message) => {
-      if (videoEl.current?.currentTime && message?.second) {
+      if (videoEl.current?.currentTime && message?.second !== undefined) {
         if (message?.second <= videoEl.current?.currentTime) return true
       }
 
       return false
     })
-    if (chat !== newChat) {
-      handleSetChat(newChat)
-    }
+    if (JSON.stringify(chat) !== JSON.stringify(newChat)) handleSetChat(newChat)
   }
 
   return {
