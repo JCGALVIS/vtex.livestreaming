@@ -37,8 +37,6 @@ export const SizeVariations = ({
         }
       })
 
-      console.log('selectVariation: ', selectVariation)
-
       if (selectedSize.length === 0) setSelectedSize(selectVariation)
     }
   }, [variations])

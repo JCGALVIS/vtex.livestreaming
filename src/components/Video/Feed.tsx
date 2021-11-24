@@ -35,10 +35,23 @@ export const Feed = ({
 
   const [playerCurrent, setPlayerCurrent] = useState(false)
   const [liveStatus, setLiveStatus] = useState(false)
+  const [playbackUrl, setPlaybackUrl] = useState<string | undefined>()
+  const [loading, setLoading] = useState(false)
   const player: typeof MediaPlayer = useRef(null)
 
   const { isTransmiting } = infoSocket
   const isLive = infoSocket?.ivsRealTime?.status
+
+  useEffect(() => {
+    const url =
+      streamUrl || (recordPath && `${recordPath}/media/hls/master.m3u8`)
+
+    if (url) {
+      setPlaybackUrl(url)
+    }
+
+    return () => {}
+  }, [streamUrl, recordPath, loading])
 
   useEffect(() => {
     if (isLive === 'LIVE') setLiveStatus(true)
@@ -58,7 +71,7 @@ export const Feed = ({
 
     const onStateChange = () => {
       const newState = player.current.getState()
-      console.warn(newState)
+      setLoading(newState !== PLAYING)
     }
 
     const onError = (err: Error) => {
@@ -70,11 +83,6 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
-    if (streamUrl) {
-      player.current.load(streamUrl)
-    } else if (recordPath && !streamUrl) {
-      player.current.load(`${recordPath}/media/hls/master.m3u8`)
-    }
 
     player.current.addEventListener(READY, onStateChange)
     player.current.addEventListener(PLAYING, onStateChange)
@@ -89,7 +97,7 @@ export const Feed = ({
       player.current.removeEventListener(ENDED, onStateChange)
       player.current.removeEventListener(ERROR, onError)
     }
-  }, [IVSPlayer, isPlayerSupported, streamUrl, recordPath])
+  }, [IVSPlayer, isPlayerSupported, playerCurrent])
 
   if (!isPlayerSupported) {
     return null
@@ -100,10 +108,11 @@ export const Feed = ({
       (recordPath && !streamUrl && !isTransmiting)) ? (
     <StreamPlayer
       activateLike={activateLike}
-      collectionId={collectionId}
-      infoSocket={infoSocket}
-      originOfProducts={originOfProducts}
+      streamUrl={playbackUrl}
       player={player.current}
+      infoSocket={infoSocket}
+      collectionId={collectionId}
+      originOfProducts={originOfProducts}
       setShowVariation={setShowVariation}
       setWidth={setWidth}
       transmitionType={transmitionType}
