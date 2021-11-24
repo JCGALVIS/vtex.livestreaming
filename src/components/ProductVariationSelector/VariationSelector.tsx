@@ -53,7 +53,9 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   useEffect(() => {
     setIsAvailable(true)
 
-    const selectedVariations = selectedColor?.concat(selectedSize || [])
+    const selectedVariations = selectedColor
+      ? selectedColor?.concat(selectedSize || [])
+      : selectedSize
 
     let filterProduct = product?.items
     let isVariation = ''
@@ -94,6 +96,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
 
   useEffect(() => {
     if (!product?.variationSelector) {
+      console.log('product: ', product)
       const selectedProduct = product?.items?.map((filter) => {
         return {
           imageUrl: filter.images[0].imageUrl,

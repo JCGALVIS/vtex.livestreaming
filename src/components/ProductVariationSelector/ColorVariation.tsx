@@ -44,20 +44,22 @@ export const ColorVariation = ({
       (item) => item.field.name.indexOf('Color') === 0
     )
 
-    if (color) setColorArray(color)
+    if (color && color.length > 0) {
+      setColorArray(color)
 
-    const colorFormatted = color.map((color) => {
-      return {
-        id: color.values[0].id,
-        name: color.values[0].name,
-        variationId: color.field.id,
-        variationName: color.field.name
-      }
-    })
+      const colorFormatted = color.map((color) => {
+        return {
+          id: color.values[0].id,
+          name: color.values[0].name,
+          variationId: color.field.id,
+          variationName: color.field.name
+        }
+      })
 
-    setTitle(colorFormatted[0].variationName)
+      setTitle(colorFormatted[0].variationName)
 
-    setSelectedColor(colorFormatted)
+      setSelectedColor(colorFormatted)
+    }
   }, [variations])
 
   const handleColorSelect = (
@@ -82,7 +84,7 @@ export const ColorVariation = ({
     if (divSelect) divSelect.style.display = 'initial'
   }
 
-  return (
+  return colorArray && colorArray.length > 0 ? (
     <Fragment>
       <h2 className={styles.titleVariation}>{title}:</h2>
       <div className={styles.itemContent}>
@@ -114,5 +116,5 @@ export const ColorVariation = ({
           ))}
       </div>
     </Fragment>
-  )
+  ) : null
 }
