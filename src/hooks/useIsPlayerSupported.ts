@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const IVS_PLAYER_MIN_JS =
-  'https://player.live-video.net/1.2.0/amazon-ivs-player.min.js'
+  'https://player.live-video.net/1.5.1/amazon-ivs-player.min.js'
 
 const useIsPlayerSupported = () => {
   const [scriptVideoPlayer, setScriptVideoPlayer] = useState(false)
