@@ -96,7 +96,6 @@ export const VariationSelector = (props: VariationSelectorProps) => {
 
   useEffect(() => {
     if (!product?.variationSelector) {
-      console.log('product: ', product)
       const selectedProduct = product?.items?.map((filter) => {
         return {
           imageUrl: filter.images[0].imageUrl,
