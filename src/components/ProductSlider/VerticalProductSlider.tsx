@@ -11,14 +11,12 @@ type VerticalProductSliderProps = {
   collectionId: string | undefined
   height: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const VerticalProductSlider = ({
   collectionId,
   height,
-  setShowVariation,
-  setLoading
+  setShowVariation
 }: VerticalProductSliderProps) => {
   const {
     setting: { isInfinite, originOfProducts, time }
@@ -34,7 +32,6 @@ export const VerticalProductSlider = ({
   const productLisRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setLoading(loading)
     if (loading) return
     if (!isInfinite) return
     if (!productLisRef?.current) return

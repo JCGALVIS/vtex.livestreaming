@@ -11,7 +11,6 @@ import {
   HorizontalProductSlider,
   Live,
   SliderProductMobile,
-  Spinner,
   VariationSelector,
   VerticalProductSlider,
   Viewers
@@ -46,7 +45,6 @@ export const LiveShopping = () => {
   const [detector, setDetector] = useState('')
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
-  const [loading, setLoading] = useState(true)
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
@@ -210,18 +208,8 @@ export const LiveShopping = () => {
       setTransmitionType(initTransmitionType)
     }
   }, [initTransmitionType, socketTransmitiontype])
-
-  useEffect(() => {
-    if (!scriptProperties?.sidebarProducts) {
-      setTimeout(() => {
-        setLoading(false)
-      }, 3000)
-    }
-  }, [scriptProperties, isModalLive])
-
   return (
     <div className={styles2.livestreaming}>
-      {loading && <Spinner />}
       <div
         className={`${styles2.livestreamingContent} ${
           isModalLive && styles2.livePopoup
@@ -238,7 +226,6 @@ export const LiveShopping = () => {
             showSliderProducts={showSliderProducts}
             setShowSliderProducts={setShowSliderProducts}
             setShowVariation={setShowVariation}
-            setLoading={setLoading}
           />
         ) : null}
         <div
@@ -254,7 +241,6 @@ export const LiveShopping = () => {
               collectionId={collectionId}
               height={(parseInt(height) - 58).toString()}
               setShowVariation={setShowVariation}
-              setLoading={setLoading}
             />
           )}
         </div>
@@ -289,9 +275,7 @@ export const LiveShopping = () => {
                   <div
                     className={styles2.closePopoup}
                     onClick={() => {
-                      setLoading(true)
                       setTimeout(() => {
-                        setLoading(false)
                         setIsModalLive(false)
                       }, 3000)
                     }}
