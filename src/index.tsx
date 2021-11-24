@@ -141,7 +141,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
       time: time === 'undefined' ? 10 : time ? parseInt(time) : 1,
       pdp: pdp === 'undefined' ? false : pdp === 'true',
       kuikpay: kuikpay === 'undefined' ? false : kuikpay === 'true',
-      isInGlobalPage: isInGlobalPage === 'undefined' ? false : isInGlobalPage === 'true'
+      isInGlobalPage:
+        isInGlobalPage === 'undefined' ? false : isInGlobalPage === 'true'
     })
   }, [scriptProperties])
 
@@ -226,7 +227,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [scriptProperties])
 
   useEffect(() => {
-    setLocale((window.navigator.language || LOCALES.en).trim().split(/-|_/)[0])
+    const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
+    const availableLng = [LOCALES.en, LOCALES.es, LOCALES.pt]
+
+    setLocale(
+      availableLng.includes(languageBrowser) ? languageBrowser : LOCALES.en
+    )
   }, [])
 
   return (
@@ -240,7 +246,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
             pdp={scriptProperties?.pdp ? scriptProperties?.pdp : false}
             originOfProducts={originOfProducts === '' ? '' : originOfProducts}
             isInGlobalPage={
-              scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
+              scriptProperties?.isInGlobalPage
+                ? scriptProperties?.isInGlobalPage
+                : false
             }
           />
           {scriptProperties?.sidebarProducts ||
@@ -260,7 +268,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                 scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
               }
               isInGlobalPage={
-                scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
+                scriptProperties?.isInGlobalPage
+                  ? scriptProperties?.isInGlobalPage
+                  : false
               }
             />
           ) : null}
@@ -288,7 +298,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
                 }
                 isInGlobalPage={
-                  scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
+                  scriptProperties?.isInGlobalPage
+                    ? scriptProperties?.isInGlobalPage
+                    : false
                 }
               />
             )}
@@ -363,7 +375,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
                     }
                     transmitionType={transmitionType}
                     isInGlobalPage={
-                      scriptProperties?.isInGlobalPage ? scriptProperties?.isInGlobalPage : false
+                      scriptProperties?.isInGlobalPage
+                        ? scriptProperties?.isInGlobalPage
+                        : false
                     }
                   />
                 )}
