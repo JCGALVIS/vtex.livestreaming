@@ -227,7 +227,12 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }, [scriptProperties])
 
   useEffect(() => {
-    setLocale((window.navigator.language || LOCALES.en).trim().split(/-|_/)[0])
+    const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
+    const languageAvailable = [LOCALES.en, LOCALES.es, LOCALES.pt]
+
+    setLocale(
+      languageAvailable.includes(languageBrowser) ? languageBrowser : LOCALES.en
+    )
   }, [])
 
   return (
