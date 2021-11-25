@@ -15,6 +15,7 @@ type VerticalProductSliderProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
   kuikpay: boolean
+  transmitionType: string | undefined
 }
 
 export const VerticalProductSlider = ({
@@ -26,7 +27,8 @@ export const VerticalProductSlider = ({
   originOfProducts,
   setShowVariation,
   setLoading,
-  kuikpay
+  kuikpay,
+  transmitionType
 }: VerticalProductSliderProps) => {
   const { data: products, loading } = useFetchProducts({
     collectionId,
@@ -71,7 +73,7 @@ export const VerticalProductSlider = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [indexScroll, infinite, delay, isMouseOver, loading])
+  }, [indexScroll, infinite, delay, isMouseOver, loading, transmitionType])
 
   useEffect(() => {
     if (!productLisRef.current) return
@@ -106,6 +108,7 @@ export const VerticalProductSlider = ({
               originOfProducts={originOfProducts}
               kuikpay={kuikpay}
               sectionIdClickedOn='live_shopping_sidebar'
+              transmitionType={transmitionType}
             />
           ))}
       </div>
