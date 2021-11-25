@@ -14,10 +14,11 @@ type PlayerFuntionsProps = {
   mainContainer: React.RefObject<HTMLDivElement>
   player: MediaPlayer
   videoEl: React.RefObject<StreamPlayerType>
+  streamUrl: string | undefined
 }
 
 const usePlayerFunctions = (props: PlayerFuntionsProps) => {
-  const { mainContainer, player, videoEl } = props
+  const { mainContainer, player, videoEl, streamUrl } = props
   const { PLAYING, IDLE, BUFFERING } = window.IVSPlayer.PlayerState
 
   const [pictureInPicture, setPictureInPicture] = useState<boolean>(false)
@@ -245,9 +246,12 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
 
   const initPlayer = () => {
     if (!videoEl.current) return () => {}
+    if (!streamUrl) return () => {}
 
     player.pause()
     player.attachHTMLVideoElement(videoEl.current)
+    // Validar con grabaciones el load
+    // player.load(streamUrl)
     player.play()
     player.setMuted(true)
 

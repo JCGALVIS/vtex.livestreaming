@@ -19,6 +19,7 @@ type streamPlayerProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
   transmitionType: string | undefined
+  streamUrl: string | undefined
 }
 
 export const StreamPlayer = ({
@@ -29,7 +30,8 @@ export const StreamPlayer = ({
   player,
   setShowVariation,
   setWidth,
-  transmitionType
+  transmitionType,
+  streamUrl
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
 
@@ -66,7 +68,7 @@ export const StreamPlayer = ({
     showOptions,
     status,
     volume
-  } = usePlayerFunctions({ player, videoEl, mainContainer })
+  } = usePlayerFunctions({ player, videoEl, mainContainer, streamUrl })
 
   const dimensions = fullScreen
     ? {

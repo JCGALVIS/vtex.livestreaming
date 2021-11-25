@@ -121,6 +121,7 @@ export const Feed = ({
       player={player.current}
       setShowVariation={setShowVariation}
       setWidth={setWidth}
+      streamUrl={streamUrl}
       transmitionType={transmitionType}
     />
   ) : (
