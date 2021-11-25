@@ -268,6 +268,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               kuikpay={
                 scriptProperties?.kuikpay ? scriptProperties?.kuikpay : false
               }
+              transmitionType={transmitionType}
             />
           )}
         </div>
@@ -362,6 +363,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               idLivestreaming={idLivestreaming}
               account={account}
               pinnedMessage={pinnedMessage}
+              transmitionType={transmitionType}
             />
           )}
         </div>

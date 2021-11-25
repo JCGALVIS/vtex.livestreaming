@@ -23,6 +23,7 @@ type ProductItemProps = {
   originOfProducts: string
   kuikpay: boolean
   sectionIdClickedOn?: string
+  transmitionType: string | undefined
 }
 
 export const ProductItem = (props: ProductItemProps) => {
@@ -41,11 +42,17 @@ export const ProductItem = (props: ProductItemProps) => {
     skuId,
     originOfProducts,
     kuikpay,
-    sectionIdClickedOn
+    sectionIdClickedOn,
+    transmitionType
   } = props
 
   return (
-    <div className={styles.productItemContent}>
+    <div
+      className={styles.productItemContent}
+      style={
+        transmitionType === 'vertical' ? { maxWidth: 360, minWidth: 360 } : {}
+      }
+    >
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}
