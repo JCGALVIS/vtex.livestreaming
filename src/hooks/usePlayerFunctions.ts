@@ -247,9 +247,10 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const initPlayer = () => {
     if (!videoEl.current) return () => {}
     if (!streamUrl) return () => {}
-    player.load(streamUrl)
+
     player.pause()
     player.attachHTMLVideoElement(videoEl.current)
+    player.load(streamUrl)
     player.play()
     player.setMuted(true)
 
