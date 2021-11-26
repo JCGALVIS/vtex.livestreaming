@@ -11,6 +11,7 @@ const actionsDefault: ActionCtx = {
   setting: {
     account: '',
     idLivestreaming: '',
+    isInGlobalPage: false,
     isInfinite: true,
     kuikpay: false,
     originOfProducts: '',
@@ -38,6 +39,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
   const {
     account,
     idLivestreaming,
+    isInGlobalPage,
     isInfinite,
     kuikpay,
     originOfProducts,
@@ -53,6 +55,8 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
   const [setting, setSetting] = useState<LivestreamingProps>({
     account,
     idLivestreaming,
+    isInGlobalPage:
+      isInGlobalPage === undefined ? false : isInGlobalPage === true,
     isInfinite: isInfinite === undefined ? true : isInfinite === true,
     kuikpay: kuikpay === undefined ? false : kuikpay === true,
     originOfProducts,

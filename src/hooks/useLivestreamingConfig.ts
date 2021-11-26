@@ -19,8 +19,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
   )
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
-  const [recordPath, setRecordPath] = useState<string | undefined>(undefined)
   const [isModalLive, setIsModalLive] = useState<boolean | undefined>()
+  const [status, setStatus] = useState('')
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -44,8 +44,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
       setUtm(data?.utm)
       setPinnedMessage(data?.pinnedMessage)
       setTransmitionType(data?.webClient?.transmitionType)
-      setRecordPath(data?.webClient?.recordPath)
       setIsModalLive(data?.webClient.modalLive)
+      setStatus(data.status)
     }
 
     getLivestreaming().catch(null)
@@ -59,9 +59,9 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     emailIsRequired,
     pinnedMessage,
     transmitionType,
-    recordPath,
     isModalLive,
-    setIsModalLive
+    setIsModalLive,
+    status
   }
 }
 

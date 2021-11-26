@@ -23,11 +23,12 @@ import { ActionsContext } from '../../context/ActionsContext'
 type ChatProps = {
   infoSocket: InfoSocket
   pinnedMessage: Message | undefined
+  transmitionType: string | undefined
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
 
-export const Chat = ({ infoSocket, pinnedMessage }: ChatProps) => {
+export const Chat = ({ infoSocket, pinnedMessage, transmitionType }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const formContainer = useRef<HTMLFormElement>(null)
   const [content, setContent] = useState<string>('')
@@ -52,6 +53,7 @@ export const Chat = ({ infoSocket, pinnedMessage }: ChatProps) => {
   const {
     setting: { idLivestreaming }
   } = useContext(ActionsContext)
+  const isMobile = getDeviceType() === 'mobile'
 
   const handleIncoming = (): void => {
     if (!chatAreaRef?.current) return
@@ -121,7 +123,6 @@ export const Chat = ({ infoSocket, pinnedMessage }: ChatProps) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const isMobile = getDeviceType() === 'mobile'
       const visibilityStateIsHidden =
         document.visibilityState === ('hidden' || 'msHidden' || 'webkitHidden')
 
@@ -226,7 +227,14 @@ export const Chat = ({ infoSocket, pinnedMessage }: ChatProps) => {
   }, [])
 
   return (
-    <div className={styles.chatContainer}>
+    <div
+      className={styles.chatContainer}
+      style={
+        transmitionType === 'vertical' && !isMobile
+          ? { maxWidth: 360, minWidth: 360 }
+          : {}
+      }
+    >
       <div className={styles.liveChatContainer}>
         <div className={styles.liveChatHeader}>
           <ChatIcon />
@@ -280,7 +288,7 @@ export const Chat = ({ infoSocket, pinnedMessage }: ChatProps) => {
                   fontSize: IS_DESKTOP ? 'unset' : '12px'
                 }}
               >
-                {formatMessage({ id: "store/text.unread-messages'" })}
+                {formatMessage({ id: 'store/text.unread-messages' })}
               </span>
             </div>
           </div>

@@ -11,12 +11,14 @@ type VerticalProductSliderProps = {
   collectionId: string | undefined
   height: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  transmitionType?: string | undefined
 }
 
 export const VerticalProductSlider = ({
   collectionId,
   height,
-  setShowVariation
+  setShowVariation,
+  transmitionType
 }: VerticalProductSliderProps) => {
   const {
     setting: { isInfinite, originOfProducts, time }
@@ -98,6 +100,7 @@ export const VerticalProductSlider = ({
               {...product}
               setShowVariation={setShowVariation}
               sectionIdClickedOn='live_shopping_sidebar'
+              transmitionType={transmitionType}
             />
           ))}
       </div>

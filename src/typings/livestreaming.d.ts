@@ -4,6 +4,7 @@ import { Queue } from '../utils'
 type LivestreamingProps = {
   account: string
   idLivestreaming: string
+  isInGlobalPage: boolean
   isInfinite: boolean
   time: number
   redirectTo: boolean
@@ -54,6 +55,7 @@ export declare interface ScriptProperties {
   time: number
   pdp: boolean
   kuikpay: boolean
+  isInGlobalPage: boolean
 }
 export declare interface InfoSocket {
   socket: WebSocket | undefined

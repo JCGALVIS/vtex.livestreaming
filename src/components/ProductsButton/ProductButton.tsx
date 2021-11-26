@@ -27,7 +27,7 @@ const ProductButton = (props: ProductButtonProps) => {
   const { formatMessage } = useIntl()
 
   const {
-    setting: { redirectTo }
+    setting: { isInGlobalPage, redirectTo }
   } = useContext(ActionsContext)
 
   return (
@@ -38,7 +38,7 @@ const ProductButton = (props: ProductButtonProps) => {
         }`}
         disabled={!isAvailable}
         onClick={() => {
-          addToCart(productId, redirectTo)
+          addToCart(productId, redirectTo, isInGlobalPage)
 
           if (handleClose) handleClose()
           if (!sectionIdClickedOn) return

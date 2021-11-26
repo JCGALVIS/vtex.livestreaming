@@ -57,7 +57,9 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   useEffect(() => {
     setIsAvailable(true)
 
-    const selectedVariations = selectedColor?.concat(selectedSize || [])
+    const selectedVariations = selectedColor
+      ? selectedColor?.concat(selectedSize || [])
+      : selectedSize
 
     let filterProduct = product?.items
     let isVariation = ''

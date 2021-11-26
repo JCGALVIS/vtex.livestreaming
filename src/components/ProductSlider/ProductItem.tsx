@@ -23,6 +23,7 @@ type ProductItemProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   skuId: string
   sectionIdClickedOn?: string
+  transmitionType: string | undefined
 }
 
 export const ProductItem = (props: ProductItemProps) => {
@@ -38,17 +39,23 @@ export const ProductItem = (props: ProductItemProps) => {
     variationSelector,
     setShowVariation,
     skuId,
-    sectionIdClickedOn
+    sectionIdClickedOn,
+    transmitionType
   } = props
 
   const {
-    setting: { kuikpay, originOfProducts }
+    setting: { isInGlobalPage, kuikpay, originOfProducts }
   } = useContext(ActionsContext)
 
   const { formatMessage, locale } = useIntl()
   const isSpanish = locale === SPANISH_CODE
   return (
-    <div className={styles.productItemContent}>
+    <div
+      className={styles.productItemContent}
+      style={
+        transmitionType === 'vertical' ? { maxWidth: 360, minWidth: 360 } : {}
+      }
+    >
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}
@@ -72,9 +79,9 @@ export const ProductItem = (props: ProductItemProps) => {
           {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          {variationSelector.length === 0 ? (
+          {variationSelector.length === 0 || isInGlobalPage ? (
             <ProductButton
-              addToCartLink={addToCartLink}
+              addToCartLink={isInGlobalPage ? pdpLink : addToCartLink}
               isAvailable={isAvailable}
               productId={skuId}
               productName={name}

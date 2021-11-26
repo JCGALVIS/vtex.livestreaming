@@ -71,7 +71,7 @@ export const LiveShopping = () => {
     emailIsRequired,
     pinnedMessage: initPinnedMessage,
     transmitionType: initTransmitionType,
-    recordPath
+    status
   } = useLivestreamingConfig({
     id: idLivestreaming,
     account
@@ -111,6 +111,7 @@ export const LiveShopping = () => {
     if (!scriptProperties) return
     const {
       chat,
+      isInGlobalPage,
       infinite,
       kuikpay,
       like,
@@ -124,6 +125,7 @@ export const LiveShopping = () => {
     setSetting({
       account,
       idLivestreaming,
+      isInGlobalPage: isInGlobalPage,
       isInfinite: infinite,
       kuikpay: kuikpay,
       originOfProducts,
@@ -292,7 +294,7 @@ export const LiveShopping = () => {
                 setWidth={setWidth}
                 streamUrl={streamUrl}
                 transmitionType={transmitionType}
-                recordPath={recordPath}
+                livestreamingStatus={status}
               />
               <div className={styles.liveContent}>
                 <Live infoSocket={info} />
@@ -321,7 +323,11 @@ export const LiveShopping = () => {
           className={`${showChat ? styles.chatContent : styles.displayNone}`}
         >
           {showChat && streamUrl && (
-            <Chat infoSocket={info} pinnedMessage={pinnedMessage} />
+            <Chat
+              infoSocket={info}
+              pinnedMessage={pinnedMessage}
+              transmitionType={transmitionType}
+            />
           )}
         </div>
       </div>
