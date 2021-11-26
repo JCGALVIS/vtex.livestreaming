@@ -19,6 +19,7 @@ import ArrowDown from '../icons/ArrowDown'
 import styles from './chat.css'
 import { useIntl } from 'react-intl'
 import { ActionsContext } from '../../context/ActionsContext'
+import { useLivestreamingContext } from '../../context'
 
 type ChatProps = {
   infoSocket: InfoSocket
@@ -28,7 +29,11 @@ type ChatProps = {
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
 
-export const Chat = ({ infoSocket, pinnedMessage, transmitionType }: ChatProps) => {
+export const Chat = ({
+  infoSocket,
+  pinnedMessage,
+  transmitionType
+}: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const formContainer = useRef<HTMLFormElement>(null)
   const [content, setContent] = useState<string>('')
@@ -49,6 +54,7 @@ export const Chat = ({ infoSocket, pinnedMessage, transmitionType }: ChatProps) 
   const [incomingPosition, setIncomingPosition] = useState(0)
   const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
   const { formatMessage } = useIntl()
+  const { chat: chatFinalizedEvents } = useLivestreamingContext()
 
   const {
     setting: { idLivestreaming }
@@ -143,8 +149,11 @@ export const Chat = ({ infoSocket, pinnedMessage, transmitionType }: ChatProps) 
   }, [chat])
 
   const ChatMessages = useMemo(
-    () => MessageRenderer(chatFiltered || []),
-    [chatFiltered, chat]
+    () =>
+      MessageRenderer(
+        infoSocket.socket ? chatFiltered : chatFinalizedEvents || []
+      ),
+    [chatFiltered, chat, chatFinalizedEvents]
   )
 
   useEffect(() => {
