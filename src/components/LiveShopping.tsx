@@ -243,6 +243,7 @@ export const LiveShopping = () => {
               collectionId={collectionId}
               height={(parseInt(height) - 58).toString()}
               setShowVariation={setShowVariation}
+              transmitionType={transmitionType}
             />
           )}
         </div>
