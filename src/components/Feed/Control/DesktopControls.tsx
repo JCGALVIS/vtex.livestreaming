@@ -18,6 +18,7 @@ import type { PlayerControls } from '../../../typings/MediaPlayer'
 import styles from '../../../styles.module.css'
 import { Like } from '../../Like/Like'
 import { InfoSocket } from '../../../typings/livestreaming'
+import { ChangeEvent } from 'hoist-non-react-statics/node_modules/@types/react'
 
 interface IndicatorInterface {
   mute: boolean
@@ -45,7 +46,9 @@ export const DesktopControls = (props: PlayerControls) => {
     PLAYING,
     status,
     videoEl,
-    volume
+    volume,
+    progress,
+    handleVideoProgress
   } = props
 
   const buttonRenderer = (
@@ -55,7 +58,9 @@ export const DesktopControls = (props: PlayerControls) => {
     firstTimeMuted: boolean,
     volume: number,
     infoSocket: InfoSocket,
-    { mute, picture, screen, firstMuted }: IndicatorInterface
+    { mute, picture, screen, firstMuted }: IndicatorInterface,
+    progress: number,
+    handleVideoProgress: (e: ChangeEvent<HTMLInputElement>) => void
   ): JSX.Element => {
     return (
       <Fragment>
@@ -167,6 +172,31 @@ export const DesktopControls = (props: PlayerControls) => {
                   onChange={handleVolume}
                 />
               </div>
+
+              <div
+                className={`${styles.playerVideoHover} ${styles.playerVideoProgressBarPosition} ${styles.playerVideoProgressBarRangeStack}`}
+                data-visible={
+                  status === BUFFERING || firstTimeMuted
+                    ? BUFFERING
+                    : overlay
+                    ? 'on'
+                    : 'off'
+                }
+              >
+                <input
+                  type='range'
+                  min='0'
+                  max='100'
+                  value={progress}
+                  className={styles.playerVideoProgressBar}
+                  onChange={handleVideoProgress}
+                />
+                <div
+                  style={{ width: `${progress}%` }}
+                  className={styles.percentProgressBar}
+                />
+                <div className={styles.noPercentProgressBar} />
+              </div>
             </Fragment>
           )
         ) : status === BUFFERING ? (
@@ -195,7 +225,9 @@ export const DesktopControls = (props: PlayerControls) => {
           picture: pictureInPicture,
           screen: fullScreen,
           firstMuted: firstTimeMuted
-        }
+        },
+        progress,
+        handleVideoProgress
       ),
     [
       status,
@@ -207,7 +239,9 @@ export const DesktopControls = (props: PlayerControls) => {
       overlay,
       firstTimeMuted,
       volume,
-      infoSocket
+      infoSocket,
+      progress,
+      handleVideoProgress
     ]
   )
 
