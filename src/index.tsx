@@ -272,6 +272,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
                   ? scriptProperties?.isInGlobalPage
                   : false
               }
+              transmitionType={transmitionType}
             />
           ) : null}
           <div
@@ -384,6 +385,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           <div
             style={
               detector === 'unknown'
@@ -403,6 +405,30 @@ export const Livestreaming = (props: LivestreamingProps) => {
               />
             )}
           </div>
+=======
+        </div>
+        <div
+          style={
+            detector === 'unknown'
+              ? { height: parseInt(height), maxHeight: parseInt(height) }
+              : { height: 'auto' }
+          }
+          className={`${
+            scriptProperties?.chat ? styles.chatContent : styles.displayNone
+          }`}
+        >
+          {scriptProperties?.chat && streamUrl && (
+            <Chat
+              title='Chat en vivo'
+              placeholder='Comenta aqui...'
+              infoSocket={info}
+              idLivestreaming={idLivestreaming}
+              account={account}
+              pinnedMessage={pinnedMessage}
+              transmitionType={transmitionType}
+            />
+          )}
+>>>>>>> master
         </div>
       </div>
     </I18nProvider>

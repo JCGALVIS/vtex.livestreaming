@@ -17,6 +17,7 @@ type ChatProps = {
   idLivestreaming: string
   account: string
   pinnedMessage: Message | undefined
+  transmitionType: string | undefined
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
@@ -25,7 +26,8 @@ export const Chat = ({
   infoSocket,
   idLivestreaming,
   account,
-  pinnedMessage
+  pinnedMessage,
+  transmitionType
 }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const formContainer = useRef<HTMLFormElement>(null)
@@ -47,6 +49,9 @@ export const Chat = ({
   const [incomingPosition, setIncomingPosition] = useState(0)
   const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
   const { formatMessage } = useIntl()
+
+  const isMobile = getDeviceType() === 'mobile'
+
   const handleIncoming = (): void => {
     if (!chatAreaRef?.current) return
 
@@ -115,7 +120,6 @@ export const Chat = ({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const isMobile = getDeviceType() === 'mobile'
       const visibilityStateIsHidden =
         document.visibilityState === ('hidden' || 'msHidden' || 'webkitHidden')
 
@@ -220,7 +224,14 @@ export const Chat = ({
   }, [])
 
   return (
-    <div className={styles.chatContainer}>
+    <div
+      className={styles.chatContainer}
+      style={
+        transmitionType === 'vertical' && !isMobile
+          ? { maxWidth: 360, minWidth: 360 }
+          : {}
+      }
+    >
       <div className={styles.liveChatContainer}>
         <div className={styles.liveChatHeader}>
           <ChatIcon />
