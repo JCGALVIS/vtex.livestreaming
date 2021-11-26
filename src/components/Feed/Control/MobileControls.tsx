@@ -20,7 +20,6 @@ import styles from '../../../styles.module.css'
 
 export const MobileControls = (props: PlayerControls) => {
   const {
-    activateLike,
     BUFFERING,
     firstTimeMuted,
     fullScreen,
@@ -100,7 +99,7 @@ export const MobileControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoMobileLikeButtonPosition}
         >
-          {activateLike && <Like infoSocket={infoSocket} />}
+          <Like infoSocket={infoSocket} />
         </div>
         <div
           className={styles.playerVideoMobileOptions}

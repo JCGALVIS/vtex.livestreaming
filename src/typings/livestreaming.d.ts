@@ -1,6 +1,22 @@
 /* eslint-disable no-unused-vars */
 import { Queue } from '../utils'
 
+type LivestreamingProps = {
+  account: string
+  idLivestreaming: string
+  isInGlobalPage: boolean
+  isInfinite: boolean
+  time: number
+  redirectTo: boolean
+  originOfProducts: string
+  showChat: boolean
+  showLike: boolean
+  showSidebarProducts: boolean
+  showProductsCarousel: boolean
+  showViewers: boolean
+  kuikpay: boolean
+}
+
 export declare interface Message {
   sessionId?: string
   data?: string
@@ -31,15 +47,15 @@ declare interface HighlightProduct {
   backgroundWhiteHighlight?: string
 }
 export declare interface ScriptProperties {
-  sidebarProducts: boolean | undefined
-  productsCarousel: boolean | undefined
-  chat: boolean | undefined
-  like: boolean | undefined
-  infinite: boolean | undefined
-  time: number | undefined
-  pdp: boolean | undefined
-  kuikpay: boolean | undefined
-  isInGlobalPage: boolean | undefined
+  sidebarProducts: boolean
+  productsCarousel: boolean
+  chat: boolean
+  like: boolean
+  infinite: boolean
+  time: number
+  pdp: boolean
+  kuikpay: boolean
+  isInGlobalPage: boolean
 }
 export declare interface InfoSocket {
   socket: WebSocket | undefined

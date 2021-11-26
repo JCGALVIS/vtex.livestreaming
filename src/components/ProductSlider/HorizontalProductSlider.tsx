@@ -1,34 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { ProductItem } from './ProductItem'
 import { useFetchProducts } from '../../hooks/useFetchProducts'
+import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
+import { ActionsContext } from '../../context/ActionsContext'
 
 import styles from './productSlider.css'
-import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
 
 type HorizontalProductSliderProps = {
   collectionId: string | undefined
-  time?: number
-  infinite?: boolean
-  pdp: boolean
-  originOfProducts: string | undefined
-  kuikpay: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
-  isInGlobalPage: boolean
 }
 
 export const HorizontalProductSlider = ({
   collectionId,
-  time,
-  infinite,
-  pdp,
-  originOfProducts,
-  kuikpay,
   setShowVariation,
-  transmitionType,
-  isInGlobalPage
+  transmitionType
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
   const [itemsProdcuts, setItemsProdcuts] = useState([
@@ -45,6 +34,11 @@ export const HorizontalProductSlider = ({
     }
   ])
   const [index, setIndex] = useState(2)
+
+  const {
+    setting: { isInfinite, originOfProducts, time }
+  } = useContext(ActionsContext)
+
   const { data: products, loading } = useFetchProducts({
     collectionId,
     originOfProducts
@@ -69,7 +63,7 @@ export const HorizontalProductSlider = ({
 
   useEffect(() => {
     if (loading) return
-    if (!infinite) return
+    if (!isInfinite) return
 
     const timeout = setTimeout(() => {
       handleRightClick()
@@ -78,7 +72,7 @@ export const HorizontalProductSlider = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [infinite, delay, loading, itemsProdcuts, selectedProductIndex, index])
+  }, [isInfinite, delay, loading, itemsProdcuts, selectedProductIndex, index])
 
   const handleProductMovement = (newIdx: number) => {
     if (products && products.length > 0) {
@@ -127,12 +121,9 @@ export const HorizontalProductSlider = ({
               <div className={styles.horizontalProductList}>
                 <ProductItem
                   {...product}
-                  pdp={pdp}
                   originOfProducts={originOfProducts}
                   setShowVariation={setShowVariation}
-                  kuikpay={kuikpay}
                   sectionIdClickedOn='live_shopping_carousel'
-                  isInGlobalPage={isInGlobalPage}
                 />
               </div>
             </CSSTransition>

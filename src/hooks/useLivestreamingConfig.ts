@@ -7,7 +7,7 @@ declare interface Props {
   account: string
 }
 
-export const useLivestreamingConfig = ({ id, account }: Props) => {
+const useLivestreamingConfig = ({ id, account }: Props) => {
   const [wssStream, setWssStream] = useState<string | undefined>(undefined)
   const [streamUrl, setStreamUrl] = useState<string | undefined>(undefined)
   const [collectionId, setCollectionId] = useState<string | undefined>(
@@ -19,7 +19,8 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
   )
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
-  const [status, setStatus] = useState ('')
+  const [isModalLive, setIsModalLive] = useState<boolean | undefined>()
+  const [status, setStatus] = useState('')
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -43,6 +44,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
       setUtm(data?.utm)
       setPinnedMessage(data?.pinnedMessage)
       setTransmitionType(data?.webClient?.transmitionType)
+      setIsModalLive(data?.webClient.modalLive)
       setStatus(data.status)
     }
 
@@ -57,6 +59,10 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
     emailIsRequired,
     pinnedMessage,
     transmitionType,
+    isModalLive,
+    setIsModalLive,
     status
   }
 }
+
+export default useLivestreamingConfig

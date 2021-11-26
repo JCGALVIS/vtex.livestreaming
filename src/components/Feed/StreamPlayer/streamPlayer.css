@@ -1,0 +1,13 @@
+.playerUi {
+  position: relative;
+  width: 100%;
+  height: 71vh !important;
+  background-color: black;
+  padding: 0 !important;
+  max-height: 71vh !important;
+}
+
+.playerUiPopoup {
+  height: 100% !important;
+  max-height: 100% !important;
+}

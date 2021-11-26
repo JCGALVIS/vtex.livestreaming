@@ -20,22 +20,6 @@ input[type='text']:focus {
   font-size: 16px;
 }
 
-.livestreaming {
-  height: 100%;
-  margin-bottom: 1rem;
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.livestreamingContent {
-  display: flex;
-  justify-content: center;
-  height: 71vh;
-  position: relative;
-  width: 100%;
-}
-
 .videoContent {
   position: relative;
   width: auto;
@@ -74,13 +58,6 @@ input[type='text']:focus {
   max-height: none;
 }
 
-.buttonProductContent {
-  position: absolute;
-  top: 1.4rem;
-  right: 1rem;
-  z-index: 1;
-}
-
 .sliderProductContent {
   display: none;
 }
@@ -94,10 +71,6 @@ input[type='text']:focus {
     position: relative;
     max-width: 44vw;
   }
-  /*
-  .videoContainerFull {
-    flex: 1 !important; */
-  /* } */
 
   .chatContent {
     position: relative;

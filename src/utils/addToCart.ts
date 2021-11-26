@@ -1,5 +1,9 @@
-export const addToCart = (idProduct: string, pdp: boolean, isInGlobalPage: boolean) => {
-  if (pdp || isInGlobalPage) {
+export const addToCart = (
+  idProduct: string,
+  redirectTo: boolean,
+  isInGlobalPage: boolean
+) => {
+  if (redirectTo || isInGlobalPage) {
     const link = document.getElementById(`add-cart-${idProduct}`)
     if (link) link.click()
   } else {

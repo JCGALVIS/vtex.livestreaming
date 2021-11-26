@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useMemo, Fragment } from 'react'
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  Fragment,
+  useContext
+} from 'react'
 
+import { SettingContext } from '../../../context/SettingContext'
 import type { MediaPlayer } from '../../../typings/MediaPlayer'
 import { getDeviceType } from '../../../utils'
 import type { InfoSocket } from '../../../typings/livestreaming'
@@ -9,12 +16,11 @@ import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 
 import styles from '../../../styles.module.css'
+import styles2 from './streamPlayer.css'
 
 type streamPlayerProps = {
-  activateLike: boolean
   collectionId: string | undefined
   infoSocket: InfoSocket
-  originOfProducts: string | undefined
   player: MediaPlayer
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
@@ -23,10 +29,8 @@ type streamPlayerProps = {
 }
 
 export const StreamPlayer = ({
-  activateLike,
   collectionId,
   infoSocket,
-  originOfProducts,
   player,
   setShowVariation,
   setWidth,
@@ -34,6 +38,8 @@ export const StreamPlayer = ({
   streamUrl
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
+
+  const { isModalLive } = useContext(SettingContext)
 
   const mobileOS = getDeviceType() === 'mobile'
 
@@ -86,7 +92,6 @@ export const StreamPlayer = ({
     const isMobile = windowDimensions.width <= 640
 
     const props = {
-      activateLike,
       BUFFERING,
       firstTimeMuted,
       fullScreen,
@@ -126,7 +131,6 @@ export const StreamPlayer = ({
       </Fragment>
     )
   }, [
-    activateLike,
     BUFFERING,
     firstTimeMuted,
     fullScreen,
@@ -158,7 +162,9 @@ export const StreamPlayer = ({
     <Fragment>
       <div
         ref={mainContainer}
-        className={styles.playerUi}
+        className={`${isModalLive && styles2.playerUiPopoup} ${
+          styles2.playerUi
+        }`}
         onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
         onMouseMove={() => {
           setInactive(false)
@@ -181,7 +187,6 @@ export const StreamPlayer = ({
               detector ? handleFullScreen : handleFullScreenMobile
             }
             infoSocket={infoSocket}
-            originOfProducts={originOfProducts}
             setShowVariation={setShowVariation}
           />
         )}

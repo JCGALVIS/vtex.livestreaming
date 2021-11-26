@@ -16,7 +16,7 @@ declare interface Props {
   wssStream: string | undefined
 }
 
-export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
+const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [socket, setSocket] = useState<WebSocket>()
   const [chat, setChat] = useState<Message[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
@@ -262,3 +262,5 @@ export const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     transmitiontype
   }
 }
+
+export default useWebSocket

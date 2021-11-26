@@ -28,7 +28,6 @@ interface IndicatorInterface {
 
 export const DesktopControls = (props: PlayerControls) => {
   const {
-    activateLike,
     BUFFERING,
     firstTimeMuted,
     fullScreen,
@@ -50,7 +49,6 @@ export const DesktopControls = (props: PlayerControls) => {
   } = props
 
   const buttonRenderer = (
-    activateLike: boolean,
     playerStatus: string,
     BUFFERING: string,
     overlay: boolean,
@@ -94,7 +92,7 @@ export const DesktopControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoLikeButtonPosition}
         >
-          {activateLike && <Like infoSocket={infoSocket} />}
+          <Like infoSocket={infoSocket} />
         </div>
         {playerStatus === PLAYING || playerStatus === IDLE ? (
           firstMuted ? (
@@ -186,7 +184,6 @@ export const DesktopControls = (props: PlayerControls) => {
   const MainButtonRenderer = useMemo(
     () =>
       buttonRenderer(
-        activateLike,
         status,
         BUFFERING,
         overlay,
@@ -201,7 +198,6 @@ export const DesktopControls = (props: PlayerControls) => {
         }
       ),
     [
-      activateLike,
       status,
       muted,
       pictureInPicture,

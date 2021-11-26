@@ -1,41 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 
 import { ProductItem } from './ProductItem'
 import { useFetchProducts } from './../../hooks/useFetchProducts'
 import { FormattedMessage } from 'react-intl'
 
 import styles from './productSlider.css'
+import { ActionsContext } from '../../context/ActionsContext'
 
 type VerticalProductSliderProps = {
   collectionId: string | undefined
-  time?: number
-  infinite?: boolean
   height: string
-  pdp: boolean
-  originOfProducts: string | undefined
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  kuikpay: boolean
-<<<<<<< HEAD
-  isInGlobalPage: boolean
-=======
-  transmitionType: string | undefined
->>>>>>> master
+  transmitionType?: string | undefined
 }
 
 export const VerticalProductSlider = ({
   collectionId,
-  time,
-  infinite,
   height,
-  pdp,
-  originOfProducts,
   setShowVariation,
-  setLoading,
-  kuikpay,
-  isInGlobalPage
   transmitionType
 }: VerticalProductSliderProps) => {
+  const {
+    setting: { isInfinite, originOfProducts, time }
+  } = useContext(ActionsContext)
+
   const { data: products, loading } = useFetchProducts({
     collectionId,
     originOfProducts
@@ -46,9 +34,8 @@ export const VerticalProductSlider = ({
   const productLisRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setLoading(loading)
     if (loading) return
-    if (!infinite) return
+    if (!isInfinite) return
     if (!productLisRef?.current) return
     if (isMouseOver) return
 
@@ -79,7 +66,7 @@ export const VerticalProductSlider = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [indexScroll, infinite, delay, isMouseOver, loading, transmitionType])
+  }, [indexScroll, isInfinite, delay, isMouseOver, loading])
 
   useEffect(() => {
     if (!productLisRef.current) return
@@ -111,16 +98,9 @@ export const VerticalProductSlider = ({
             <ProductItem
               key={product.id}
               {...product}
-              pdp={pdp}
               setShowVariation={setShowVariation}
-              originOfProducts={originOfProducts}
-              kuikpay={kuikpay}
               sectionIdClickedOn='live_shopping_sidebar'
-<<<<<<< HEAD
-              isInGlobalPage={isInGlobalPage}
-=======
               transmitionType={transmitionType}
->>>>>>> master
             />
           ))}
       </div>
