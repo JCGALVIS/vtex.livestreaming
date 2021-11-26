@@ -250,8 +250,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
 
     player.pause()
     player.attachHTMLVideoElement(videoEl.current)
-    // Validar con grabaciones el load
-    // player.load(streamUrl)
+    player.load(streamUrl)
     player.play()
     player.setMuted(true)
 

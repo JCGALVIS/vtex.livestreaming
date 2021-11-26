@@ -19,7 +19,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
   )
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
-  const [recordPath, setRecordPath] = useState<string | undefined>(undefined)
+  const [status, setStatus] = useState ('')
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -43,7 +43,7 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
       setUtm(data?.utm)
       setPinnedMessage(data?.pinnedMessage)
       setTransmitionType(data?.webClient?.transmitionType)
-      setRecordPath(data?.webClient?.recordPath)
+      setStatus(data.status)
     }
 
     getLivestreaming().catch(null)
@@ -57,6 +57,6 @@ export const useLivestreamingConfig = ({ id, account }: Props) => {
     emailIsRequired,
     pinnedMessage,
     transmitionType,
-    recordPath
+    status
   }
 }
