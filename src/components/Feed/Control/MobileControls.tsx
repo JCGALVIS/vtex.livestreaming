@@ -9,6 +9,7 @@ import {
   MutedIcon,
   PictureAndPictureAltIcon,
   PictureAndPictureIcon,
+  ShareIcon,
   VerticalDots,
   VolumeOffIcon,
   VolumeUpIcon
@@ -36,7 +37,8 @@ export const MobileControls = (props: PlayerControls) => {
     overlay,
     pictureInPicture,
     videoEl,
-    volume
+    volume,
+    handleOpenShare
   } = props
 
   return (
@@ -126,6 +128,19 @@ export const MobileControls = (props: PlayerControls) => {
                 <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
               ) : (
                 <FullscreenIcon size='40' viewBox='0 0 400 400' />
+              )}
+            </div>
+            <div
+              role='button'
+              tabIndex={0}
+              onClick={() => handleOpenShare()}
+              onKeyDown={() => handleOpenShare()}
+              className={styles.playerMobileShare}
+            >
+              {fullScreen ? (
+                <ShareIcon size='40' viewBox='0 0 400 400' />
+              ) : (
+                <ShareIcon size='40' viewBox='0 0 400 400' />
               )}
             </div>
             {!!videoEl?.current?.requestPictureInPicture && (

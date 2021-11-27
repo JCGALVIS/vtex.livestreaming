@@ -14,6 +14,7 @@ import type { InfoSocket } from '../../../typings/livestreaming'
 import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
+import ShareComponents from '../../ShareComponents'
 
 import styles from '../../../styles.module.css'
 import styles2 from './streamPlayer.css'
@@ -38,6 +39,7 @@ export const StreamPlayer = ({
   streamUrl
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
+  const [openShare, setOpenShare] = useState(false)
 
   const { isModalLive } = useContext(SettingContext)
 
@@ -116,7 +118,8 @@ export const StreamPlayer = ({
       showOptions,
       status,
       videoEl,
-      volume
+      volume,
+      handleOpenShare: () => setOpenShare(true)
     }
 
     return (
@@ -189,6 +192,9 @@ export const StreamPlayer = ({
             infoSocket={infoSocket}
             setShowVariation={setShowVariation}
           />
+        )}
+        {openShare && (
+          <ShareComponents handleClose={() => setOpenShare(false)} />
         )}
         <video
           className={styles.playerVideoEl}

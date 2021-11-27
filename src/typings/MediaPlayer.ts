@@ -99,4 +99,5 @@ export type PlayerControls = {
   status: string
   videoEl: React.RefObject<StreamPlayerType>
   volume: number
+  handleOpenShare: () => void
 }

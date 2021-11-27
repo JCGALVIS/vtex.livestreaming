@@ -202,6 +202,13 @@ input[type='text']:focus {
   color: #ffffff;
   margin-bottom: 10px;
 }
+.playerMobileShare {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
 
 .playerVideoMobilePicture {
   display: flex;
@@ -315,6 +322,13 @@ input[type='text']:focus {
 }
 
 .playerVideoLikeButtonPosition {
+  grid-column-start: 7;
+  grid-column-end: 8;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+
+.playerVideoSharedButtonPosition {
   grid-column-start: 7;
   grid-column-end: 8;
   grid-row-start: 5;
