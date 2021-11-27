@@ -21,6 +21,8 @@ import ViewersIcon from './ViewersIcon'
 import VolumeOffIcon from './VolumeOffIcon'
 import VolumeUpIcon from './VolumeUpIcon'
 import PinIcon from './PinIcon'
+import ShareIcon from './ShareIcon'
+import { FacebookIcon, TwitterIcon, WhatsappIcon } from './SocialsIcons'
 
 export {
   ArrowDown,
@@ -45,5 +47,9 @@ export {
   ViewersIcon,
   VolumeOffIcon,
   VolumeUpIcon,
-  PinIcon
+  PinIcon,
+  ShareIcon,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon
 }
