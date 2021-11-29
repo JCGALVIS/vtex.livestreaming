@@ -20,6 +20,9 @@ const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
       'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'
     )
   }
+  const copyUrl = () => {
+    navigator.clipboard.writeText(url)
+  }
 
   return (
     <div className={`${styles.containerShare}`}>
@@ -42,8 +45,13 @@ const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
       </div>
       <div style={{ display: 'flex' }}>
         <input className={`${styles.inputShare}`} disabled value={url} />
-        <button className={`${styles.buttonCopyShare}`}>
-          <IconCopy />
+        <button
+          className={`${styles.buttonCopyShare}`}
+          onClick={() => copyUrl()}
+        >
+          <div style={{ cursor: 'pointer' }}>
+            <IconCopy />
+          </div>
         </button>
       </div>
     </div>
