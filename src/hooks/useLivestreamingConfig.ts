@@ -17,6 +17,7 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
   const [transmitionType, setTransmitionType] = useState<string>()
   const [isModalLive, setIsModalLive] = useState<boolean>()
   const [status, setStatus] = useState('')
+  const [showGifButton, setShowGifButton] = useState<boolean>()
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -41,7 +42,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
       setPinnedMessage(data?.pinnedMessage)
       setTransmitionType(data?.webClient?.transmitionType)
       setIsModalLive(data?.webClient.modalLive)
-      setStatus(data.status)
+      setStatus(data?.status)
+      setShowGifButton(data?.webClient?.showGif)
     }
 
     getLivestreaming().catch(null)
@@ -57,7 +59,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     transmitionType,
     isModalLive,
     setIsModalLive,
-    status
+    status,
+    showGifButton
   }
 }
 
