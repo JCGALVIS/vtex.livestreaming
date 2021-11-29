@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Dispatch, useEffect } from 'react'
 import { Actions } from './reducer'
 import { apiCall } from '../../../services/apiCall'
@@ -19,10 +20,9 @@ export const useSetChatHistory = (
     if (!URL) return
 
     const getChat = async () => {
-      const chat : { data: Message[] } = await apiCall({
+      const chat: { data: Message[] } = await apiCall({
         url: `${URL}/${account}/${idLivestreaming}`
       })
-      console.log(chat)
       if (chat?.data?.length) {
         dispatch({
           type: 'SET_CHAT_HISTORY',
@@ -33,6 +33,5 @@ export const useSetChatHistory = (
       }
     }
     getChat().catch(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }

@@ -10,6 +10,11 @@
   justify-content: center;
 }
 
+.livestreamingContainer {
+  height: 100%;
+  width: 100%;
+}
+
 .livestreamingContent {
   display: flex;
   justify-content: center;
@@ -51,5 +56,63 @@
 @media screen and (min-width: 930px) {
   .livestreamingContent {
     height: auto;
+  }
+
+  .livestreamingPopoup {
+    position: fixed;
+    inset: 0px;
+    z-index: 999;
+  }
+
+  .livestreamingPopoupContainer {
+    width: 100%;
+    display: flex;
+    opacity: 1;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .livePopoup {
+    height: 90%;
+    width: 95%;
+    border-radius: 4px;
+    position: relative;
+    z-index: 999;
+    bottom: 0;
+    background: #ffffff;
+  }
+
+  .closePopoupDeskotp {
+    background-color: #ffffff;
+    border-radius: 500%;
+    display: flex;
+    height: 30px;
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4px;
+    color: #000000;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+  }
+
+  .backdropContainer {
+    opacity: 0.5;
+    pointer-events: auto;
+    transition: opacity 300ms ease 0s;
+    position: fixed;
+    background-color: #3f3f40;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .videoContainer {
+    position: relative;
+    max-width: 66vw;
   }
 }

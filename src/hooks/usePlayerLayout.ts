@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useRef, useState, useMemo, useLayoutEffect } from 'react'
+import { useRef, useState, useMemo, useLayoutEffect, useContext } from 'react'
 
+import { SettingContext } from '../context'
 import type { Dimensions, StreamPlayerType } from '../typings/MediaPlayer'
 import { getDeviceType } from '../utils'
 
@@ -12,6 +13,8 @@ const initialDimensions: Dimensions = {
 const usePlayerLayout = (transmitionType: string | undefined) => {
   const videoEl = useRef<StreamPlayerType>(null)
   const mainContainer = useRef<HTMLDivElement>(null)
+
+  const { isModalLive } = useContext(SettingContext)
 
   const [windowDimensions, setWindowDimensions] =
     useState<Dimensions>(initialDimensions)
@@ -44,7 +47,7 @@ const usePlayerLayout = (transmitionType: string | undefined) => {
 
         return {
           height,
-          width: (1080 / 1920) * height
+          width: isModalLive ? '25vw' : (1080 / 1920) * height
         }
 
       default:
