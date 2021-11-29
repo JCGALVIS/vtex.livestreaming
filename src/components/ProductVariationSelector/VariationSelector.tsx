@@ -141,9 +141,12 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                       <div className={styles.productInfo}>
                         <h2 className={styles.productTitle}>{product?.name}</h2>
                         <span>
-                          <span className={styles.productPrice}>
-                            {currencyFormat(selectedProduct?.price)}
-                          </span>
+                          {selectedProduct?.price !==
+                            selectedProduct?.priceWithDiscount && (
+                            <span className={styles.productPrice}>
+                              {currencyFormat(selectedProduct?.price)}
+                            </span>
+                          )}
                         </span>
                         <span className={styles.productDiscountPrice}>
                           {currencyFormat(selectedProduct?.priceWithDiscount)}
