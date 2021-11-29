@@ -1,6 +1,6 @@
 .verticalProductSliderContent {
   background: #f8f7fc !important;
-  width: 100% !important;
+  width: 300px !important;
   height: 100%;
 }
 
@@ -39,8 +39,8 @@
 
 .productItemContent {
   display: flex;
-  max-width: 230px;
-  min-width: 230px;
+  max-width: 100%;
+  min-width: 100%;
   box-shadow: 0 0 5px #55555536;
   background-color: white;
   margin: 5px 0;

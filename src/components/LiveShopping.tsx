@@ -216,125 +216,154 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     }
   }, [initTransmitionType, socketTransmitiontype])
   return (
-    <div className={styles2.livestreaming}>
+    <div
+      className={`${styles2.livestreaming} ${
+        isModalLive && styles2.livestreamingPopoup
+      }`}
+    >
       <div
-        className={`${styles2.livestreamingContent} ${
-          isModalLive && styles2.livePopoup
+        className={`${styles2.livestreamingContainer} ${
+          isModalLive && styles2.livestreamingPopoupContainer
         }`}
       >
-        <VariationSelector
-          showVariation={showVariation}
-          setShowVariation={setShowVariation}
-        />
-        {showSidebarProducts || showProductsCarousel ? (
-          <SliderProductMobile
-            collectionId={collectionId}
-            height={height}
-            showSliderProducts={showSliderProducts}
-            setShowSliderProducts={setShowSliderProducts}
+        <div
+          className={`${styles2.livestreamingContent} ${
+            isModalLive && styles2.livePopoup
+          }`}
+          style={
+            getMobileOS() === 'unknown' && transmitionType === 'vertical'
+              ? { width: 'auto' }
+              : {}
+          }
+        >
+          <VariationSelector
+            showVariation={showVariation}
             setShowVariation={setShowVariation}
           />
-        ) : null}
-        <div
-          style={{ height: parseInt(height) }}
-          className={`${
-            showSidebarProducts
-              ? styles.sliderProductContent
-              : styles.displayNone
-          }`}
-        >
-          {showSidebarProducts && (
-            <VerticalProductSlider
+          {showSidebarProducts || showProductsCarousel ? (
+            <SliderProductMobile
               collectionId={collectionId}
-              height={(parseInt(height) - 58).toString()}
+              height={height}
+              showSliderProducts={showSliderProducts}
+              setShowSliderProducts={setShowSliderProducts}
               setShowVariation={setShowVariation}
-              transmitionType={transmitionType}
             />
-          )}
-        </div>
-        <div
-          style={
-            detector === 'unknown'
-              ? { height: parseInt(height), width: width }
-              : { width: '100%' }
-          }
-          className={styles.videoContainer}
-        >
+          ) : null}
           <div
-            ref={divVideoContent}
-            className={`${isModalLive && styles2.heightPopoup} ${
-              styles.fittedContainer
+            style={{ height: parseInt(height) }}
+            className={`${
+              showSidebarProducts
+                ? styles.sliderProductContent
+                : styles.displayNone
             }`}
-            style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
+          >
+            {showSidebarProducts && (
+              <VerticalProductSlider
+                collectionId={collectionId}
+                height={(parseInt(height) - 58).toString()}
+                setShowVariation={setShowVariation}
+                transmitionType={transmitionType}
+              />
+            )}
+          </div>
+          <div
+            style={
+              detector === 'unknown'
+                ? isModalLive && transmitionType === 'vertical'
+                  ? { height: parseInt(height), width: '25vw' }
+                  : { height: parseInt(height), width: width }
+                : { width: '100%' }
+            }
+            className={styles.videoContainer}
           >
             <div
+              ref={divVideoContent}
               className={`${isModalLive && styles2.heightPopoup} ${
-                styles.videoContent
+                styles.fittedContainer
               }`}
+              style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
             >
-              <div className={styles2.buttonProductContent}>
-                {showSidebarProducts || showProductsCarousel ? (
-                  <ButtonProductsMobile
+              <div
+                className={`${isModalLive && styles2.heightPopoup} ${
+                  styles.videoContent
+                }`}
+              >
+                <div className={styles2.buttonProductContent}>
+                  {showSidebarProducts || showProductsCarousel ? (
+                    <ButtonProductsMobile
+                      collectionId={collectionId}
+                      setShowSliderProducts={setShowSliderProducts}
+                    />
+                  ) : null}
+                  {getMobileOS() !== 'unknown' && isModalLive && (
+                    <div
+                      className={styles2.closePopoup}
+                      onClick={() => {
+                        setLoading(true)
+                        setIsModalLive(false)
+                      }}
+                    >
+                      <IconClose />
+                    </div>
+                  )}
+                </div>
+                <Feed
+                  collectionId={collectionId}
+                  infoSocket={info}
+                  isPlayerSupported={isPlayerSupported}
+                  setShowVariation={setShowVariation}
+                  setWidth={setWidth}
+                  streamUrl={streamUrl}
+                  transmitionType={transmitionType}
+                  livestreamingStatus={status}
+                />
+                <div className={styles.liveContent}>
+                  <Live infoSocket={info} />
+                </div>
+                <div className={styles.viewersContent}>
+                  <Viewers infoSocket={info} />
+                </div>
+              </div>
+              <div className={styles.horizontalProductsContent}>
+                {showProductsCarousel && (
+                  <HorizontalProductSlider
                     collectionId={collectionId}
-                    setShowSliderProducts={setShowSliderProducts}
+                    setShowVariation={setShowVariation}
+                    transmitionType={transmitionType}
                   />
-                ) : null}
-                {isModalLive && (
-                  <div
-                    className={styles2.closePopoup}
-                    onClick={() => {
-                      setLoading(true)
-                      setIsModalLive(false)
-                    }}
-                  >
-                    <IconClose />
-                  </div>
                 )}
               </div>
-              <Feed
-                collectionId={collectionId}
-                infoSocket={info}
-                isPlayerSupported={isPlayerSupported}
-                setShowVariation={setShowVariation}
-                setWidth={setWidth}
-                streamUrl={streamUrl}
-                transmitionType={transmitionType}
-                livestreamingStatus={status}
-              />
-              <div className={styles.liveContent}>
-                <Live infoSocket={info} />
-              </div>
-              <div className={styles.viewersContent}>
-                <Viewers infoSocket={info} />
-              </div>
-            </div>
-            <div className={styles.horizontalProductsContent}>
-              {showProductsCarousel && (
-                <HorizontalProductSlider
-                  collectionId={collectionId}
-                  setShowVariation={setShowVariation}
-                  transmitionType={transmitionType}
-                />
-              )}
             </div>
           </div>
-        </div>
-        <div
-          style={
-            detector === 'unknown'
-              ? { height: parseInt(height), maxHeight: parseInt(height) }
-              : { height: 'auto' }
-          }
-          className={`${showChat ? styles.chatContent : styles.displayNone}`}
-        >
-          {showChat && (
-            <Chat
-              infoSocket={info}
-              pinnedMessage={pinnedMessage}
-              transmitionType={transmitionType}
-            />
+          <div
+            style={
+              detector === 'unknown'
+                ? { height: parseInt(height), maxHeight: parseInt(height) }
+                : { height: 'auto' }
+            }
+            className={`${showChat ? styles.chatContent : styles.displayNone}`}
+          >
+            {showChat && (
+              <Chat
+                infoSocket={info}
+                pinnedMessage={pinnedMessage}
+                transmitionType={transmitionType}
+              />
+            )}
+          </div>
+          {getMobileOS() === 'unknown' && isModalLive && (
+            <div
+              className={styles2.closePopoupDeskotp}
+              onClick={() => {
+                setLoading(true)
+                setIsModalLive(false)
+              }}
+            >
+              <IconClose />
+            </div>
           )}
         </div>
+        {isModalLive && <div className={styles2.backdropContainer} />}
       </div>
     </div>
   )

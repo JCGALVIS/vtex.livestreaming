@@ -36,13 +36,17 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const settingProps = { isModalLive, setIsModalLive }
 
-  useEffect(() => {
-    console.log('isModalLive: ', isModalLive)
-    setTimeout(() => setLoading(false), 3000)
-  }, [isModalLive])
   const [state, dispatch] = useLivestreamingReducer()
   useSetLivestreaming(idLivestreaming, account, dispatch)
   useSetChatHistory(idLivestreaming, account, dispatch)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 3000)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [isModalLive])
 
   return (
     <I18nProvider locale={locale}>

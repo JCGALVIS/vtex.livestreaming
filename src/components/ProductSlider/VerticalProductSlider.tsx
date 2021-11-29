@@ -81,7 +81,12 @@ export const VerticalProductSlider = ({
   }, [productLisRef])
 
   return !loading ? (
-    <div className={styles.verticalProductSliderContent}>
+    <div
+      className={styles.verticalProductSliderContent}
+      style={
+        transmitionType === 'vertical' ? { maxWidth: 360, minWidth: 360 } : {}
+      }
+    >
       <div className={styles.verticalProductSliderTitle}>
         <p className={styles.title}>
           <FormattedMessage id='store/text.products' />
@@ -100,7 +105,6 @@ export const VerticalProductSlider = ({
               {...product}
               setShowVariation={setShowVariation}
               sectionIdClickedOn='live_shopping_sidebar'
-              transmitionType={transmitionType}
             />
           ))}
       </div>
