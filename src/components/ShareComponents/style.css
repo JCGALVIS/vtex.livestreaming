@@ -36,17 +36,10 @@
   font-size: 0.875rem;
 }
 .closeShare {
-  -webkit-text-size-adjust: 100%;
-  -webkit-box-direction: normal;
-  font-size: 100%;
   line-height: 1.15;
   margin: 0;
   overflow: visible;
   text-transform: none;
-  -webkit-appearance: button;
-  -webkit-font-smoothing: antialiased;
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
-    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   background: transparent !important;
   z-index: 100;
   border: none;
