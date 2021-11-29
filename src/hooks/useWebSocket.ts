@@ -25,6 +25,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     undefined
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
+  const [showGif, setShowGif] = useState<boolean | undefined>()
   const [isTransmiting, setIsTransmiting] = useState(false)
   const [highlightProduct, setHighlightProduct] = useState<
     HighlightProduct | undefined
@@ -70,6 +71,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         username,
         startTime,
         viewerCount,
+        showGifButton,
         status,
         productId,
         showProduct,
@@ -87,7 +89,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         kuikpay,
         isAdmin,
         responseAdmin,
-        isInGlobalPage
+        isInGlobalPage,
+        type
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -99,6 +102,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
               sendDate,
               isAdmin,
               responseAdmin,
+              type,
               color:
                 prev.find((i) => i.username === username)?.color ||
                 getRandomColor()
@@ -129,6 +133,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
 
         case 'sendshowCounter':
           setShowCounter(data)
+          setShowGif(showGifButton)
           setEmailIsRequired(emailIsRequired)
           break
 
@@ -241,6 +246,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     hearts,
     ivsRealTime,
     showCounter,
+    showGif,
     isTransmiting,
     emailIsRequired,
     highlightProduct,

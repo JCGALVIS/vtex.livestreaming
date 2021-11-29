@@ -8,7 +8,7 @@ import styles from './chat.css'
 
 interface ResponseMessage {
   username: string
-  message: string
+  message: Message | null
   isMobile?: boolean
 }
 
@@ -63,7 +63,13 @@ const ResponseMessage = ({ username, message, isMobile }: ResponseMessage) => {
             <span className={`${styles.chatUser} t-mini`}>{username}</span>
           </div>
           <div className={styles.chatTextContainer}>
-            <span className={`${styles.chatMessage} mv3`}>{message}</span>
+            <span className={`${styles.chatMessage} mv3`}>
+              {message?.type === 'gif' ? (
+                <img alt='' src={message.data?.split(',')[0]} />
+              ) : (
+                message?.data
+              )}
+            </span>
           </div>
         </div>
       </div>
@@ -76,7 +82,14 @@ const ResponseMessage = ({ username, message, isMobile }: ResponseMessage) => {
             {username}
             {': '}
           </b>
-          {message}
+          {message?.type === 'gif' ? (
+            <div>
+              <br />
+              <img alt='' src={message.data?.split(',')[0]} />
+            </div>
+          ) : (
+            message?.data
+          )}
         </span>
       </div>
     </div>
@@ -113,7 +126,7 @@ const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
             {value?.responseAdmin && (
               <ResponseMessage
                 username={dataResponse.msgQuestion?.username || getUserName()}
-                message={dataResponse.msgQuestion?.data || ''}
+                message={dataResponse?.msgQuestion}
                 isMobile={!IS_DESKTOP}
               />
             )}
@@ -126,7 +139,13 @@ const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
             </div>
             <div className={styles.chatTextContainer}>
               <span className={`${styles.chatMessage} mv3`}>
-                {value?.responseAdmin ? dataResponse.responseAdmin : value.data}
+                {value.type === 'gif' ? (
+                  <img alt='gif' src={value?.data?.split(',')[0]} />
+                ) : value?.responseAdmin ? (
+                  dataResponse.responseAdmin
+                ) : (
+                  value.data
+                )}
               </span>
             </div>
           </div>
@@ -143,7 +162,7 @@ const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
           {value?.responseAdmin && (
             <ResponseMessage
               username={dataResponse.msgQuestion?.username || getUserName()}
-              message={dataResponse.msgQuestion?.data || ''}
+              message={dataResponse.msgQuestion}
               isMobile={!IS_DESKTOP}
             />
           )}
@@ -153,7 +172,16 @@ const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
               {': '}
               {pinned && <PinIcon color='#000' size={12} />}
             </b>
-            {value?.responseAdmin ? dataResponse.responseAdmin : value.data}
+            {value.type === 'gif' ? (
+              <div>
+                <br />
+                <img alt='gif' src={value?.data?.split(',')[1]} />
+              </div>
+            ) : value?.responseAdmin ? (
+              dataResponse.responseAdmin
+            ) : (
+              value.data
+            )}
           </span>
         </div>
       </div>

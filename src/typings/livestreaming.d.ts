@@ -26,6 +26,7 @@ export declare interface Message {
   isAdmin?: Boolean
   color?: string
   responseAdmin?: boolean
+  type?: string
 }
 
 export declare interface Heart {
@@ -64,6 +65,7 @@ export declare interface InfoSocket {
   sessionId: string
   ivsRealTime: IvsRealTime | undefined
   showCounter: boolean | undefined
+  showGif: boolean | undefined
   isTransmiting: boolean
   emailIsRequired: boolean | undefined
   question?: Question
