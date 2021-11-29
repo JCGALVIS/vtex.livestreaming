@@ -21,6 +21,7 @@ import ArrowDown from '../icons/ArrowDown'
 import styles from './chat.css'
 import { useIntl } from 'react-intl'
 import { ActionsContext } from '../../context/ActionsContext'
+import { useLivestreamingContext } from '../../context'
 
 type ChatProps = {
   infoSocket: InfoSocket
@@ -62,6 +63,7 @@ export const Chat = ({
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
   const { formatMessage } = useIntl()
+  const { chat: chatFinalizedEvents } = useLivestreamingContext()
 
   const {
     setting: { idLivestreaming }
@@ -169,8 +171,11 @@ export const Chat = ({
   }, [chat])
 
   const ChatMessages = useMemo(
-    () => MessageRenderer(chatFiltered || []),
-    [chatFiltered, chat]
+    () =>
+      MessageRenderer(
+        infoSocket.socket ? chatFiltered : chatFinalizedEvents || []
+      ),
+    [chatFiltered, chat, chatFinalizedEvents]
   )
 
   useEffect(() => {

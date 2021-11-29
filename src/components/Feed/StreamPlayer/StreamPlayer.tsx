@@ -73,7 +73,10 @@ export const StreamPlayer = ({
     setOverlay,
     showOptions,
     status,
-    volume
+    volume,
+    progress,
+    handleVideoProgress,
+    handleOnTimeUpdate
   } = usePlayerFunctions({ player, videoEl, mainContainer, streamUrl })
 
   const dimensions = fullScreen
@@ -116,7 +119,9 @@ export const StreamPlayer = ({
       showOptions,
       status,
       videoEl,
-      volume
+      volume,
+      progress,
+      handleVideoProgress
     }
 
     return (
@@ -155,7 +160,9 @@ export const StreamPlayer = ({
     showOptions,
     status,
     videoEl,
-    volume
+    volume,
+    progress,
+    handleVideoProgress
   ])
 
   return (
@@ -200,6 +207,7 @@ export const StreamPlayer = ({
           style={{
             objectFit: detector && isVerticalLayout ? 'cover' : 'contain'
           }}
+          onTimeUpdate={handleOnTimeUpdate}
         />
         {ControlWrapper}
       </div>
