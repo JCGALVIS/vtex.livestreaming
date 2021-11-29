@@ -71,7 +71,8 @@ export const LiveShopping = () => {
     emailIsRequired,
     pinnedMessage: initPinnedMessage,
     transmitionType: initTransmitionType,
-    status
+    status,
+    showGifButton
   } = useLivestreamingConfig({
     id: idLivestreaming,
     account
@@ -328,6 +329,7 @@ export const LiveShopping = () => {
               infoSocket={info}
               pinnedMessage={pinnedMessage}
               transmitionType={transmitionType}
+              initShowGif={showGifButton}
             />
           )}
         </div>

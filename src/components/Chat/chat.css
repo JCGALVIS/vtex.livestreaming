@@ -189,6 +189,22 @@
   cursor: pointer;
 }
 
+.buttonsChat {
+  display: flex;
+  flex-direction: row;
+}
+
+.gifIconContainer {
+  display: flex;
+  border-top: 2px solid #e3e4e6;
+  border-bottom: 2px solid #e3e4e6;
+}
+
+.gifIconContainer svg {
+  margin: auto;
+  padding: 0 0.5rem;
+}
+
 @media screen and (min-width: 930px) {
   .chatContainer {
     justify-content: space-between;
@@ -234,6 +250,10 @@
     flex: 1;
     height: calc(100vh - 169px) !important;
     overflow-y: scroll !important;
+  }
+
+  .chatArea img{
+    border-radius: 5px;
   }
 
   .chatArea::-webkit-scrollbar {
@@ -363,5 +383,14 @@
 
   .btn:hover {
     cursor: pointer;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .gifIconContainer {
+    display: flex;
+    height: 40px;
+    background-color: #141415;
+    border: none;
   }
 }

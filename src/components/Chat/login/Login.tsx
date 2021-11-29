@@ -11,6 +11,7 @@ import { ActionsContext } from '../../../context/ActionsContext'
 
 interface Props {
   content: string
+  selectedGif: string | undefined
   infoSocket: InfoSocket
   setShowLoginWindow: React.Dispatch<React.SetStateAction<boolean>>
   setUserIsLoggedInChat: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,6 +21,7 @@ interface Props {
 
 export const Login = ({
   content,
+  selectedGif,
   setShowLoginWindow,
   setUserIsLoggedInChat,
   setSendFirstMessage,
@@ -48,9 +50,11 @@ export const Login = ({
     setTimeout(() => {
       const data = {
         action: 'sendmessage',
-        data: content.replace(/\\/g, '\\\\').replace(/"/g, '\\"'),
+        data:
+          selectedGif || content.replace(/\\/g, '\\\\').replace(/"/g, '\\"'),
         sessionId: sessionId,
-        username
+        username,
+        type: selectedGif ? 'gif' : 'string'
       }
 
       socket?.send(JSON.stringify(data))

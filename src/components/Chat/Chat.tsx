@@ -9,9 +9,11 @@ import React, {
 
 import ChatIcon from '../icons/ChatIcon'
 import SendIcon from '../icons/Send'
+import GifIcon from '../icons/GifIcon'
 import MessageRenderer from './MessageRenderer'
 import type { InfoSocket, Message } from '../../typings/livestreaming'
 import { Login } from './login/Login'
+import GiphySearch from '../Giphy/Giphy'
 import { ModalQuestion } from '../question/ModalQuestion'
 import { getDeviceType } from '../../utils'
 import ArrowDown from '../icons/ArrowDown'
@@ -25,6 +27,7 @@ type ChatProps = {
   infoSocket: InfoSocket
   pinnedMessage: Message | undefined
   transmitionType: string | undefined
+  initShowGif: boolean | undefined
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
@@ -32,7 +35,8 @@ const NUMBER_OF_PREVIOUS_MESSAGES = 10
 export const Chat = ({
   infoSocket,
   pinnedMessage,
-  transmitionType
+  transmitionType,
+  initShowGif
 }: ChatProps) => {
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const formContainer = useRef<HTMLFormElement>(null)
@@ -43,7 +47,8 @@ export const Chat = ({
     setChat,
     sessionId,
     messageToDelete,
-    setMessageToDelete
+    setMessageToDelete,
+    showGif: showGifButtonSocket
   } = infoSocket
   const [chatFiltered, setChatFiltered] = useState<Message[]>([])
   const [showLoginWindow, setShowLoginWindow] = useState(false)
@@ -53,6 +58,10 @@ export const Chat = ({
   const [incoming, setIncoming] = useState(false)
   const [incomingPosition, setIncomingPosition] = useState(0)
   const IS_DESKTOP = useMemo(() => window.screen.width >= 1025, [])
+  const [showGif, setShowGif] = useState(false)
+  const [showGifButton, setShowGifButton] = useState<boolean | undefined>(false)
+  const [selectedGif, setSelectedGif] = useState<string>()
+  const [fisrtLoad, setFirstLoad] = useState(true)
   const { formatMessage } = useIntl()
   const { chat: chatFinalizedEvents } = useLivestreamingContext()
 
@@ -73,30 +82,43 @@ export const Chat = ({
     setIncoming(false)
   }
 
-  const handlerSendMessage = async (event: React.SyntheticEvent) => {
-    event.preventDefault()
-    event.persist()
+  const handlerSendMessage = async (
+    event?: React.SyntheticEvent,
+    type = 'string',
+    gif?: string
+  ) => {
+    if (event) {
+      event.preventDefault()
+      event.persist()
+    }
     const isEmpty = !(content !== null && content.trim() !== '')
+    const isEmptyGif = gif === undefined || gif?.trim() === ''
 
-    if (isEmpty || !socket) {
+    if ((isEmpty && isEmptyGif) || !socket) {
       return
     }
 
     if (!userIsLoggedInChat) {
       setTimeout(() => setShowLoginWindow(true), 200)
-
+      setSelectedGif(gif)
+      setShowGif(false)
       return
     }
 
     const data = {
       action: 'sendmessage',
-      data: content.replace(/\\/g, '\\\\').replace(/"/g, '\\"'),
+      data: content.replace(/\\/g, '\\\\').replace(/"/g, '\\"') || gif,
       sessionId: sessionId,
-      username: undefined
+      username: undefined,
+      type
     }
 
     socket.send(JSON.stringify(data))
-    setContent('')
+    if (type !== 'gif') {
+      setContent('')
+    } else {
+      setShowGif(false)
+    }
   }
 
   const deleteMessage = useCallback(() => {
@@ -235,6 +257,24 @@ export const Chat = ({
     }
   }, [])
 
+  useEffect(() => {
+    if (fisrtLoad) {
+      if (initShowGif === undefined) return
+      setShowGifButton(initShowGif)
+      setFirstLoad(false)
+    } else {
+      if (showGifButtonSocket === undefined) {
+        setShowGifButton(initShowGif)
+        return
+      }
+      setShowGifButton(showGifButtonSocket)
+    }
+  }, [initShowGif, fisrtLoad, showGifButtonSocket])
+
+  const handleShowGif = () => {
+    setShowGif(!showGif)
+  }
+
   return (
     <div
       className={styles.chatContainer}
@@ -311,38 +351,52 @@ export const Chat = ({
             content={content}
             setContent={setContent}
             infoSocket={infoSocket}
+            selectedGif={selectedGif}
           />
         )}
 
         <ModalQuestion infoSocket={infoSocket} />
 
-        <form
-          onSubmit={handlerSendMessage}
-          className={styles.inputChatContent}
-          ref={formContainer}
-        >
-          <div className={styles.inputContent}>
-            <input
-              className={styles.inputTextChat}
-              placeholder={formatMessage({ id: 'store/text.chat-placeholder' })}
-              name='content'
-              type='text'
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setContent(e.target.value)
-              }
-              onFocus={() =>
-                setShowLoginWindow(!userIsLoggedInChat && sendFirstMessage)
-              }
-              value={content}
-              autoComplete='off'
-            />
-          </div>
-          <div>
-            <button type='submit' className={styles.btn}>
-              <SendIcon size='21' viewBox='0 0 21 21' />
-            </button>
-          </div>
-        </form>
+        <div>
+          <GiphySearch showGif={showGif} sendGif={handlerSendMessage} />
+          <form
+            onSubmit={handlerSendMessage}
+            className={styles.inputChatContent}
+            ref={formContainer}
+          >
+            <div className={styles.inputContent}>
+              <input
+                className={styles.inputTextChat}
+                placeholder={formatMessage({
+                  id: 'store/text.chat-placeholder'
+                })}
+                name='content'
+                type='text'
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setContent(e.target.value)
+                }
+                onFocus={() =>
+                  setShowLoginWindow(!userIsLoggedInChat && sendFirstMessage)
+                }
+                value={content}
+                autoComplete='off'
+              />
+            </div>
+            <div className={styles.buttonsChat}>
+              {showGifButton && (
+                <span
+                  onClick={handleShowGif}
+                  className={styles.gifIconContainer}
+                >
+                  <GifIcon viewBox='0 0 22 10' size='25' />
+                </span>
+              )}
+              <button type='submit' className={styles.btn}>
+                <SendIcon size='21' viewBox='0 0 21 21' />
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )

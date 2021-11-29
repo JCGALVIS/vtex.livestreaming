@@ -1,0 +1,40 @@
+.giphySearchBoxContainer {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  z-index: 100;
+  bottom: 55px;
+  left: 0px;
+  background: white;
+  padding-top: 10px;
+  border-radius: 10px 10px 0 0;
+  margin: auto;
+}
+
+.giphySearchBoxWrapper {
+  margin: auto;
+}
+
+.giphySearchBoxSearchForm {
+}
+
+.giphySearchBoxlistWrapper {
+  height: 150px !important;
+  scrollbar-width: thin !important;
+}
+
+.giphySearchBoxlistItem {
+  border-radius: 5px !important;
+  overflow: hidden;
+}
+
+.giphySearchBoxlistWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  .giphySearchBoxlistWrapper {
+    height: 100px !important;
+    scrollbar-width: thin !important;
+  }
+}
