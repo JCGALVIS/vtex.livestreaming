@@ -36,7 +36,12 @@ type OrderForm = {
   marketingData: MarketingData
 }
 
-export const LiveShopping = () => {
+type LiveShoppingProps = {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const LiveShopping = (props: LiveShoppingProps) => {
+  const { setLoading } = props
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
   const [showVariation, setShowVariation] = useState('')
@@ -278,9 +283,8 @@ export const LiveShopping = () => {
                   <div
                     className={styles2.closePopoup}
                     onClick={() => {
-                      setTimeout(() => {
-                        setIsModalLive(false)
-                      }, 3000)
+                      setLoading(true)
+                      setIsModalLive(false)
                     }}
                   >
                     <IconClose />

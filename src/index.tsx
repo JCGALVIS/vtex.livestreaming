@@ -7,10 +7,12 @@ import { SettingProvider } from './context/SettingContext'
 import { LiveShopping } from './components/LiveShopping'
 import type { LivestreamingProps } from './typings/livestreaming'
 import { useLivestreamingConfig } from './hooks'
+import { Spinner } from './components'
 
 export const Livestreaming = (props: LivestreamingProps) => {
   const { idLivestreaming, account } = props
   const [locale, setLocale] = useState(LOCALES.en)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
@@ -28,11 +30,16 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const settingProps = { isModalLive, setIsModalLive }
 
+  useEffect(() => {
+    setTimeout(() => setLoading(false))
+  }, [])
+
   return (
     <I18nProvider locale={locale}>
       <ActionsProvider props={props}>
         <SettingProvider {...settingProps}>
-          <LiveShopping />
+          {loading && <Spinner />}
+          {!loading && <LiveShopping setLoading={setLoading} />}
         </SettingProvider>
       </ActionsProvider>
     </I18nProvider>
