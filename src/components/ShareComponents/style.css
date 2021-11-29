@@ -1,11 +1,13 @@
 .containerShare {
-  position: relative;
+  position: absolute;
   background: rgba(0, 0, 0, 0.5) !important;
   padding: 1em;
   float: right;
   border-radius: 5px;
   color: white;
   z-index: 10;
+  bottom: 65px;
+  right: 20px;
 }
 
 .buttonCopyShare {
@@ -16,10 +18,8 @@
   min-height: 2rem;
   box-sizing: border-box;
   color: #134cd8;
-  line-height: 1;
   position: relative;
-  vertical-align: middle;
-  font-size: 0px;
+  cursor: pointer;
 }
 
 .inputShare {
