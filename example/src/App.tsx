@@ -7,19 +7,19 @@ import './app.css'
 const App = () => {
   return (
     <Livestreaming
-    account='livestreamingdemo'
-    idLivestreaming='1efaa655-4d23-4ff6-9bab-7e5e9b0c8395'
-    isInGlobalPage={false}
-    isInfinite={false}
-    kuikpay={false}
-    originOfProducts='CACE'
-    redirectTo={true}
-    showChat={true}
-    showLike={true}
-    showProductsCarouse={false}
-    showSidebarProducts={true}
-    showViewers={true}
-    time={10}
+      account='livestreamingdemo'
+      idLivestreaming='203ae269-c1af-4959-ab9d-4682e1311a63'
+      isInGlobalPage={false}
+      isInfinite={false}
+      kuikpay={false}
+      originOfProducts='CACE'
+      redirectTo={true}
+      showChat={true}
+      showLike={true}
+      showProductsCarouse={false}
+      showSidebarProducts={true}
+      showViewers={true}
+      time={10}
     />
   )
 }

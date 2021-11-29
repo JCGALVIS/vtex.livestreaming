@@ -327,7 +327,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           }
           className={`${showChat ? styles.chatContent : styles.displayNone}`}
         >
-          {showChat && streamUrl && (
+          {showChat && (
             <Chat
               infoSocket={info}
               pinnedMessage={pinnedMessage}

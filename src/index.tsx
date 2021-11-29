@@ -2,12 +2,18 @@
 import React, { useState, useEffect } from 'react'
 
 import { LOCALES, I18nProvider } from './i18n'
-import { ActionsProvider } from './context/ActionsContext'
-import { SettingProvider } from './context/SettingContext'
 import { LiveShopping } from './components/LiveShopping'
 import type { LivestreamingProps } from './typings/livestreaming'
 import { useLivestreamingConfig } from './hooks'
 import { Spinner } from './components'
+import {
+  ActionsProvider,
+  SettingProvider,
+  useLivestreamingReducer,
+  useSetLivestreaming,
+  useSetChatHistory,
+  LivestreamingProvider
+} from './context'
 
 export const Livestreaming = (props: LivestreamingProps) => {
   const { idLivestreaming, account } = props
@@ -31,15 +37,21 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const settingProps = { isModalLive, setIsModalLive }
 
   useEffect(() => {
-    setTimeout(() => setLoading(false))
-  }, [])
+    console.log('isModalLive: ', isModalLive)
+    setTimeout(() => setLoading(false), 3000)
+  }, [isModalLive])
+  const [state, dispatch] = useLivestreamingReducer()
+  useSetLivestreaming(idLivestreaming, account, dispatch)
+  useSetChatHistory(idLivestreaming, account, dispatch)
 
   return (
     <I18nProvider locale={locale}>
       <ActionsProvider props={props}>
         <SettingProvider {...settingProps}>
-          {loading && <Spinner />}
-          {!loading && <LiveShopping setLoading={setLoading} />}
+          <LivestreamingProvider value={state} dispatch={dispatch}>
+            {loading && <Spinner />}
+            {!loading && <LiveShopping setLoading={setLoading} />}
+          </LivestreamingProvider>
         </SettingProvider>
       </ActionsProvider>
     </I18nProvider>

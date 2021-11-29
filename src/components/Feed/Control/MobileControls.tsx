@@ -36,7 +36,9 @@ export const MobileControls = (props: PlayerControls) => {
     overlay,
     pictureInPicture,
     videoEl,
-    volume
+    volume,
+    progress,
+    handleVideoProgress
   } = props
 
   return (
@@ -92,6 +94,25 @@ export const MobileControls = (props: PlayerControls) => {
             value={muted ? 0 : volume}
             className={styles.playerVolumeRange}
             onChange={handleVolume}
+          />
+        </div>
+        <div
+          className={`${styles.playerVideoMobileProgressBarPosition} ${styles.playerVideoMobileProgressBarRangeStack}`}
+        >
+          <input
+            type='range'
+            min='0'
+            max='100'
+            value={progress}
+            className={`${styles.playerVideoProgressBar} ${styles.playerVideoMobileProgressBar} ${styles.progressBarHeigth}`}
+            onChange={handleVideoProgress}
+          />
+          <div
+            style={{ width: `${progress}%` }}
+            className={`${styles.percentProgressBar} ${styles.progressBarHeigth}`}
+          />
+          <div
+            className={`${styles.noPercentProgressBar} ${styles.progressBarHeigth}`}
           />
         </div>
         <div
