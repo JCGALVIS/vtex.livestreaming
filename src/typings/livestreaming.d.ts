@@ -26,6 +26,7 @@ export declare interface Message {
   isAdmin?: Boolean
   color?: string
   responseAdmin?: boolean
+  second?: number
 }
 
 export declare interface Heart {
