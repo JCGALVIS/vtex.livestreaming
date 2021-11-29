@@ -2,6 +2,7 @@ import React from 'react'
 import IconCopy from '@vtex/styleguide/lib/icon/Copy'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from '../icons'
+import copyTextToClipboard from '../../utils/copy'
 
 import styles from './style.css'
 
@@ -19,9 +20,6 @@ const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
       '',
       'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'
     )
-  }
-  const copyUrl = () => {
-    navigator.clipboard.writeText(url)
   }
 
   return (
@@ -47,7 +45,7 @@ const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
         <input className={`${styles.inputShare}`} disabled value={url} />
         <button
           className={`${styles.buttonCopyShare}`}
-          onClick={() => copyUrl()}
+          onClick={() => copyTextToClipboard(url)}
         >
           <div style={{ cursor: 'pointer' }}>
             <IconCopy />
