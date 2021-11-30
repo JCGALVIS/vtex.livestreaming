@@ -105,12 +105,6 @@ input[type='text']:focus {
 }
 
 /* Styles video streaming */
-
-.playerUi {
-  position: relative;
-  background-color: black;
-}
-
 .playerVideoEl {
   max-width: 100%;
   min-width: 100%;
@@ -196,6 +190,13 @@ input[type='text']:focus {
   transition: all 0.3s ease;
 }
 .playerVideoMobileFullscreen {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.playerMobileShare {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -361,7 +362,7 @@ input[type='text']:focus {
 
 .playerVideoGrid {
   display: grid;
-  grid-template-columns: 22px 43.5px 87px auto 100px auto 43.5px 10px 43.5px 10px 43.5px 22px;
+  grid-template-columns: 22px 43.5px 161px auto 100px auto 43.5px 10px 43.5px 10px 43.5px 10px 43.5px 22px;
   grid-template-rows: 10% auto 100px auto 43.5px 17px;
   position: absolute;
   max-width: 100%;
@@ -395,6 +396,13 @@ input[type='text']:focus {
   grid-row-end: 6;
 }
 
+.playerVideoSharedButtonPosition {
+  grid-column-start: 11;
+  grid-column-end: 12;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+
 .playerVideoFullscreenButtonPosition {
   grid-column-start: 9;
   grid-column-end: 10;
@@ -403,8 +411,8 @@ input[type='text']:focus {
 }
 
 .playerVideoLikeButtonPosition {
-  grid-column-start: 11;
-  grid-column-end: 12;
+  grid-column-start: 13;
+  grid-column-end: 13;
   grid-row-start: 5;
   grid-row-end: 6;
 }
@@ -484,14 +492,6 @@ input[type='text']:focus {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-  .playerUi {
-    position: relative;
-    width: 100%;
-    height: 71vh !important;
-    background-color: black;
-    padding: 0 !important;
-    max-height: 71vh !important;
-  }
   .playerVideoHover {
     display: none !important;
   }

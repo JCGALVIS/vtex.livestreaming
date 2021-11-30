@@ -101,5 +101,6 @@ export type PlayerControls = {
   volume: number
   progress: number
   handleVideoProgress: (e: ChangeEvent<HTMLInputElement>) => void
+  handleOpenShare: () => void
   isFinalized: boolean
 }

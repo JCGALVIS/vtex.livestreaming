@@ -1,0 +1,64 @@
+.containerShare {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5) !important;
+  padding: 1em;
+  float: right;
+  border-radius: 5px;
+  color: white;
+  z-index: 10;
+  bottom: 65px;
+  right: 20px;
+}
+
+.buttonCopyShare {
+  border-style: solid;
+  border-color: #eef3f7;
+  border-radius: 0.25rem;
+  border-width: 0.125rem;
+  min-height: 2rem;
+  box-sizing: border-box;
+  color: #134cd8;
+  position: relative;
+  cursor: pointer;
+}
+
+.inputShare {
+  min-height: 2rem;
+  box-sizing: border-box;
+}
+.textShare {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: white;
+  padding-top: 0.25rem;
+  padding-right: 0.5rem;
+  font-size: 0.875rem;
+}
+.closeShare {
+  line-height: 1.15;
+  margin: 0;
+  overflow: visible;
+  text-transform: none;
+  background: transparent !important;
+  z-index: 100;
+  border: none;
+  position: absolute;
+  padding: 0px;
+  right: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #919191;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.containerShareIcon {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 2px;
+  cursor: pointer;
+}

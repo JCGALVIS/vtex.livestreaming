@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Livestreaming
       account='livestreamingdemo'
-      idLivestreaming='203ae269-c1af-4959-ab9d-4682e1311a63'
+      idLivestreaming='f3ff8ed4-e579-49cc-8c4d-37d18914cd0c'
       isInGlobalPage={false}
       isInfinite={false}
       kuikpay={false}
