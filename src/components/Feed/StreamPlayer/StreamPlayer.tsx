@@ -183,11 +183,15 @@ export const StreamPlayer = ({
         onMouseOut={() => setOverlay(false)}
         onFocus={handleNothing}
         onBlur={handleNothing}
-        style={{
-          height: dimensions.height,
-          width: dimensions.width,
-          maxHeight: !isVerticalLayout ? '340px' : '100%'
-        }}
+        style={
+          !detector
+            ? {
+                height: dimensions.height,
+                width: dimensions.width,
+                maxHeight: !isVerticalLayout ? '340px' : '100%'
+              }
+            : {}
+        }
       >
         {collectionId && (
           <HighlightProduct
