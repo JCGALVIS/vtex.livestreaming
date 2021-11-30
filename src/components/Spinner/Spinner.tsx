@@ -6,6 +6,7 @@ import styles from './spinner.css'
 
 export const Spinner = () => {
   const { isModalLive } = useContext(SettingContext)
+  console.log('isModalLive: ', isModalLive)
 
   return (
     <div
