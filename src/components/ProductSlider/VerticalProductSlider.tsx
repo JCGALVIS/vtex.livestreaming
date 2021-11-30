@@ -15,7 +15,7 @@ type VerticalProductSliderProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
   kuikpay: boolean
-  transmitionType: string | undefined
+  transmitionType?: string | undefined
 }
 
 export const VerticalProductSlider = ({
