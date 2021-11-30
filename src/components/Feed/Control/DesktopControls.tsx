@@ -10,6 +10,7 @@ import {
   PictureAndPictureAltIcon,
   PictureAndPictureIcon,
   PlayIcon,
+  ShareIcon,
   VolumeOffIcon,
   VolumeUpIcon
 } from '../../icons'
@@ -48,7 +49,8 @@ export const DesktopControls = (props: PlayerControls) => {
     videoEl,
     volume,
     progress,
-    handleVideoProgress
+    handleVideoProgress,
+    handleOpenShare
   } = props
 
   const buttonRenderer = (
@@ -90,6 +92,19 @@ export const DesktopControls = (props: PlayerControls) => {
             <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
           ) : (
             <FullscreenIcon size='40' viewBox='0 0 400 400' />
+          )}
+        </div>
+        <div
+          role='button'
+          tabIndex={0}
+          className={`${styles.playerVideoSharedButtonPosition} ${styles.playerVideoButtonFlex}`}
+          onClick={() => handleOpenShare()}
+          onKeyDown={() => handleOpenShare()}
+        >
+          {screen ? (
+            <ShareIcon size='40' viewBox='0 0 400 400' />
+          ) : (
+            <ShareIcon size='40' viewBox='0 0 400 400' />
           )}
         </div>
         <div
