@@ -23,7 +23,6 @@ type ProductItemProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   skuId: string
   sectionIdClickedOn?: string
-  transmitionType: string | undefined
 }
 
 export const ProductItem = (props: ProductItemProps) => {
@@ -39,8 +38,7 @@ export const ProductItem = (props: ProductItemProps) => {
     variationSelector,
     setShowVariation,
     skuId,
-    sectionIdClickedOn,
-    transmitionType
+    sectionIdClickedOn
   } = props
 
   const {
@@ -50,12 +48,7 @@ export const ProductItem = (props: ProductItemProps) => {
   const { formatMessage, locale } = useIntl()
   const isSpanish = locale === SPANISH_CODE
   return (
-    <div
-      className={styles.productItemContent}
-      style={
-        transmitionType === 'vertical' ? { maxWidth: 360, minWidth: 360 } : {}
-      }
-    >
+    <div className={styles.productItemContent}>
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}

@@ -14,6 +14,7 @@ import type { InfoSocket } from '../../../typings/livestreaming'
 import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
+import ShareComponents from '../../ShareComponents'
 
 import styles from '../../../styles.module.css'
 import styles2 from './streamPlayer.css'
@@ -26,6 +27,7 @@ type streamPlayerProps = {
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
   transmitionType: string | undefined
   streamUrl: string | undefined
+  isFinalized: boolean
 }
 
 export const StreamPlayer = ({
@@ -35,9 +37,11 @@ export const StreamPlayer = ({
   setShowVariation,
   setWidth,
   transmitionType,
-  streamUrl
+  streamUrl,
+  isFinalized
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
+  const [openShare, setOpenShare] = useState(false)
 
   const { isModalLive } = useContext(SettingContext)
 
@@ -121,7 +125,9 @@ export const StreamPlayer = ({
       videoEl,
       volume,
       progress,
-      handleVideoProgress
+      handleVideoProgress,
+      handleOpenShare: () => setOpenShare(true),
+      isFinalized
     }
 
     return (
@@ -162,7 +168,8 @@ export const StreamPlayer = ({
     videoEl,
     volume,
     progress,
-    handleVideoProgress
+    handleVideoProgress,
+    isFinalized
   ])
 
   return (
@@ -180,11 +187,15 @@ export const StreamPlayer = ({
         onMouseOut={() => setOverlay(false)}
         onFocus={handleNothing}
         onBlur={handleNothing}
-        style={{
-          height: dimensions.height,
-          width: dimensions.width,
-          maxHeight: !isVerticalLayout ? '340px' : '100%'
-        }}
+        style={
+          !detector
+            ? {
+                height: dimensions.height,
+                width: dimensions.width,
+                maxHeight: !isVerticalLayout ? '340px' : '100%'
+              }
+            : {}
+        }
       >
         {collectionId && (
           <HighlightProduct
@@ -196,6 +207,9 @@ export const StreamPlayer = ({
             infoSocket={infoSocket}
             setShowVariation={setShowVariation}
           />
+        )}
+        {openShare && (
+          <ShareComponents handleClose={() => setOpenShare(false)} />
         )}
         <video
           className={styles.playerVideoEl}

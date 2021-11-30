@@ -10,6 +10,7 @@ import {
   PictureAndPictureAltIcon,
   PictureAndPictureIcon,
   PlayIcon,
+  ShareIcon,
   VolumeOffIcon,
   VolumeUpIcon
 } from '../../icons'
@@ -48,7 +49,9 @@ export const DesktopControls = (props: PlayerControls) => {
     videoEl,
     volume,
     progress,
-    handleVideoProgress
+    handleVideoProgress,
+    handleOpenShare,
+    isFinalized
   } = props
 
   const buttonRenderer = (
@@ -60,7 +63,8 @@ export const DesktopControls = (props: PlayerControls) => {
     infoSocket: InfoSocket,
     { mute, picture, screen, firstMuted }: IndicatorInterface,
     progress: number,
-    handleVideoProgress: (e: ChangeEvent<HTMLInputElement>) => void
+    handleVideoProgress: (e: ChangeEvent<HTMLInputElement>) => void,
+    isFinalized: boolean
   ): JSX.Element => {
     return (
       <Fragment>
@@ -90,6 +94,19 @@ export const DesktopControls = (props: PlayerControls) => {
             <FullscreenExitIcon size='40' viewBox='0 0 400 400' />
           ) : (
             <FullscreenIcon size='40' viewBox='0 0 400 400' />
+          )}
+        </div>
+        <div
+          role='button'
+          tabIndex={0}
+          className={`${styles.playerVideoSharedButtonPosition} ${styles.playerVideoButtonFlex}`}
+          onClick={() => handleOpenShare()}
+          onKeyDown={() => handleOpenShare()}
+        >
+          {screen ? (
+            <ShareIcon size='40' viewBox='0 0 400 400' />
+          ) : (
+            <ShareIcon size='40' viewBox='0 0 400 400' />
           )}
         </div>
         <div
@@ -173,30 +190,32 @@ export const DesktopControls = (props: PlayerControls) => {
                 />
               </div>
 
-              <div
-                className={`${styles.playerVideoHover} ${styles.playerVideoProgressBarPosition} ${styles.playerVideoProgressBarRangeStack}`}
-                data-visible={
-                  status === BUFFERING || firstTimeMuted
-                    ? BUFFERING
-                    : overlay
-                    ? 'on'
-                    : 'off'
-                }
-              >
-                <input
-                  type='range'
-                  min='0'
-                  max='100'
-                  value={progress}
-                  className={styles.playerVideoProgressBar}
-                  onChange={handleVideoProgress}
-                />
+              {isFinalized && (
                 <div
-                  style={{ width: `calc(${progress}% + 3px)` }}
-                  className={styles.percentProgressBar}
-                />
-                <div className={styles.noPercentProgressBar} />
-              </div>
+                  className={`${styles.playerVideoHover} ${styles.playerVideoProgressBarPosition} ${styles.playerVideoProgressBarRangeStack}`}
+                  data-visible={
+                    status === BUFFERING || firstTimeMuted
+                      ? BUFFERING
+                      : overlay
+                      ? 'on'
+                      : 'off'
+                  }
+                >
+                  <input
+                    type='range'
+                    min='0'
+                    max='100'
+                    value={progress}
+                    className={styles.playerVideoProgressBar}
+                    onChange={handleVideoProgress}
+                  />
+                  <div
+                    style={{ width: `calc(${progress}% + 3px)` }}
+                    className={styles.percentProgressBar}
+                  />
+                  <div className={styles.noPercentProgressBar} />
+                </div>
+              )}
             </Fragment>
           )
         ) : status === BUFFERING ? (
@@ -227,7 +246,8 @@ export const DesktopControls = (props: PlayerControls) => {
           firstMuted: firstTimeMuted
         },
         progress,
-        handleVideoProgress
+        handleVideoProgress,
+        isFinalized
       ),
     [
       status,
@@ -241,7 +261,8 @@ export const DesktopControls = (props: PlayerControls) => {
       volume,
       infoSocket,
       progress,
-      handleVideoProgress
+      handleVideoProgress,
+      isFinalized
     ]
   )
 

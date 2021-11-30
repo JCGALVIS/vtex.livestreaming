@@ -41,7 +41,9 @@ export const NoVideo = ({
       style={
         getMobileOS() === 'unknown'
           ? transmitionType === 'vertical'
-            ? { height: '495px', width: '278.438px' }
+            ? isModalLive && transmitionType === 'vertical'
+              ? { height: '495px', width: '25vw' }
+              : { height: '495px', width: '278.438px' }
             : { height: '430px', width: '100%' }
           : { width: '100%' }
       }

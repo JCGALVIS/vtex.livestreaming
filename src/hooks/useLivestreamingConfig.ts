@@ -8,20 +8,16 @@ declare interface Props {
 }
 
 const useLivestreamingConfig = ({ id, account }: Props) => {
-  const [wssStream, setWssStream] = useState<string | undefined>(undefined)
-  const [streamUrl, setStreamUrl] = useState<string | undefined>(undefined)
-  const [collectionId, setCollectionId] = useState<string | undefined>(
-    undefined
-  )
-  const [utm, setUtm] = useState<string | undefined>(undefined)
-  const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>(
-    undefined
-  )
-  const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
-  const [showGifButton, setShowGifButton] = useState<boolean | undefined>()
-  const [transmitionType, setTransmitionType] = useState<string | undefined>()
-  const [isModalLive, setIsModalLive] = useState<boolean | undefined>()
+  const [wssStream, setWssStream] = useState<string>()
+  const [streamUrl, setStreamUrl] = useState<string>()
+  const [collectionId, setCollectionId] = useState<string>()
+  const [utm, setUtm] = useState<string>()
+  const [emailIsRequired, setEmailIsRequired] = useState<boolean>()
+  const [pinnedMessage, setPinnedMessage] = useState<Message>()
+  const [transmitionType, setTransmitionType] = useState<string>()
+  const [isModalLive, setIsModalLive] = useState<boolean>()
   const [status, setStatus] = useState('')
+  const [showGifButton, setShowGifButton] = useState<boolean>()
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
