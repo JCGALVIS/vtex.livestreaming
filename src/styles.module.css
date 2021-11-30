@@ -105,12 +105,6 @@ input[type='text']:focus {
 }
 
 /* Styles video streaming */
-
-.playerUi {
-  position: relative;
-  background-color: black;
-}
-
 .playerVideoEl {
   max-width: 100%;
   min-width: 100%;
@@ -498,14 +492,6 @@ input[type='text']:focus {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
-  .playerUi {
-    position: relative;
-    width: 100%;
-    height: 71vh !important;
-    background-color: black;
-    padding: 0 !important;
-    max-height: 71vh !important;
-  }
   .playerVideoHover {
     display: none !important;
   }
