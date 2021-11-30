@@ -25,7 +25,9 @@
 .inputShare {
   min-height: 2rem;
   box-sizing: border-box;
+  width: 100%;
 }
+
 .textShare {
   font-weight: 400;
   text-transform: none;
@@ -35,6 +37,7 @@
   padding-right: 0.5rem;
   font-size: 0.875rem;
 }
+
 .closeShare {
   line-height: 1.15;
   margin: 0;
@@ -61,4 +64,10 @@
   grid-auto-flow: column;
   grid-column-gap: 2px;
   cursor: pointer;
+}
+
+@media screen and (min-width: 930px) {
+  .containerShare {
+    width: 250px;
+  }
 }
