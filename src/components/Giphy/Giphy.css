@@ -37,4 +37,8 @@
     height: 100px !important;
     scrollbar-width: thin !important;
   }
+
+  .giphySearchBoxContainer {
+    width: auto;
+  }
 }
