@@ -29,7 +29,7 @@ export default {
     'store/text.live-products': 'Produtos',
     'store/text.name': 'Nome',
     'store/text.no-video': 'Aguardando conexão com o stream.',
-    'store/text.not-stock': 'Agotado',
+    'store/text.not-stock': 'Fora de estoque',
     'store/text.now': 'Agora',
     'store/text.products': 'Produtos em destaque',
     'store/text.select-answer': 'Você deve selecionar uma resposta.',
