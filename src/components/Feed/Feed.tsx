@@ -92,6 +92,7 @@ export const Feed = ({
       setShowVariation={setShowVariation}
       setWidth={setWidth}
       transmitionType={transmitionType}
+      isFinalized={isFinalized}
     />
   ) : (
     <NoVideo

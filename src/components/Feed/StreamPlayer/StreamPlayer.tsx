@@ -26,6 +26,7 @@ type streamPlayerProps = {
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
   transmitionType: string | undefined
   streamUrl: string | undefined
+  isFinalized: boolean
 }
 
 export const StreamPlayer = ({
@@ -35,7 +36,8 @@ export const StreamPlayer = ({
   setShowVariation,
   setWidth,
   transmitionType,
-  streamUrl
+  streamUrl,
+  isFinalized
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
 
@@ -121,7 +123,8 @@ export const StreamPlayer = ({
       videoEl,
       volume,
       progress,
-      handleVideoProgress
+      handleVideoProgress,
+      isFinalized
     }
 
     return (

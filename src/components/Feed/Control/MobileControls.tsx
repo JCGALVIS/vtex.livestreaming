@@ -38,7 +38,8 @@ export const MobileControls = (props: PlayerControls) => {
     videoEl,
     volume,
     progress,
-    handleVideoProgress
+    handleVideoProgress,
+    isFinalized
   } = props
 
   return (
@@ -96,25 +97,27 @@ export const MobileControls = (props: PlayerControls) => {
             onChange={handleVolume}
           />
         </div>
-        <div
-          className={`${styles.playerVideoMobileProgressBarPosition} ${styles.playerVideoMobileProgressBarRangeStack}`}
-        >
-          <input
-            type='range'
-            min='0'
-            max='100'
-            value={progress}
-            className={`${styles.playerVideoProgressBar} ${styles.playerVideoMobileProgressBar} ${styles.progressBarHeigth}`}
-            onChange={handleVideoProgress}
-          />
+        {isFinalized && (
           <div
-            style={{ width: `${progress}%` }}
-            className={`${styles.percentProgressBar} ${styles.progressBarHeigth}`}
-          />
-          <div
-            className={`${styles.noPercentProgressBar} ${styles.progressBarHeigth}`}
-          />
-        </div>
+            className={`${styles.playerVideoMobileProgressBarPosition} ${styles.playerVideoMobileProgressBarRangeStack}`}
+          >
+            <input
+              type='range'
+              min='0'
+              max='100'
+              value={progress}
+              className={`${styles.playerVideoProgressBar} ${styles.playerVideoMobileProgressBar} ${styles.progressBarHeigth}`}
+              onChange={handleVideoProgress}
+            />
+            <div
+              style={{ width: `${progress}%` }}
+              className={`${styles.percentProgressBar} ${styles.progressBarHeigth}`}
+            />
+            <div
+              className={`${styles.noPercentProgressBar} ${styles.progressBarHeigth}`}
+            />
+          </div>
+        )}
         <div
           role='button'
           tabIndex={0}
