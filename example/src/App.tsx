@@ -7,13 +7,13 @@ import './app.css'
 const App = () => {
   return (
     <Livestreaming
-      account='leidygiraldo'
-      idLivestreaming='86f316cb-b6d0-4879-b87d-48ad649c670c'
-      isInGlobalPage={false}
+      account='livestreamingdemo'
+      idLivestreaming='f283f156-050e-41bc-9a27-46fcd917f0cc'
+      isInGlobalPage={true}
       isInfinite={false}
       kuikpay={false}
       originOfProducts='CACE'
-      redirectTo={true}
+      redirectTo={false}
       showChat={true}
       showLike={true}
       showProductsCarouse={false}

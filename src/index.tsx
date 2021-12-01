@@ -19,6 +19,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const { idLivestreaming, account } = props
   const [locale, setLocale] = useState(LOCALES.en)
   const [loading, setLoading] = useState(true)
+  const [selectedProduct, setSelectedProduct] = useState([
+    { productId: '', imageUrl: '' }
+  ])
 
   useEffect(() => {
     const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
@@ -34,13 +37,19 @@ export const Livestreaming = (props: LivestreamingProps) => {
     account
   })
 
-  const settingProps = { isModalLive, setIsModalLive }
+  const settingProps = {
+    isModalLive,
+    selectedProduct,
+    setIsModalLive,
+    setSelectedProduct
+  }
 
   const [state, dispatch] = useLivestreamingReducer()
   useSetLivestreaming(idLivestreaming, account, dispatch)
   useSetChatHistory(idLivestreaming, account, dispatch)
 
   useEffect(() => {
+    if (props.isInGlobalPage) setIsModalLive(false)
     const timeout = setTimeout(() => setLoading(false), 3000)
 
     return () => {

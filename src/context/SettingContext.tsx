@@ -3,12 +3,24 @@ import React, { createContext, FC } from 'react'
 
 type SettingCtx = {
   isModalLive: boolean | undefined
+  selectedProduct: {
+    productId: string
+    imageUrl: string
+  }[]
   setIsModalLive: (isModalLive: boolean) => void
+  setSelectedProduct: (
+    selectedProduct: {
+      productId: string
+      imageUrl: string
+    }[]
+  ) => void
 }
 
 const settingDefault: SettingCtx = {
   isModalLive: false,
-  setIsModalLive: () => {}
+  selectedProduct: [{ productId: '', imageUrl: '' }],
+  setIsModalLive: () => {},
+  setSelectedProduct: () => {}
 }
 
 export const SettingContext = createContext<SettingCtx>(settingDefault)
@@ -16,11 +28,15 @@ export const SettingContext = createContext<SettingCtx>(settingDefault)
 export const SettingProvider: FC<SettingCtx> = ({
   children,
   isModalLive,
-  setIsModalLive
+  selectedProduct,
+  setIsModalLive,
+  setSelectedProduct
 }) => {
   const contex: SettingCtx = {
     isModalLive,
-    setIsModalLive
+    selectedProduct,
+    setIsModalLive,
+    setSelectedProduct
   }
   return (
     <SettingContext.Provider value={contex}>{children}</SettingContext.Provider>

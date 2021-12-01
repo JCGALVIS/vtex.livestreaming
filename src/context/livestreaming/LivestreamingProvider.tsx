@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Dispatch, useCallback } from 'react'
 import { LivestreamingCtx, LivestreamingContext } from './livestreamingContext'
 import { Actions } from './reducer'

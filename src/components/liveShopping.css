@@ -113,6 +113,10 @@
 
   .videoContainer {
     position: relative;
+    max-width: 44vw;
+  }
+
+  .videoContainerPopoup {
     max-width: 66vw;
   }
 }

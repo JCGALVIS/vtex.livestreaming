@@ -193,6 +193,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                                   ? selectedProduct.isAvailable
                                   : false
                               }
+                              imageUrl={selectedProduct.imageUrl}
                               productId={selectedProduct.skuId}
                             />
                           </div>

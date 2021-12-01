@@ -12,9 +12,21 @@
   max-height: 100% !important;
 }
 
+.containerProductCart {
+  position: absolute;
+  bottom: 60px;
+  right: 100px;
+}
+
 @media screen and (min-width: 930px) {
   .playerUi {
     position: relative;
     background-color: black;
+  }
+
+  .containerProductCart {
+    position: absolute;
+    bottom: 30px;
+    right: 250px;
   }
 }
