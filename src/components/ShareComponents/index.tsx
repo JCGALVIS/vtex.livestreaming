@@ -27,7 +27,7 @@ const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
       <button className={`${styles.closeShare}`} onClick={() => handleClose()}>
         <IconClose />
       </button>
-      <div style={{ display: 'flex' }}>
+      <div className={`${styles.containerFlexShare}`}>
         <div className={`${styles.textShare}`}>Compartir</div>
         <div className={`${styles.containerShareIcon}`}>
           <div onClick={() => shareeOnclik('facebook')}>
@@ -41,7 +41,7 @@ const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
           </div>
         </div>
       </div>
-      <div style={{ display: 'flex' }}>
+      <div className={`${styles.containerCopy}`}>
         <input className={`${styles.inputShare}`} disabled value={url} />
         <button
           className={`${styles.buttonCopyShare}`}
