@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState, useMemo, useLayoutEffect, useContext } from 'react'
 
-import { SettingContext } from '../context'
+import { ActionsContext, SettingContext } from '../context'
 import type { Dimensions, StreamPlayerType } from '../typings/MediaPlayer'
 import { getDeviceType } from '../utils'
 
@@ -15,6 +15,9 @@ const usePlayerLayout = (transmitionType: string | undefined) => {
   const mainContainer = useRef<HTMLDivElement>(null)
 
   const { isModalLive } = useContext(SettingContext)
+  const {
+    setting: { isInGlobalPage }
+  } = useContext(ActionsContext)
 
   const [windowDimensions, setWindowDimensions] =
     useState<Dimensions>(initialDimensions)
@@ -38,7 +41,7 @@ const usePlayerLayout = (transmitionType: string | undefined) => {
       case !isMobile && !isVerticalLayout:
         return {
           height: (1080 / 1920) * (windowDimensions.width * 0.445),
-          width: '100%'
+          width: '44vw'
         }
 
       case !isMobile && isVerticalLayout:
@@ -47,7 +50,8 @@ const usePlayerLayout = (transmitionType: string | undefined) => {
 
         return {
           height,
-          width: isModalLive ? '25vw' : (1080 / 1920) * height
+          width:
+            isModalLive && !isInGlobalPage ? '25vw' : (1080 / 1920) * height
         }
 
       default:

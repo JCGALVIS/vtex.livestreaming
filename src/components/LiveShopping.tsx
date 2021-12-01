@@ -57,6 +57,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     setting: {
       account,
       idLivestreaming,
+      isInGlobalPage,
       originOfProducts,
       showChat,
       showProductsCarousel,
@@ -219,23 +220,19 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   return (
     <div
       className={`${styles2.livestreaming} ${
-        isModalLive && styles2.livestreamingPopoup
+        isModalLive && !isInGlobalPage && styles2.livestreamingPopoup
       }`}
     >
       <div
         className={`${styles2.livestreamingContainer} ${
-          isModalLive && styles2.livestreamingPopoupContainer
+          isModalLive && !isInGlobalPage && styles2.livestreamingPopoupContainer
         }`}
       >
         <div
           className={`${styles2.livestreamingContent} ${
-            isModalLive && styles2.livePopoup
+            isModalLive && !isInGlobalPage && styles2.livePopoup
           }`}
-          style={
-            getMobileOS() === 'unknown' && transmitionType === 'vertical'
-              ? { width: 'auto' }
-              : {}
-          }
+          style={getMobileOS() === 'unknown' ? { width: 'auto' } : {}}
         >
           <VariationSelector
             showVariation={showVariation}
@@ -270,7 +267,9 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           <div
             style={
               detector === 'unknown'
-                ? isModalLive && transmitionType === 'vertical'
+                ? isModalLive &&
+                  !isInGlobalPage &&
+                  transmitionType === 'vertical'
                   ? { height: parseInt(height), width: '25vw' }
                   : { height: parseInt(height), width: width }
                 : { width: '100%' }
@@ -279,15 +278,15 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           >
             <div
               ref={divVideoContent}
-              className={`${isModalLive && styles2.heightPopoup} ${
-                styles.fittedContainer
-              }`}
+              className={`${
+                isModalLive && !isInGlobalPage && styles2.heightPopoup
+              } ${styles.fittedContainer}`}
               style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
             >
               <div
-                className={`${isModalLive && styles2.heightPopoup} ${
-                  styles.videoContent
-                }`}
+                className={`${
+                  isModalLive && !isInGlobalPage && styles2.heightPopoup
+                } ${styles.videoContent}`}
               >
                 <div className={styles2.buttonProductContent}>
                   {showSidebarProducts || showProductsCarousel ? (
@@ -296,17 +295,19 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                       setShowSliderProducts={setShowSliderProducts}
                     />
                   ) : null}
-                  {getMobileOS() !== 'unknown' && isModalLive && (
-                    <div
-                      className={styles2.closePopoup}
-                      onClick={() => {
-                        setLoading(true)
-                        setIsModalLive(false)
-                      }}
-                    >
-                      <IconClose />
-                    </div>
-                  )}
+                  {getMobileOS() !== 'unknown' &&
+                    isModalLive &&
+                    !isInGlobalPage && (
+                      <div
+                        className={styles2.closePopoup}
+                        onClick={() => {
+                          setLoading(true)
+                          setIsModalLive(false)
+                        }}
+                      >
+                        <IconClose />
+                      </div>
+                    )}
                 </div>
                 <Feed
                   collectionId={collectionId}
@@ -353,7 +354,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               />
             )}
           </div>
-          {getMobileOS() === 'unknown' && isModalLive && (
+          {getMobileOS() === 'unknown' && isModalLive && !isInGlobalPage && (
             <div
               className={styles2.closePopoupDeskotp}
               onClick={() => {
@@ -365,7 +366,9 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             </div>
           )}
         </div>
-        {isModalLive && <div className={styles2.backdropContainer} />}
+        {isModalLive && !isInGlobalPage && (
+          <div className={styles2.backdropContainer} />
+        )}
       </div>
     </div>
   )

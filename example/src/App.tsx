@@ -8,12 +8,12 @@ const App = () => {
   return (
     <Livestreaming
       account='livestreamingdemo'
-      idLivestreaming='f3ff8ed4-e579-49cc-8c4d-37d18914cd0c'
-      isInGlobalPage={false}
+      idLivestreaming='f283f156-050e-41bc-9a27-46fcd917f0cc'
+      isInGlobalPage={true}
       isInfinite={false}
       kuikpay={false}
       originOfProducts='CACE'
-      redirectTo={true}
+      redirectTo={false}
       showChat={true}
       showLike={true}
       showProductsCarouse={false}

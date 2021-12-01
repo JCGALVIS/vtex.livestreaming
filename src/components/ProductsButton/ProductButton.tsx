@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from 'react'
 import { useIntl } from 'react-intl'
-import { ActionsContext } from '../../context/ActionsContext'
+import { ActionsContext, SettingContext } from '../../context'
 import { addToCart } from '../../utils'
 
 import styles from './productButton.css'
@@ -8,6 +8,7 @@ import styles from './productButton.css'
 type ProductButtonProps = {
   addToCartLink: string
   handleClose?: () => void
+  imageUrl: string
   isAvailable: boolean
   productId: string
   productName?: string
@@ -18,11 +19,14 @@ const ProductButton = (props: ProductButtonProps) => {
   const {
     addToCartLink,
     handleClose,
+    imageUrl,
     isAvailable,
     productId,
     productName,
     sectionIdClickedOn
   } = props
+
+  const { selectedProduct, setSelectedProduct } = useContext(SettingContext)
 
   const { formatMessage } = useIntl()
 
@@ -38,6 +42,9 @@ const ProductButton = (props: ProductButtonProps) => {
         }`}
         disabled={!isAvailable}
         onClick={() => {
+          if (setSelectedProduct)
+            setSelectedProduct([...selectedProduct, { productId, imageUrl }])
+
           addToCart(productId, redirectTo, isInGlobalPage)
 
           if (handleClose) handleClose()

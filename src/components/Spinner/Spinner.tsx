@@ -1,16 +1,19 @@
 import React, { useContext } from 'react'
 
-import { SettingContext } from '../../context/SettingContext'
+import { ActionsContext, SettingContext } from '../../context'
 
 import styles from './spinner.css'
 
 export const Spinner = () => {
   const { isModalLive } = useContext(SettingContext)
+  const {
+    setting: { isInGlobalPage }
+  } = useContext(ActionsContext)
 
   return (
     <div
       className={`${styles.loadingContainer} ${
-        isModalLive && styles.loadingPopoup
+        isModalLive && !isInGlobalPage && styles.loadingPopoup
       }`}
     >
       <div className={styles.loadingContent}>

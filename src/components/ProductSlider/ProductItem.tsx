@@ -75,6 +75,7 @@ export const ProductItem = (props: ProductItemProps) => {
           {variationSelector.length === 0 || isInGlobalPage ? (
             <ProductButton
               addToCartLink={isInGlobalPage ? pdpLink : addToCartLink}
+              imageUrl={imageUrl}
               isAvailable={isAvailable}
               productId={skuId}
               productName={name}

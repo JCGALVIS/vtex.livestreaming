@@ -7,7 +7,7 @@ import React, {
   useContext
 } from 'react'
 
-import { SettingContext } from '../../../context/SettingContext'
+import { ActionsContext, SettingContext } from '../../../context'
 import type { MediaPlayer } from '../../../typings/MediaPlayer'
 import { getDeviceType } from '../../../utils'
 import type { InfoSocket } from '../../../typings/livestreaming'
@@ -15,6 +15,7 @@ import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import ShareComponents from '../../ShareComponents'
+import { ProductCart } from '../..'
 
 import styles from '../../../styles.module.css'
 import styles2 from './streamPlayer.css'
@@ -41,7 +42,11 @@ export const StreamPlayer = ({
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
 
-  const { isModalLive } = useContext(SettingContext)
+  const { isModalLive, selectedProduct } = useContext(SettingContext)
+
+  const {
+    setting: { isInGlobalPage }
+  } = useContext(ActionsContext)
 
   const mobileOS = getDeviceType() === 'mobile'
 
@@ -168,13 +173,22 @@ export const StreamPlayer = ({
     handleVideoProgress
   ])
 
+  const ProductCollection = useMemo(
+    () =>
+      selectedProduct &&
+      selectedProduct.map((product, index) => (
+        <ProductCart key={index} image={product.imageUrl} />
+      )),
+    [selectedProduct]
+  )
+
   return (
     <Fragment>
       <div
         ref={mainContainer}
-        className={`${isModalLive && styles2.playerUiPopoup} ${
-          styles2.playerUi
-        }`}
+        className={`${
+          isModalLive && !isInGlobalPage && styles2.playerUiPopoup
+        } ${styles2.playerUi}`}
         onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
         onMouseMove={() => {
           setInactive(false)
@@ -220,6 +234,7 @@ export const StreamPlayer = ({
           onTimeUpdate={handleOnTimeUpdate}
         />
         {ControlWrapper}
+        <div className={styles2.containerProductCart}>{ProductCollection}</div>
       </div>
     </Fragment>
   )
