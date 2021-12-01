@@ -7,8 +7,8 @@ import './app.css'
 const App = () => {
   return (
     <Livestreaming
-      account='livestreamingdemo'
-      idLivestreaming='f3ff8ed4-e579-49cc-8c4d-37d18914cd0c'
+      account='leidygiraldo'
+      idLivestreaming='86f316cb-b6d0-4879-b87d-48ad649c670c'
       isInGlobalPage={false}
       isInfinite={false}
       kuikpay={false}
