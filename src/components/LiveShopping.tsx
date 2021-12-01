@@ -327,7 +327,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                 </div>
               </div>
               <div className={styles.horizontalProductsContent}>
-                {showProductsCarousel && (
+                {showProductsCarousel && !isModalLive && (
                   <HorizontalProductSlider
                     collectionId={collectionId}
                     setShowVariation={setShowVariation}
