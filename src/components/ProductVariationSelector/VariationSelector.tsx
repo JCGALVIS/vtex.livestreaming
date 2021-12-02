@@ -7,7 +7,7 @@ import { useFetchProductById } from '../../hooks/useFetchProductById'
 import { currencyFormat } from '../../utils'
 import { ColorVariation } from './ColorVariation'
 import { SizeVariations } from './SizeVariations'
-import type { Values } from '../../typings/livestreaming'
+import type { InfoSocket, Values } from '../../typings/livestreaming'
 import ProductButton from '../ProductsButton/ProductButton'
 import { ActionsContext } from '../../context/ActionsContext'
 
@@ -15,12 +15,13 @@ import styles from './variationSelector.css'
 import { KuikPayButton } from '../ProductsButton/KuikPayButton'
 
 type VariationSelectorProps = {
+  infoSocket: InfoSocket
   showVariation: string
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const VariationSelector = (props: VariationSelectorProps) => {
-  const { showVariation, setShowVariation } = props
+  const { infoSocket, showVariation, setShowVariation } = props
   const [productId, setProductId] = useState('')
   const [show, setShow] = useState(false)
   const [selectedColor, setSelectedColor] = useState<Values[]>()
@@ -188,6 +189,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                             <ProductButton
                               addToCartLink={selectedProduct.addToCartLink}
                               handleClose={handleClose}
+                              infoSocket={infoSocket}
                               isAvailable={
                                 isAvailable
                                   ? selectedProduct.isAvailable

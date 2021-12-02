@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useContext } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
@@ -7,15 +8,18 @@ import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
 import { ActionsContext } from '../../context/ActionsContext'
 
 import styles from './productSlider.css'
+import type { InfoSocket } from '../../typings/livestreaming'
 
 type HorizontalProductSliderProps = {
   collectionId: string | undefined
+  infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
 }
 
 export const HorizontalProductSlider = ({
   collectionId,
+  infoSocket,
   setShowVariation,
   transmitionType
 }: HorizontalProductSliderProps) => {
@@ -121,6 +125,7 @@ export const HorizontalProductSlider = ({
               <div className={styles.horizontalProductList}>
                 <ProductItem
                   {...product}
+                  infoSocket={infoSocket}
                   originOfProducts={originOfProducts}
                   setShowVariation={setShowVariation}
                   sectionIdClickedOn='live_shopping_carousel'

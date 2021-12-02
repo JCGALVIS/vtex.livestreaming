@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState, useContext } from 'react'
 
 import { ProductItem } from './ProductItem'
@@ -6,10 +7,12 @@ import { FormattedMessage } from 'react-intl'
 
 import styles from './productSlider.css'
 import { ActionsContext } from '../../context/ActionsContext'
+import type { InfoSocket } from '../../typings/livestreaming'
 
 type VerticalProductSliderProps = {
   collectionId: string | undefined
   height: string
+  infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType?: string | undefined
 }
@@ -17,6 +20,7 @@ type VerticalProductSliderProps = {
 export const VerticalProductSlider = ({
   collectionId,
   height,
+  infoSocket,
   setShowVariation,
   transmitionType
 }: VerticalProductSliderProps) => {
@@ -103,6 +107,7 @@ export const VerticalProductSlider = ({
             <ProductItem
               key={product.id}
               {...product}
+              infoSocket={infoSocket}
               setShowVariation={setShowVariation}
               sectionIdClickedOn='live_shopping_sidebar'
             />

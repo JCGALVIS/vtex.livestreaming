@@ -235,6 +235,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           style={getMobileOS() === 'unknown' ? { width: 'auto' } : {}}
         >
           <VariationSelector
+            infoSocket={info}
             showVariation={showVariation}
             setShowVariation={setShowVariation}
           />
@@ -242,6 +243,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             <SliderProductMobile
               collectionId={collectionId}
               height={height}
+              infoSocket={info}
               showSliderProducts={showSliderProducts}
               setShowSliderProducts={setShowSliderProducts}
               setShowVariation={setShowVariation}
@@ -258,6 +260,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             {showSidebarProducts && (
               <VerticalProductSlider
                 collectionId={collectionId}
+                infoSocket={info}
                 height={(parseInt(height) - 58).toString()}
                 setShowVariation={setShowVariation}
                 transmitionType={transmitionType}
@@ -335,6 +338,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                 {showProductsCarousel && !isModalLive && (
                   <HorizontalProductSlider
                     collectionId={collectionId}
+                    infoSocket={info}
                     setShowVariation={setShowVariation}
                     transmitionType={transmitionType}
                   />

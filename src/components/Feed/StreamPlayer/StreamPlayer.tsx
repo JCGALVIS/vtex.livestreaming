@@ -15,7 +15,7 @@ import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import ShareComponents from '../../ShareComponents'
-import { ProductCart } from '../..'
+import { ProductToCart } from '../..'
 
 import styles from '../../../styles.module.css'
 import styles2 from './streamPlayer.css'
@@ -44,7 +44,7 @@ export const StreamPlayer = ({
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
 
-  const { isModalLive, selectedProduct } = useContext(SettingContext)
+  const { isModalLive } = useContext(SettingContext)
 
   const {
     setting: { isInGlobalPage }
@@ -177,15 +177,6 @@ export const StreamPlayer = ({
     isFinalized
   ])
 
-  const ProductCollection = useMemo(
-    () =>
-      selectedProduct &&
-      selectedProduct.map((product, index) => (
-        <ProductCart key={index} image={product.imageUrl} />
-      )),
-    [selectedProduct]
-  )
-
   return (
     <Fragment>
       <div
@@ -238,7 +229,9 @@ export const StreamPlayer = ({
           onTimeUpdate={handleOnTimeUpdate}
         />
         {ControlWrapper}
-        <div className={styles2.containerProductCart}>{ProductCollection}</div>
+        <div className={styles2.containerProductCart}>
+          <ProductToCart infoSocket={infoSocket} />
+        </div>
       </div>
     </Fragment>
   )

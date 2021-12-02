@@ -88,6 +88,8 @@ export declare interface InfoSocket {
   setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>
   pinnedMessage: Message | undefined
   transmitiontype: string | undefined
+  productsInCart: Products[]
+  setProductsInCart: React.Dispatch<React.SetStateAction<Products[]>>
 }
 
 export interface ProductImages {

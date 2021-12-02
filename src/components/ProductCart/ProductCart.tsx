@@ -35,15 +35,15 @@ export const ProductCart = ({ image }: { image: string }) => {
 
       if (Math.abs(x) > xlimit) direction *= -1
 
-      opacity -= speed * 0.0009
+      opacity -= speed * 0.001
 
       if (outerRef.current) {
         outerRef.current.style.transform = `translateY(${y}px) translateX(${x}px)`
-        outerRef.current.style.transition = 'transform 0.25s ease-out'
+        outerRef.current.style.transition = 'transform 0.45s ease-out'
         outerRef.current.style.opacity = opacity.toString()
       }
 
-      if (y > -800) {
+      if (y > -400) {
         animationReqId.current = requestAnimationFrame(animate)
       } else {
         setDone(true)

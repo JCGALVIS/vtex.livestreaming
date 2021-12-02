@@ -7,7 +7,8 @@ import {
   InfoSocket,
   HighlightProduct,
   ScriptProperties,
-  Question
+  Question,
+  Products
 } from './../typings/livestreaming'
 import { useSessionId } from './useSessionId'
 import { getDeviceType, getRandomColor, Queue } from '../utils'
@@ -41,6 +42,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [messageToDelete, setMessageToDelete] = useState<Message | undefined>()
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
+  const [productsInCart, setProductsInCart] = useState<Products[]>([])
 
   const createWebSocket = useCallback(() => {
     let queueSocketInit: Queue<number>
@@ -181,6 +183,21 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         case 'sendtransmitiontype':
           setTransmitiontype(data)
           break
+        case 'sendaddtocart':
+          if (document.hidden) break
+          setProductsInCart((prev) => [
+            ...prev,
+            {
+              id: '',
+              name: '',
+              price: 0,
+              priceWithDiscount: 0,
+              imageUrl: data.imageUrl,
+              addToCartLink: '',
+              isAvailable: false
+            }
+          ])
+          break
 
         default:
           break
@@ -265,7 +282,9 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     queueSocket,
     setMessageToDelete,
     pinnedMessage,
-    transmitiontype
+    transmitiontype,
+    productsInCart,
+    setProductsInCart
   }
 }
 

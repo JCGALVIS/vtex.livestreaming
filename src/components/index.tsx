@@ -3,7 +3,7 @@ import { Chat } from './Chat/Chat'
 import { Feed } from './Feed/Feed'
 import { HorizontalProductSlider } from './ProductSlider/HorizontalProductSlider'
 import { Live } from './Live/Live'
-import { ProductCart } from './ProductCart/ProductCart'
+import { ProductToCart } from './ProductCart/ProductToCart'
 import { SliderProductMobile } from './ProductSlider/SliderProductMobile'
 import { Spinner } from './Spinner/Spinner'
 import { VariationSelector } from './ProductVariationSelector/VariationSelector'
@@ -16,7 +16,7 @@ export {
   Feed,
   HorizontalProductSlider,
   Live,
-  ProductCart,
+  ProductToCart,
   SliderProductMobile,
   VariationSelector,
   Spinner,

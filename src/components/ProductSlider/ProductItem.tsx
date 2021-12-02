@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
 
 import { currencyFormat } from '../../utils'
@@ -8,6 +9,7 @@ import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 import styles from './productSlider.css'
 import { useIntl } from 'react-intl'
 import { ActionsContext } from '../../context/ActionsContext'
+import { InfoSocket } from '../../typings/livestreaming'
 
 const SPANISH_CODE = 'es'
 type ProductItemProps = {
@@ -16,6 +18,7 @@ type ProductItemProps = {
   price: number
   priceWithDiscount: number
   imageUrl: string
+  infoSocket: InfoSocket
   addToCartLink: string
   isAvailable: boolean
   pdpLink: string
@@ -32,6 +35,7 @@ export const ProductItem = (props: ProductItemProps) => {
     price,
     priceWithDiscount,
     imageUrl,
+    infoSocket,
     addToCartLink,
     isAvailable,
     pdpLink,
@@ -76,6 +80,7 @@ export const ProductItem = (props: ProductItemProps) => {
             <ProductButton
               addToCartLink={isInGlobalPage ? pdpLink : addToCartLink}
               imageUrl={imageUrl}
+              infoSocket={infoSocket}
               isAvailable={isAvailable}
               productId={skuId}
               productName={name}
