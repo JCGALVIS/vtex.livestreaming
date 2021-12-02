@@ -41,7 +41,7 @@ const usePlayerLayout = (transmitionType: string | undefined) => {
       case !isMobile && !isVerticalLayout:
         return {
           height: (1080 / 1920) * (windowDimensions.width * 0.445),
-          width: '44vw'
+          width: '100%'
         }
 
       case !isMobile && isVerticalLayout:

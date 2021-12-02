@@ -117,6 +117,6 @@
   }
 
   .videoContainerPopoup {
-    max-width: 66vw;
+    width: 44vw !important;
   }
 }

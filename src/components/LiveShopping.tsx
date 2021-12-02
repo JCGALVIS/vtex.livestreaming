@@ -274,7 +274,12 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                   : { height: parseInt(height), width: width }
                 : { width: '100%' }
             }
-            className={styles.videoContainer}
+            className={`${styles2.videoContainer} ${
+              isModalLive &&
+              transmitionType !== 'vertical' &&
+              !isInGlobalPage &&
+              styles2.videoContainerPopoup
+            }`}
           >
             <div
               ref={divVideoContent}
