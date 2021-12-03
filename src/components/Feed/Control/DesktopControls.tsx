@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useMemo } from 'react'
+import React, { Fragment, useMemo, ChangeEvent } from 'react'
 
 import {
   FullscreenExitIcon,
@@ -15,11 +15,9 @@ import {
   VolumeUpIcon
 } from '../../icons'
 import type { PlayerControls } from '../../../typings/MediaPlayer'
+import { Like } from '../../'
 
 import styles from '../../../styles.module.css'
-import { Like } from '../../Like/Like'
-import { InfoSocket } from '../../../typings/livestreaming'
-import { ChangeEvent } from 'hoist-non-react-statics/node_modules/@types/react'
 
 interface IndicatorInterface {
   mute: boolean
@@ -40,7 +38,6 @@ export const DesktopControls = (props: PlayerControls) => {
     handlePictureAndPicture,
     handleVolume,
     IDLE,
-    infoSocket,
     muted,
     overlay,
     pictureInPicture,
@@ -60,7 +57,6 @@ export const DesktopControls = (props: PlayerControls) => {
     overlay: boolean,
     firstTimeMuted: boolean,
     volume: number,
-    infoSocket: InfoSocket,
     { mute, picture, screen, firstMuted }: IndicatorInterface,
     progress: number,
     handleVideoProgress: (e: ChangeEvent<HTMLInputElement>) => void,
@@ -114,7 +110,7 @@ export const DesktopControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoLikeButtonPosition}
         >
-          <Like infoSocket={infoSocket} />
+          <Like />
         </div>
         {playerStatus === PLAYING || playerStatus === IDLE ? (
           firstMuted ? (
@@ -238,7 +234,6 @@ export const DesktopControls = (props: PlayerControls) => {
         overlay,
         firstTimeMuted,
         volume,
-        infoSocket,
         {
           mute: muted,
           picture: pictureInPicture,
@@ -259,7 +254,6 @@ export const DesktopControls = (props: PlayerControls) => {
       overlay,
       firstTimeMuted,
       volume,
-      infoSocket,
       progress,
       handleVideoProgress,
       isFinalized

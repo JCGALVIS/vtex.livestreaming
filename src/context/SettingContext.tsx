@@ -1,42 +1,38 @@
 /* eslint-disable no-unused-vars */
 import React, { createContext, FC } from 'react'
 
+import { useWebSocket } from '../hooks'
+import { InfoSocket } from '../typings/livestreaming'
+
 type SettingCtx = {
+  collectionId?: string
+  infoSocket?: InfoSocket
   isModalLive: boolean | undefined
-  selectedProduct: {
-    productId: string
-    imageUrl: string
-  }[]
   setIsModalLive: (isModalLive: boolean) => void
-  setSelectedProduct: (
-    selectedProduct: {
-      productId: string
-      imageUrl: string
-    }[]
-  ) => void
+  wssStream?: string
 }
 
 const settingDefault: SettingCtx = {
   isModalLive: false,
-  selectedProduct: [{ productId: '', imageUrl: '' }],
-  setIsModalLive: () => {},
-  setSelectedProduct: () => {}
+  setIsModalLive: () => {}
 }
 
 export const SettingContext = createContext<SettingCtx>(settingDefault)
 
 export const SettingProvider: FC<SettingCtx> = ({
+  collectionId,
   children,
   isModalLive,
-  selectedProduct,
   setIsModalLive,
-  setSelectedProduct
+  wssStream
 }) => {
+  const infoSocket = useWebSocket({ wssStream })
+
   const contex: SettingCtx = {
+    collectionId,
+    infoSocket,
     isModalLive,
-    selectedProduct,
-    setIsModalLive,
-    setSelectedProduct
+    setIsModalLive
   }
   return (
     <SettingContext.Provider value={contex}>{children}</SettingContext.Provider>

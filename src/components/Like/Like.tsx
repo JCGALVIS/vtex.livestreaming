@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React, { useMemo, useContext } from 'react'
-import IconHeart from '../icons/HeartIcon'
+
+import { HeartIcon } from '../icons'
 import HeartComponent from './heart/Heart'
-import type { Heart, InfoSocket } from '../../typings/livestreaming'
 import { getRandomColor } from '../../utils'
-import { ActionsContext } from '../../context/ActionsContext'
+import { ActionsContext, SettingContext } from '../../context'
+import type { Heart } from '../../typings/livestreaming'
 
 import styles from './like.css'
-interface LikeProps {
-  infoSocket: InfoSocket
-}
 
-export const Like = ({ infoSocket }: LikeProps) => {
+export const Like = () => {
+  const { infoSocket } = useContext(SettingContext)
+
   const {
     socket,
     hearts: socketHearts,
@@ -19,7 +19,7 @@ export const Like = ({ infoSocket }: LikeProps) => {
     sessionId,
     isTransmiting,
     queueSocket
-  } = infoSocket
+  } = infoSocket || {}
 
   const {
     setting: { showLike }
@@ -32,7 +32,7 @@ export const Like = ({ infoSocket }: LikeProps) => {
   const handleClick = () => {
     const id = Date.now()
 
-    if (queueSocket && queueSocket.size() <= 4) {
+    if (queueSocket && queueSocket.size() <= 4 && setHearts) {
       setHearts((prev) => [...prev, { id, color: getRandomColor() }])
       queueSocket.add(id)
     }
@@ -49,12 +49,7 @@ export const Like = ({ infoSocket }: LikeProps) => {
 
   const heartRenderer = (array: Heart[]) =>
     array.map(({ id, color }: Heart) => (
-      <HeartComponent
-        key={id}
-        color={color}
-        removeHeart={removeHeart}
-        infoSocket={infoSocket}
-      />
+      <HeartComponent key={id} color={color} removeHeart={removeHeart} />
     ))
 
   const HeartCollection = useMemo(
@@ -65,7 +60,7 @@ export const Like = ({ infoSocket }: LikeProps) => {
   return showLike && isTransmiting ? (
     <div className={styles.likeWrapper}>
       <button className={styles.likeButton} onClick={handleClick}>
-        <IconHeart size='30' viewBox='0 0 400 400' />
+        <HeartIcon size='30' viewBox='0 0 400 400' />
       </button>
       {HeartCollection}
     </div>

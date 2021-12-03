@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 
-import type { InfoSocket } from '../../typings/livestreaming'
+import { SettingContext } from '../../context'
 import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 
 type FeedProps = {
-  collectionId: string | undefined
-  infoSocket: InfoSocket
   isPlayerSupported: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
@@ -17,8 +14,6 @@ type FeedProps = {
 }
 
 export const Feed = ({
-  collectionId,
-  infoSocket,
   isPlayerSupported,
   setShowVariation,
   setWidth,
@@ -26,6 +21,8 @@ export const Feed = ({
   transmitionType,
   livestreamingStatus
 }: FeedProps) => {
+  const { infoSocket } = useContext(SettingContext)
+
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
 
@@ -33,7 +30,7 @@ export const Feed = ({
   const [liveStatus, setLiveStatus] = useState(false)
   const player: typeof MediaPlayer = useRef(null)
 
-  const { isTransmiting } = infoSocket
+  const { isTransmiting } = infoSocket || {}
   const isLive = infoSocket?.ivsRealTime?.status
   const isFinalized = livestreamingStatus === 'FINALIZED'
 
@@ -85,8 +82,6 @@ export const Feed = ({
   }
   return playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
     <StreamPlayer
-      collectionId={collectionId}
-      infoSocket={infoSocket}
       player={player.current}
       streamUrl={streamUrl}
       setShowVariation={setShowVariation}

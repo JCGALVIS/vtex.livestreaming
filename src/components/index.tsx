@@ -2,6 +2,7 @@ import { ButtonProductsMobile } from './ProductSlider/ButtonProductsMobile'
 import { Chat } from './Chat/Chat'
 import { Feed } from './Feed/Feed'
 import { HorizontalProductSlider } from './ProductSlider/HorizontalProductSlider'
+import { Like } from './Like/Like'
 import { Live } from './Live/Live'
 import { ProductToCart } from './ProductCart/ProductToCart'
 import { SliderProductMobile } from './ProductSlider/SliderProductMobile'
@@ -15,6 +16,7 @@ export {
   Chat,
   Feed,
   HorizontalProductSlider,
+  Like,
   Live,
   ProductToCart,
   SliderProductMobile,

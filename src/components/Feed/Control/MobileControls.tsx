@@ -14,7 +14,7 @@ import {
   VolumeOffIcon,
   VolumeUpIcon
 } from '../../icons'
-import { Like } from '../../Like/Like'
+import { Like } from '../../'
 import type { PlayerControls } from '../../../typings/MediaPlayer'
 
 import styles from '../../../styles.module.css'
@@ -30,7 +30,6 @@ export const MobileControls = (props: PlayerControls) => {
     handleNothing,
     handlePictureAndPicture,
     handleVolume,
-    infoSocket,
     muted,
     showOptions,
     status,
@@ -125,7 +124,7 @@ export const MobileControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoMobileLikeButtonPosition}
         >
-          <Like infoSocket={infoSocket} />
+          <Like />
         </div>
         <div
           className={styles.playerVideoMobileOptions}

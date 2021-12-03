@@ -19,8 +19,7 @@ import {
 import {
   useIsPlayerSupported,
   useLivestreamingComponentOnScreen,
-  useLivestreamingConfig,
-  useWebSocket
+  useLivestreamingConfig
 } from './../hooks'
 import { getMobileOS } from './../utils'
 import type { Message } from './../typings/livestreaming'
@@ -67,12 +66,10 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     setSetting
   } = useContext(ActionsContext)
 
-  const { isModalLive, setIsModalLive } = useContext(SettingContext)
+  const { infoSocket, isModalLive, setIsModalLive } = useContext(SettingContext)
 
   const {
-    wssStream,
     streamUrl,
-    collectionId,
     utm,
     emailIsRequired,
     pinnedMessage: initPinnedMessage,
@@ -88,8 +85,6 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     rootMargin: '0px 0px'
   })
 
-  const info = useWebSocket({ wssStream })
-
   const {
     scriptProperties,
     setShowCounter,
@@ -98,7 +93,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     sessionId,
     pinnedMessage: socketPinnedMessage,
     transmitiontype: socketTransmitiontype
-  } = info
+  } = infoSocket || {}
 
   const getHeight = () => {
     setDetector(getMobileOS())
@@ -112,7 +107,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     window.addEventListener('resize', function () {
       getHeight()
     })
-  }, [info, divVideoContent])
+  }, [infoSocket, divVideoContent])
 
   useEffect(() => {
     if (!scriptProperties) return
@@ -128,7 +123,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       time
     } = scriptProperties
 
-    setShowCounter(showViewers)
+    if (setShowCounter) setShowCounter(showViewers)
     setSetting({
       account,
       idLivestreaming,
@@ -147,7 +142,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   }, [scriptProperties])
 
   useEffect(() => {
-    setEmailIsRequired(emailIsRequired)
+    if (setEmailIsRequired) setEmailIsRequired(emailIsRequired)
   }, [emailIsRequired])
 
   useEffect(() => {
@@ -235,15 +230,12 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           style={getMobileOS() === 'unknown' ? { width: 'auto' } : {}}
         >
           <VariationSelector
-            infoSocket={info}
             showVariation={showVariation}
             setShowVariation={setShowVariation}
           />
           {showSidebarProducts || showProductsCarousel ? (
             <SliderProductMobile
-              collectionId={collectionId}
               height={height}
-              infoSocket={info}
               showSliderProducts={showSliderProducts}
               setShowSliderProducts={setShowSliderProducts}
               setShowVariation={setShowVariation}
@@ -253,14 +245,12 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             style={{ height: parseInt(height) }}
             className={`${
               showSidebarProducts
-                ? styles.sliderProductContent
-                : styles.displayNone
+                ? styles2.sliderProductContent
+                : styles2.displayNone
             }`}
           >
             {showSidebarProducts && (
               <VerticalProductSlider
-                collectionId={collectionId}
-                infoSocket={info}
                 height={(parseInt(height) - 58).toString()}
                 setShowVariation={setShowVariation}
                 transmitionType={transmitionType}
@@ -288,38 +278,15 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               ref={divVideoContent}
               className={`${
                 isModalLive && !isInGlobalPage && styles2.heightPopoup
-              } ${styles.fittedContainer}`}
+              } ${styles2.fittedContainer}`}
               style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
             >
               <div
                 className={`${
                   isModalLive && !isInGlobalPage && styles2.heightPopoup
-                } ${styles.videoContent}`}
+                } ${styles2.videoContent}`}
               >
-                <div className={styles2.buttonProductContent}>
-                  {showSidebarProducts || showProductsCarousel ? (
-                    <ButtonProductsMobile
-                      collectionId={collectionId}
-                      setShowSliderProducts={setShowSliderProducts}
-                    />
-                  ) : null}
-                  {getMobileOS() !== 'unknown' &&
-                    isModalLive &&
-                    !isInGlobalPage && (
-                      <div
-                        className={styles2.closePopoup}
-                        onClick={() => {
-                          setLoading(true)
-                          setIsModalLive(false)
-                        }}
-                      >
-                        <IconClose />
-                      </div>
-                    )}
-                </div>
                 <Feed
-                  collectionId={collectionId}
-                  infoSocket={info}
                   isPlayerSupported={isPlayerSupported}
                   setShowVariation={setShowVariation}
                   setWidth={setWidth}
@@ -327,18 +294,36 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                   transmitionType={transmitionType}
                   livestreamingStatus={status}
                 />
-                <div className={styles.liveContent}>
-                  <Live infoSocket={info} />
-                </div>
-                <div className={styles.viewersContent}>
-                  <Viewers infoSocket={info} />
+                <div className={styles2.feedHeader}>
+                  <div className={styles2.leftHeader}>
+                    <Live />
+                    <Viewers />
+                  </div>
+                  <div className={styles2.rightHeader}>
+                    {showSidebarProducts || showProductsCarousel ? (
+                      <ButtonProductsMobile
+                        setShowSliderProducts={setShowSliderProducts}
+                      />
+                    ) : null}
+                    {getMobileOS() !== 'unknown' &&
+                      isModalLive &&
+                      !isInGlobalPage && (
+                        <div
+                          className={styles2.closePopoup}
+                          onClick={() => {
+                            setLoading(true)
+                            setIsModalLive(false)
+                          }}
+                        >
+                          <IconClose />
+                        </div>
+                      )}
+                  </div>
                 </div>
               </div>
               <div className={styles.horizontalProductsContent}>
                 {showProductsCarousel && !isModalLive && (
                   <HorizontalProductSlider
-                    collectionId={collectionId}
-                    infoSocket={info}
                     setShowVariation={setShowVariation}
                     transmitionType={transmitionType}
                   />
@@ -347,16 +332,12 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             </div>
           </div>
           <div
-            style={
-              detector === 'unknown'
-                ? { height: parseInt(height), maxHeight: parseInt(height) }
-                : { height: 'auto' }
-            }
-            className={`${showChat ? styles.chatContent : styles.displayNone}`}
+            className={`${
+              showChat ? styles2.chatContent : styles2.displayNone
+            }`}
           >
             {showChat && (
               <Chat
-                infoSocket={info}
                 pinnedMessage={pinnedMessage}
                 transmitionType={transmitionType}
                 initShowGif={showGifButton}

@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FormattedMessage } from 'react-intl'
+
+import { SettingContext } from '../../context'
 
 import styles from './productSlider.css'
 
 type SliderProductsMobileProps = {
-  collectionId: string | undefined
   setShowSliderProducts: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const ButtonProductsMobile = ({
-  collectionId,
   setShowSliderProducts
 }: SliderProductsMobileProps) => {
+  const { collectionId } = useContext(SettingContext)
+
   return collectionId ? (
     <button
       className={styles.buttonMobile}

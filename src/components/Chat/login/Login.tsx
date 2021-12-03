@@ -1,18 +1,15 @@
 import React, { useState, useContext } from 'react'
+import { useIntl } from 'react-intl'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 
 import styles from './Login.css'
-// eslint-disable-next-line no-unused-vars
-import { InfoSocket } from '../../../typings/livestreaming'
 import { useSessionId } from '../../../hooks/useSessionId'
 import { apiCall } from '../../../services'
-import { useIntl } from 'react-intl'
-import { ActionsContext } from '../../../context/ActionsContext'
+import { ActionsContext, SettingContext } from '../../../context'
 
 interface Props {
   content: string
   selectedGif: string | undefined
-  infoSocket: InfoSocket
   setShowLoginWindow: React.Dispatch<React.SetStateAction<boolean>>
   setUserIsLoggedInChat: React.Dispatch<React.SetStateAction<boolean>>
   setSendFirstMessage: React.Dispatch<React.SetStateAction<boolean>>
@@ -25,18 +22,20 @@ export const Login = ({
   setShowLoginWindow,
   setUserIsLoggedInChat,
   setSendFirstMessage,
-  setContent,
-  infoSocket
+  setContent
 }: Props) => {
   const { formatMessage } = useIntl()
   const [username, setUsername] = useState<string>('')
   const [email, setEmail] = useState<string>('')
-  const { sendAccountId, socket, emailIsRequired } = infoSocket
-  const { sessionId } = useSessionId()
   const [errorUsername, setErrorUsername] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
   const [erroMessage, setErrorMessage] = useState('')
   const [disabledBtn, setDisabledBtn] = useState(false)
+
+  const { infoSocket } = useContext(SettingContext)
+  const { sessionId } = useSessionId()
+
+  const { sendAccountId, socket, emailIsRequired } = infoSocket || {}
 
   const {
     setting: { account, idLivestreaming }

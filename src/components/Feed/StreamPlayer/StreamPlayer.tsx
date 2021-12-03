@@ -10,7 +10,6 @@ import React, {
 import { ActionsContext, SettingContext } from '../../../context'
 import type { MediaPlayer } from '../../../typings/MediaPlayer'
 import { getDeviceType } from '../../../utils'
-import type { InfoSocket } from '../../../typings/livestreaming'
 import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
@@ -21,8 +20,6 @@ import styles from '../../../styles.module.css'
 import styles2 from './streamPlayer.css'
 
 type streamPlayerProps = {
-  collectionId: string | undefined
-  infoSocket: InfoSocket
   player: MediaPlayer
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   setWidth: React.Dispatch<React.SetStateAction<string | number>>
@@ -32,8 +29,6 @@ type streamPlayerProps = {
 }
 
 export const StreamPlayer = ({
-  collectionId,
-  infoSocket,
   player,
   setShowVariation,
   setWidth,
@@ -117,7 +112,6 @@ export const StreamPlayer = ({
       handleVolume,
       IDLE,
       inactive,
-      infoSocket,
       isVerticalLayout,
       muted,
       overlay,
@@ -160,7 +154,6 @@ export const StreamPlayer = ({
     handleVolume,
     IDLE,
     inactive,
-    infoSocket,
     isVerticalLayout,
     muted,
     overlay,
@@ -202,17 +195,13 @@ export const StreamPlayer = ({
             : {}
         }
       >
-        {collectionId && (
-          <HighlightProduct
-            collectionId={collectionId}
-            fullScreen={fullScreen}
-            handleFullScreen={
-              detector ? handleFullScreen : handleFullScreenMobile
-            }
-            infoSocket={infoSocket}
-            setShowVariation={setShowVariation}
-          />
-        )}
+        <HighlightProduct
+          fullScreen={fullScreen}
+          handleFullScreen={
+            detector ? handleFullScreen : handleFullScreenMobile
+          }
+          setShowVariation={setShowVariation}
+        />
         {openShare && (
           <ShareComponents handleClose={() => setOpenShare(false)} />
         )}
@@ -230,7 +219,7 @@ export const StreamPlayer = ({
         />
         {ControlWrapper}
         <div className={styles2.containerProductCart}>
-          <ProductToCart infoSocket={infoSocket} />
+          <ProductToCart />
         </div>
       </div>
     </Fragment>

@@ -254,6 +254,10 @@
 }
 
 @media screen and (min-width: 930px) {
+  .verticalProductSliderContent {
+    width: 100% !important;
+  }
+
   .horizontalProductContainer {
     display: initial;
   }

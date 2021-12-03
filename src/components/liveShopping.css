@@ -2,6 +2,10 @@
   height: 100% !important;
 }
 
+.displayNone {
+  display: none;
+}
+
 .livestreaming {
   height: 100%;
   margin-bottom: 1rem;
@@ -30,15 +34,47 @@
   inset: 0px;
 }
 
-.buttonProductContent {
+.sliderProductContent {
+  display: none;
+}
+
+.videoContent {
+  position: relative;
+  width: 100%;
+}
+
+.feedHeader {
+  position: fixed;
+  top: 20px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   align-items: center;
+}
+
+.leftHeader {
+  flex: 0 1 50%;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  justify-content: flex-start;
+}
+
+.rightHeader {
+  flex: 0 1 50%;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  justify-content: flex-end;
+}
+
+.chatContent {
   position: absolute;
-  top: 1.4rem;
-  right: 1rem;
-  z-index: 1;
+  bottom: 1rem;
+  left: 0.5rem;
+  width: 50%;
   height: auto;
+  max-height: none;
 }
 
 .closePopoup {
@@ -49,8 +85,8 @@
   width: 20px;
   justify-content: center;
   align-items: center;
-  margin-left: 4px;
   color: #ffffff;
+  margin-left: 5px;
 }
 
 @media screen and (min-width: 930px) {
@@ -84,6 +120,24 @@
     background: #ffffff;
   }
 
+  .sliderProductContent {
+    display: initial;
+    position: relative;
+    flex: 0 1 23.44%;
+  }
+
+  .videoContainer {
+    position: relative;
+    flex: 0 1 52.34%;
+  }
+
+  .chatContent {
+    position: relative;
+    flex: 0 1 24.22%;
+    bottom: 0;
+    left: 0;
+  }
+
   .closePopoupDeskotp {
     background-color: #ffffff;
     border-radius: 500%;
@@ -109,11 +163,6 @@
     bottom: 0;
     right: 0;
     top: 0;
-  }
-
-  .videoContainer {
-    position: relative;
-    max-width: 44vw;
   }
 
   .videoContainerPopoup {
