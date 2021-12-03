@@ -4,7 +4,7 @@ export default {
   [LOCALES.pt]: {
     'store/button.close': 'Fechar',
     'store/button.expecting': 'Esperando...',
-    'store/button.send': 'Mandar',
+    'store/button.send': 'Enviar',
     'store/inputs.required-placeholder': 'Requerido',
     'store/live.chat': 'Bate-papo ao vivo',
     'store/live.chat-login': 'Digite seu nome para continuar',
@@ -20,7 +20,7 @@ export default {
     'store/text.add': 'Adicionar',
     'store/text.anonymous-user': 'Anônimo',
     'store/text.before': 'Antes',
-    'store/text.chat-placeholder': 'Comente aqui ...',
+    'store/text.chat-placeholder': 'Comente aqui...',
     'store/text.email': 'Email',
     'store/text.email-invalid': 'E-mail inválido',
     'store/text.false': 'Falso',
