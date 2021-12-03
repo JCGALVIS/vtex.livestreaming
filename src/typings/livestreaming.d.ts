@@ -90,6 +90,7 @@ export declare interface InfoSocket {
   transmitiontype: string | undefined
   productsInCart: Products[]
   setProductsInCart: React.Dispatch<React.SetStateAction<Products[]>>
+  setQueueSocket: React.Dispatch<React.SetStateAction<Queue<number> | undefined>>
 }
 
 export interface ProductImages {

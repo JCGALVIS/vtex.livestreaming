@@ -114,7 +114,7 @@ export const DesktopControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoLikeButtonPosition}
         >
-          <Like infoSocket={infoSocket} />
+          <Like infoSocket={infoSocket} isFinalized={isFinalized} />
         </div>
         {playerStatus === PLAYING || playerStatus === IDLE ? (
           firstMuted ? (
