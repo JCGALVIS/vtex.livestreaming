@@ -20,7 +20,7 @@ export default {
     'store/text.add': 'Agregar',
     'store/text.anonymous-user': 'Anónimo',
     'store/text.before': 'Antes',
-    'store/text.chat-placeholder': 'Comenta aqui...',
+    'store/text.chat-placeholder': 'Comenta aquí...',
     'store/text.email': 'Email',
     'store/text.email-invalid': 'Email inválido',
     'store/text.false': 'Falso',
