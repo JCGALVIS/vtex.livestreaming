@@ -1,24 +1,27 @@
 /* eslint-disable no-unused-vars */
-import React, { useMemo, useContext } from 'react'
+import React, { useMemo, useContext, useEffect } from 'react'
 import IconHeart from '../icons/HeartIcon'
 import HeartComponent from './heart/Heart'
 import type { Heart, InfoSocket } from '../../typings/livestreaming'
-import { getRandomColor } from '../../utils'
+import { getRandomColor, Queue, getRandomNumber } from '../../utils'
 import { ActionsContext } from '../../context/ActionsContext'
-
 import styles from './like.css'
+
 interface LikeProps {
   infoSocket: InfoSocket
+  isFinalized: boolean
 }
 
-export const Like = ({ infoSocket }: LikeProps) => {
+const LIKES_LIMIT = 5
+
+export const Like = ({ infoSocket, isFinalized }: LikeProps) => {
   const {
     socket,
     hearts: socketHearts,
     setHearts,
     sessionId,
-    isTransmiting,
-    queueSocket
+    queueSocket,
+    setQueueSocket
   } = infoSocket
 
   const {
@@ -32,7 +35,7 @@ export const Like = ({ infoSocket }: LikeProps) => {
   const handleClick = () => {
     const id = Date.now()
 
-    if (queueSocket && queueSocket.size() <= 4) {
+    if (queueSocket && queueSocket.size() < LIKES_LIMIT) {
       setHearts((prev) => [...prev, { id, color: getRandomColor() }])
       queueSocket.add(id)
     }
@@ -62,7 +65,29 @@ export const Like = ({ infoSocket }: LikeProps) => {
     [socketHearts]
   )
 
-  return showLike && isTransmiting ? (
+  useEffect(() => {
+    if (!isFinalized) return
+    if (!queueSocket) setQueueSocket(new Queue<number>())
+
+    const interval = setInterval(() => {
+      let i = 1
+      const numberOfLikes = getRandomNumber(2, LIKES_LIMIT)
+
+      const myLoop = () => {
+        setTimeout(() => {
+          handleClick()
+          i++
+          if (i <= numberOfLikes) myLoop()
+        }, 400)
+      }
+
+      myLoop()
+    }, 6000)
+
+    return () => clearInterval(interval)
+  }, [isFinalized, queueSocket])
+
+  return showLike ? (
     <div className={styles.likeWrapper}>
       <button className={styles.likeButton} onClick={handleClick}>
         <IconHeart size='30' viewBox='0 0 400 400' />
