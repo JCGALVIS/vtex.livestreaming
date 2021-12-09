@@ -184,7 +184,6 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           setTransmitiontype(data)
           break
         case 'sendaddtocart':
-          if (document.hidden) break
           setProductsInCart((prev) => [
             ...prev,
             {

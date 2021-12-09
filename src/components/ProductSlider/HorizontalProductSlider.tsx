@@ -19,7 +19,7 @@ export const HorizontalProductSlider = ({
   transmitionType
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-  const [itemsProdcuts, setItemsProdcuts] = useState([
+  const [itemsProdcuts, setItemsProducts] = useState([
     {
       id: '',
       name: '',
@@ -57,7 +57,8 @@ export const HorizontalProductSlider = ({
 
   useEffect(() => {
     if (products && products[0]) {
-      setItemsProdcuts(products.slice(0, index))
+      setItemsProducts([])
+      setItemsProducts(products.slice(0, index))
       setSelectedProductIndex(0)
     }
   }, [products, index])
@@ -80,9 +81,9 @@ export const HorizontalProductSlider = ({
       setSelectedProductIndex(newIdx)
 
       if (products.length >= newIdx + index) {
-        setItemsProdcuts(products.slice(newIdx, newIdx + index))
+        setItemsProducts(products.slice(newIdx, newIdx + index))
       } else {
-        setItemsProdcuts(products.slice(0, index))
+        setItemsProducts(products.slice(0, index))
         setSelectedProductIndex(0)
       }
     }

@@ -28,7 +28,7 @@ const ProductButton = (props: ProductButtonProps) => {
 
   const { infoSocket } = useContext(SettingContext)
 
-  const { socket, setProductsInCart } = infoSocket || {}
+  const { socket } = infoSocket || {}
 
   const { formatMessage } = useIntl()
 
@@ -45,19 +45,6 @@ const ProductButton = (props: ProductButtonProps) => {
         disabled={!isAvailable}
         onClick={() => {
           if (socket && socket?.readyState === 1) {
-            if (setProductsInCart)
-              setProductsInCart((prev) => [
-                ...prev,
-                {
-                  id: '',
-                  name: '',
-                  price: 0,
-                  priceWithDiscount: 0,
-                  imageUrl: imageUrl,
-                  addToCartLink: '',
-                  isAvailable: false
-                }
-              ])
             const sendLike = {
               action: 'sendaddtocart',
               data: {
