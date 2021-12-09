@@ -336,6 +336,11 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             className={`${
               showChat ? styles2.chatContent : styles2.displayNone
             } ${isModalLive && styles2.flexAuto}`}
+            style={
+              getMobileOS() === 'unknown'
+                ? { height: parseInt(height) }
+                : { height: 'auto' }
+            }
           >
             {showChat && (
               <Chat

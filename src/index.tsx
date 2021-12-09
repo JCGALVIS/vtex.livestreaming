@@ -15,6 +15,8 @@ import {
   LivestreamingProvider
 } from './context'
 
+import styles from './styles.module.css'
+
 export const Livestreaming = (props: LivestreamingProps) => {
   const { idLivestreaming, account } = props
   const [locale, setLocale] = useState(LOCALES.en)
@@ -62,8 +64,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
       <ActionsProvider props={props}>
         <SettingProvider {...settingProps}>
           <LivestreamingProvider value={state} dispatch={dispatch}>
-            {loading && <Spinner />}
-            {!loading && <LiveShopping setLoading={setLoading} />}
+            <div className={styles.liveShoppingContainer}>
+              {loading && <Spinner />}
+              {!loading && <LiveShopping setLoading={setLoading} />}
+            </div>
           </LivestreamingProvider>
         </SettingProvider>
       </ActionsProvider>
