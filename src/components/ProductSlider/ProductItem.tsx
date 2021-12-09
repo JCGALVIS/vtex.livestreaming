@@ -42,7 +42,7 @@ export const ProductItem = (props: ProductItemProps) => {
   } = props
 
   const {
-    setting: { isInGlobalPage, kuikpay, originOfProducts }
+    setting: { isInGlobalPage, kuikpay, originOfProducts, showQuickView }
   } = useContext(ActionsContext)
 
   const { formatMessage, locale } = useIntl()
@@ -72,9 +72,13 @@ export const ProductItem = (props: ProductItemProps) => {
           {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          {variationSelector.length === 0 || isInGlobalPage ? (
+          {variationSelector.length === 0 ||
+          isInGlobalPage ||
+          !showQuickView ? (
             <ProductButton
-              addToCartLink={isInGlobalPage ? pdpLink : addToCartLink}
+              addToCartLink={
+                isInGlobalPage || !showQuickView ? pdpLink : addToCartLink
+              }
               imageUrl={imageUrl}
               isAvailable={isAvailable}
               productId={skuId}

@@ -33,7 +33,7 @@ const ProductButton = (props: ProductButtonProps) => {
   const { formatMessage } = useIntl()
 
   const {
-    setting: { isInGlobalPage, redirectTo }
+    setting: { isInGlobalPage, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   return (
@@ -55,7 +55,7 @@ const ProductButton = (props: ProductButtonProps) => {
             socket.send(JSON.stringify(sendLike))
           }
 
-          addToCart(productId, redirectTo, isInGlobalPage)
+          addToCart(productId, redirectTo, isInGlobalPage, showQuickView)
 
           if (handleClose) handleClose()
           if (!sectionIdClickedOn) return

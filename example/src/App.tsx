@@ -16,6 +16,7 @@ const App = () => {
       redirectTo='_PDP'
       showChat='_INACTIVATECHAT'
       showLike='_INACTIVATELIKE'
+      showQuickView='_SHOWQUICKVIEW'
       showProductsCarousel='_INACTIVEPRODUCTSCAROUSEL'
       showSidebarProducts='_INACTIVESIDEBARPRODUCTS'
       showViewers='_INACTIVATEVIEWERS'
