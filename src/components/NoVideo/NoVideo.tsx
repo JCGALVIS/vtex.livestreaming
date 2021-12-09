@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { getMobileOS } from '../../utils'
 import styles from './NoVideo.css'
 import { FormattedMessage } from 'react-intl'
@@ -13,28 +13,18 @@ const messages = {
 type NoVideoProps = {
   isLive: string | undefined
   liveStatus: boolean
-  setWidth: React.Dispatch<React.SetStateAction<string | number>>
   transmitionType: string | undefined
 }
 
 export const NoVideo = ({
   isLive,
   liveStatus,
-  setWidth,
   transmitionType
 }: NoVideoProps) => {
   const { isModalLive } = useContext(SettingContext)
   const {
     setting: { isInGlobalPage }
   } = useContext(ActionsContext)
-
-  useEffect(() => {
-    if (transmitionType === 'vertical') {
-      setWidth('278.438px')
-    } else {
-      setWidth('44vw')
-    }
-  }, [transmitionType])
 
   return (
     <div

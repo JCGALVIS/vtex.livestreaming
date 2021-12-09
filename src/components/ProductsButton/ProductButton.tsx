@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { Fragment, useContext } from 'react'
 import { useIntl } from 'react-intl'
-import { ActionsContext } from '../../context'
-import { InfoSocket } from '../../typings/livestreaming'
+import { ActionsContext, SettingContext } from '../../context'
 import { addToCart } from '../../utils'
 
 import styles from './productButton.css'
@@ -11,7 +9,6 @@ type ProductButtonProps = {
   addToCartLink: string
   handleClose?: () => void
   imageUrl: string
-  infoSocket: InfoSocket
   isAvailable: boolean
   productId: string
   productName?: string
@@ -23,14 +20,15 @@ const ProductButton = (props: ProductButtonProps) => {
     addToCartLink,
     handleClose,
     imageUrl,
-    infoSocket,
     isAvailable,
     productId,
     productName,
     sectionIdClickedOn
   } = props
 
-  const { socket, setProductsInCart } = infoSocket
+  const { infoSocket } = useContext(SettingContext)
+
+  const { socket, setProductsInCart } = infoSocket || {}
 
   const { formatMessage } = useIntl()
 
@@ -47,18 +45,19 @@ const ProductButton = (props: ProductButtonProps) => {
         disabled={!isAvailable}
         onClick={() => {
           if (socket && socket?.readyState === 1) {
-            setProductsInCart((prev) => [
-              ...prev,
-              {
-                id: '',
-                name: '',
-                price: 0,
-                priceWithDiscount: 0,
-                imageUrl: imageUrl,
-                addToCartLink: '',
-                isAvailable: false
-              }
-            ])
+            if (setProductsInCart)
+              setProductsInCart((prev) => [
+                ...prev,
+                {
+                  id: '',
+                  name: '',
+                  price: 0,
+                  priceWithDiscount: 0,
+                  imageUrl: imageUrl,
+                  addToCartLink: '',
+                  isAvailable: false
+                }
+              ])
             const sendLike = {
               action: 'sendaddtocart',
               data: {

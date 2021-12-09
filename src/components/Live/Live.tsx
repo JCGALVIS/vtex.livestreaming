@@ -1,17 +1,15 @@
-import React, { Fragment } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { InfoSocket } from '../../typings/livestreaming'
+import React, { Fragment, useContext } from 'react'
+import { SettingContext } from '../../context'
+
 import styles from './live.css'
 
-interface LiveProps {
-  infoSocket: InfoSocket
-}
+export const Live = () => {
+  const { infoSocket } = useContext(SettingContext)
 
-export const Live = ({ infoSocket }: LiveProps) => {
-  const { isTransmiting } = infoSocket
+  const { isTransmiting } = infoSocket || {}
 
   return (
-    /* livestramingStatus !== 'FINALIZED' ? */ <Fragment>
+    <Fragment>
       <span className={styles.liveText}>
         {isTransmiting ? 'Live' : 'Offline'}
       </span>

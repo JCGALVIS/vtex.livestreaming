@@ -1,15 +1,12 @@
-/* eslint-disable no-unused-vars */
-import React, { useMemo, Fragment } from 'react'
+import React, { useMemo, Fragment, useContext } from 'react'
 
-import type { InfoSocket } from '../../typings/livestreaming'
+import { SettingContext } from '../../context'
 import { ProductCart } from './ProductCart'
 
-interface ProductToCartProps {
-  infoSocket: InfoSocket
-}
+export const ProductToCart = () => {
+  const { infoSocket } = useContext(SettingContext)
 
-export const ProductToCart = ({ infoSocket }: ProductToCartProps) => {
-  const { productsInCart } = infoSocket
+  const { productsInCart } = infoSocket || {}
 
   const ProductCollection = useMemo(
     () =>

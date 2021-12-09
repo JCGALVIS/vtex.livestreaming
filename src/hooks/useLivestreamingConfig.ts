@@ -30,20 +30,22 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     if (!GET_LIVESTREAMING_CONFIG_URL) return
 
     const getLivestreaming = async () => {
-      const data = await apiCall({
+      await apiCall({
         url: `${URL}?id=${id}&account=${account}`
+      }).then((data) => {
+        if (data) {
+          setWssStream(data?.webClient?.streamWSS)
+          setStreamUrl(data?.webClient?.streamURL)
+          setEmailIsRequired(data?.webClient?.emailIsRequired)
+          setCollectionId(data?.collection?.id)
+          setUtm(data?.utm)
+          setPinnedMessage(data?.pinnedMessage)
+          setTransmitionType(data?.webClient?.transmitionType)
+          setIsModalLive(data?.webClient.modalLive)
+          setStatus(data?.status)
+          setShowGifButton(data?.webClient?.showGif)
+        }
       })
-
-      setWssStream(data?.webClient?.streamWSS)
-      setStreamUrl(data?.webClient?.streamURL)
-      setEmailIsRequired(data?.webClient?.emailIsRequired)
-      setCollectionId(data?.collection?.id)
-      setUtm(data?.utm)
-      setPinnedMessage(data?.pinnedMessage)
-      setTransmitionType(data?.webClient?.transmitionType)
-      setIsModalLive(data?.webClient.modalLive)
-      setStatus(data?.status)
-      setShowGifButton(data?.webClient?.showGif)
     }
 
     getLivestreaming().catch(null)

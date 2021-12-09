@@ -209,7 +209,7 @@
   .chatContainer {
     justify-content: space-between;
     background: #f8f7fc !important;
-    width: 310px !important;
+    width: 100% !important;
   }
 
   .liveChatContainer {

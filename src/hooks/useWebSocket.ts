@@ -284,7 +284,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     pinnedMessage,
     transmitiontype,
     productsInCart,
-    setProductsInCart
+    setProductsInCart,
+    setQueueSocket
   }
 }
 

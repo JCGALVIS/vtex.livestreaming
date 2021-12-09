@@ -1,29 +1,27 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState, useContext } from 'react'
-
-import { ProductItem } from './ProductItem'
-import { useFetchProducts } from './../../hooks/useFetchProducts'
 import { FormattedMessage } from 'react-intl'
 
+import { ProductItem } from './ProductItem'
+import { ActionsContext, SettingContext } from '../../context'
+import { useFetchProducts } from './../../hooks/useFetchProducts'
+import { getDeviceType } from '../../utils'
+
 import styles from './productSlider.css'
-import { ActionsContext } from '../../context/ActionsContext'
-import type { InfoSocket } from '../../typings/livestreaming'
 
 type VerticalProductSliderProps = {
-  collectionId: string | undefined
   height: string
-  infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType?: string | undefined
 }
 
 export const VerticalProductSlider = ({
-  collectionId,
   height,
-  infoSocket,
   setShowVariation,
   transmitionType
 }: VerticalProductSliderProps) => {
+  const { collectionId, isModalLive } = useContext(SettingContext)
+  const isMobile = getDeviceType() === 'mobile'
+
   const {
     setting: { isInfinite, originOfProducts, time }
   } = useContext(ActionsContext)
@@ -88,7 +86,9 @@ export const VerticalProductSlider = ({
     <div
       className={styles.verticalProductSliderContent}
       style={
-        transmitionType === 'vertical' ? { maxWidth: 360, minWidth: 360 } : {}
+        isModalLive && transmitionType === 'vertical' && !isMobile
+          ? { maxWidth: 390, minWidth: 390 }
+          : {}
       }
     >
       <div className={styles.verticalProductSliderTitle}>
@@ -107,7 +107,6 @@ export const VerticalProductSlider = ({
             <ProductItem
               key={product.id}
               {...product}
-              infoSocket={infoSocket}
               setShowVariation={setShowVariation}
               sectionIdClickedOn='live_shopping_sidebar'
             />

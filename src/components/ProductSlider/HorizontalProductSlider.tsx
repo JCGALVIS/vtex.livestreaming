@@ -4,22 +4,17 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { ProductItem } from './ProductItem'
 import { useFetchProducts } from '../../hooks/useFetchProducts'
-import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
-import { ActionsContext } from '../../context/ActionsContext'
+import { ArrowRightLivestreaming } from '../icons'
+import { ActionsContext, SettingContext } from '../../context'
 
 import styles from './productSlider.css'
-import type { InfoSocket } from '../../typings/livestreaming'
 
 type HorizontalProductSliderProps = {
-  collectionId: string | undefined
-  infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
 }
 
 export const HorizontalProductSlider = ({
-  collectionId,
-  infoSocket,
   setShowVariation,
   transmitionType
 }: HorizontalProductSliderProps) => {
@@ -38,6 +33,8 @@ export const HorizontalProductSlider = ({
     }
   ])
   const [index, setIndex] = useState(2)
+
+  const { collectionId } = useContext(SettingContext)
 
   const {
     setting: { isInfinite, originOfProducts, time }
@@ -125,7 +122,6 @@ export const HorizontalProductSlider = ({
               <div className={styles.horizontalProductList}>
                 <ProductItem
                   {...product}
-                  infoSocket={infoSocket}
                   originOfProducts={originOfProducts}
                   setShowVariation={setShowVariation}
                   sectionIdClickedOn='live_shopping_carousel'
