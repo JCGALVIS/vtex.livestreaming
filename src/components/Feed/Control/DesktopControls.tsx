@@ -110,7 +110,7 @@ export const DesktopControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoLikeButtonPosition}
         >
-          <Like />
+          <Like isFinalized={isFinalized} />
         </div>
         {playerStatus === PLAYING || playerStatus === IDLE ? (
           firstMuted ? (

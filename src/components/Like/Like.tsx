@@ -1,15 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useMemo, useContext } from 'react'
-
+import React, { useMemo, useContext, useEffect } from 'react'
 import { HeartIcon } from '../icons'
 import HeartComponent from './heart/Heart'
-import { getRandomColor } from '../../utils'
-import { ActionsContext, SettingContext } from '../../context'
 import type { Heart } from '../../typings/livestreaming'
-
+import { getRandomColor, Queue, getRandomNumber } from '../../utils'
+import { ActionsContext, SettingContext } from '../../context'
 import styles from './like.css'
 
-export const Like = () => {
+interface LikeProps {
+  isFinalized: boolean
+}
+
+const LIKES_LIMIT = 5
+
+export const Like = ({ isFinalized }: LikeProps) => {
   const { infoSocket } = useContext(SettingContext)
 
   const {
@@ -17,8 +21,8 @@ export const Like = () => {
     hearts: socketHearts,
     setHearts,
     sessionId,
-    isTransmiting,
-    queueSocket
+    queueSocket,
+    setQueueSocket
   } = infoSocket || {}
 
   const {
@@ -32,8 +36,9 @@ export const Like = () => {
   const handleClick = () => {
     const id = Date.now()
 
-    if (queueSocket && queueSocket.size() <= 4 && setHearts) {
-      setHearts((prev) => [...prev, { id, color: getRandomColor() }])
+    if (queueSocket && queueSocket.size() < LIKES_LIMIT) {
+      if (setHearts)
+        setHearts((prev) => [...prev, { id, color: getRandomColor() }])
       queueSocket.add(id)
     }
 
@@ -57,7 +62,29 @@ export const Like = () => {
     [socketHearts]
   )
 
-  return showLike && isTransmiting ? (
+  useEffect(() => {
+    if (!isFinalized) return
+    if (!queueSocket && setQueueSocket) setQueueSocket(new Queue<number>())
+
+    const interval = setInterval(() => {
+      let i = 1
+      const numberOfLikes = getRandomNumber(2, LIKES_LIMIT)
+
+      const myLoop = () => {
+        setTimeout(() => {
+          handleClick()
+          i++
+          if (i <= numberOfLikes) myLoop()
+        }, 400)
+      }
+
+      myLoop()
+    }, 6000)
+
+    return () => clearInterval(interval)
+  }, [isFinalized, queueSocket])
+
+  return showLike ? (
     <div className={styles.likeWrapper}>
       <button className={styles.likeButton} onClick={handleClick}>
         <HeartIcon size='30' viewBox='0 0 400 400' />

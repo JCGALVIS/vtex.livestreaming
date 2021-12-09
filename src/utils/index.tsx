@@ -4,6 +4,7 @@ import { currencyFormat } from './getFormatMoney'
 import { getMobileOS, getDeviceType } from './getMobileOs'
 import { getRandomColor } from './getRandomColor'
 import Queue from './Queue'
+import {getRandomNumber } from './getRamdonNumber'
 
 export {
   addToCart,
@@ -12,5 +13,6 @@ export {
   getDeviceType,
   getMobileOS,
   getRandomColor,
-  Queue
+  Queue,
+  getRandomNumber
 }

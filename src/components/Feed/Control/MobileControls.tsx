@@ -124,7 +124,7 @@ export const MobileControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoMobileLikeButtonPosition}
         >
-          <Like />
+          <Like isFinalized={isFinalized} />
         </div>
         <div
           className={styles.playerVideoMobileOptions}
