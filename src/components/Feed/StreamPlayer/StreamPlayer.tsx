@@ -195,7 +195,7 @@ export const StreamPlayer = ({
           muted={muted}
           id='player-video-el'
           style={{
-            objectFit: isVerticalLayout ? 'cover' : 'contain'
+            objectFit: isVerticalLayout && !fullScreen ? 'cover' : 'contain'
           }}
           onTimeUpdate={handleOnTimeUpdate}
         />

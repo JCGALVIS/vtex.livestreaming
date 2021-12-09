@@ -68,6 +68,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   const { infoSocket, isModalLive, setIsModalLive } = useContext(SettingContext)
 
   const {
+    collectionId,
     streamUrl,
     utm,
     emailIsRequired,
@@ -243,7 +244,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           <div
             style={{ height: parseInt(height) }}
             className={`${
-              showSidebarProducts
+              showSidebarProducts && collectionId
                 ? styles2.sliderProductContent
                 : styles2.displayNone
             } ${isModalLive && styles2.flexAuto}`}
