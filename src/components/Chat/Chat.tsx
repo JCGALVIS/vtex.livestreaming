@@ -57,7 +57,7 @@ export const Chat = ({
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
 
-  const { infoSocket } = useContext(SettingContext)
+  const { infoSocket, isModalLive } = useContext(SettingContext)
   const { chat: chatFinalizedEvents } = useLivestreamingContext()
 
   const {
@@ -284,8 +284,8 @@ export const Chat = ({
     <div
       className={styles.chatContainer}
       style={
-        transmitionType === 'vertical' && !isMobile
-          ? { maxWidth: 360, minWidth: 360 }
+        isModalLive && transmitionType === 'vertical' && !isMobile
+          ? { maxWidth: 390, minWidth: 390 }
           : {}
       }
     >

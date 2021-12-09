@@ -7,7 +7,6 @@ import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 type FeedProps = {
   isPlayerSupported: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  setWidth: React.Dispatch<React.SetStateAction<string | number>>
   streamUrl: string | undefined
   transmitionType: string | undefined
   livestreamingStatus: string
@@ -16,7 +15,6 @@ type FeedProps = {
 export const Feed = ({
   isPlayerSupported,
   setShowVariation,
-  setWidth,
   streamUrl,
   transmitionType,
   livestreamingStatus
@@ -85,7 +83,6 @@ export const Feed = ({
       player={player.current}
       streamUrl={streamUrl}
       setShowVariation={setShowVariation}
-      setWidth={setWidth}
       transmitionType={transmitionType}
       isFinalized={isFinalized}
     />
@@ -93,7 +90,6 @@ export const Feed = ({
     <NoVideo
       isLive={isLive}
       liveStatus={liveStatus}
-      setWidth={setWidth}
       transmitionType={transmitionType}
     />
   )

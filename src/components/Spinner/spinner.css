@@ -8,11 +8,6 @@
   background-color: #ffffff;
 }
 
-.loadingPopoup {
-  position: fixed !important;
-  height: 100% !important;
-}
-
 .loadingContent {
   display: flex;
   position: relative;

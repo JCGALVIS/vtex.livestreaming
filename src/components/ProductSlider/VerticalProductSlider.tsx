@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { ProductItem } from './ProductItem'
 import { ActionsContext, SettingContext } from '../../context'
 import { useFetchProducts } from './../../hooks/useFetchProducts'
+import { getDeviceType } from '../../utils'
 
 import styles from './productSlider.css'
 
@@ -18,7 +19,8 @@ export const VerticalProductSlider = ({
   setShowVariation,
   transmitionType
 }: VerticalProductSliderProps) => {
-  const { collectionId } = useContext(SettingContext)
+  const { collectionId, isModalLive } = useContext(SettingContext)
+  const isMobile = getDeviceType() === 'mobile'
 
   const {
     setting: { isInfinite, originOfProducts, time }
@@ -84,7 +86,9 @@ export const VerticalProductSlider = ({
     <div
       className={styles.verticalProductSliderContent}
       style={
-        transmitionType === 'vertical' ? { maxWidth: 360, minWidth: 360 } : {}
+        isModalLive && transmitionType === 'vertical' && !isMobile
+          ? { maxWidth: 390, minWidth: 390 }
+          : {}
       }
     >
       <div className={styles.verticalProductSliderTitle}>

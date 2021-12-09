@@ -44,12 +44,13 @@
 }
 
 .feedHeader {
-  position: fixed;
+  position: absolute;
   top: 20px;
   display: flex;
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  z-index: 3;
 }
 
 .leftHeader {
@@ -75,6 +76,7 @@
   width: 50%;
   height: auto;
   max-height: none;
+  z-index: 3;
 }
 
 .closePopoup {
@@ -112,7 +114,6 @@
 
   .livePopoup {
     height: 90%;
-    width: 95%;
     border-radius: 4px;
     position: relative;
     z-index: 999;
@@ -131,19 +132,41 @@
     flex: 0 1 52.34%;
   }
 
+  .videoContainerVertical {
+    flex: 0;
+  }
+
+  .feedHeader {
+    top: 10px;
+  }
+
+  .leftHeader {
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  .rightHeader {
+    display: none;
+  }
+
   .chatContent {
     position: relative;
     flex: 0 1 24.22%;
     bottom: 0;
     left: 0;
+    z-index: auto;
+  }
+
+  .flexAuto {
+    flex: 1;
   }
 
   .closePopoupDeskotp {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 500%;
     display: flex;
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
     justify-content: center;
     align-items: center;
     margin-left: 4px;
@@ -151,6 +174,7 @@
     position: absolute;
     right: 0;
     cursor: pointer;
+    z-index: 1;
   }
 
   .backdropContainer {

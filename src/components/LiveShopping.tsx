@@ -45,7 +45,6 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   const [showSliderProducts, setShowSliderProducts] = useState(false)
   const [showVariation, setShowVariation] = useState('')
   const [height, setHeight] = useState('0')
-  const [width, setWidth] = useState<string | number>(0)
   const [detector, setDetector] = useState('')
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
@@ -247,13 +246,12 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               showSidebarProducts
                 ? styles2.sliderProductContent
                 : styles2.displayNone
-            }`}
+            } ${isModalLive && styles2.flexAuto}`}
           >
             {showSidebarProducts && (
               <VerticalProductSlider
                 height={(parseInt(height) - 58).toString()}
                 setShowVariation={setShowVariation}
-                transmitionType={transmitionType}
               />
             )}
           </div>
@@ -263,11 +261,15 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                 ? isModalLive &&
                   !isInGlobalPage &&
                   transmitionType === 'vertical'
-                  ? { height: parseInt(height), width: '25vw' }
-                  : { height: parseInt(height), width: width }
+                  ? { height: '100%', width: '25vw' }
+                  : { height: '100%' }
                 : { width: '100%' }
             }
-            className={`${styles2.videoContainer} ${
+            className={`${
+              transmitionType === 'vertical'
+                ? styles2.videoContainerVertical
+                : styles2.videoContainer
+            } ${
               isModalLive &&
               transmitionType !== 'vertical' &&
               !isInGlobalPage &&
@@ -289,7 +291,6 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                 <Feed
                   isPlayerSupported={isPlayerSupported}
                   setShowVariation={setShowVariation}
-                  setWidth={setWidth}
                   streamUrl={streamUrl}
                   transmitionType={transmitionType}
                   livestreamingStatus={status}
@@ -334,7 +335,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           <div
             className={`${
               showChat ? styles2.chatContent : styles2.displayNone
-            }`}
+            } ${isModalLive && styles2.flexAuto}`}
           >
             {showChat && (
               <Chat

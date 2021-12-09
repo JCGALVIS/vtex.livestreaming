@@ -18,6 +18,7 @@ import type { PlayerControls } from '../../../typings/MediaPlayer'
 import { Like } from '../../'
 
 import styles from '../../../styles.module.css'
+import styles2 from '../StreamPlayer/streamPlayer.css'
 
 interface IndicatorInterface {
   mute: boolean
@@ -261,7 +262,7 @@ export const DesktopControls = (props: PlayerControls) => {
   )
 
   return (
-    <div className={styles.playerVideoGrid} style={{ height: '100%' }}>
+    <div className={styles2.playerVideoGrid} style={{ height: '100%' }}>
       {MainButtonRenderer}
     </div>
   )
