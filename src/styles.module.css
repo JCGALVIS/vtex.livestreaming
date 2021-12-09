@@ -20,6 +20,11 @@ input[type='text']:focus {
   font-size: 16px;
 }
 
+.liveShoppingContainer {
+  position: relative;
+  width: 100%;
+}
+
 .likeContent {
   position: absolute;
   bottom: 17px;

@@ -78,8 +78,6 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     setSetting
   }
 
-  // console.log('context: ', context)
-
   return (
     <ActionsContext.Provider value={context}>
       {children}
