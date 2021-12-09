@@ -9,36 +9,14 @@ import {
 
 import type { MediaPlayer, StreamPlayerType } from '../typings/MediaPlayer'
 import { getMobileOS } from '../utils'
-import { useLivestreamingContext } from '../context';
-
-const HighlightHistory = [
-  {
-    productId: "1",
-    joinSecond: 9,
-    outSecond: 15
-  },
-  {
-    productId: "2",
-    joinSecond: 20,
-    outSecond: 26
-  },{
-    productId: "3",
-    joinSecond: 30,
-    outSecond: 38
-  },
-]
+import { useLivestreamingContext } from '../context'
+import { HightLightHistoryElement } from '../typings/livestreaming'
 
 type PlayerFuntionsProps = {
   mainContainer: React.RefObject<HTMLDivElement>
   player: MediaPlayer
   videoEl: React.RefObject<StreamPlayerType>
   streamUrl: string | undefined
-}
-
-type HightLightHistoryElement = {
-  productId: string,
-  joinSecond: number,
-  outSecond: number
 }
 
 const usePlayerFunctions = (props: PlayerFuntionsProps) => {
@@ -55,7 +33,14 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false)
   const [volume, setVolume] = useState<number>(100)
   const [progress, setProgress] = useState(0)
-  const { chatHistory, chat, handleSetChat } = useLivestreamingContext()
+  const {
+    chatHistory,
+    chat,
+    handleSetChat,
+    hightLightHistory,
+    handleSetHightLight,
+    currentHightLightProductId
+  } = useLivestreamingContext()
 
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
@@ -398,14 +383,18 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     })
     if (JSON.stringify(chat) !== JSON.stringify(newChat)) handleSetChat(newChat)
 
-    function getHightLightInfo(element:HightLightHistoryElement) {
-      if(!videoEl.current?.currentTime) return
-      if(videoEl.current?.currentTime >= element.joinSecond && videoEl.current?.currentTime < element.outSecond){
-        console.log(videoEl.current?.currentTime);
-        console.log(element);
+    const currentHightlight = hightLightHistory.find(
+      (hightlight: HightLightHistoryElement) => {
+        const isShowInThisMoment =
+          videoEl.current &&
+          videoEl.current?.currentTime >= hightlight.joinSecond &&
+          videoEl.current?.currentTime < hightlight.outSecond
+
+        return isShowInThisMoment
       }
-    }
-    HighlightHistory.forEach(getHightLightInfo);
+    )
+    if (currentHightlight?.productId !== currentHightLightProductId)
+      handleSetHightLight(currentHightlight?.productId || '')
   }
 
   return {

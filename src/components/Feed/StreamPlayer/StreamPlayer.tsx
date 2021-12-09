@@ -43,7 +43,6 @@ export const StreamPlayer = ({
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
-
   const { isModalLive } = useContext(SettingContext)
 
   const {
@@ -211,6 +210,7 @@ export const StreamPlayer = ({
             }
             infoSocket={infoSocket}
             setShowVariation={setShowVariation}
+            isFinalized={isFinalized}
           />
         )}
         {openShare && (

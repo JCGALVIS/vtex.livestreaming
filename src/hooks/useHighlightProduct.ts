@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getProducts } from '../services'
 // eslint-disable-next-line no-unused-vars
 import { HighlightProduct } from './../typings/livestreaming'
+import { useShowHightlightsForFinishedEvents } from './useShowHightlightsForFinishedEvents'
 
 type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
@@ -26,6 +27,34 @@ export const useHighlightProduct = ({
     pdpLink: ''
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
+
+  const handleSetProduct = (productId: string) => {
+    const storageProducts = localStorage.getItem('products')
+
+    if (!storageProducts) return
+
+    const products = JSON.parse(storageProducts)
+
+    const product = products.find(
+      (product: { id: string | undefined }) => product.id === productId
+    )
+
+    if (product) {
+      setProduct({
+        id: product?.id,
+        name: product?.name,
+        priceWithDiscount: product?.priceWithDiscount,
+        price: product?.price,
+        imageUrl: product?.imageUrl,
+        addToCartLink: product?.addToCartLink,
+        isAvailable: product?.isAvailable,
+        variationSelector: product?.variationSelector,
+        pdpLink: product?.pdpLink
+      })
+    }
+  }
+
+  useShowHightlightsForFinishedEvents(handleSetProduct, setShowProduct)
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight) return
@@ -66,28 +95,11 @@ export const useHighlightProduct = ({
       : highlightProduct?.showProduct
 
     if (storageProducts && isShowProduct) {
-      const products = JSON.parse(storageProducts)
-
       const productId = objetProduct.id || highlightProduct?.productId
+      handleSetProduct(productId)
 
-      const product = products.find(
-        (product: { id: string | undefined }) => product.id === productId
-      )
-
-      if (product) {
-        setProduct({
-          id: product?.id,
-          name: product?.name,
-          priceWithDiscount: product?.priceWithDiscount,
-          price: product?.price,
-          imageUrl: product?.imageUrl,
-          addToCartLink: product?.addToCartLink,
-          isAvailable: product?.isAvailable,
-          variationSelector: product?.variationSelector,
-          pdpLink: product?.pdpLink
-        })
-        setShowProduct(isShowProduct)
-      }
+      console.log('ssss', product)
+      if (product) setShowProduct(isShowProduct)
     } else {
       setShowProduct(isShowProduct)
     }

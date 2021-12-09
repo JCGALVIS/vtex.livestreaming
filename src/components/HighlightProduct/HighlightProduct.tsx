@@ -12,6 +12,7 @@ interface HighlightProductProps {
   handleFullScreen: () => void
   infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  isFinalized: boolean
 }
 
 const HighlightProduct = ({
@@ -19,7 +20,8 @@ const HighlightProduct = ({
   fullScreen,
   handleFullScreen,
   infoSocket,
-  setShowVariation
+  setShowVariation,
+  isFinalized
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -40,8 +42,8 @@ const HighlightProduct = ({
       setShow(showProduct)
       return
     }
-    setShow(false)
-  }, [ivsRealTime, showProduct])
+    setShow(isFinalized ? showProduct : false)
+  }, [ivsRealTime, showProduct, isFinalized])
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight)

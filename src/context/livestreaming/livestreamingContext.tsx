@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { Message } from '../../typings/livestreaming'
+import { Message, HightLightHistoryElement } from '../../typings/livestreaming'
 import { StreamPlayerType } from '../../typings/MediaPlayer'
 
 export interface LivestreamingCtx {
@@ -8,7 +8,10 @@ export interface LivestreamingCtx {
   videoEl: React.RefObject<StreamPlayerType>
   chat: Message[]
   chatHistory: Message[]
+  hightLightHistory: HightLightHistoryElement[]
+  currentHightLightProductId: string
   handleSetChat: (chat: Message[]) => void
+  handleSetHightLight: (productId: string) => void
 }
 
 export const livestreamingCtxDefault: LivestreamingCtx = {
@@ -19,7 +22,10 @@ export const livestreamingCtxDefault: LivestreamingCtx = {
   },
   chat: [],
   chatHistory: [],
-  handleSetChat: () => null
+  handleSetChat: () => null,
+  hightLightHistory: [],
+  currentHightLightProductId: '',
+  handleSetHightLight: () => null
 }
 
 export const LivestreamingContext = createContext<LivestreamingCtx>(

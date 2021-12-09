@@ -11,6 +11,7 @@ export type Actions =
     >
   | Action<'SET_CHAT_HISTORY', { args: { chatHistory: Message[] } }>
   | Action<'SET_CHAT', { args: { chat: Message[] } }>
+  | Action<'SET_HIGHTLIGHT', { args: { productId: string } }>
 
 const reducer = (
   state: LivestreamingCtx,
@@ -42,6 +43,15 @@ const reducer = (
       return {
         ...state,
         chat
+      }
+    }
+
+    case 'SET_HIGHTLIGHT': {
+      const { productId } = action.args
+
+      return {
+        ...state,
+        currentHightLightProductId: productId
       }
     }
 
