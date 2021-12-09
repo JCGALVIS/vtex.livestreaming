@@ -85,6 +85,7 @@ input[type='text']:focus {
   min-width: 100%;
   position: absolute;
   height: 100%;
+  z-index: 1;
 }
 
 .playerVideoHover {
@@ -339,9 +340,10 @@ input[type='text']:focus {
   display: grid;
   grid-template-columns:22px 43.5px 144px auto 95px auto 43.5px 10px 43.5px 10px 43.5px 10px 43.5px 22px;
   grid-template-rows: 10% auto 100px auto 43.5px 17px;
-  position: absolute;
+  position: relative;
   max-width: 100%;
   min-width: 100%;
+  z-index: 2;
 }
 
 .playerVideoButtonFlex {
