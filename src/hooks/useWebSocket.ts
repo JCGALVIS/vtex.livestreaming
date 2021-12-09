@@ -92,7 +92,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         isAdmin,
         responseAdmin,
         isInGlobalPage,
-        type
+        type,
+        quickView
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -157,6 +158,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             like,
             infinite,
             time,
+            quickView,
             pdp,
             kuikpay,
             isInGlobalPage

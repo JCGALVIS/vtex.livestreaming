@@ -58,6 +58,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       isInGlobalPage,
       originOfProducts,
       showChat,
+      showQuickView,
       showProductsCarousel,
       showSidebarProducts,
       showViewers
@@ -118,6 +119,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       kuikpay,
       like,
       pdp,
+      quickView,
       productsCarousel,
       sidebarProducts,
       time
@@ -134,6 +136,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       redirectTo: pdp,
       showChat: chat,
       showLike: like,
+      showQuickView: quickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
       showViewers,
@@ -229,10 +232,12 @@ export const LiveShopping = (props: LiveShoppingProps) => {
           }`}
           style={getMobileOS() === 'unknown' ? { width: 'auto' } : {}}
         >
-          <VariationSelector
-            showVariation={showVariation}
-            setShowVariation={setShowVariation}
-          />
+          {showQuickView && (
+            <VariationSelector
+              showVariation={showVariation}
+              setShowVariation={setShowVariation}
+            />
+          )}
           {showSidebarProducts || showProductsCarousel ? (
             <SliderProductMobile
               height={height}
