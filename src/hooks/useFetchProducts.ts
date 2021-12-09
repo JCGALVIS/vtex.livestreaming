@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getProducts } from '../services'
+import { useLivestreamingContext } from '../context'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
@@ -28,11 +29,15 @@ export const useFetchProducts = ({
     loading: true
   })
 
+  const { account } = useLivestreamingContext()
+
   useEffect(() => {
     if (collectionId) {
-      getProducts({ collectionId, originOfProducts }).then((respon: any) => {
-        if (respon) setProducts({ data: respon, loading: false })
-      })
+      getProducts({ collectionId, originOfProducts, account }).then(
+        (respon: any) => {
+          if (respon) setProducts({ data: respon, loading: false })
+        }
+      )
     }
   }, [collectionId])
 

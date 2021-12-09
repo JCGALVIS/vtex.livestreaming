@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getProducts } from '../services'
 // eslint-disable-next-line no-unused-vars
 import { HighlightProduct } from './../typings/livestreaming'
+import { useLivestreamingContext } from '../context'
 
 type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
@@ -26,6 +27,7 @@ export const useHighlightProduct = ({
     pdpLink: ''
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
+  const { account } = useLivestreamingContext()
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight) return
@@ -53,11 +55,13 @@ export const useHighlightProduct = ({
     ) {
       localStorage.setItem('collectionId', collectionId)
 
-      getProducts({ collectionId, originOfProducts }).then((data: any) => {
-        if (data && data.length > 0) {
-          localStorage.setItem('products', JSON.stringify(data))
+      getProducts({ collectionId, originOfProducts, account }).then(
+        (data: any) => {
+          if (data && data.length > 0) {
+            localStorage.setItem('products', JSON.stringify(data))
+          }
         }
-      })
+      )
     }
 
     const objetProduct = storageProduct && JSON.parse(storageProduct)
