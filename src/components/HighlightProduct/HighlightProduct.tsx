@@ -4,6 +4,7 @@ import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 import { ActionsContext, SettingContext } from '../../context'
 
 import styles from './highlightProduct.css'
+import { addToCart } from '../../utils'
 interface HighlightProductProps {
   fullScreen: boolean
   handleFullScreen: () => void
@@ -23,7 +24,7 @@ const HighlightProduct = ({
   const { ivsRealTime, highlightProduct } = infoSocket || {}
 
   const {
-    setting: { originOfProducts }
+    setting: { isInGlobalPage, originOfProducts, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   const { product, showProduct } = useHighlightProduct({
@@ -73,10 +74,23 @@ const HighlightProduct = ({
             className={styles.productContainer}
             onClick={() => {
               if (fullScreen) handleFullScreen()
-              setShowVariation(product.id)
+              if (showQuickView) {
+                setShowVariation(product.id)
+              } else {
+                addToCart(product.id, redirectTo, isInGlobalPage, showQuickView)
+              }
             }}
           >
             <img className={styles.productPicture} src={product.imageUrl} />
+            <div>
+              <a
+                id={`add-cart-${product.id}`}
+                className='add-cart'
+                target='_blank'
+                rel='noreferrer'
+                href={product.pdpLink}
+              />
+            </div>
           </div>
         </div>
       ) : null}
