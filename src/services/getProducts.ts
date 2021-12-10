@@ -125,9 +125,7 @@ const getProductsGlobalPage = async ({
         priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
         price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
         imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.items[0].complementName
-          ? product?.items[0].complementName
-          : product?.items[0].sellers[0].addToCartLink,
+        addToCartLink: product?.items[0].sellers[0].addToCartLink,
         isAvailable: product?.skuSpecifications
           ? true
           : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
@@ -232,9 +230,7 @@ const getProductByIdGlobalPage = async ({
       priceWithDiscount: data[0]?.items[0]?.sellers[0]?.commertialOffer.Price,
       price: data[0]?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
       imageUrl: data[0]?.items[0]?.images[0]?.imageUrl,
-      addToCartLink: data[0]?.items[0].complementName
-        ? data[0]?.items[0].complementName
-        : data[0]?.items[0].sellers[0].addToCartLink,
+      addToCartLink: data?.items[0].sellers[0].addToCartLink,
       items: data[0]?.items,
       isAvailable: data[0]?.skuSpecifications
         ? true
