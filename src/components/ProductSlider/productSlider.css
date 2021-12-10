@@ -125,6 +125,46 @@
   padding: 0 10px;
 }
 
+.chatCarouselContainer {
+  position: absolute;
+  width: 95%;
+  bottom: 50px;
+  height: 90px;
+  display: flex;
+  overflow-x: auto;
+}
+
+.chatCarouselContainer .productAddCartContent {
+  display: none;
+}
+
+.chatCarouselContainer  .horizontalProductList {
+  margin: 0 5px;
+}
+
+.chatCarouselContainer  .productItemContent {
+  flex-direction: column;
+  min-width: unset;
+  width: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.chatCarouselContainer  .productItemContent .pictureContent {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.chatCarouselContainer  .productItemContent .picture {
+  min-width: unset;
+  min-height: unset;
+  max-height: unset;
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+}
+
 .horizontalProductListContent {
   display: flex;
   justify-content: space-around;
