@@ -45,7 +45,7 @@
 
 .feedHeader {
   position: absolute;
-  top: 20px;
+  top: 10px;
   display: flex;
   justify-content: space-between;
   width: 100%;

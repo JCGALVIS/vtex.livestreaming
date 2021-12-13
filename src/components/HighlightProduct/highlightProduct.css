@@ -7,9 +7,10 @@
 }
 
 .highlightProductContainer {
-  width: fit-content;
+  width: fit-content !important;
+  height: 110px !important;
   position: absolute;
-  top: 60px;
+  top: 50px;
   border-radius: 0.5rem;
   z-index: 4;
   right: 4px;
@@ -20,6 +21,7 @@
 
 .productContainer {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   width: auto;

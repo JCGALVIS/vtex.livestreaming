@@ -2,9 +2,10 @@ import React, { useState, Fragment, useEffect, useContext } from 'react'
 
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 import { ActionsContext, SettingContext } from '../../context'
+import { addToCart } from '../../utils'
+import { ProductButton, ProductVariationButton } from '..'
 
 import styles from './highlightProduct.css'
-import { addToCart } from '../../utils'
 interface HighlightProductProps {
   fullScreen: boolean
   handleFullScreen: () => void
@@ -82,14 +83,25 @@ const HighlightProduct = ({
             }}
           >
             <img className={styles.productPicture} src={product.imageUrl} />
-            <div>
-              <a
-                id={`add-cart-${product.id}`}
-                className='add-cart'
-                target='_blank'
-                rel='noreferrer'
-                href={product.pdpLink}
-              />
+            <div className={styles.productAddCartContent}>
+              {showQuickView ? (
+                <ProductVariationButton
+                  isAvailable={product.isAvailable}
+                  productId={product.id}
+                  setShowVariation={setShowVariation}
+                  sectionIdClickedOn='live_shopping_highlight_product'
+                  productName={product.name}
+                />
+              ) : (
+                <ProductButton
+                  addToCartLink={product.addToCartLink}
+                  imageUrl={product.imageUrl}
+                  isAvailable={product.isAvailable}
+                  productId={product.id}
+                  productName={product.name}
+                  sectionIdClickedOn='live_shopping_highlight_product'
+                />
+              )}
             </div>
           </div>
         </div>

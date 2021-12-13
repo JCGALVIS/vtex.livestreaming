@@ -15,7 +15,7 @@ type ProductButtonProps = {
   sectionIdClickedOn?: string
 }
 
-const ProductButton = (props: ProductButtonProps) => {
+export const ProductButton = (props: ProductButtonProps) => {
   const {
     addToCartLink,
     handleClose,
@@ -85,5 +85,3 @@ const ProductButton = (props: ProductButtonProps) => {
     </Fragment>
   )
 }
-
-export default ProductButton

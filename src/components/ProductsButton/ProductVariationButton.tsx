@@ -10,13 +10,13 @@ type ProductButtonProps = {
   productName: string
 }
 
-const ProductVariationButton = (props: ProductButtonProps) => {
+export const ProductVariationButton = (props: ProductButtonProps) => {
   const {
     isAvailable,
     setShowVariation,
     productId,
     sectionIdClickedOn,
-    productName,
+    productName
   } = props
 
   const { formatMessage } = useIntl()
@@ -46,5 +46,3 @@ const ProductVariationButton = (props: ProductButtonProps) => {
     </Fragment>
   )
 }
-
-export default ProductVariationButton
