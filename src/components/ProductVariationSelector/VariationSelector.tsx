@@ -8,11 +8,10 @@ import { currencyFormat } from '../../utils'
 import { ColorVariation } from './ColorVariation'
 import { SizeVariations } from './SizeVariations'
 import type { Values } from '../../typings/livestreaming'
-import ProductButton from '../ProductsButton/ProductButton'
+import { ProductButton, KuikPayButton } from '..'
 import { ActionsContext } from '../../context/ActionsContext'
 
 import styles from './variationSelector.css'
-import { KuikPayButton } from '../ProductsButton/KuikPayButton'
 
 type VariationSelectorProps = {
   showVariation: string

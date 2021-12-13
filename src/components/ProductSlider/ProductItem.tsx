@@ -2,8 +2,7 @@ import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 
 import { currencyFormat } from '../../utils'
-import ProductVariationButton from '../ProductsButton/ProductVariationButton'
-import ProductButton from './../ProductsButton/ProductButton'
+import { ProductButton, ProductVariationButton } from '..'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 import { ActionsContext } from '../../context/ActionsContext'
 
