@@ -44,7 +44,7 @@ export const ChatCarouselProductItem = (
   } = useContext(ActionsContext)
 
   return (
-    <div className={styles.ChatCarouselProductItemContent}>
+    <div className={styles.productItemContent}>
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}

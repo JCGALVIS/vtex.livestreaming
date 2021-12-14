@@ -26,7 +26,6 @@ import type { Message } from './../typings/livestreaming'
 
 import styles from './../styles.module.css'
 import styles2 from './liveShopping.css'
-
 type MarketingData = {
   utmSource: string | undefined
 }
@@ -140,7 +139,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
       showViewers,
-      time
+      time,
+      showChatCarousel: false
     })
   }, [scriptProperties])
 

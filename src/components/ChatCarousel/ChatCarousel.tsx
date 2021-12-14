@@ -5,7 +5,7 @@ import { useFetchProducts } from '../../hooks/useFetchProducts'
 import { ActionsContext, SettingContext } from '../../context'
 
 import styles from '../ProductSlider/productSlider.css'
-import { ProductItem } from '../ProductSlider/ProductItem'
+import { ChatCarouselProductItem } from '../ProductSlider/ChatCarouselProductItem'
 
 type ChatCarouselProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
@@ -34,7 +34,7 @@ export const ChatCarousel = ({
       {products.length > 0 &&
         products.map((product: any) => (
           <div key={product.id} className={styles.horizontalProductList}>
-            <ProductItem
+            <ChatCarouselProductItem
               {...product}
               originOfProducts={originOfProducts}
               setShowVariation={setShowVariation}

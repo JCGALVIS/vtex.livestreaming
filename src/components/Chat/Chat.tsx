@@ -26,13 +26,11 @@ import {
 } from '../../context'
 
 import styles from './chat.css'
-import { ChatCarousel } from '../ChatCarousel/ChatCarousel'
 
 type ChatProps = {
   pinnedMessage: Message | undefined
   transmitionType: string | undefined
   initShowGif: boolean | undefined
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
@@ -40,8 +38,7 @@ const NUMBER_OF_PREVIOUS_MESSAGES = 10
 export const Chat = ({
   pinnedMessage,
   transmitionType,
-  initShowGif,
-  setShowVariation
+  initShowGif
 }: ChatProps) => {
   const { formatMessage } = useIntl()
   const chatAreaRef = useRef<HTMLDivElement>(null)
@@ -363,10 +360,6 @@ export const Chat = ({
         )}
 
         <ModalQuestion />
-        <ChatCarousel
-          transmitionType={transmitionType}
-          setShowVariation={setShowVariation}
-        />
         <div>
           <GiphySearch showGif={showGif} sendGif={handlerSendMessage} />
           <form

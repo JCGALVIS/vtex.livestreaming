@@ -110,7 +110,9 @@ export const StreamPlayer = ({
       progress,
       handleVideoProgress,
       handleOpenShare: () => setOpenShare(true),
-      isFinalized
+      isFinalized,
+      setShowVariation,
+      transmitionType
     }
 
     return (

@@ -115,6 +115,22 @@ input[type='text']:focus {
   grid-row-end: 5;
 }
 
+.playerVideoMobileCarouselButtonPosition {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: flex-start;
+  color: #ffffff;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
+.playerVideoMobileCarouselButtonPosition svg {
+  margin: auto;
+}
+
 .playerVideoMobileMuted {
   display: flex;
   justify-content: center;
@@ -135,6 +151,7 @@ input[type='text']:focus {
   grid-column-end: 6;
   grid-row-start: 4;
   grid-row-end: 5;
+  z-index: 2;
 }
 .playerVideoMobileOptionsContent {
   position: absolute;
@@ -143,6 +160,10 @@ input[type='text']:focus {
   flex-direction: column-reverse;
   align-items: center;
   transition: all 0.3s ease;
+}
+.playerVideoMobileOptionsContent div {
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5)
 }
 .playerVideoMobileFullscreen {
   display: flex;
