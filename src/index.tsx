@@ -31,7 +31,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
     )
   }, [])
 
-  const { collectionId, isModalLive, setIsModalLive, wssStream } =
+  const { collectionId, isModalLive, setIsModalLive, wssStream, host } =
     useLivestreamingConfig({
       id: idLivestreaming,
       account
@@ -45,7 +45,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }
 
   const [state, dispatch] = useLivestreamingReducer()
-  useSetLivestreaming(idLivestreaming, account, dispatch)
+  useSetLivestreaming(idLivestreaming, account, host, dispatch)
   useSetChatHistory(idLivestreaming, account, dispatch)
 
   useEffect(() => {

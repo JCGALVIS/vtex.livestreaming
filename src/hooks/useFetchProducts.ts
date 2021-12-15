@@ -29,11 +29,11 @@ export const useFetchProducts = ({
     loading: true
   })
 
-  const { account } = useLivestreamingContext()
+  const { account, host } = useLivestreamingContext()
 
   useEffect(() => {
     if (collectionId) {
-      getProducts({ collectionId, originOfProducts, account }).then(
+      getProducts({ collectionId, originOfProducts, account, host }).then(
         (respon: any) => {
           if (respon) setProducts({ data: respon, loading: false })
         }

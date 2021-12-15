@@ -27,7 +27,7 @@ export const useHighlightProduct = ({
     pdpLink: ''
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
-  const { account } = useLivestreamingContext()
+  const { account, host } = useLivestreamingContext()
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight) return
@@ -55,7 +55,7 @@ export const useHighlightProduct = ({
     ) {
       localStorage.setItem('collectionId', collectionId)
 
-      getProducts({ collectionId, originOfProducts, account }).then(
+      getProducts({ collectionId, originOfProducts, account, host }).then(
         (data: any) => {
           if (data && data.length > 0) {
             localStorage.setItem('products', JSON.stringify(data))
