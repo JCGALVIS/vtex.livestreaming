@@ -9,6 +9,7 @@ export interface LivestreamingCtx {
   chat: Message[]
   chatHistory: Message[]
   handleSetChat: (chat: Message[]) => void
+  host: string
 }
 
 export const livestreamingCtxDefault: LivestreamingCtx = {
@@ -19,6 +20,7 @@ export const livestreamingCtxDefault: LivestreamingCtx = {
   },
   chat: [],
   chatHistory: [],
+  host: '',
   handleSetChat: () => null
 }
 

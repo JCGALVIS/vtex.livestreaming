@@ -75,7 +75,9 @@ export const ProductItem = (props: ProductItemProps) => {
           isInGlobalPage ||
           !showQuickView ? (
             <ProductButton
-              addToCartLink={!showQuickView ? pdpLink : addToCartLink}
+              addToCartLink={
+                !showQuickView || isInGlobalPage ? pdpLink : addToCartLink
+              }
               imageUrl={imageUrl}
               isAvailable={isAvailable}
               productId={skuId}

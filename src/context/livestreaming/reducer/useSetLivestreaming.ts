@@ -4,6 +4,7 @@ import { Actions } from './reducer'
 export const useSetLivestreaming = (
   idLivestreaming: string,
   account: string,
+  host: string,
   dispatch: Dispatch<Actions>
 ) => {
   useEffect(() => {
@@ -12,10 +13,11 @@ export const useSetLivestreaming = (
         type: 'SET_LIVESTREAM_CONFIG',
         args: {
           idLivestreaming,
-          account
+          account,
+          host,
         }
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idLivestreaming, account])
+  }, [idLivestreaming, account, host])
 }
