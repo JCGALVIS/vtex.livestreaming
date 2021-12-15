@@ -16,3 +16,11 @@
   font-size: 1.5rem;
   text-align: center;
 }
+
+@media screen and (min-width: 930px) {
+  .noVideoContainer {
+    position: absolute;
+    inset: 0;
+    height: auto;
+  }
+}
