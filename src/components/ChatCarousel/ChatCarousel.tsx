@@ -12,14 +12,10 @@ type ChatCarouselProps = {
   transmitionType: string | undefined
 }
 
-export const ChatCarousel = ({
-  setShowVariation,
-  transmitionType
-}: ChatCarouselProps) => {
+export const ChatCarousel = ({ setShowVariation }: ChatCarouselProps) => {
   // const [selectedProductIndex, setSelectedProductIndex] = useState(0)
 
   const { collectionId } = useContext(SettingContext)
-  console.log(transmitionType)
   const {
     setting: { originOfProducts }
   } = useContext(ActionsContext)

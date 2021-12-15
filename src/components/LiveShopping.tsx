@@ -139,8 +139,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
       showViewers,
-      time,
-      showChatCarousel: false
+      time
     })
   }, [scriptProperties])
 

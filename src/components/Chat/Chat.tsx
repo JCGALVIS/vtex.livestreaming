@@ -57,7 +57,8 @@ export const Chat = ({
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
 
-  const { infoSocket, isModalLive } = useContext(SettingContext)
+  const { infoSocket, isModalLive, showCarouselChat } =
+    useContext(SettingContext)
   const { chat: chatFinalizedEvents } = useLivestreamingContext()
 
   const {
@@ -303,7 +304,14 @@ export const Chat = ({
             {MessageRenderer([pinnedMessage], true)}
           </div>
         )}
-        <div className={styles.chatArea} ref={chatAreaRef}>
+        <div
+          className={styles.chatArea}
+          style={{
+            bottom: showCarouselChat ? '140px' : 'none',
+            position: showCarouselChat ? 'absolute' : 'inherit'
+          }}
+          ref={chatAreaRef}
+        >
           {ChatMessages}
         </div>
 

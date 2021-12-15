@@ -16,7 +16,6 @@ type LivestreamingProps = {
   showProductsCarousel: boolean
   showViewers: boolean
   kuikpay: boolean
-  showChatCarousel: boolean
 }
 
 export declare interface Message {

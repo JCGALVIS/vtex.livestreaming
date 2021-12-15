@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 
 import { getMobileOS } from '../../../utils'
 import {
@@ -20,10 +20,11 @@ import type { PlayerControls } from '../../../typings/MediaPlayer'
 import styles from '../../../styles.module.css'
 import { ChatCarousel } from '../../ChatCarousel/ChatCarousel'
 import ShopIcon from './../../icons/ShopIcon'
-import { useContext } from 'hoist-non-react-statics/node_modules/@types/react'
-import { ActionsContext } from '../../../context'
+import { SettingContext } from '../../../context'
 
 export const MobileControls = (props: PlayerControls) => {
+  const { showButtonCarouselChat, showCarouselChat, setShowCarouselChat } =
+    useContext(SettingContext)
   const {
     BUFFERING,
     firstTimeMuted,
@@ -49,14 +50,14 @@ export const MobileControls = (props: PlayerControls) => {
     setShowVariation
   } = props
 
-  const { setting, setSetting } = useContext(ActionsContext)
-
   return (
     <div className={styles.playerVideoMobile}>
-      <ChatCarousel
-        transmitionType={transmitionType}
-        setShowVariation={setShowVariation}
-      />
+      {showCarouselChat && (
+        <ChatCarousel
+          transmitionType={transmitionType}
+          setShowVariation={setShowVariation}
+        />
+      )}
       {firstTimeMuted ? (
         <div
           role='button'
@@ -126,19 +127,19 @@ export const MobileControls = (props: PlayerControls) => {
             />
           </div>
         )}
-        <div
-          role='button'
-          tabIndex={0}
-          className={styles.playerVideoMobileCarouselButtonPosition}
-          onClick={() => {
-            setSetting({
-              ...setting,
-              showChatCarousel: setting.showChatCarousel
-            })
-          }}
-        >
-          <ShopIcon size='25' viewBox='0 0 170 170' />
-        </div>
+        {showButtonCarouselChat && (
+          <div
+            role='button'
+            tabIndex={0}
+            className={styles.playerVideoMobileCarouselButtonPosition}
+            onClick={() => {
+              if (!setShowCarouselChat) return
+              setShowCarouselChat((prev) => !prev)
+            }}
+          >
+            <ShopIcon size='25' viewBox='0 0 170 170' />
+          </div>
+        )}
         <div
           role='button'
           tabIndex={0}

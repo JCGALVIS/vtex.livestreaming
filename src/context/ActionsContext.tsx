@@ -22,8 +22,7 @@ const actionsDefault: ActionCtx = {
     showProductsCarousel: false,
     showSidebarProducts: false,
     showViewers: true,
-    time: 10,
-    showChatCarousel: false
+    time: 10
   },
   setSetting: () => {}
 }
@@ -74,8 +73,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     showSidebarProducts:
       showSidebarProducts === undefined ? false : showSidebarProducts === true,
     showViewers: showViewers === undefined ? true : showViewers === true,
-    time,
-    showChatCarousel: false
+    time
   })
 
   const context: ActionCtx = {
