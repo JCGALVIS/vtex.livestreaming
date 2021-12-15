@@ -38,7 +38,7 @@ const mapDomainToPdp = (
   const productoWithHost = new Promise((resolve, reject) => {
     products
       .then((pros: any[]) => {
-        const prosMap = pros.map((pro: any) => {
+        const prosMap = pros?.map((pro: any) => {
           let pdpLink = pro.pdpLink ? pro.pdpLink : ''
           if (host) {
             pdpLink = pdpLink.replace(`${account}.myvtex.com`, host ? host : '')

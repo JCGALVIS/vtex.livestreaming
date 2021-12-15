@@ -7,7 +7,7 @@ type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 export type Actions =
   | Action<
       'SET_LIVESTREAM_CONFIG',
-      { args: { idLivestreaming: string; account: string; host?: string } }
+      { args: { idLivestreaming: string; account: string; host: string } }
     >
   | Action<'SET_CHAT_HISTORY', { args: { chatHistory: Message[] } }>
   | Action<'SET_CHAT', { args: { chat: Message[] } }>
