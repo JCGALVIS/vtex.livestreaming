@@ -256,7 +256,7 @@ const getProductByIdGlobalPage = async ({
       priceWithDiscount: data[0]?.items[0]?.sellers[0]?.commertialOffer.Price,
       price: data[0]?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
       imageUrl: data[0]?.items[0]?.images[0]?.imageUrl,
-      addToCartLink: data?.items[0].sellers[0].addToCartLink,
+      addToCartLink: data[0]?.items[0].sellers[0].addToCartLink,
       items: data[0]?.items,
       isAvailable: data[0]?.skuSpecifications
         ? true
