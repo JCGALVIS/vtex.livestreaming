@@ -397,6 +397,6 @@
 
   .activeChatCarousel {
     bottom: 140px;
-    position: 'absolute';
+    position: absolute;
   }
 }

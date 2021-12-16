@@ -11,16 +11,13 @@ type SettingCtx = {
   setIsModalLive: (isModalLive: boolean) => void
   wssStream?: string
   showCarouselChat: boolean
-  showButtonCarouselChat: boolean
   setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
-  setShowButtonCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const settingDefault: SettingCtx = {
   isModalLive: false,
   setIsModalLive: () => {},
-  showCarouselChat: false,
-  showButtonCarouselChat: false
+  showCarouselChat: false
 }
 
 export const SettingContext = createContext<SettingCtx>(settingDefault)
@@ -33,8 +30,7 @@ export const SettingProvider: FC<SettingCtx> = ({
   wssStream
 }) => {
   const infoSocket = useWebSocket({ wssStream })
-  const [showCarouselChat, setShowCarouselChat] = useState(true)
-  const [showButtonCarouselChat, setShowButtonCarouselChat] = useState(true)
+  const [showCarouselChat, setShowCarouselChat] = useState(false)
 
   const contex: SettingCtx = {
     collectionId,
@@ -42,9 +38,7 @@ export const SettingProvider: FC<SettingCtx> = ({
     isModalLive,
     setIsModalLive,
     showCarouselChat,
-    setShowCarouselChat,
-    showButtonCarouselChat,
-    setShowButtonCarouselChat
+    setShowCarouselChat
   }
   return (
     <SettingContext.Provider value={contex}>{children}</SettingContext.Provider>

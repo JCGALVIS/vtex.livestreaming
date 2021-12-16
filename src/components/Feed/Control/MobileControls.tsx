@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 
 import { getMobileOS } from '../../../utils'
 import {
@@ -23,8 +23,12 @@ import ShopIcon from './../../icons/ShopIcon'
 import { SettingContext } from '../../../context'
 
 export const MobileControls = (props: PlayerControls) => {
-  const { showButtonCarouselChat, showCarouselChat, setShowCarouselChat } =
-    useContext(SettingContext)
+  const { showCarouselChat, setShowCarouselChat } = useContext(SettingContext)
+  const { infoSocket } = useContext(SettingContext)
+  const [fisrtLoad, setFirstLoad] = useState(true)
+  const [showCarouselChatButtonLocal, setShowCarouselChatButtonLocal] =
+    useState<boolean>()
+
   const {
     BUFFERING,
     firstTimeMuted,
@@ -47,8 +51,23 @@ export const MobileControls = (props: PlayerControls) => {
     handleOpenShare,
     isFinalized,
     transmitionType,
-    setShowVariation
+    setShowVariation,
+    showCarouselChatButton
   } = props
+
+  useEffect(() => {
+    if (fisrtLoad) {
+      if (showCarouselChatButton === undefined) return
+      setShowCarouselChatButtonLocal(showCarouselChatButton)
+      setFirstLoad(false)
+    } else {
+      if (infoSocket?.showCarouselChatButton === undefined) {
+        setShowCarouselChatButtonLocal(showCarouselChatButton)
+        return
+      }
+      setShowCarouselChatButtonLocal(infoSocket?.showCarouselChatButton)
+    }
+  }, [showCarouselChatButton, fisrtLoad, infoSocket?.showCarouselChatButton])
 
   return (
     <div className={styles.playerVideoMobile}>
@@ -127,7 +146,7 @@ export const MobileControls = (props: PlayerControls) => {
             />
           </div>
         )}
-        {showButtonCarouselChat && (
+        {showCarouselChatButtonLocal && (
           <div
             role='button'
             tabIndex={0}

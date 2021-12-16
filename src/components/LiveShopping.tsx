@@ -75,7 +75,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     pinnedMessage: initPinnedMessage,
     transmitionType: initTransmitionType,
     status,
-    showGifButton
+    showGifButton,
+    showCarouselChatButton
   } = useLivestreamingConfig({
     id: idLivestreaming,
     account
@@ -299,6 +300,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                   streamUrl={streamUrl}
                   transmitionType={transmitionType}
                   livestreamingStatus={status}
+                  showCarouselChatButton={showCarouselChatButton}
                 />
                 <div className={styles2.feedHeader}>
                   <div className={styles2.leftHeader}>

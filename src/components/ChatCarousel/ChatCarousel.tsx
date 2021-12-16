@@ -6,6 +6,7 @@ import { ActionsContext, SettingContext } from '../../context'
 
 import styles from '../ProductSlider/productSlider.css'
 import { ChatCarouselProductItem } from '../ProductSlider/ChatCarouselProductItem'
+import { Spinner } from '../commonComponents'
 
 type ChatCarouselProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
@@ -39,5 +40,9 @@ export const ChatCarousel = ({ setShowVariation }: ChatCarouselProps) => {
           </div>
         ))}
     </div>
-  ) : null
+  ) : (
+    <div className={styles.chatCarouselContainer}>
+      <Spinner />
+    </div>
+  )
 }

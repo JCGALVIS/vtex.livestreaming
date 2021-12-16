@@ -18,6 +18,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
   const [isModalLive, setIsModalLive] = useState<boolean>()
   const [status, setStatus] = useState('')
   const [showGifButton, setShowGifButton] = useState<boolean>()
+  const [showCarouselChatButton, setShowCarouselChatButton] =
+    useState<boolean>()
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -44,6 +46,7 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
           setIsModalLive(data?.webClient.modalLive)
           setStatus(data?.status)
           setShowGifButton(data?.webClient?.showGif)
+          setShowCarouselChatButton(data?.webClient?.showCarouselChat)
         }
       })
     }
@@ -62,7 +65,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     isModalLive,
     setIsModalLive,
     status,
-    showGifButton
+    showGifButton,
+    showCarouselChatButton
   }
 }
 
