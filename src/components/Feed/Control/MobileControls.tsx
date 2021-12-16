@@ -71,7 +71,7 @@ export const MobileControls = (props: PlayerControls) => {
 
   return (
     <div className={styles.playerVideoMobile}>
-      {showCarouselChat && (
+      {showCarouselChat && showCarouselChatButtonLocal && (
         <ChatCarousel
           transmitionType={transmitionType}
           setShowVariation={setShowVariation}
