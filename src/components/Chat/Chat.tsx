@@ -305,11 +305,9 @@ export const Chat = ({
           </div>
         )}
         <div
-          className={styles.chatArea}
-          style={{
-            bottom: showCarouselChat ? '140px' : 'none',
-            position: showCarouselChat ? 'absolute' : 'inherit'
-          }}
+          className={`${styles.chatArea} ${
+            showCarouselChat ? styles.activeChatCarousel : ''
+          }`}
           ref={chatAreaRef}
         >
           {ChatMessages}
