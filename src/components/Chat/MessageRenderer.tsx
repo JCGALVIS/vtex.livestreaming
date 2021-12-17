@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import tinyColor from 'tinycolor2'
+import processString from '../../utils/processString'
 
 import type { Message } from '../../typings/livestreaming'
 import { PinIcon } from '../icons'
@@ -107,6 +108,35 @@ const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
     return username.replace('Anonymous', AnonymousText)
   }
 
+  const configChat = [
+    {
+      regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |,|$|\.)/gim,
+      // eslint-disable-next-line react/display-name
+      fn: (key_: number, result: RegExpExecArray) => (
+        <span key={key_}>
+          <a
+            target='_blank'
+            rel='noreferrer'
+            style={{
+              color: !IS_DESKTOP ? 'inherit' : 'white'
+            }}
+            href={`${result[1]}://${result[2]}.${result[3]}${result[4]}`}
+          >
+            {result[2]}.{result[3]}
+            {result[4]}
+          </a>
+          {result[5]}
+        </span>
+      )
+    }
+  ]
+
+  const processed = processString(configChat)
+  const getMessagesChatText = (
+    isAdmin: boolean,
+    message: string | null | undefined
+  ) => (isAdmin ? processed(message || '') : message)
+
   return chatFiltered.map((value: Message, index: number) => {
     const isAdmin = value?.isAdmin
     const userName = getUserName(value?.username)
@@ -142,9 +172,9 @@ const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
                 {value.type === 'gif' ? (
                   <img alt='gif' src={value?.data?.split(',')[0]} />
                 ) : value?.responseAdmin ? (
-                  dataResponse.responseAdmin
+                  getMessagesChatText(!!isAdmin, dataResponse.responseAdmin)
                 ) : (
-                  value.data
+                  getMessagesChatText(!!isAdmin, value.data)
                 )}
               </span>
             </div>
@@ -178,9 +208,9 @@ const messageRenderer = (chatFiltered: Message[], pinned: boolean = false) => {
                 <img alt='gif' src={value?.data?.split(',')[1]} />
               </div>
             ) : value?.responseAdmin ? (
-              dataResponse.responseAdmin
+              getMessagesChatText(!!isAdmin, dataResponse.responseAdmin)
             ) : (
-              value.data
+              getMessagesChatText(!!isAdmin, value.data)
             )}
           </span>
         </div>

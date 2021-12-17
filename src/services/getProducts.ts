@@ -6,14 +6,16 @@ type GetProductsProps = {
   originOfProducts?: string
   productId?: string | undefined
   account?: string | undefined
+  host?: string
 }
 
 export const getProducts = async ({
   collectionId,
   originOfProducts,
-  account
+  account,
+  host
 }: GetProductsProps) => {
-  let products
+  let products: Promise<any>
 
   if (originOfProducts === 'platform') {
     products = getProductsPlatform()
@@ -25,8 +27,32 @@ export const getProducts = async ({
   } else {
     products = getProductsVtex({ collectionId })
   }
+  return mapDomainToPdp(products, account, host)
+}
 
-  return products
+const mapDomainToPdp = (
+  products: Promise<any>,
+  account?: string,
+  host?: string
+) => {
+  const productoWithHost = new Promise((resolve, reject) => {
+    products
+      .then((pros: any[]) => {
+        const prosMap = pros?.map((pro: any) => {
+          let pdpLink = pro.pdpLink ? pro.pdpLink : ''
+          if (host) {
+            pdpLink = pdpLink.replace(`${account}.myvtex.com`, host ? host : '')
+          }
+          return {
+            ...pro,
+            pdpLink
+          }
+        })
+        resolve(prosMap)
+      })
+      .catch((err) => reject(err))
+  })
+  return productoWithHost
 }
 
 const getProductsCace = async ({ collectionId }: GetProductsProps) => {
@@ -125,9 +151,7 @@ const getProductsGlobalPage = async ({
         priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
         price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
         imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.items[0].complementName
-          ? product?.items[0].complementName
-          : product?.items[0].sellers[0].addToCartLink,
+        addToCartLink: product?.items[0].sellers[0].addToCartLink,
         isAvailable: product?.skuSpecifications
           ? true
           : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
@@ -232,9 +256,7 @@ const getProductByIdGlobalPage = async ({
       priceWithDiscount: data[0]?.items[0]?.sellers[0]?.commertialOffer.Price,
       price: data[0]?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
       imageUrl: data[0]?.items[0]?.images[0]?.imageUrl,
-      addToCartLink: data[0]?.items[0].complementName
-        ? data[0]?.items[0].complementName
-        : data[0]?.items[0].sellers[0].addToCartLink,
+      addToCartLink: data[0]?.items[0].sellers[0].addToCartLink,
       items: data[0]?.items,
       isAvailable: data[0]?.skuSpecifications
         ? true

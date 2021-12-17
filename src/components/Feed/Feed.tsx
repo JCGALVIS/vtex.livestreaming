@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
 
-import { SettingContext } from '../../context'
+import { ActionsContext, SettingContext } from '../../context'
+import { usePlayerLayout } from '../../hooks'
 import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
+
+import styles from './feed.css'
 
 type FeedProps = {
   isPlayerSupported: boolean
@@ -21,7 +24,12 @@ export const Feed = ({
   livestreamingStatus,
   showCarouselChatButton
 }: FeedProps) => {
-  const { infoSocket } = useContext(SettingContext)
+  const { infoSocket, isModalLive } = useContext(SettingContext)
+  const {
+    setting: { isInGlobalPage }
+  } = useContext(ActionsContext)
+
+  const { isVerticalLayout } = usePlayerLayout(transmitionType)
 
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
@@ -80,20 +88,24 @@ export const Feed = ({
   if (!isPlayerSupported) {
     return null
   }
-  return playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
-    <StreamPlayer
-      player={player.current}
-      streamUrl={streamUrl}
-      setShowVariation={setShowVariation}
-      transmitionType={transmitionType}
-      isFinalized={isFinalized}
-      showCarouselChatButton={showCarouselChatButton}
-    />
-  ) : (
-    <NoVideo
-      isLive={isLive}
-      liveStatus={liveStatus}
-      transmitionType={transmitionType}
-    />
+  return (
+    <div
+      className={`${isModalLive && !isInGlobalPage && styles.playerUiPopoup}  ${
+        isVerticalLayout ? styles.verticalLayout : styles.horizontalLayout
+      }`}
+    >
+      {playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
+        <StreamPlayer
+          player={player.current}
+          streamUrl={streamUrl}
+          setShowVariation={setShowVariation}
+          transmitionType={transmitionType}
+          isFinalized={isFinalized}
+          showCarouselChatButton={showCarouselChatButton}
+        />
+      ) : (
+        <NoVideo isLive={isLive} liveStatus={liveStatus} />
+      )}
+    </div>
   )
 }

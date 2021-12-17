@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { getMobileOS } from '../../utils'
+// import { getMobileOS } from '../../utils'
 import styles from './NoVideo.css'
 import { FormattedMessage } from 'react-intl'
 import { ActionsContext, SettingContext } from '../../context'
@@ -13,14 +13,9 @@ const messages = {
 type NoVideoProps = {
   isLive: string | undefined
   liveStatus: boolean
-  transmitionType: string | undefined
 }
 
-export const NoVideo = ({
-  isLive,
-  liveStatus,
-  transmitionType
-}: NoVideoProps) => {
+export const NoVideo = ({ isLive, liveStatus }: NoVideoProps) => {
   const { isModalLive } = useContext(SettingContext)
   const {
     setting: { isInGlobalPage }
@@ -31,15 +26,6 @@ export const NoVideo = ({
       className={`${
         isModalLive && !isInGlobalPage && styles.noVideoContainerPopoup
       } ${styles.noVideoContainer}`}
-      style={
-        getMobileOS() === 'unknown'
-          ? transmitionType === 'vertical'
-            ? isModalLive && transmitionType === 'vertical'
-              ? { height: '495px', width: '25vw' }
-              : { height: '495px', width: '278.438px' }
-            : { height: '430px', width: '100%' }
-          : { width: '100%' }
-      }
     >
       <span className={styles.noVideoText}>
         {isLive && (isLive === 'LIVE' || (liveStatus && isLive === 'UNKNOWN'))

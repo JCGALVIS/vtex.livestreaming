@@ -160,55 +160,45 @@ export const StreamPlayer = ({
   ])
 
   return (
-    <Fragment>
-      <div
-        ref={mainContainer}
-        className={`${styles.playerUi} ${
-          isModalLive && !isInGlobalPage && styles.playerUiPopoup
-        }  ${
-          isVerticalLayout ? styles.verticalLayout : styles.horizontalLayout
-        }`}
-        onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
-        onMouseMove={() => {
-          setInactive(false)
-          setOverlay(true)
+    <div
+      ref={mainContainer}
+      className={styles.playerUi}
+      onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
+      onMouseMove={() => {
+        setInactive(false)
+        setOverlay(true)
+      }}
+      onMouseOut={() => setOverlay(false)}
+      onFocus={handleNothing}
+      onBlur={handleNothing}
+      style={
+        isVerticalLayout && isModalLive && !detector && !isInGlobalPage
+          ? { width: '25vw' }
+          : {}
+      }
+    >
+      <HighlightProduct
+        fullScreen={fullScreen}
+        handleFullScreen={detector ? handleFullScreen : handleFullScreenMobile}
+        setShowVariation={setShowVariation}
+      />
+      {openShare && <ShareComponents handleClose={() => setOpenShare(false)} />}
+      <video
+        className={styles.playerVideoEl}
+        controls={false}
+        ref={videoEl}
+        playsInline
+        muted={muted}
+        id='player-video-el'
+        style={{
+          objectFit: isVerticalLayout && !fullScreen ? 'cover' : 'contain'
         }}
-        onMouseOut={() => setOverlay(false)}
-        onFocus={handleNothing}
-        onBlur={handleNothing}
-        style={
-          isVerticalLayout && isModalLive && !detector && !isInGlobalPage
-            ? { width: '25vw' }
-            : {}
-        }
-      >
-        <HighlightProduct
-          fullScreen={fullScreen}
-          handleFullScreen={
-            detector ? handleFullScreen : handleFullScreenMobile
-          }
-          setShowVariation={setShowVariation}
-        />
-        {openShare && (
-          <ShareComponents handleClose={() => setOpenShare(false)} />
-        )}
-        <video
-          className={styles.playerVideoEl}
-          controls={false}
-          ref={videoEl}
-          playsInline
-          muted={muted}
-          id='player-video-el'
-          style={{
-            objectFit: isVerticalLayout && !fullScreen ? 'cover' : 'contain'
-          }}
-          onTimeUpdate={handleOnTimeUpdate}
-        />
-        {ControlWrapper}
-        <div className={styles.containerProductCart}>
-          <ProductToCart />
-        </div>
+        onTimeUpdate={handleOnTimeUpdate}
+      />
+      {ControlWrapper}
+      <div className={styles.containerProductCart}>
+        <ProductToCart />
       </div>
-    </Fragment>
+    </div>
   )
 }

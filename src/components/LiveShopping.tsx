@@ -258,6 +258,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               <VerticalProductSlider
                 height={(parseInt(height) - 58).toString()}
                 setShowVariation={setShowVariation}
+                transmitionType={transmitionType}
               />
             )}
           </div>

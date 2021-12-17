@@ -7,7 +7,7 @@ type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 export type Actions =
   | Action<
       'SET_LIVESTREAM_CONFIG',
-      { args: { idLivestreaming: string; account: string } }
+      { args: { idLivestreaming: string; account: string; host: string } }
     >
   | Action<'SET_CHAT_HISTORY', { args: { chatHistory: Message[] } }>
   | Action<'SET_CHAT', { args: { chat: Message[] } }>
@@ -18,12 +18,13 @@ const reducer = (
 ): LivestreamingCtx => {
   switch (action.type) {
     case 'SET_LIVESTREAM_CONFIG': {
-      const { idLivestreaming, account } = action.args
+      const { idLivestreaming, account, host } = action.args
 
       return {
         ...state,
         idLivestreaming,
-        account
+        account,
+        host
       }
     }
 

@@ -2,8 +2,7 @@ import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 
 import { currencyFormat } from '../../utils'
-import ProductVariationButton from '../ProductsButton/ProductVariationButton'
-import ProductButton from './../ProductsButton/ProductButton'
+import { ProductButton, ProductVariationButton } from '..'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 import { ActionsContext } from '../../context/ActionsContext'
 
@@ -77,7 +76,7 @@ export const ProductItem = (props: ProductItemProps) => {
           !showQuickView ? (
             <ProductButton
               addToCartLink={
-                isInGlobalPage || !showQuickView ? pdpLink : addToCartLink
+                !showQuickView || isInGlobalPage ? pdpLink : addToCartLink
               }
               imageUrl={imageUrl}
               isAvailable={isAvailable}
