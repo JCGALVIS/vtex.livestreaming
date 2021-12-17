@@ -174,3 +174,9 @@ export interface CurrencyFormat {
   CurrencyGroupSize: number
   StartsWithCurrencySymbol: string
 }
+
+export interface HightLightHistoryElement {
+  productId: string
+  joinSecond: number
+  outSecond: number
+}

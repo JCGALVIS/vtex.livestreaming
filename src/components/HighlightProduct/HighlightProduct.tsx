@@ -3,19 +3,22 @@ import React, { useState, Fragment, useEffect, useContext } from 'react'
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 import { ActionsContext, SettingContext } from '../../context'
 import { addToCart } from '../../utils'
-import { ProductButton, ProductVariationButton } from '..'
+import { ProductButton } from '../ProductsButton/ProductButton'
+import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
 
 import styles from './highlightProduct.css'
 interface HighlightProductProps {
   fullScreen: boolean
   handleFullScreen: () => void
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  isFinalized: boolean
 }
 
 const HighlightProduct = ({
   fullScreen,
   handleFullScreen,
-  setShowVariation
+  setShowVariation,
+  isFinalized
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
@@ -39,8 +42,8 @@ const HighlightProduct = ({
       setShow(showProduct)
       return
     }
-    setShow(false)
-  }, [ivsRealTime, showProduct])
+    setShow(isFinalized ? showProduct : false)
+  }, [ivsRealTime, showProduct, isFinalized])
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight)

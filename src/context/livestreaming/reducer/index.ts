@@ -1,3 +1,3 @@
 export * from './reducer'
 export * from './useSetLivestreaming'
-export * from './useSetChatHistory'
+export * from './finalizedEvents'

@@ -35,7 +35,6 @@ export const StreamPlayer = ({
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
-
   const { isModalLive } = useContext(SettingContext)
 
   const {
@@ -176,6 +175,7 @@ export const StreamPlayer = ({
         fullScreen={fullScreen}
         handleFullScreen={detector ? handleFullScreen : handleFullScreenMobile}
         setShowVariation={setShowVariation}
+        isFinalized={isFinalized}
       />
       {openShare && <ShareComponents handleClose={() => setOpenShare(false)} />}
       <video

@@ -11,7 +11,7 @@ import {
   SettingProvider,
   useLivestreamingReducer,
   useSetLivestreaming,
-  useSetChatHistory,
+  useSetInfoFinalizedEvents,
   LivestreamingProvider
 } from './context'
 
@@ -46,7 +46,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   const [state, dispatch] = useLivestreamingReducer()
   useSetLivestreaming(idLivestreaming, account, host, dispatch)
-  useSetChatHistory(idLivestreaming, account, dispatch)
+  useSetInfoFinalizedEvents(idLivestreaming, account, dispatch)
 
   useEffect(() => {
     const { isInGlobalPage } = props
