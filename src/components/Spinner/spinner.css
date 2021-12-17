@@ -3,14 +3,8 @@
   justify-content: center;
   height: 60vh;
   width: 100%;
-  position: absolute;
-  z-index: 101;
+  position: relative;
   background-color: #ffffff;
-}
-
-.loadingPopoup {
-  position: fixed !important;
-  height: 100% !important;
 }
 
 .loadingContent {

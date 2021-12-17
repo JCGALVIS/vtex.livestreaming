@@ -11,6 +11,7 @@ export interface LivestreamingCtx {
   highlightHistory: HightLightHistoryElement[]
   currentHightLightProductId: string
   handleSetChat: (chat: Message[]) => void
+  host: string
   handleSetHightLight: (productId: string) => void
 }
 
@@ -22,6 +23,7 @@ export const livestreamingCtxDefault: LivestreamingCtx = {
   },
   chat: [],
   chatHistory: [],
+  host: '',
   handleSetChat: () => null,
   highlightHistory: [],
   currentHightLightProductId: '',

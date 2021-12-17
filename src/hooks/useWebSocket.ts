@@ -92,7 +92,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         isAdmin,
         responseAdmin,
         isInGlobalPage,
-        type
+        type,
+        quickView
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -157,6 +158,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             like,
             infinite,
             time,
+            quickView,
             pdp,
             kuikpay,
             isInGlobalPage
@@ -184,7 +186,6 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           setTransmitiontype(data)
           break
         case 'sendaddtocart':
-          if (document.hidden) break
           setProductsInCart((prev) => [
             ...prev,
             {
@@ -284,7 +285,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     pinnedMessage,
     transmitiontype,
     productsInCart,
-    setProductsInCart
+    setProductsInCart,
+    setQueueSocket
   }
 }
 

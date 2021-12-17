@@ -1,15 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
+import { useIntl } from 'react-intl'
 
 import { currencyFormat } from '../../utils'
-import ProductVariationButton from '../ProductsButton/ProductVariationButton'
-import ProductButton from './../ProductsButton/ProductButton'
+import { ProductButton, ProductVariationButton } from '..'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
+import { ActionsContext } from '../../context/ActionsContext'
 
 import styles from './productSlider.css'
-import { useIntl } from 'react-intl'
-import { ActionsContext } from '../../context/ActionsContext'
-import { InfoSocket } from '../../typings/livestreaming'
 
 const SPANISH_CODE = 'es'
 type ProductItemProps = {
@@ -18,7 +15,6 @@ type ProductItemProps = {
   price: number
   priceWithDiscount: number
   imageUrl: string
-  infoSocket: InfoSocket
   addToCartLink: string
   isAvailable: boolean
   pdpLink: string
@@ -35,7 +31,6 @@ export const ProductItem = (props: ProductItemProps) => {
     price,
     priceWithDiscount,
     imageUrl,
-    infoSocket,
     addToCartLink,
     isAvailable,
     pdpLink,
@@ -46,7 +41,7 @@ export const ProductItem = (props: ProductItemProps) => {
   } = props
 
   const {
-    setting: { isInGlobalPage, kuikpay, originOfProducts }
+    setting: { isInGlobalPage, kuikpay, originOfProducts, showQuickView }
   } = useContext(ActionsContext)
 
   const { formatMessage, locale } = useIntl()
@@ -76,11 +71,14 @@ export const ProductItem = (props: ProductItemProps) => {
           {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          {variationSelector.length === 0 || isInGlobalPage ? (
+          {variationSelector.length === 0 ||
+          isInGlobalPage ||
+          !showQuickView ? (
             <ProductButton
-              addToCartLink={isInGlobalPage ? pdpLink : addToCartLink}
+              addToCartLink={
+                !showQuickView || isInGlobalPage ? pdpLink : addToCartLink
+              }
               imageUrl={imageUrl}
-              infoSocket={infoSocket}
               isAvailable={isAvailable}
               productId={skuId}
               productName={name}

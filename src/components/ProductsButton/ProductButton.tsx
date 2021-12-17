@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { Fragment, useContext } from 'react'
 import { useIntl } from 'react-intl'
-import { ActionsContext } from '../../context'
-import { InfoSocket } from '../../typings/livestreaming'
+import { ActionsContext, SettingContext } from '../../context'
 import { addToCart } from '../../utils'
 
 import styles from './productButton.css'
@@ -11,31 +9,31 @@ type ProductButtonProps = {
   addToCartLink: string
   handleClose?: () => void
   imageUrl: string
-  infoSocket: InfoSocket
   isAvailable: boolean
   productId: string
   productName?: string
   sectionIdClickedOn?: string
 }
 
-const ProductButton = (props: ProductButtonProps) => {
+export const ProductButton = (props: ProductButtonProps) => {
   const {
     addToCartLink,
     handleClose,
     imageUrl,
-    infoSocket,
     isAvailable,
     productId,
     productName,
     sectionIdClickedOn
   } = props
 
-  const { socket, setProductsInCart } = infoSocket
+  const { infoSocket } = useContext(SettingContext)
+
+  const { socket } = infoSocket || {}
 
   const { formatMessage } = useIntl()
 
   const {
-    setting: { isInGlobalPage, redirectTo }
+    setting: { isInGlobalPage, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   return (
@@ -47,18 +45,6 @@ const ProductButton = (props: ProductButtonProps) => {
         disabled={!isAvailable}
         onClick={() => {
           if (socket && socket?.readyState === 1) {
-            setProductsInCart((prev) => [
-              ...prev,
-              {
-                id: '',
-                name: '',
-                price: 0,
-                priceWithDiscount: 0,
-                imageUrl: imageUrl,
-                addToCartLink: '',
-                isAvailable: false
-              }
-            ])
             const sendLike = {
               action: 'sendaddtocart',
               data: {
@@ -69,7 +55,7 @@ const ProductButton = (props: ProductButtonProps) => {
             socket.send(JSON.stringify(sendLike))
           }
 
-          addToCart(productId, redirectTo, isInGlobalPage)
+          addToCart(productId, redirectTo, isInGlobalPage, showQuickView)
 
           if (handleClose) handleClose()
           if (!sectionIdClickedOn) return
@@ -99,5 +85,3 @@ const ProductButton = (props: ProductButtonProps) => {
     </Fragment>
   )
 }
-
-export default ProductButton

@@ -15,13 +15,12 @@ import {
   LivestreamingProvider
 } from './context'
 
+import styles from './styles.module.css'
+
 export const Livestreaming = (props: LivestreamingProps) => {
   const { idLivestreaming, account } = props
   const [locale, setLocale] = useState(LOCALES.en)
   const [loading, setLoading] = useState(true)
-  const [selectedProduct, setSelectedProduct] = useState([
-    { productId: '', imageUrl: '' }
-  ])
 
   useEffect(() => {
     const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
@@ -32,24 +31,27 @@ export const Livestreaming = (props: LivestreamingProps) => {
     )
   }, [])
 
-  const { isModalLive, setIsModalLive } = useLivestreamingConfig({
-    id: idLivestreaming,
-    account
-  })
+  const { collectionId, isModalLive, setIsModalLive, wssStream, host } =
+    useLivestreamingConfig({
+      id: idLivestreaming,
+      account
+    })
 
   const settingProps = {
+    collectionId,
     isModalLive,
-    selectedProduct,
     setIsModalLive,
-    setSelectedProduct
+    wssStream
   }
 
   const [state, dispatch] = useLivestreamingReducer()
-  useSetLivestreaming(idLivestreaming, account, dispatch)
+  useSetLivestreaming(idLivestreaming, account, host, dispatch)
   useSetInfoFinalizedEvents(idLivestreaming, account, dispatch)
 
   useEffect(() => {
-    if (props.isInGlobalPage) setIsModalLive(false)
+    const { isInGlobalPage } = props
+    if (typeof isInGlobalPage === 'boolean' && isInGlobalPage)
+      setIsModalLive(false)
     const timeout = setTimeout(() => setLoading(false), 3000)
 
     return () => {
@@ -62,8 +64,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
       <ActionsProvider props={props}>
         <SettingProvider {...settingProps}>
           <LivestreamingProvider value={state} dispatch={dispatch}>
-            {loading && <Spinner />}
-            {!loading && <LiveShopping setLoading={setLoading} />}
+            <div className={styles.liveShoppingContainer}>
+              {loading && <Spinner />}
+              {!loading && <LiveShopping setLoading={setLoading} />}
+            </div>
           </LivestreamingProvider>
         </SettingProvider>
       </ActionsProvider>

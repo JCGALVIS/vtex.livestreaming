@@ -4,27 +4,22 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { ProductItem } from './ProductItem'
 import { useFetchProducts } from '../../hooks/useFetchProducts'
-import ArrowRightLivestreaming from '../icons/ArrowRightLivestreaming'
-import { ActionsContext } from '../../context/ActionsContext'
+import { ArrowRightLivestreaming } from '../icons'
+import { ActionsContext, SettingContext } from '../../context'
 
 import styles from './productSlider.css'
-import type { InfoSocket } from '../../typings/livestreaming'
 
 type HorizontalProductSliderProps = {
-  collectionId: string | undefined
-  infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
 }
 
 export const HorizontalProductSlider = ({
-  collectionId,
-  infoSocket,
   setShowVariation,
   transmitionType
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-  const [itemsProdcuts, setItemsProdcuts] = useState([
+  const [itemsProdcuts, setItemsProducts] = useState([
     {
       id: '',
       name: '',
@@ -38,6 +33,8 @@ export const HorizontalProductSlider = ({
     }
   ])
   const [index, setIndex] = useState(2)
+
+  const { collectionId } = useContext(SettingContext)
 
   const {
     setting: { isInfinite, originOfProducts, time }
@@ -60,7 +57,8 @@ export const HorizontalProductSlider = ({
 
   useEffect(() => {
     if (products && products[0]) {
-      setItemsProdcuts(products.slice(0, index))
+      setItemsProducts([])
+      setItemsProducts(products.slice(0, index))
       setSelectedProductIndex(0)
     }
   }, [products, index])
@@ -83,9 +81,9 @@ export const HorizontalProductSlider = ({
       setSelectedProductIndex(newIdx)
 
       if (products.length >= newIdx + index) {
-        setItemsProdcuts(products.slice(newIdx, newIdx + index))
+        setItemsProducts(products.slice(newIdx, newIdx + index))
       } else {
-        setItemsProdcuts(products.slice(0, index))
+        setItemsProducts(products.slice(0, index))
         setSelectedProductIndex(0)
       }
     }
@@ -125,7 +123,6 @@ export const HorizontalProductSlider = ({
               <div className={styles.horizontalProductList}>
                 <ProductItem
                   {...product}
-                  infoSocket={infoSocket}
                   originOfProducts={originOfProducts}
                   setShowVariation={setShowVariation}
                   sectionIdClickedOn='live_shopping_carousel'

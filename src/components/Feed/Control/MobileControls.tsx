@@ -14,7 +14,7 @@ import {
   VolumeOffIcon,
   VolumeUpIcon
 } from '../../icons'
-import { Like } from '../../Like/Like'
+import { Like } from '../../'
 import type { PlayerControls } from '../../../typings/MediaPlayer'
 
 import styles from '../../../styles.module.css'
@@ -30,7 +30,6 @@ export const MobileControls = (props: PlayerControls) => {
     handleNothing,
     handlePictureAndPicture,
     handleVolume,
-    infoSocket,
     muted,
     showOptions,
     status,
@@ -64,8 +63,6 @@ export const MobileControls = (props: PlayerControls) => {
           role='button'
           tabIndex={0}
           className={`${styles.playerVideoHover} ${styles.playerVideoMobileMuteButtonPosition}`}
-          onClick={handleMute}
-          onKeyDown={handleNothing}
           data-visible={
             status === BUFFERING || firstTimeMuted
               ? 'off'
@@ -74,30 +71,27 @@ export const MobileControls = (props: PlayerControls) => {
               : 'off'
           }
         >
-          {muted ? (
-            <VolumeOffIcon size='40' viewBox='0 0 400 400' />
-          ) : (
-            <VolumeUpIcon size='40' viewBox='0 0 400 400' />
-          )}
-        </div>
-        <div
-          className={`${styles.playerVideoHover} ${styles.playerVideoMobileVolumeRangePosition} ${styles.playerVideoVolumeRangeStack}`}
-          data-visible={
-            status === BUFFERING || firstTimeMuted
-              ? 'off'
-              : overlay
-              ? 'on'
-              : 'off'
-          }
-        >
-          <input
-            type='range'
-            min='0'
-            max='100'
-            value={muted ? 0 : volume}
-            className={styles.playerVolumeRange}
-            onChange={handleVolume}
-          />
+          <div className={styles.playerVideoMobileMuteButton}>
+            <div
+              style={{ display: 'flex', alignItems: 'center' }}
+              onClick={handleMute}
+              onKeyDown={handleNothing}
+            >
+              {muted ? (
+                <VolumeOffIcon size='40' viewBox='0 0 400 400' />
+              ) : (
+                <VolumeUpIcon size='40' viewBox='0 0 400 400' />
+              )}
+            </div>
+            <input
+              type='range'
+              min='0'
+              max='100'
+              value={muted ? 0 : volume}
+              className={styles.playerVolumeRange}
+              onChange={handleVolume}
+            />
+          </div>
         </div>
         {isFinalized && (
           <div
@@ -125,7 +119,7 @@ export const MobileControls = (props: PlayerControls) => {
           tabIndex={0}
           className={styles.playerVideoMobileLikeButtonPosition}
         >
-          <Like infoSocket={infoSocket} />
+          <Like isFinalized={isFinalized} />
         </div>
         <div
           className={styles.playerVideoMobileOptions}

@@ -1,9 +1,10 @@
 export const addToCart = (
   idProduct: string,
   redirectTo: boolean,
-  isInGlobalPage: boolean
+  isInGlobalPage: boolean,
+  showQuickView: boolean
 ) => {
-  if (redirectTo || isInGlobalPage) {
+  if (redirectTo || isInGlobalPage || !showQuickView) {
     const link = document.getElementById(`add-cart-${idProduct}`)
     if (link) link.click()
   } else {

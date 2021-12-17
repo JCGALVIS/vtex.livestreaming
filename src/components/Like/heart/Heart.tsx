@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { InfoSocket } from '../../../typings/livestreaming'
+import React, { useEffect, useRef, useState, useContext } from 'react'
+
+import { SettingContext } from '../../../context'
 import styles from './heart.css'
 
 interface HeartProps {
   color: string
   removeHeart: () => void
-  infoSocket: InfoSocket
 }
 
 const Heart = (props: HeartProps) => {
-  const { color, removeHeart, infoSocket } = props
-  const { queueSocket } = infoSocket
+  const { color, removeHeart } = props
+  const { infoSocket } = useContext(SettingContext)
+
+  const { queueSocket } = infoSocket || {}
 
   const [done, setDone] = useState(false)
 

@@ -18,6 +18,7 @@ const actionsDefault: ActionCtx = {
     redirectTo: true,
     showChat: true,
     showLike: true,
+    showQuickView: true,
     showProductsCarousel: false,
     showSidebarProducts: false,
     showViewers: true,
@@ -46,6 +47,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     redirectTo,
     showChat,
     showLike,
+    showQuickView,
     showProductsCarousel,
     showSidebarProducts,
     showViewers,
@@ -63,6 +65,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     redirectTo: redirectTo === undefined ? true : redirectTo === true,
     showChat: showChat === undefined ? true : showChat === true,
     showLike: showLike === undefined ? true : showLike === true,
+    showQuickView: showQuickView === undefined ? true : showQuickView === true,
     showProductsCarousel:
       showProductsCarousel === undefined
         ? false
@@ -77,8 +80,6 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     setting,
     setSetting
   }
-
-  // console.log('context: ', context)
 
   return (
     <ActionsContext.Provider value={context}>

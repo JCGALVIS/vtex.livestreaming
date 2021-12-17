@@ -1,6 +1,6 @@
 .verticalProductSliderContent {
   background: #f8f7fc !important;
-  width: 300px !important;
+  width: 100% !important;
   height: 100%;
 }
 
@@ -19,10 +19,11 @@
 
 .productList {
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 8px;
+  padding: 0 10px;
 }
 
 .productList::-webkit-scrollbar {
@@ -44,7 +45,7 @@
   box-shadow: 0 0 5px #55555536;
   background-color: white;
   margin: 5px 0;
-  padding: 0.5rem 0;
+  padding: 0.5rem 2px;
   border-radius: 6px;
 }
 
@@ -119,7 +120,7 @@
   display: none;
   position: relative;
   width: 100%;
-  height: auto;
+  height: 190px;
   background: #f8f7fc !important;
   padding: 0 10px;
 }
@@ -127,13 +128,15 @@
 .horizontalProductListContent {
   display: flex;
   justify-content: space-around;
-  overflow-x: hidden;
+  align-items: center;
+  height: 90%;
+  overflow: hidden;
   max-width: 100%;
   padding: 8px 0;
 }
 
 .horizontalProductList {
-  flex: 0 1 calc(25% - 1rem);
+  flex: 0 1 calc(40% - 1rem);
   display: flex;
   justify-content: center;
 }
@@ -254,6 +257,10 @@
 }
 
 @media screen and (min-width: 930px) {
+  .verticalProductSliderContent {
+    width: 100% !important;
+  }
+
   .horizontalProductContainer {
     display: initial;
   }

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { ChangeEvent } from 'react'
-import type { InfoSocket } from './livestreaming'
 type LogLevel = 'debug' | 'error' | 'info' | 'warn'
 type PlayerState = 'Buffering' | 'Ended' | 'Idle' | 'Playing' | 'Ready'
 
@@ -87,7 +86,6 @@ export type PlayerControls = {
   handleVolume: (e: ChangeEvent<HTMLInputElement>) => void
   IDLE: string
   inactive: boolean
-  infoSocket: InfoSocket
   isVerticalLayout: boolean
   muted: boolean
   overlay: boolean

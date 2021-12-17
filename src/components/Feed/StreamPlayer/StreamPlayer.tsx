@@ -10,33 +10,25 @@ import React, {
 import { ActionsContext, SettingContext } from '../../../context'
 import type { MediaPlayer } from '../../../typings/MediaPlayer'
 import { getDeviceType } from '../../../utils'
-import type { InfoSocket } from '../../../typings/livestreaming'
 import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import ShareComponents from '../../ShareComponents'
 import { ProductToCart } from '../..'
 
-import styles from '../../../styles.module.css'
-import styles2 from './streamPlayer.css'
+import styles from './streamPlayer.css'
 
 type streamPlayerProps = {
-  collectionId: string | undefined
-  infoSocket: InfoSocket
   player: MediaPlayer
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  setWidth: React.Dispatch<React.SetStateAction<string | number>>
   transmitionType: string | undefined
   streamUrl: string | undefined
   isFinalized: boolean
 }
 
 export const StreamPlayer = ({
-  collectionId,
-  infoSocket,
   player,
   setShowVariation,
-  setWidth,
   transmitionType,
   streamUrl,
   isFinalized
@@ -51,13 +43,8 @@ export const StreamPlayer = ({
 
   const mobileOS = getDeviceType() === 'mobile'
 
-  const {
-    containerDimensions,
-    isVerticalLayout,
-    mainContainer,
-    videoEl,
-    windowDimensions
-  } = usePlayerLayout(transmitionType)
+  const { isVerticalLayout, mainContainer, videoEl, windowDimensions } =
+    usePlayerLayout(transmitionType)
 
   const {
     BUFFERING,
@@ -87,17 +74,9 @@ export const StreamPlayer = ({
     handleOnTimeUpdate
   } = usePlayerFunctions({ player, videoEl, mainContainer, streamUrl })
 
-  const dimensions = fullScreen
-    ? {
-        height: '100vh',
-        width: '100vw'
-      }
-    : containerDimensions
-
   useEffect(() => {
     setDetector(mobileOS)
-    setWidth(dimensions.width)
-  }, [mobileOS, dimensions, pictureInPicture])
+  }, [mobileOS, pictureInPicture])
 
   const ControlWrapper = useMemo(() => {
     const isMobile = windowDimensions.width <= 640
@@ -116,7 +95,6 @@ export const StreamPlayer = ({
       handleVolume,
       IDLE,
       inactive,
-      infoSocket,
       isVerticalLayout,
       muted,
       overlay,
@@ -159,7 +137,6 @@ export const StreamPlayer = ({
     handleVolume,
     IDLE,
     inactive,
-    infoSocket,
     isVerticalLayout,
     muted,
     overlay,
@@ -177,62 +154,46 @@ export const StreamPlayer = ({
   ])
 
   return (
-    <Fragment>
-      <div
-        ref={mainContainer}
-        className={`${
-          isModalLive && !isInGlobalPage && styles2.playerUiPopoup
-        } ${styles2.playerUi}`}
-        onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
-        onMouseMove={() => {
-          setInactive(false)
-          setOverlay(true)
+    <div
+      ref={mainContainer}
+      className={styles.playerUi}
+      onMouseOver={!inactive ? () => setOverlay(true) : () => {}}
+      onMouseMove={() => {
+        setInactive(false)
+        setOverlay(true)
+      }}
+      onMouseOut={() => setOverlay(false)}
+      onFocus={handleNothing}
+      onBlur={handleNothing}
+      style={
+        isVerticalLayout && isModalLive && !detector && !isInGlobalPage
+          ? { width: '25vw' }
+          : {}
+      }
+    >
+      <HighlightProduct
+        fullScreen={fullScreen}
+        handleFullScreen={detector ? handleFullScreen : handleFullScreenMobile}
+        setShowVariation={setShowVariation}
+        isFinalized={isFinalized}
+      />
+      {openShare && <ShareComponents handleClose={() => setOpenShare(false)} />}
+      <video
+        className={styles.playerVideoEl}
+        controls={false}
+        ref={videoEl}
+        playsInline
+        muted={muted}
+        id='player-video-el'
+        style={{
+          objectFit: isVerticalLayout && !fullScreen ? 'cover' : 'contain'
         }}
-        onMouseOut={() => setOverlay(false)}
-        onFocus={handleNothing}
-        onBlur={handleNothing}
-        style={
-          !detector
-            ? {
-                height: dimensions.height,
-                width: dimensions.width,
-                maxHeight: !isVerticalLayout ? '340px' : '100%'
-              }
-            : {}
-        }
-      >
-        {collectionId && (
-          <HighlightProduct
-            collectionId={collectionId}
-            fullScreen={fullScreen}
-            handleFullScreen={
-              detector ? handleFullScreen : handleFullScreenMobile
-            }
-            infoSocket={infoSocket}
-            setShowVariation={setShowVariation}
-            isFinalized={isFinalized}
-          />
-        )}
-        {openShare && (
-          <ShareComponents handleClose={() => setOpenShare(false)} />
-        )}
-        <video
-          className={styles.playerVideoEl}
-          controls={false}
-          ref={videoEl}
-          playsInline
-          muted={muted}
-          id='player-video-el'
-          style={{
-            objectFit: detector && isVerticalLayout ? 'cover' : 'contain'
-          }}
-          onTimeUpdate={handleOnTimeUpdate}
-        />
-        {ControlWrapper}
-        <div className={styles2.containerProductCart}>
-          <ProductToCart infoSocket={infoSocket} />
-        </div>
+        onTimeUpdate={handleOnTimeUpdate}
+      />
+      {ControlWrapper}
+      <div className={styles.containerProductCart}>
+        <ProductToCart />
       </div>
-    </Fragment>
+    </div>
   )
 }

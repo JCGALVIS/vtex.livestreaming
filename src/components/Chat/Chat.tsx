@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {
   useRef,
   useState,
@@ -6,25 +7,27 @@ import React, {
   useCallback,
   useContext
 } from 'react'
+import { useIntl } from 'react-intl'
 
 import ChatIcon from '../icons/ChatIcon'
 import SendIcon from '../icons/Send'
 import GifIcon from '../icons/GifIcon'
 import MessageRenderer from './MessageRenderer'
-import type { InfoSocket, Message } from '../../typings/livestreaming'
+import type { Message } from '../../typings/livestreaming'
 import { Login } from './login/Login'
 import GiphySearch from '../Giphy/Giphy'
 import { ModalQuestion } from '../question/ModalQuestion'
 import { getDeviceType } from '../../utils'
 import ArrowDown from '../icons/ArrowDown'
+import {
+  ActionsContext,
+  SettingContext,
+  useLivestreamingContext
+} from '../../context'
 
 import styles from './chat.css'
-import { useIntl } from 'react-intl'
-import { ActionsContext } from '../../context/ActionsContext'
-import { useLivestreamingContext } from '../../context'
 
 type ChatProps = {
-  infoSocket: InfoSocket
   pinnedMessage: Message | undefined
   transmitionType: string | undefined
   initShowGif: boolean | undefined
@@ -33,23 +36,14 @@ type ChatProps = {
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
 
 export const Chat = ({
-  infoSocket,
   pinnedMessage,
   transmitionType,
   initShowGif
 }: ChatProps) => {
+  const { formatMessage } = useIntl()
   const chatAreaRef = useRef<HTMLDivElement>(null)
   const formContainer = useRef<HTMLFormElement>(null)
   const [content, setContent] = useState<string>('')
-  const {
-    socket,
-    chat,
-    setChat,
-    sessionId,
-    messageToDelete,
-    setMessageToDelete,
-    showGif: showGifButtonSocket
-  } = infoSocket
   const [chatFiltered, setChatFiltered] = useState<Message[]>([])
   const [showLoginWindow, setShowLoginWindow] = useState(false)
   const [sendFirstMessage, setSendFirstMessage] = useState(false)
@@ -62,8 +56,19 @@ export const Chat = ({
   const [showGifButton, setShowGifButton] = useState<boolean | undefined>(false)
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
-  const { formatMessage } = useIntl()
+
+  const { infoSocket, isModalLive } = useContext(SettingContext)
   const { chat: chatFinalizedEvents } = useLivestreamingContext()
+
+  const {
+    socket,
+    chat,
+    setChat,
+    sessionId,
+    messageToDelete,
+    setMessageToDelete,
+    showGif: showGifButtonSocket
+  } = infoSocket || {}
 
   const {
     setting: { idLivestreaming }
@@ -173,7 +178,7 @@ export const Chat = ({
   const ChatMessages = useMemo(
     () =>
       MessageRenderer(
-        infoSocket.socket ? chatFiltered : chatFinalizedEvents || []
+        infoSocket?.socket ? chatFiltered : chatFinalizedEvents || []
       ),
     [chatFiltered, chat, chatFinalizedEvents]
   )
@@ -279,8 +284,8 @@ export const Chat = ({
     <div
       className={styles.chatContainer}
       style={
-        transmitionType === 'vertical' && !isMobile
-          ? { maxWidth: 360, minWidth: 360 }
+        isModalLive && transmitionType === 'vertical' && !isMobile
+          ? { maxWidth: 390, minWidth: 390 }
           : {}
       }
     >
@@ -350,12 +355,11 @@ export const Chat = ({
             setSendFirstMessage={setSendFirstMessage}
             content={content}
             setContent={setContent}
-            infoSocket={infoSocket}
             selectedGif={selectedGif}
           />
         )}
 
-        <ModalQuestion infoSocket={infoSocket} />
+        <ModalQuestion />
 
         <div>
           <GiphySearch showGif={showGif} sendGif={handlerSendMessage} />

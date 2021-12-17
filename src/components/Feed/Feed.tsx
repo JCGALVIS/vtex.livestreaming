@@ -1,31 +1,34 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useContext } from 'react'
 
-import type { InfoSocket } from '../../typings/livestreaming'
+import { ActionsContext, SettingContext } from '../../context'
+import { usePlayerLayout } from '../../hooks'
 import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 
+import styles from './feed.css'
+
 type FeedProps = {
-  collectionId: string | undefined
-  infoSocket: InfoSocket
   isPlayerSupported: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  setWidth: React.Dispatch<React.SetStateAction<string | number>>
   streamUrl: string | undefined
   transmitionType: string | undefined
   livestreamingStatus: string
 }
 
 export const Feed = ({
-  collectionId,
-  infoSocket,
   isPlayerSupported,
   setShowVariation,
-  setWidth,
   streamUrl,
   transmitionType,
   livestreamingStatus
 }: FeedProps) => {
+  const { infoSocket, isModalLive } = useContext(SettingContext)
+  const {
+    setting: { isInGlobalPage }
+  } = useContext(ActionsContext)
+
+  const { isVerticalLayout } = usePlayerLayout(transmitionType)
+
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
 
@@ -33,7 +36,7 @@ export const Feed = ({
   const [liveStatus, setLiveStatus] = useState(false)
   const player: typeof MediaPlayer = useRef(null)
 
-  const { isTransmiting } = infoSocket
+  const { isTransmiting } = infoSocket || {}
   const isLive = infoSocket?.ivsRealTime?.status
   const isFinalized = livestreamingStatus === 'FINALIZED'
 
@@ -83,23 +86,23 @@ export const Feed = ({
   if (!isPlayerSupported) {
     return null
   }
-  return playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
-    <StreamPlayer
-      collectionId={collectionId}
-      infoSocket={infoSocket}
-      player={player.current}
-      streamUrl={streamUrl}
-      setShowVariation={setShowVariation}
-      setWidth={setWidth}
-      transmitionType={transmitionType}
-      isFinalized={isFinalized}
-    />
-  ) : (
-    <NoVideo
-      isLive={isLive}
-      liveStatus={liveStatus}
-      setWidth={setWidth}
-      transmitionType={transmitionType}
-    />
+  return (
+    <div
+      className={`${isModalLive && !isInGlobalPage && styles.playerUiPopoup}  ${
+        isVerticalLayout ? styles.verticalLayout : styles.horizontalLayout
+      }`}
+    >
+      {playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
+        <StreamPlayer
+          player={player.current}
+          streamUrl={streamUrl}
+          setShowVariation={setShowVariation}
+          transmitionType={transmitionType}
+          isFinalized={isFinalized}
+        />
+      ) : (
+        <NoVideo isLive={isLive} liveStatus={liveStatus} />
+      )}
+    </div>
   )
 }

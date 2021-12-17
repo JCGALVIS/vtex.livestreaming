@@ -20,9 +20,10 @@ input[type='text']:focus {
   font-size: 16px;
 }
 
-.videoContent {
+.liveShoppingContainer {
   position: relative;
-  width: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .likeContent {
@@ -37,27 +38,6 @@ input[type='text']:focus {
   right: 50px;
 }
 
-.viewersContent {
-  position: absolute;
-  top: 0.6rem;
-  right: 1rem;
-}
-
-.liveContent {
-  position: absolute;
-  top: 2rem;
-  left: 1rem;
-}
-
-.chatContent {
-  position: absolute;
-  bottom: 1rem;
-  left: 0.5rem;
-  width: 50%;
-  height: auto;
-  max-height: none;
-}
-
 .sliderProductContent {
   display: none;
 }
@@ -67,26 +47,10 @@ input[type='text']:focus {
     height: auto;
   }
 
-  .videoContainer {
-    position: relative;
-    max-width: 44vw;
-  }
-
-  .chatContent {
-    position: relative;
-    width: auto;
-    bottom: 0;
-    left: 0;
-  }
-
   .sliderProductContent {
     position: relative;
     width: auto;
     display: initial;
-  }
-
-  .displayNone {
-    display: none;
   }
 
   .horizontalProductsContent {
@@ -94,22 +58,9 @@ input[type='text']:focus {
     justify-content: center;
   }
 
-  .videoContentOption {
-    position: relative;
-    width: 100%;
-  }
-
   .fittedContainer {
     position: absolute;
   }
-}
-
-/* Styles video streaming */
-.playerVideoEl {
-  max-width: 100%;
-  min-width: 100%;
-  position: absolute;
-  height: 100%;
 }
 
 .playerVideoHover {
@@ -128,15 +79,14 @@ input[type='text']:focus {
   height: 100%;
   grid-template-columns: auto 95px 42px 42px 45px 0.4rem;
   grid-template-rows: auto 58px auto 36px 1rem;
+  inset: 0;
+  z-index: 2;
 }
 
 .playerVideoMobileMuteButtonPosition {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   color: #ffffff;
   grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-end: 4;
   grid-row-start: 4;
   grid-row-end: 5;
 }
@@ -146,6 +96,12 @@ input[type='text']:focus {
   grid-column-end: 4;
   grid-row-start: 4;
   grid-row-end: 5;
+}
+
+.playerVideoMobileMuteButton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .playerVideoMobileLikeButtonPosition {
@@ -257,6 +213,7 @@ input[type='text']:focus {
 
 .playerVideoVolumeRangeStack {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -360,15 +317,6 @@ input[type='text']:focus {
   display: none;
 }
 
-.playerVideoGrid {
-  display: grid;
-  grid-template-columns:22px 43.5px 144px auto 95px auto 43.5px 10px 43.5px 10px 43.5px 10px 43.5px 22px;
-  grid-template-rows: 10% auto 100px auto 43.5px 17px;
-  position: absolute;
-  max-width: 100%;
-  min-width: 100%;
-}
-
 .playerVideoButtonFlex {
   display: flex;
   color: #ffffff;
@@ -443,11 +391,6 @@ input[type='text']:focus {
     bottom: 14px;
     right: 50px;
   }
-  .viewersContent {
-    position: absolute;
-    top: 0.9rem;
-    left: 5rem;
-  }
 }
 
 @media only screen and (min-device-width: 640px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
@@ -455,20 +398,12 @@ input[type='text']:focus {
     bottom: -0.6rem;
     right: 1rem;
   }
-  .viewersContent {
-    position: absolute;
-    top: 0.9rem;
-    left: 5rem;
-  }
 }
 
 @media (min-width: 414px) and (max-width: 1025px) {
   .likeContent {
     bottom: 17px;
     right: 20px;
-  }
-  .viewersContent {
-    right: 1rem;
   }
 }
 

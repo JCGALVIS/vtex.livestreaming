@@ -18,6 +18,7 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
   const [isModalLive, setIsModalLive] = useState<boolean>()
   const [status, setStatus] = useState('')
   const [showGifButton, setShowGifButton] = useState<boolean>()
+  const [host, setHost] = useState<string>('')
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -30,22 +31,24 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     if (!GET_LIVESTREAMING_CONFIG_URL) return
 
     const getLivestreaming = async () => {
-      const data = await apiCall({
+      await apiCall({
         url: `${URL}?id=${id}&account=${account}`
+      }).then((data) => {
+        if (data) {
+          setWssStream(data?.webClient?.streamWSS)
+          setStreamUrl(data?.webClient?.streamURL)
+          setEmailIsRequired(data?.webClient?.emailIsRequired)
+          setCollectionId(data?.collection?.id)
+          setUtm(data?.utm)
+          setPinnedMessage(data?.pinnedMessage)
+          setTransmitionType(data?.webClient?.transmitionType)
+          setIsModalLive(data?.webClient.modalLive)
+          setStatus(data?.status)
+          setShowGifButton(data?.webClient?.showGif)
+          setHost(data?.host)
+        }
       })
-
-      setWssStream(data?.webClient?.streamWSS)
-      setStreamUrl(data?.webClient?.streamURL)
-      setEmailIsRequired(data?.webClient?.emailIsRequired)
-      setCollectionId(data?.collection?.id)
-      setUtm(data?.utm)
-      setPinnedMessage(data?.pinnedMessage)
-      setTransmitionType(data?.webClient?.transmitionType)
-      setIsModalLive(data?.webClient.modalLive)
-      setStatus(data?.status)
-      setShowGifButton(data?.webClient?.showGif)
     }
-
     getLivestreaming().catch(null)
   }, [id, account])
 
@@ -60,7 +63,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     isModalLive,
     setIsModalLive,
     status,
-    showGifButton
+    showGifButton,
+    host
   }
 }
 

@@ -12,6 +12,7 @@ type LivestreamingProps = {
   showChat: boolean
   showLike: boolean
   showSidebarProducts: boolean
+  showQuickView: boolean
   showProductsCarousel: boolean
   showViewers: boolean
   kuikpay: boolean
@@ -55,6 +56,7 @@ export declare interface ScriptProperties {
   like: boolean
   infinite: boolean
   time: number
+  quickView: boolean
   pdp: boolean
   kuikpay: boolean
   isInGlobalPage: boolean
@@ -90,6 +92,9 @@ export declare interface InfoSocket {
   transmitiontype: string | undefined
   productsInCart: Products[]
   setProductsInCart: React.Dispatch<React.SetStateAction<Products[]>>
+  setQueueSocket: React.Dispatch<
+    React.SetStateAction<Queue<number> | undefined>
+  >
 }
 
 export interface ProductImages {

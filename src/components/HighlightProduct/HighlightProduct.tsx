@@ -1,34 +1,34 @@
 import React, { useState, Fragment, useEffect, useContext } from 'react'
 
-// eslint-disable-next-line no-unused-vars
-import { InfoSocket } from '../../typings/livestreaming'
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
+import { ActionsContext, SettingContext } from '../../context'
+import { addToCart } from '../../utils'
+import { ProductButton } from '../ProductsButton/ProductButton'
+import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
 
 import styles from './highlightProduct.css'
-import { ActionsContext } from '../../context/ActionsContext'
 interface HighlightProductProps {
-  collectionId: string | undefined
   fullScreen: boolean
   handleFullScreen: () => void
-  infoSocket: InfoSocket
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   isFinalized: boolean
 }
 
 const HighlightProduct = ({
-  collectionId,
   fullScreen,
   handleFullScreen,
-  infoSocket,
   setShowVariation,
   isFinalized
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
-  const { ivsRealTime, highlightProduct } = infoSocket
+
+  const { collectionId, infoSocket } = useContext(SettingContext)
+
+  const { ivsRealTime, highlightProduct } = infoSocket || {}
 
   const {
-    setting: { originOfProducts }
+    setting: { isInGlobalPage, originOfProducts, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   const { product, showProduct } = useHighlightProduct({
@@ -65,7 +65,7 @@ const HighlightProduct = ({
 
   return (
     <Fragment>
-      {show ? (
+      {collectionId && show ? (
         <div
           className={`${styles.highlightProductContainer}  ${
             !optionHighlight || optionHighlight === 'white'
@@ -78,10 +78,34 @@ const HighlightProduct = ({
             className={styles.productContainer}
             onClick={() => {
               if (fullScreen) handleFullScreen()
-              setShowVariation(product.id)
+              if (showQuickView) {
+                setShowVariation(product.id)
+              } else {
+                addToCart(product.id, redirectTo, isInGlobalPage, showQuickView)
+              }
             }}
           >
             <img className={styles.productPicture} src={product.imageUrl} />
+            <div className={styles.productAddCartContent}>
+              {showQuickView ? (
+                <ProductVariationButton
+                  isAvailable={product.isAvailable}
+                  productId={product.id}
+                  setShowVariation={setShowVariation}
+                  sectionIdClickedOn='live_shopping_highlight_product'
+                  productName={product.name}
+                />
+              ) : (
+                <ProductButton
+                  addToCartLink={product.addToCartLink}
+                  imageUrl={product.imageUrl}
+                  isAvailable={product.isAvailable}
+                  productId={product.id}
+                  productName={product.name}
+                  sectionIdClickedOn='live_shopping_highlight_product'
+                />
+              )}
+            </div>
           </div>
         </div>
       ) : null}

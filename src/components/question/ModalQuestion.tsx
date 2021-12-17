@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import Button from '@vtex/styleguide/lib/Button'
+import { FormattedMessage } from 'react-intl'
 
 import { Modal } from '../Modal/Modal'
 import QuestionPoll from './QuestionPoll'
@@ -7,16 +9,13 @@ import QuestionTrueOrFalse from './QuestionTrueOrFalse'
 import QuestionQuiz from './QuestionQuiz'
 import Answer from './Answer'
 import useUpdateVotes from '../../hooks/useUpdateVotes'
-import type { InfoSocket, Question } from '../../typings/livestreaming'
+import type { Question } from '../../typings/livestreaming'
 import { apiCall } from '../../services'
-import styles from './question.css'
-import { FormattedMessage } from 'react-intl'
-import { ActionsContext } from '../../context/ActionsContext'
-declare interface Props {
-  infoSocket: InfoSocket
-}
+import { ActionsContext, SettingContext } from '../../context'
 
-export const ModalQuestion = ({ infoSocket }: Props) => {
+import styles from './question.css'
+
+export const ModalQuestion = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [typeQuestion, setTypeQuestion] = useState<string | undefined>('')
   const [isAnswer, setIsAnswer] = useState(false)
@@ -24,9 +23,12 @@ export const ModalQuestion = ({ infoSocket }: Props) => {
   const [disabledForm, setDisabledForm] = useState(false)
   const [validateForm, setvalidateForm] = useState(false)
   const [pageVisible, setPageVisible] = useState(true)
-  const { question, setQuestion, socket } = infoSocket
-  const { saveUpdateVotes } = useUpdateVotes({ socket })
   const [data, setData] = useState<Question | undefined>()
+
+  const { infoSocket } = useContext(SettingContext)
+
+  const { question, setQuestion, socket } = infoSocket || {}
+  const { saveUpdateVotes } = useUpdateVotes({ socket })
 
   const {
     setting: { account, idLivestreaming }
