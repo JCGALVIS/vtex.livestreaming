@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 import { livestreamingCtxDefault, LivestreamingCtx } from '../'
-import { Message } from '../../../typings/livestreaming'
+import { Message, HightLightHistoryElement } from '../../../typings/livestreaming'
 
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 
@@ -11,6 +11,7 @@ export type Actions =
     >
   | Action<'SET_CHAT_HISTORY', { args: { chatHistory: Message[] } }>
   | Action<'SET_CHAT', { args: { chat: Message[] } }>
+  | Action<'SET_HIGHLIGHT_HISTORY', { args: { highlightHistory: HightLightHistoryElement[] } }>
   | Action<'SET_HIGHTLIGHT', { args: { productId: string } }>
 
 const reducer = (
@@ -52,6 +53,15 @@ const reducer = (
       return {
         ...state,
         currentHightLightProductId: productId
+      }
+    }
+
+    case 'SET_HIGHLIGHT_HISTORY': {
+      const { highlightHistory } = action.args
+
+      return {
+        ...state,
+        highlightHistory
       }
     }
 

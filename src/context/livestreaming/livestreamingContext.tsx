@@ -8,7 +8,7 @@ export interface LivestreamingCtx {
   videoEl: React.RefObject<StreamPlayerType>
   chat: Message[]
   chatHistory: Message[]
-  hightLightHistory: HightLightHistoryElement[]
+  highlightHistory: HightLightHistoryElement[]
   currentHightLightProductId: string
   handleSetChat: (chat: Message[]) => void
   handleSetHightLight: (productId: string) => void
@@ -23,7 +23,7 @@ export const livestreamingCtxDefault: LivestreamingCtx = {
   chat: [],
   chatHistory: [],
   handleSetChat: () => null,
-  hightLightHistory: [],
+  highlightHistory: [],
   currentHightLightProductId: '',
   handleSetHightLight: () => null
 }

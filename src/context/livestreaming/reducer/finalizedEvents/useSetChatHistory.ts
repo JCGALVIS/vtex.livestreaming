@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { Dispatch, useEffect } from 'react'
-import { Actions } from './reducer'
-import { apiCall } from '../../../services/apiCall'
-import { Message } from '../../../typings/livestreaming'
+import { Actions } from '../reducer'
+import { apiCall } from '../../../../services/apiCall'
+import { Message } from '../../../../typings/livestreaming'
 
 export const useSetChatHistory = (
   idLivestreaming: string,

@@ -37,7 +37,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     chatHistory,
     chat,
     handleSetChat,
-    hightLightHistory,
+    highlightHistory,
     handleSetHightLight,
     currentHightLightProductId
   } = useLivestreamingContext()
@@ -383,7 +383,7 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     })
     if (JSON.stringify(chat) !== JSON.stringify(newChat)) handleSetChat(newChat)
 
-    const currentHightlight = hightLightHistory.find(
+    const currentHightlight = highlightHistory.find(
       (hightlight: HightLightHistoryElement) => {
         const isShowInThisMoment =
           videoEl.current &&
