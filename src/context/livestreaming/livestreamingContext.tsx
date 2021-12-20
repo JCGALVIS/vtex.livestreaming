@@ -13,6 +13,7 @@ export interface LivestreamingCtx {
   handleSetChat: (chat: Message[]) => void
   host: string
   handleSetHightLight: (productId: string) => void
+  playBackStartTime: number
 }
 
 export const livestreamingCtxDefault: LivestreamingCtx = {
@@ -27,7 +28,8 @@ export const livestreamingCtxDefault: LivestreamingCtx = {
   handleSetChat: () => null,
   highlightHistory: [],
   currentHightLightProductId: '',
-  handleSetHightLight: () => null
+  handleSetHightLight: () => null,
+  playBackStartTime: 0
 }
 
 export const LivestreamingContext = createContext<LivestreamingCtx>(
