@@ -2,6 +2,7 @@
   position: fixed;
   inset: 0px;
   z-index: 1300;
+  animation: deployModal 3s 0s both;
 }
 
 .variationSelector span {
@@ -20,6 +21,17 @@
   justify-content: center;
   -webkit-box-align: center;
   align-items: center;
+}
+
+@keyframes deployModal {
+  to {
+    bottom: 0px;
+    height: auto;
+  }
+  from {
+    bottom: -100%;
+    height: 0;
+  }
 }
 
 .content {
@@ -251,6 +263,10 @@
 }
 
 @media screen and (min-width: 568px) {
+  .variationSelector{
+    animation: none;
+  }
+
   .content {
     height: auto;
     width: 500px;
