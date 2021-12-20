@@ -159,7 +159,7 @@
   outline: none;
   flex: 1 1 auto;
   min-width: 0;
-  width: 192px;
+  width: 180px;
   font: 400 16px Arial !important;
   height: 40px;
   box-sizing: border-box;
@@ -390,7 +390,13 @@
   .gifIconContainer {
     display: flex;
     height: 40px;
-    background-color: #141415;
+    background-color: rgba(20, 20, 21, 0.4);
     border: none;
+    color: #fff;
+  }
+
+  .activeChatCarousel {
+    bottom: 140px;
+    position: absolute;
   }
 }

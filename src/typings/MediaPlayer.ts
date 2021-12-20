@@ -101,4 +101,7 @@ export type PlayerControls = {
   handleVideoProgress: (e: ChangeEvent<HTMLInputElement>) => void
   handleOpenShare: () => void
   isFinalized: boolean
+  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  transmitionType: string | undefined
+  showCarouselChatButton: boolean | undefined
 }

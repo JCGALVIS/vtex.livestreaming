@@ -24,6 +24,7 @@ type streamPlayerProps = {
   transmitionType: string | undefined
   streamUrl: string | undefined
   isFinalized: boolean
+  showCarouselChatButton: boolean | undefined
 }
 
 export const StreamPlayer = ({
@@ -31,7 +32,8 @@ export const StreamPlayer = ({
   setShowVariation,
   transmitionType,
   streamUrl,
-  isFinalized
+  isFinalized,
+  showCarouselChatButton
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
@@ -109,7 +111,10 @@ export const StreamPlayer = ({
       progress,
       handleVideoProgress,
       handleOpenShare: () => setOpenShare(true),
-      isFinalized
+      isFinalized,
+      setShowVariation,
+      transmitionType,
+      showCarouselChatButton
     }
 
     return (

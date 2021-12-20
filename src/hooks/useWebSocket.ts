@@ -27,6 +27,9 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [showGif, setShowGif] = useState<boolean | undefined>()
+  const [showCarouselChatButton, setShowCarouselChatButton] = useState<
+    boolean | undefined
+  >()
   const [isTransmiting, setIsTransmiting] = useState(false)
   const [highlightProduct, setHighlightProduct] = useState<
     HighlightProduct | undefined
@@ -93,7 +96,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         responseAdmin,
         isInGlobalPage,
         type,
-        quickView
+        quickView,
+        showCarouselChatButton
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -138,6 +142,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           setShowCounter(data)
           setShowGif(showGifButton)
           setEmailIsRequired(emailIsRequired)
+          setShowCarouselChatButton(showCarouselChatButton)
           break
 
         case 'sendhighlightproduct':
@@ -286,7 +291,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     transmitiontype,
     productsInCart,
     setProductsInCart,
-    setQueueSocket
+    setQueueSocket,
+    showCarouselChatButton
   }
 }
 

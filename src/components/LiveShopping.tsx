@@ -26,7 +26,6 @@ import type { Message } from './../typings/livestreaming'
 
 import styles from './../styles.module.css'
 import styles2 from './liveShopping.css'
-
 type MarketingData = {
   utmSource: string | undefined
 }
@@ -76,7 +75,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     pinnedMessage: initPinnedMessage,
     transmitionType: initTransmitionType,
     status,
-    showGifButton
+    showGifButton,
+    showCarouselChatButton
   } = useLivestreamingConfig({
     id: idLivestreaming,
     account
@@ -301,6 +301,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                   streamUrl={streamUrl}
                   transmitionType={transmitionType}
                   livestreamingStatus={status}
+                  showCarouselChatButton={showCarouselChatButton}
                 />
                 <div className={styles2.feedHeader}>
                   <div className={styles2.leftHeader}>

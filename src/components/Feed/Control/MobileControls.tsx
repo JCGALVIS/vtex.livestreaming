@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 
 import { getMobileOS } from '../../../utils'
 import {
@@ -18,8 +18,17 @@ import { Like } from '../../'
 import type { PlayerControls } from '../../../typings/MediaPlayer'
 
 import styles from '../../../styles.module.css'
+import { ChatCarousel } from '../../ChatCarousel/ChatCarousel'
+import ShopIcon from './../../icons/ShopIcon'
+import { SettingContext } from '../../../context'
 
 export const MobileControls = (props: PlayerControls) => {
+  const { showCarouselChat, setShowCarouselChat } = useContext(SettingContext)
+  const { infoSocket } = useContext(SettingContext)
+  const [fisrtLoad, setFirstLoad] = useState(true)
+  const [showCarouselChatButtonLocal, setShowCarouselChatButtonLocal] =
+    useState<boolean>()
+
   const {
     BUFFERING,
     firstTimeMuted,
@@ -40,11 +49,34 @@ export const MobileControls = (props: PlayerControls) => {
     progress,
     handleVideoProgress,
     handleOpenShare,
-    isFinalized
+    isFinalized,
+    transmitionType,
+    setShowVariation,
+    showCarouselChatButton
   } = props
+
+  useEffect(() => {
+    if (fisrtLoad) {
+      if (showCarouselChatButton === undefined) return
+      setShowCarouselChatButtonLocal(showCarouselChatButton)
+      setFirstLoad(false)
+    } else {
+      if (infoSocket?.showCarouselChatButton === undefined) {
+        setShowCarouselChatButtonLocal(showCarouselChatButton)
+        return
+      }
+      setShowCarouselChatButtonLocal(infoSocket?.showCarouselChatButton)
+    }
+  }, [showCarouselChatButton, fisrtLoad, infoSocket?.showCarouselChatButton])
 
   return (
     <div className={styles.playerVideoMobile}>
+      {showCarouselChat && showCarouselChatButtonLocal && (
+        <ChatCarousel
+          transmitionType={transmitionType}
+          setShowVariation={setShowVariation}
+        />
+      )}
       {firstTimeMuted ? (
         <div
           role='button'
@@ -112,6 +144,19 @@ export const MobileControls = (props: PlayerControls) => {
             <div
               className={`${styles.noPercentProgressBar} ${styles.progressBarHeigth}`}
             />
+          </div>
+        )}
+        {showCarouselChatButtonLocal && (
+          <div
+            role='button'
+            tabIndex={0}
+            className={styles.playerVideoMobileCarouselButtonPosition}
+            onClick={() => {
+              if (!setShowCarouselChat) return
+              setShowCarouselChat((prev) => !prev)
+            }}
+          >
+            <ShopIcon size='25' viewBox='0 0 170 170' />
           </div>
         )}
         <div
