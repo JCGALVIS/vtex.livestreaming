@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 
 import { currencyFormat } from '../../utils'
-import ProductVariationButton from '../ProductsButton/ProductVariationButton'
-import ProductButton from '../ProductsButton/ProductButton'
+import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
+import { ProductButton } from '../ProductsButton/ProductButton'
 import { ActionsContext } from '../../context/ActionsContext'
 
 import styles from './productSlider.css'

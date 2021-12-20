@@ -10,7 +10,7 @@ type SettingCtx = {
   isModalLive: boolean | undefined
   setIsModalLive: (isModalLive: boolean) => void
   wssStream?: string
-  showCarouselChat: boolean
+  showCarouselChat?: boolean
   setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
