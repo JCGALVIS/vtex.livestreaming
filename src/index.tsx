@@ -11,7 +11,7 @@ import {
   SettingProvider,
   useLivestreamingReducer,
   useSetLivestreaming,
-  useSetChatHistory,
+  useSetInfoFinalizedEvents,
   LivestreamingProvider
 } from './context'
 
@@ -31,11 +31,17 @@ export const Livestreaming = (props: LivestreamingProps) => {
     )
   }, [])
 
-  const { collectionId, isModalLive, setIsModalLive, wssStream, host } =
-    useLivestreamingConfig({
-      id: idLivestreaming,
-      account
-    })
+  const {
+    collectionId,
+    isModalLive,
+    setIsModalLive,
+    wssStream,
+    host,
+    playBackStartTime
+  } = useLivestreamingConfig({
+    id: idLivestreaming,
+    account
+  })
 
   const settingProps = {
     collectionId,
@@ -45,8 +51,14 @@ export const Livestreaming = (props: LivestreamingProps) => {
   }
 
   const [state, dispatch] = useLivestreamingReducer()
-  useSetLivestreaming(idLivestreaming, account, host, dispatch)
-  useSetChatHistory(idLivestreaming, account, dispatch)
+  useSetLivestreaming(
+    idLivestreaming,
+    account,
+    host,
+    playBackStartTime,
+    dispatch
+  )
+  useSetInfoFinalizedEvents(idLivestreaming, account, dispatch)
 
   useEffect(() => {
     const { isInGlobalPage } = props

@@ -9,7 +9,8 @@ import {
 
 import type { MediaPlayer, StreamPlayerType } from '../typings/MediaPlayer'
 import { getMobileOS } from '../utils'
-import { useLivestreamingContext } from '../context';
+import { useLivestreamingContext } from '../context'
+import { HightLightHistoryElement } from '../typings/livestreaming'
 
 type PlayerFuntionsProps = {
   mainContainer: React.RefObject<HTMLDivElement>
@@ -32,7 +33,15 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false)
   const [volume, setVolume] = useState<number>(100)
   const [progress, setProgress] = useState(0)
-  const { chatHistory, chat, handleSetChat } = useLivestreamingContext()
+  const {
+    chatHistory,
+    chat,
+    handleSetChat,
+    highlightHistory,
+    handleSetHightLight,
+    currentHightLightProductId,
+    playBackStartTime
+  } = useLivestreamingContext()
 
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
@@ -255,6 +264,11 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     player.attachHTMLVideoElement(videoEl.current)
     player.load(streamUrl)
     player.play()
+    setTimeout(() => {
+      if (videoEl.current) {
+        videoEl.current.currentTime = playBackStartTime
+      }
+    }, 500)
     player.setMuted(true)
 
     const vid = document.getElementById('player-video-el') as HTMLVideoElement
@@ -374,6 +388,19 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
       return false
     })
     if (JSON.stringify(chat) !== JSON.stringify(newChat)) handleSetChat(newChat)
+
+    const currentHightlight = highlightHistory.find(
+      (hightlight: HightLightHistoryElement) => {
+        const isShowInThisMoment =
+          videoEl.current &&
+          videoEl.current?.currentTime >= hightlight.joinSecond &&
+          videoEl.current?.currentTime < hightlight.outSecond
+
+        return isShowInThisMoment
+      }
+    )
+    if (currentHightlight?.productId !== currentHightLightProductId)
+      handleSetHightLight(currentHightlight?.productId || '')
   }
 
   return {

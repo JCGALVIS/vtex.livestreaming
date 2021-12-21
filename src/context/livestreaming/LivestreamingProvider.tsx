@@ -21,8 +21,19 @@ export const LivestreamingProvider = ({ children, value, dispatch }: Props) => {
     })
   }, [])
 
+  const handleSetHightLight = useCallback((productId: string) => {
+    dispatch({
+      type: 'SET_HIGHTLIGHT',
+      args: {
+        productId
+      }
+    })
+  }, [])
+
   return (
-    <LivestreamingContext.Provider value={{ ...value, handleSetChat }}>
+    <LivestreamingContext.Provider
+      value={{ ...value, handleSetChat, handleSetHightLight }}
+    >
       <LivestreamDispatchContext.Provider value={dispatch}>
         {children}
       </LivestreamDispatchContext.Provider>
