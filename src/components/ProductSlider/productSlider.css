@@ -166,6 +166,10 @@
   overflow: hidden;
 }
 
+.chatCarouselContainer  .productItemContent .picture .img {
+  height: 70px;
+}
+
 .horizontalProductListContent {
   display: flex;
   justify-content: space-around;
