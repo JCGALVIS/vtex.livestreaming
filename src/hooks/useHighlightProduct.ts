@@ -98,7 +98,7 @@ export const useHighlightProduct = ({
       : highlightProduct?.showProduct
 
     if (storageProducts && isShowProduct) {
-      const productId = objetProduct.id || highlightProduct?.productId
+      const productId = objetProduct.productId || highlightProduct?.productId
       handleSetProduct(productId)
 
       console.log('ssss', product)
