@@ -21,6 +21,7 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
   const [showCarouselChatButton, setShowCarouselChatButton] =
     useState<boolean>()
   const [host, setHost] = useState<string>('')
+  const [playBackStartTime, setPlayBackStartTime] = useState<number>(0)
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -49,6 +50,11 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
           setShowGifButton(data?.webClient?.showGif)
           setShowCarouselChatButton(data?.webClient?.showCarouselChat)
           setHost(data?.host)
+          if (data?.playBackStartTime && !isNaN(data?.playBackStartTime)) {
+            setPlayBackStartTime(data?.playBackStartTime)
+          } else {
+            setPlayBackStartTime(0)
+          }
         }
       })
     }
@@ -68,7 +74,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     status,
     showGifButton,
     showCarouselChatButton,
-    host
+    host,
+    playBackStartTime
   }
 }
 
