@@ -5,6 +5,7 @@ export const useSetLivestreaming = (
   idLivestreaming: string,
   account: string,
   host: string,
+  playBackStartTime: number,
   dispatch: Dispatch<Actions>
 ) => {
   useEffect(() => {
@@ -15,9 +16,10 @@ export const useSetLivestreaming = (
           idLivestreaming,
           account,
           host,
+          playBackStartTime
         }
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idLivestreaming, account, host])
+  }, [idLivestreaming, account, host, playBackStartTime])
 }

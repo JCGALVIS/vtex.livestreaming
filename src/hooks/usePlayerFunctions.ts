@@ -39,7 +39,8 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     handleSetChat,
     highlightHistory,
     handleSetHightLight,
-    currentHightLightProductId
+    currentHightLightProductId,
+    playBackStartTime
   } = useLivestreamingContext()
 
   const delay = (ms: number) =>
@@ -263,6 +264,11 @@ const usePlayerFunctions = (props: PlayerFuntionsProps) => {
     player.attachHTMLVideoElement(videoEl.current)
     player.load(streamUrl)
     player.play()
+    setTimeout(() => {
+      if (videoEl.current) {
+        videoEl.current.currentTime = playBackStartTime
+      }
+    }, 500)
     player.setMuted(true)
 
     const vid = document.getElementById('player-video-el') as HTMLVideoElement
