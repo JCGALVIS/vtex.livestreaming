@@ -173,6 +173,8 @@ export const StreamPlayer = ({
       style={
         isVerticalLayout && isModalLive && !detector && !isInGlobalPage
           ? { width: '25vw' }
+          : isModalLive && detector
+          ? { height: '100%', maxHeight: '100%' }
           : {}
       }
     >
