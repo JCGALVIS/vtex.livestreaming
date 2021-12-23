@@ -34,7 +34,8 @@ const HighlightProduct = ({
   const { product, showProduct } = useHighlightProduct({
     highlightProduct,
     collectionId,
-    originOfProducts
+    originOfProducts,
+    isFinalized
   })
 
   useEffect(() => {
