@@ -43,7 +43,7 @@
   margin-top: 0;
 }
 
-.liveChatPinnedMessage .chatArea {
+.messagesContainer .liveChatPinnedMessage .chatArea {
   height: auto !important;
 }
 
@@ -224,11 +224,11 @@
     height: 56px !important;
   }
 
-  .liveChatPinnedMessage {
+  .messagesContainer .liveChatPinnedMessage {
     width: 100% !important;
   }
 
-  .liveChatPinnedMessage .chatBubble {
+  .messagesContainer .liveChatPinnedMessage .chatBubble {
     box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
   }
 
@@ -386,6 +386,13 @@
   }
 }
 
+.messagesContainer {
+  flex: 1 1;
+  height: calc(100vh - 169px) !important;
+  overflow-y: hidden !important;
+  display: contents;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
   .gifIconContainer {
     display: flex;
@@ -398,6 +405,9 @@
   .activeChatCarousel {
     bottom: 140px;
     position: absolute;
+    flex: unset;
+    height: auto !important;
+    display: block;
   }
 
   .activeChatCarousel .chatArea{
