@@ -12,7 +12,7 @@
 
 .chatIncomingWrapper {
   position: absolute;
-  width: 65vw;
+  width: 100%;
   display: flex;
 }
 
@@ -415,5 +415,8 @@
   }
   .activeChatCarousel .liveChatPinnedMessage .chatArea {
     height: auto !important;
+  }
+  .chatIncomingWrapper {
+    width: 200px !important;
   }
 }
