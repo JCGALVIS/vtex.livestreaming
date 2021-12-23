@@ -299,60 +299,63 @@ export const Chat = ({
         </div>
       </div>
       <div className={styles.chatContent}>
-        {pinnedMessage && pinnedMessage?.data && IS_DESKTOP && (
-          <div className={styles.liveChatPinnedMessage}>
-            {MessageRenderer([pinnedMessage], true)}
-          </div>
-        )}
         <div
-          className={`${styles.chatArea} ${
-            showCarouselChat ? styles.activeChatCarousel : ''
+          className={`${
+            showCarouselChat && infoSocket?.showCarouselChatButton
+              ? styles.activeChatCarousel
+              : ''
           }`}
-          ref={chatAreaRef}
         >
-          {ChatMessages}
-        </div>
-
-        {pinnedMessage && pinnedMessage?.data && !IS_DESKTOP && (
-          <div className={styles.liveChatPinnedMessage}>
-            <div className={styles.chatArea}>
+          {pinnedMessage && pinnedMessage?.data && IS_DESKTOP && (
+            <div className={styles.liveChatPinnedMessage}>
               {MessageRenderer([pinnedMessage], true)}
             </div>
+          )}
+          <div className={styles.chatArea} ref={chatAreaRef}>
+            {ChatMessages}
           </div>
-        )}
 
-        {incoming && (
-          <div
-            className={styles.chatIncomingWrapper}
-            style={{
-              bottom: incomingPosition,
-              height: IS_DESKTOP ? 40 : 30,
-              justifyContent: IS_DESKTOP ? 'center' : 'flex-start'
-            }}
-          >
+          {pinnedMessage && pinnedMessage?.data && !IS_DESKTOP && (
+            <div className={styles.liveChatPinnedMessage}>
+              <div className={styles.chatArea}>
+                {MessageRenderer([pinnedMessage], true)}
+              </div>
+            </div>
+          )}
+
+          {incoming && (
             <div
-              role='button'
-              tabIndex={0}
-              onClick={handleIncoming}
-              onKeyDown={() => {}}
-              className={styles.chatIncomingContainer}
+              className={styles.chatIncomingWrapper}
               style={{
-                backgroundColor: IS_DESKTOP ? '#2e2e2e' : '#ffffff',
-                color: IS_DESKTOP ? '#f3f3f3' : '#585858'
+                bottom: incomingPosition,
+                height: IS_DESKTOP ? 40 : 30,
+                justifyContent: IS_DESKTOP ? 'center' : 'flex-start'
               }}
             >
-              <ArrowDown size={IS_DESKTOP ? 24 : 18} />
-              <span
+              <div
+                role='button'
+                tabIndex={0}
+                onClick={handleIncoming}
+                onKeyDown={() => {}}
+                className={styles.chatIncomingContainer}
                 style={{
-                  marginLeft: 5,
-                  fontSize: IS_DESKTOP ? 'unset' : '12px'
+                  backgroundColor: IS_DESKTOP ? '#2e2e2e' : '#ffffff',
+                  color: IS_DESKTOP ? '#f3f3f3' : '#585858'
                 }}
               >
-                {formatMessage({ id: 'store/text.unread-messages' })}
-              </span>
+                <ArrowDown size={IS_DESKTOP ? 24 : 18} />
+                <span
+                  style={{
+                    marginLeft: 5,
+                    fontSize: IS_DESKTOP ? 'unset' : '12px'
+                  }}
+                >
+                  {formatMessage({ id: 'store/text.unread-messages' })}
+                </span>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {showLoginWindow && (
           <Login

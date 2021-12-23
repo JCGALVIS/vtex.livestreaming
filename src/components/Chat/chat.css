@@ -399,4 +399,11 @@
     bottom: 140px;
     position: absolute;
   }
+
+  .activeChatCarousel .chatArea{
+    height: 13vh !important;
+  }
+  .activeChatCarousel .liveChatPinnedMessage .chatArea {
+    height: auto !important;
+  }
 }

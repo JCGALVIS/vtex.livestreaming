@@ -164,10 +164,7 @@
   height: auto;
   width: 100%;
   overflow: hidden;
-}
-
-.chatCarouselContainer  .productItemContent .picture .img {
-  height: 70px;
+  height: 60px;
 }
 
 .horizontalProductListContent {
