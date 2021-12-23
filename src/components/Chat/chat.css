@@ -12,7 +12,7 @@
 
 .chatIncomingWrapper {
   position: absolute;
-  width: 100%;
+  width: 65vw;
   display: flex;
 }
 
