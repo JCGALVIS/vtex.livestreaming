@@ -117,15 +117,7 @@ input[type='text']:focus {
 }
 
 .playerVideoMobileCarouselButtonPosition {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: flex-start;
-  color: #ffffff;
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 4;
-  grid-row-end: 5;
+  display: none;
 }
 
 .playerVideoMobileCarouselButtonPosition svg {
@@ -450,5 +442,20 @@ input[type='text']:focus {
 @media only screen and (min-device-width: 320px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
   .playerVideoHover {
     display: none !important;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+  .playerVideoMobileCarouselButtonPosition {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: flex-start;
+    color: #ffffff;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 5;
   }
 }
