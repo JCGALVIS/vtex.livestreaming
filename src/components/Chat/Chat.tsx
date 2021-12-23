@@ -300,10 +300,8 @@ export const Chat = ({
       </div>
       <div className={styles.chatContent}>
         <div
-          className={`${
-            showCarouselChat && infoSocket?.showCarouselChatButton
-              ? styles.activeChatCarousel
-              : ''
+          className={`${styles.messagesContainer} ${
+            showCarouselChat ? styles.activeChatCarousel : ''
           }`}
         >
           {pinnedMessage && pinnedMessage?.data && IS_DESKTOP && (
