@@ -8,12 +8,14 @@ type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
   originOfProducts: string | undefined
+  isFinalized: boolean
 }
 
 export const useHighlightProduct = ({
   highlightProduct,
   collectionId,
-  originOfProducts
+  originOfProducts,
+  isFinalized
 }: useHighlightProductProps) => {
   const [product, setProduct] = useState({
     id: '',
@@ -29,11 +31,7 @@ export const useHighlightProduct = ({
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
   const { account, host } = useLivestreamingContext()
 
-  const handleSetProduct = (productId: string) => {
-    const storageProducts = localStorage.getItem('products')
-
-    if (!storageProducts) return
-
+  const handleSetProduct = (productId: string, storageProducts: string) => {
     const products = JSON.parse(storageProducts)
 
     const product = products.find(
@@ -55,7 +53,11 @@ export const useHighlightProduct = ({
     }
   }
 
-  useShowHightlightsForFinishedEvents(handleSetProduct, setShowProduct)
+  useShowHightlightsForFinishedEvents(
+    handleSetProduct,
+    setShowProduct,
+    isFinalized
+  )
 
   useEffect(() => {
     if (highlightProduct?.backgroundWhiteHighlight) return
@@ -99,9 +101,8 @@ export const useHighlightProduct = ({
 
     if (storageProducts && isShowProduct) {
       const productId = objetProduct.productId || highlightProduct?.productId
-      handleSetProduct(productId)
+      handleSetProduct(productId, storageProducts)
 
-      console.log('ssss', product)
       if (product) setShowProduct(isShowProduct)
     } else {
       setShowProduct(isShowProduct)
