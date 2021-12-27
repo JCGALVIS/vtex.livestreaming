@@ -75,6 +75,8 @@ export const MobileControls = (props: PlayerControls) => {
         <ChatCarousel
           transmitionType={transmitionType}
           setShowVariation={setShowVariation}
+          fullScreen={fullScreen}
+          handleFullScreen={handleFullScreenMobile}
         />
       )}
       {firstTimeMuted ? (
