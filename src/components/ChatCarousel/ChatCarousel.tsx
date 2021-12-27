@@ -11,9 +11,15 @@ import { Spinner } from '../commonComponents'
 type ChatCarouselProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
+  fullScreen: boolean
+  handleFullScreen: () => void
 }
 
-export const ChatCarousel = ({ setShowVariation }: ChatCarouselProps) => {
+export const ChatCarousel = ({
+  setShowVariation,
+  fullScreen,
+  handleFullScreen
+}: ChatCarouselProps) => {
   // const [selectedProductIndex, setSelectedProductIndex] = useState(0)
 
   const { collectionId } = useContext(SettingContext)
@@ -36,6 +42,8 @@ export const ChatCarousel = ({ setShowVariation }: ChatCarouselProps) => {
               originOfProducts={originOfProducts}
               setShowVariation={setShowVariation}
               sectionIdClickedOn='live_shopping_carousel'
+              fullScreen={fullScreen}
+              handleFullScreen={handleFullScreen}
             />
           </div>
         ))}

@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 
-import { currencyFormat } from '../../utils'
-import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
-import { ProductButton } from '../ProductsButton/ProductButton'
+import { addToCart, currencyFormat } from '../../utils'
 import { ActionsContext } from '../../context/ActionsContext'
 
 import styles from './productSlider.css'
@@ -20,6 +18,8 @@ type ChatCarouselProductItemProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   skuId: string
   sectionIdClickedOn?: string
+  fullScreen: boolean
+  handleFullScreen: () => void
 }
 
 export const ChatCarouselProductItem = (
@@ -27,31 +27,31 @@ export const ChatCarouselProductItem = (
 ) => {
   const {
     id,
-    name,
     priceWithDiscount,
     imageUrl,
-    addToCartLink,
-    isAvailable,
-    pdpLink,
-    variationSelector,
     setShowVariation,
-    skuId,
-    sectionIdClickedOn
+    fullScreen,
+    handleFullScreen
   } = props
 
   const {
-    setting: { isInGlobalPage, showQuickView }
+    setting: { isInGlobalPage, showQuickView, redirectTo }
   } = useContext(ActionsContext)
 
   return (
-    <div className={styles.productItemContent}>
+    <div
+      onClick={() => {
+        if (fullScreen) handleFullScreen()
+        if (showQuickView) {
+          setShowVariation(id)
+        } else {
+          addToCart(id, redirectTo, isInGlobalPage, showQuickView)
+        }
+      }}
+      className={styles.productItemContent}
+    >
       <div className={styles.pictureContent}>
-        <a
-          className={styles.productLink}
-          href={pdpLink}
-          target='_blank'
-          rel='noreferrer'
-        >
+        <a className={styles.productLink} href='#'>
           <img className={styles.picture} src={imageUrl} />
         </a>
       </div>
@@ -59,28 +59,6 @@ export const ChatCarouselProductItem = (
         <span className={styles.priceWithDiscount}>
           {currencyFormat(priceWithDiscount)}
         </span>
-      </div>
-      <div className={styles.productAddCartContent}>
-        {variationSelector.length === 0 || isInGlobalPage || !showQuickView ? (
-          <ProductButton
-            addToCartLink={
-              isInGlobalPage || !showQuickView ? pdpLink : addToCartLink
-            }
-            imageUrl={imageUrl}
-            isAvailable={isAvailable}
-            productId={skuId}
-            productName={name}
-            sectionIdClickedOn={sectionIdClickedOn}
-          />
-        ) : (
-          <ProductVariationButton
-            isAvailable={isAvailable}
-            productId={id}
-            setShowVariation={setShowVariation}
-            sectionIdClickedOn={sectionIdClickedOn}
-            productName={name}
-          />
-        )}
       </div>
     </div>
   )
