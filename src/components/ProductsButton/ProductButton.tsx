@@ -11,6 +11,7 @@ type ProductButtonProps = {
   imageUrl: string
   isAvailable: boolean
   productId: string
+  id?: string
   productName?: string
   sectionIdClickedOn?: string
 }
@@ -22,6 +23,7 @@ export const ProductButton = (props: ProductButtonProps) => {
     imageUrl,
     isAvailable,
     productId,
+    id,
     productName,
     sectionIdClickedOn
   } = props
@@ -75,7 +77,7 @@ export const ProductButton = (props: ProductButtonProps) => {
       </button>
       <div>
         <a
-          id={`add-cart-${productId}`}
+          id={`add-cart-${id??productId}`}
           className='add-cart'
           target='_blank'
           rel='noreferrer'
