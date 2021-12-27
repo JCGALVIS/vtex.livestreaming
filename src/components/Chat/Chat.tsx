@@ -325,7 +325,7 @@ export const Chat = ({
             <div
               className={styles.chatIncomingWrapper}
               style={{
-                bottom: incomingPosition,
+                bottom: showCarouselChat ? 0 : incomingPosition,
                 height: IS_DESKTOP ? 40 : 30,
                 justifyContent: IS_DESKTOP ? 'center' : 'flex-start'
               }}
