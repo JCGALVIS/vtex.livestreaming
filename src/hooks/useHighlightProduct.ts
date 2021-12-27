@@ -29,7 +29,7 @@ export const useHighlightProduct = ({
     pdpLink: ''
   })
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
-  const { account, host } = useLivestreamingContext()
+  const { account, host, idLivestreaming } = useLivestreamingContext()
 
   const handleSetProduct = (productId: string, storageProducts: string) => {
     const products = JSON.parse(storageProducts)
@@ -94,7 +94,11 @@ export const useHighlightProduct = ({
       )
     }
 
-    const objetProduct = storageProduct && JSON.parse(storageProduct)
+    let objetProduct = storageProduct && JSON.parse(storageProduct)
+    if (`${objetProduct?.idLivestreaming}` !== idLivestreaming) {
+      objetProduct = null
+    }
+
     const isShowProduct = objetProduct
       ? objetProduct.showProduct
       : highlightProduct?.showProduct
