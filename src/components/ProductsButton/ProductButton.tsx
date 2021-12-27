@@ -77,7 +77,7 @@ export const ProductButton = (props: ProductButtonProps) => {
       </button>
       <div>
         <a
-          id={`add-cart-${id??productId}`}
+          id={`add-cart-${id == null ? productId : id}`}
           className='add-cart'
           target='_blank'
           rel='noreferrer'
