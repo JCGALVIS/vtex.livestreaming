@@ -1,0 +1,69 @@
+.alertContainer {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.alertContent {
+  display: flex !important;
+  align-items: center;
+  position: relative;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  width: fit-content;
+}
+
+.alertContent svg {
+  margin-right: 10px;
+}
+
+.success {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+.info {
+  color: #084298;
+  background-color: #cfe2ff;
+  border-color: #b6d4fe;
+}
+
+.warning {
+  color: #664d03;
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+}
+
+.error {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.buttonClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: 1px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  color: #000;
+  border: 0;
+  border-radius: 0.25rem;
+  opacity: 0.5;
+  background: transparent;
+  cursor: pointer;
+}
+
+.buttonClose svg {
+  margin: 0;
+}
