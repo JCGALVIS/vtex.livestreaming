@@ -82,7 +82,13 @@ const HighlightProduct = ({
               if (showQuickView) {
                 setShowVariation(product.id)
               } else {
-                addToCart(product.id, redirectTo, isInGlobalPage, showQuickView)
+                addToCart(
+                  product.id,
+                  redirectTo,
+                  isInGlobalPage,
+                  showQuickView,
+                  product.id
+                )
               }
             }}
           >
