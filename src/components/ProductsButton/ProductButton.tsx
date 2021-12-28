@@ -57,7 +57,13 @@ export const ProductButton = (props: ProductButtonProps) => {
             socket.send(JSON.stringify(sendLike))
           }
 
-          addToCart(productId, redirectTo, isInGlobalPage, showQuickView)
+          addToCart(
+            productId,
+            redirectTo,
+            isInGlobalPage,
+            showQuickView,
+            id == null ? productId : id
+          )
 
           if (handleClose) handleClose()
           if (!sectionIdClickedOn) return
