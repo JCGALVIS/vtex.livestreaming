@@ -3,13 +3,11 @@ import IconCopy from '@vtex/styleguide/lib/icon/Copy'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from '../icons'
 import copyTextToClipboard from '../../utils/copy'
-import { useLivestreamingContext } from '../../context'
-import { getUrlToShareLivestreaming } from '../../utils'
 import styles from './style.css'
 
 const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
-  const { account, idLivestreaming } = useLivestreamingContext()
-  const url = getUrlToShareLivestreaming(account, idLivestreaming)
+  const { origin, pathname } = window.location
+  const url = origin + pathname
 
   const urlshareSocial = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
