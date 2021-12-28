@@ -81,7 +81,7 @@ export const ProductItem = (props: ProductItemProps) => {
               imageUrl={imageUrl}
               isAvailable={isAvailable}
               productId={skuId}
-              id={skuId}
+              id={id}
               productName={name}
               sectionIdClickedOn={sectionIdClickedOn}
             />
