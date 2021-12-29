@@ -419,4 +419,8 @@
   .chatIncomingWrapper {
     width: 200px !important;
   }
+
+  .messagesContainer {
+    min-width: 200px;
+  }
 }

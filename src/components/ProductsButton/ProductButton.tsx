@@ -11,6 +11,7 @@ type ProductButtonProps = {
   imageUrl: string
   isAvailable: boolean
   productId: string
+  id?: string
   productName?: string
   sectionIdClickedOn?: string
 }
@@ -22,6 +23,7 @@ export const ProductButton = (props: ProductButtonProps) => {
     imageUrl,
     isAvailable,
     productId,
+    id,
     productName,
     sectionIdClickedOn
   } = props
@@ -59,7 +61,8 @@ export const ProductButton = (props: ProductButtonProps) => {
             productId,
             redirectTo,
             isInGlobalPage,
-            showQuickView
+            showQuickView,
+            id == null ? productId : id
           )
 
           if (setMessageAlert) setMessageAlert(returnMessage)
@@ -82,7 +85,7 @@ export const ProductButton = (props: ProductButtonProps) => {
       </button>
       <div>
         <a
-          id={`add-cart-${productId}`}
+          id={`add-cart-${id == null ? productId : id}`}
           className='add-cart'
           target='_blank'
           rel='noreferrer'

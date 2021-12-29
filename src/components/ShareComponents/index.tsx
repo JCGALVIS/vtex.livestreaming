@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import IconCopy from '@vtex/styleguide/lib/icon/Copy'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from '../icons'
 import copyTextToClipboard from '../../utils/copy'
-
+import { ActionsContext } from '../../context'
+import { getCorrectUrlToShare } from '../../utils/getCorrectUrlToShare'
 import styles from './style.css'
 
 const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
-  const { origin, pathname } = window.location
-  const url = origin + pathname
+  const { setting } = useContext(ActionsContext)
+  const { account, idLivestreaming, isInGlobalPage } = { ...setting }
+  const url = getCorrectUrlToShare(account, idLivestreaming, isInGlobalPage)
+
   const urlshareSocial = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
     twitter: `https://twitter.com/intent/tweet?url=${url}`,
