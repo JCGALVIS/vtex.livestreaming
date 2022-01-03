@@ -17,9 +17,9 @@ export const addToCart = (
       seller: '1'
     }
 
-    // window.vtexjs.checkout.addToCart([item], null, 1).done(() => {
-    //   message = 'PRODUCTO AGREGADO AL CARRITO!'
-    // })
+    window.vtexjs.checkout.addToCart([item], null, 1).done(() => {
+      message = 'PRODUCTO AGREGADO AL CARRITO!'
+    })
     message = 'PRODUCTO AGREGADO AL CARRITO!' + item
   }
 
