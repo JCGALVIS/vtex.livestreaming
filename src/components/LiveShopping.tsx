@@ -26,7 +26,6 @@ import type { Message } from './../typings/livestreaming'
 
 import styles from './../styles.module.css'
 import styles2 from './liveShopping.css'
-import { Alert } from './commonComponents'
 type MarketingData = {
   utmSource: string | undefined
 }
@@ -222,7 +221,6 @@ export const LiveShopping = (props: LiveShoppingProps) => {
         isModalLive && !isInGlobalPage && styles2.livestreamingPopoup
       }`}
     >
-      <Alert />
       <div
         className={`${styles2.livestreamingContainer} ${
           isModalLive && !isInGlobalPage && styles2.livestreamingPopoupContainer

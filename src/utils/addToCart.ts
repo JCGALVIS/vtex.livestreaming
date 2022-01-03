@@ -5,11 +5,9 @@ export const addToCart = (
   showQuickView: boolean,
   id: string
 ) => {
-  let message = ''
   if (redirectTo || isInGlobalPage || !showQuickView) {
     const link = document.getElementById(`add-cart-${id}`)
     if (link) link.click()
-    message = ''
   } else {
     var item = {
       id: idProduct,
@@ -18,10 +16,7 @@ export const addToCart = (
     }
 
     window.vtexjs.checkout.addToCart([item], null, 1).done(() => {
-      message = 'PRODUCTO AGREGADO AL CARRITO!'
+      alert('PRODUCTO AGREGADO AL CARRITO!')
     })
-    message = 'PRODUCTO AGREGADO AL CARRITO!'
   }
-
-  return message
 }
