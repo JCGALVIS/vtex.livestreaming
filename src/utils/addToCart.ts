@@ -20,7 +20,7 @@ export const addToCart = (
     window.vtexjs.checkout.addToCart([item], null, 1).done(() => {
       message = 'PRODUCTO AGREGADO AL CARRITO!'
     })
-    message = 'PRODUCTO AGREGADO AL CARRITO!' + item
+    message = 'PRODUCTO AGREGADO AL CARRITO!'
   }
 
   return message
