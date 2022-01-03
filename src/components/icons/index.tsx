@@ -16,7 +16,6 @@ import PictureAndPictureIcon from './PictureAndPictureIcon'
 import PlayIcon from './PlayIcon'
 import ProfileIcon from './ProfileIcon'
 import Send from './Send'
-import Success from './Success'
 import VerticalDots from './VerticalDots'
 import ViewersIcon from './ViewersIcon'
 import VolumeOffIcon from './VolumeOffIcon'
@@ -24,7 +23,6 @@ import VolumeUpIcon from './VolumeUpIcon'
 import PinIcon from './PinIcon'
 import ShareIcon from './ShareIcon'
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from './SocialsIcons'
-import Warning from './Warning'
 
 export {
   ArrowDown,
@@ -45,7 +43,6 @@ export {
   PlayIcon,
   ProfileIcon,
   Send,
-  Success,
   VerticalDots,
   ViewersIcon,
   VolumeOffIcon,
@@ -54,6 +51,5 @@ export {
   ShareIcon,
   FacebookIcon,
   TwitterIcon,
-  WhatsappIcon,
-  Warning
+  WhatsappIcon
 }

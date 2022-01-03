@@ -28,7 +28,7 @@ export const ProductButton = (props: ProductButtonProps) => {
     sectionIdClickedOn
   } = props
 
-  const { infoSocket, setMessageAlert } = useContext(SettingContext)
+  const { infoSocket } = useContext(SettingContext)
 
   const { socket } = infoSocket || {}
 
@@ -57,15 +57,13 @@ export const ProductButton = (props: ProductButtonProps) => {
             socket.send(JSON.stringify(sendLike))
           }
 
-          const returnMessage = addToCart(
+          addToCart(
             productId,
             redirectTo,
             isInGlobalPage,
             showQuickView,
             id == null ? productId : id
           )
-
-          if (setMessageAlert) setMessageAlert(returnMessage)
 
           if (handleClose) handleClose()
           if (!sectionIdClickedOn) return

@@ -8,11 +8,9 @@ type SettingCtx = {
   collectionId?: string
   infoSocket?: InfoSocket
   isModalLive: boolean | undefined
-  messageAlert?: string
   setIsModalLive: (isModalLive: boolean) => void
   wssStream?: string
   showCarouselChat?: boolean
-  setMessageAlert?: React.Dispatch<React.SetStateAction<string>>
   setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -33,16 +31,13 @@ export const SettingProvider: FC<SettingCtx> = ({
 }) => {
   const infoSocket = useWebSocket({ wssStream })
   const [showCarouselChat, setShowCarouselChat] = useState(false)
-  const [messageAlert, setMessageAlert] = useState('')
 
   const contex: SettingCtx = {
     collectionId,
     infoSocket,
     isModalLive,
-    messageAlert,
     setIsModalLive,
     showCarouselChat,
-    setMessageAlert,
     setShowCarouselChat
   }
   return (

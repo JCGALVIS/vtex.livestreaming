@@ -45,7 +45,7 @@ export const ChatCarouselProductItem = (
         if (showQuickView) {
           setShowVariation(id)
         } else {
-          addToCart(id, redirectTo, isInGlobalPage, showQuickView, id)
+          addToCart(id, redirectTo, isInGlobalPage, showQuickView)
         }
       }}
       className={styles.productItemContent}
