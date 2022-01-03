@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { SettingContext } from '../../../context'
 import { Close, Info, Success, Warning } from '../../icons'
 
@@ -23,16 +23,21 @@ const AlertIcon = (props: AlertProps) => {
 
 export const Alert = (props: AlertProps) => {
   const { message, type } = props
+  const [textOfMessage, setTextOfMessage] = useState<string | undefined>('')
 
   const { messageAlert, setMessageAlert } = useContext(SettingContext)
 
-  useEffect(() => {
-    console.log('messageAlert: ', messageAlert)
-  }, [messageAlert])
-
   const typeDefault = type || 'success'
 
-  const textOfMessage = message || messageAlert
+  useEffect(() => {
+    if (message || messageAlert) {
+      setTextOfMessage(message || messageAlert)
+      setTimeout(() => {
+        if (setMessageAlert) setMessageAlert('')
+        setTextOfMessage('')
+      }, 5000)
+    }
+  }, [message, messageAlert])
 
   return textOfMessage && textOfMessage.length > 0 ? (
     <div className={styles.alertContainer}>
