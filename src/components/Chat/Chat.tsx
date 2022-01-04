@@ -367,46 +367,48 @@ export const Chat = ({
         )}
 
         <ModalQuestion />
-        <div>
-          <GiphySearch showGif={showGif} sendGif={handlerSendMessage} />
-          <form
-            onSubmit={handlerSendMessage}
-            className={styles.inputChatContent}
-            ref={formContainer}
-          >
-            <div className={styles.inputContent}>
-              <input
-                className={styles.inputTextChat}
-                placeholder={formatMessage({
-                  id: 'store/text.chat-placeholder'
-                })}
-                name='content'
-                type='text'
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setContent(e.target.value)
-                }
-                onFocus={() =>
-                  setShowLoginWindow(!userIsLoggedInChat && sendFirstMessage)
-                }
-                value={content}
-                autoComplete='off'
-              />
-            </div>
-            <div className={styles.buttonsChat}>
-              {showGifButton && (
-                <span
-                  onClick={handleShowGif}
-                  className={styles.gifIconContainer}
-                >
-                  <GifIcon viewBox='0 0 22 10' size='25' />
-                </span>
-              )}
-              <button type='submit' className={styles.btn}>
-                <SendIcon size='21' viewBox='0 0 21 21' />
-              </button>
-            </div>
-          </form>
-        </div>
+        {socket && (
+          <div>
+            <GiphySearch showGif={showGif} sendGif={handlerSendMessage} />
+            <form
+              onSubmit={handlerSendMessage}
+              className={styles.inputChatContent}
+              ref={formContainer}
+            >
+              <div className={styles.inputContent}>
+                <input
+                  className={styles.inputTextChat}
+                  placeholder={formatMessage({
+                    id: 'store/text.chat-placeholder'
+                  })}
+                  name='content'
+                  type='text'
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setContent(e.target.value)
+                  }
+                  onFocus={() =>
+                    setShowLoginWindow(!userIsLoggedInChat && sendFirstMessage)
+                  }
+                  value={content}
+                  autoComplete='off'
+                />
+              </div>
+              <div className={styles.buttonsChat}>
+                {showGifButton && (
+                  <span
+                    onClick={handleShowGif}
+                    className={styles.gifIconContainer}
+                  >
+                    <GifIcon viewBox='0 0 22 10' size='25' />
+                  </span>
+                )}
+                <button type='submit' className={styles.btn}>
+                  <SendIcon size='21' viewBox='0 0 21 21' />
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   )
