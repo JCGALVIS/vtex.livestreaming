@@ -3,7 +3,7 @@ export const getCorrectUrlToShare = (
   idLivestreaming: string,
   isInGlobalPage: boolean
 ) => {
-  const { origin, pathname, href } = window.location
+  const { origin, pathname, href, search } = window.location
   let url = ''
 
   if (isInGlobalPage) {
@@ -22,6 +22,8 @@ export const getCorrectUrlToShare = (
     const isLivePathAtEnd =
       href.indexOf(livePath) == href.length - livePath.length
     url = isLivePathAtEnd ? href : href + livePath
+  } else if (search && !isInGlobalPage) {
+    url = origin + pathname + search
   } else {
     url = origin + pathname
   }
