@@ -21,9 +21,7 @@ export const getCorrectUrlToShare = (
     }
     const isLivePathAtEnd =
       href.indexOf(livePath) == href.length - livePath.length
-    url = isLivePathAtEnd ? href : href + livePath
-  } else if (search && !isInGlobalPage) {
-    url = origin + pathname + search
+    url = isLivePathAtEnd ? href : href + livePath + search
   } else {
     url = origin + pathname
   }
