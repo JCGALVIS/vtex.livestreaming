@@ -128,7 +128,7 @@ const getProductsPlatform = async () => {
         isAvailable: product.status === 'active',
         variationSelector: [],
         pdpLink: product.link,
-        skuId: product.items[0].itemId
+        skuId: product.id
       }
     })
     return products

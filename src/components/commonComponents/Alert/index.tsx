@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
+
 import { SettingContext } from '../../../context'
 import { Close, Info, Success, Warning } from '../../icons'
 
@@ -42,10 +44,13 @@ export const Alert = (props: AlertProps) => {
   return textOfMessage && textOfMessage.length > 0 ? (
     <div className={styles.alertContainer}>
       <div className={`${styles.alertContent} ${styles[typeDefault]}`}>
-        <AlertIcon type={typeDefault} /> {textOfMessage}
+        <AlertIcon type={typeDefault} /> <FormattedMessage id={textOfMessage} />
         <button
           className={styles.buttonClose}
-          onClick={() => setMessageAlert && setMessageAlert('')}
+          onClick={() => {
+            if (setMessageAlert) setMessageAlert('')
+            setTextOfMessage('')
+          }}
         >
           <Close size='16' viewBox='0 0 400 400' />
         </button>
