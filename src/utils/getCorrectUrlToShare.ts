@@ -5,10 +5,11 @@ export const getCorrectUrlToShare = (
 ) => {
   let url = ''
   let livePath = ''
-  const { origin, pathname, href, search } = window.location
+  const { href, pathname } = window.location
   const slash = href[href.length - 1] === '/' ? '' : '/'
   const hasAccount = href.indexOf(account) >= 0 || href.indexOf('account') >= 0
   const hasIdLive = href.indexOf(idLivestreaming) >= 0
+  const isPreview = href.indexOf('preview') >= 0
   if (isInGlobalPage) {
     if (hasAccount && hasIdLive) {
       livePath = ''
@@ -17,9 +18,9 @@ export const getCorrectUrlToShare = (
     } else if (!hasAccount) {
       livePath = `${slash}account/${idLivestreaming}`
     }
-    const isLivePathAtEnd =
-      href.indexOf(livePath) === href.length - livePath.length
-    url = isLivePathAtEnd ? href : href + livePath + search
+    url = href + livePath
+  } else if (isPreview) {
+    url = href
   } else {
     url = origin + pathname
   }
