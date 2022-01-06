@@ -13,7 +13,6 @@ type FeedProps = {
   streamUrl: string | undefined
   transmitionType: string | undefined
   livestreamingStatus: string
-  showCarouselChatButton: boolean | undefined
 }
 
 export const Feed = ({
@@ -21,8 +20,7 @@ export const Feed = ({
   setShowVariation,
   streamUrl,
   transmitionType,
-  livestreamingStatus,
-  showCarouselChatButton
+  livestreamingStatus
 }: FeedProps) => {
   const { infoSocket, isModalLive } = useContext(SettingContext)
   const {
@@ -101,7 +99,6 @@ export const Feed = ({
           setShowVariation={setShowVariation}
           transmitionType={transmitionType}
           isFinalized={isFinalized}
-          showCarouselChatButton={showCarouselChatButton}
         />
       ) : (
         <NoVideo isLive={isLive} liveStatus={liveStatus} />
