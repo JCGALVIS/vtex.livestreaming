@@ -186,6 +186,20 @@ export const getProductById = async ({
   return product
 }
 
+const setCorrectAddToCartLink = (
+  data?: any,
+  account?: string,
+  host?: string
+) => {
+  if (data[0]?.items[0].sellers[0].addToCartLink) {
+    const seller = data[0]?.items[0].sellers[0]
+    seller.addToCartLink = data[0]?.items[0].sellers[0].addToCartLink.replace(
+      `${account}.myvtex.com`,
+      host ? host : ''
+    )
+  }
+}
+
 const getProductByIdCace = async ({
   productId,
   account,
@@ -196,13 +210,7 @@ const getProductByIdCace = async ({
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
-    if (data[0]?.items[0].sellers[0].addToCartLink) {
-      const seller = data[0]?.items[0].sellers[0]
-      seller.addToCartLink = data[0]?.items[0].sellers[0].addToCartLink.replace(
-        `${account}.myvtex.com`,
-        host ? host : ''
-      )
-    }
+    setCorrectAddToCartLink(data, account, host)
 
     const product = {
       id: data[0]?.productId,
@@ -237,13 +245,7 @@ const getProductByIdVtex = async ({
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
-    if (data[0]?.items[0].sellers[0].addToCartLink) {
-      const seller = data[0]?.items[0].sellers[0]
-      seller.addToCartLink = data[0]?.items[0].sellers[0].addToCartLink.replace(
-        `${account}.myvtex.com`,
-        host ? host : ''
-      )
-    }
+    setCorrectAddToCartLink(data, account, host)
 
     const product = {
       id: data[0]?.productId,
@@ -276,13 +278,7 @@ const getProductByIdGlobalPage = async ({
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
-    if (data[0]?.items[0].sellers[0].addToCartLink) {
-      const seller = data[0]?.items[0].sellers[0]
-      seller.addToCartLink = data[0]?.items[0].sellers[0].addToCartLink.replace(
-        `${account}.myvtex.com`,
-        host ? host : ''
-      )
-    }
+    setCorrectAddToCartLink(data, account, host)
 
     const product = {
       id: data[0]?.productId,
