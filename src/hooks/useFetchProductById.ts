@@ -14,12 +14,12 @@ export const useFetchProductById = ({
 }: useFetchProductById) => {
   const [product, setProduct] = useState<Products>()
   const [loading, setLoading] = useState<boolean>(false)
-  const { account } = useLivestreamingContext()
+  const { account, host } = useLivestreamingContext()
 
   useEffect(() => {
     setLoading(false)
     if (productId) {
-      getProductById({ productId, originOfProducts, account }).then(
+      getProductById({ productId, originOfProducts, account, host }).then(
         (respon: any) => {
           if (respon) {
             setProduct(respon)

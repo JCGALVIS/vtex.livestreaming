@@ -169,28 +169,49 @@ const getProductsGlobalPage = async ({
 export const getProductById = async ({
   productId,
   originOfProducts,
-  account
+  account,
+  host
 }: GetProductsProps) => {
   let product
 
   if (originOfProducts === 'CACE') {
     // Eliminar terminado el evento CACE
-    product = getProductByIdCace({ productId })
+    product = getProductByIdCace({ productId, account, host })
   } else if (originOfProducts === 'globalPage') {
-    product = getProductByIdGlobalPage({ productId, account })
+    product = getProductByIdGlobalPage({ productId, account, host })
   } else {
-    product = getProductByIdVtex({ productId })
+    product = getProductByIdVtex({ productId, account, host })
   }
 
   return product
 }
 
-const getProductByIdCace = async ({ productId }: GetProductsProps) => {
+const setCorrectAddToCartLink = (
+  data?: any,
+  account?: string,
+  host?: string
+) => {
+  if (data[0]?.items[0].sellers[0].addToCartLink) {
+    const seller = data[0]?.items[0].sellers[0]
+    seller.addToCartLink = data[0]?.items[0].sellers[0].addToCartLink.replace(
+      `${account}.myvtex.com`,
+      host ? host : ''
+    )
+  }
+}
+
+const getProductByIdCace = async ({
+  productId,
+  account,
+  host
+}: GetProductsProps) => {
   const url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://livestreamingdemo.myvtex.com/api/catalog_system/pub/products/search?fq=productId:${productId}`
 
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
+    setCorrectAddToCartLink(data, account, host)
+
     const product = {
       id: data[0]?.productId,
       name: data[0]?.productName,
@@ -214,12 +235,18 @@ const getProductByIdCace = async ({ productId }: GetProductsProps) => {
   return null
 }
 
-const getProductByIdVtex = async ({ productId }: GetProductsProps) => {
+const getProductByIdVtex = async ({
+  productId,
+  account,
+  host
+}: GetProductsProps) => {
   const url = `/api/catalog_system/pub/products/search?fq=productId:${productId}`
 
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
+    setCorrectAddToCartLink(data, account, host)
+
     const product = {
       id: data[0]?.productId,
       name: data[0]?.productName,
@@ -243,13 +270,16 @@ const getProductByIdVtex = async ({ productId }: GetProductsProps) => {
 
 const getProductByIdGlobalPage = async ({
   productId,
-  account
+  account,
+  host
 }: GetProductsProps) => {
   const url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://${account}.myvtex.com/api/catalog_system/pub/products/search?fq=productId:${productId}`
 
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
+    setCorrectAddToCartLink(data, account, host)
+
     const product = {
       id: data[0]?.productId,
       name: data[0]?.productName,
