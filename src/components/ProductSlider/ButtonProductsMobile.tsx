@@ -12,9 +12,9 @@ type SliderProductsMobileProps = {
 export const ButtonProductsMobile = ({
   setShowSliderProducts
 }: SliderProductsMobileProps) => {
-  const { collectionId } = useContext(SettingContext)
+  const { collectionId, showCarouselChatButton } = useContext(SettingContext)
 
-  return collectionId ? (
+  return collectionId && !showCarouselChatButton ? (
     <button
       className={styles.buttonMobile}
       onClick={() => setShowSliderProducts(true)}

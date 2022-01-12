@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext } from 'react'
 
 import { getMobileOS } from '../../../utils'
 import {
@@ -23,11 +23,8 @@ import ShopIcon from './../../icons/ShopIcon'
 import { SettingContext } from '../../../context'
 
 export const MobileControls = (props: PlayerControls) => {
-  const { showCarouselChat, setShowCarouselChat } = useContext(SettingContext)
-  const { infoSocket } = useContext(SettingContext)
-  const [fisrtLoad, setFirstLoad] = useState(true)
-  const [showCarouselChatButtonLocal, setShowCarouselChatButtonLocal] =
-    useState<boolean>()
+  const { showCarouselChat, setShowCarouselChat, showCarouselChatButton } =
+    useContext(SettingContext)
 
   const {
     BUFFERING,
@@ -51,27 +48,12 @@ export const MobileControls = (props: PlayerControls) => {
     handleOpenShare,
     isFinalized,
     transmitionType,
-    setShowVariation,
-    showCarouselChatButton
+    setShowVariation
   } = props
-
-  useEffect(() => {
-    if (fisrtLoad) {
-      if (showCarouselChatButton === undefined) return
-      setShowCarouselChatButtonLocal(showCarouselChatButton)
-      setFirstLoad(false)
-    } else {
-      if (infoSocket?.showCarouselChatButton === undefined) {
-        setShowCarouselChatButtonLocal(showCarouselChatButton)
-        return
-      }
-      setShowCarouselChatButtonLocal(infoSocket?.showCarouselChatButton)
-    }
-  }, [showCarouselChatButton, fisrtLoad, infoSocket?.showCarouselChatButton])
 
   return (
     <div className={styles.playerVideoMobile}>
-      {showCarouselChat && showCarouselChatButtonLocal && (
+      {showCarouselChat && showCarouselChatButton && (
         <ChatCarousel
           transmitionType={transmitionType}
           setShowVariation={setShowVariation}
@@ -148,7 +130,7 @@ export const MobileControls = (props: PlayerControls) => {
             />
           </div>
         )}
-        {showCarouselChatButtonLocal && (
+        {showCarouselChatButton && (
           <div
             role='button'
             tabIndex={0}

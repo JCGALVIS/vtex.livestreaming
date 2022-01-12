@@ -26,6 +26,7 @@ import type { Message } from './../typings/livestreaming'
 
 import styles from './../styles.module.css'
 import styles2 from './liveShopping.css'
+import { Alert } from './commonComponents'
 type MarketingData = {
   utmSource: string | undefined
 }
@@ -65,7 +66,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     setSetting
   } = useContext(ActionsContext)
 
-  const { infoSocket, isModalLive, setIsModalLive } = useContext(SettingContext)
+  const { infoSocket, isModalLive, setIsModalLive, setShowCarouselChatButton } =
+    useContext(SettingContext)
 
   const {
     collectionId,
@@ -93,7 +95,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     socket,
     sessionId,
     pinnedMessage: socketPinnedMessage,
-    transmitiontype: socketTransmitiontype
+    transmitiontype: socketTransmitiontype,
+    showCarouselChatButton: socketCarouselChatButton
   } = infoSocket || {}
 
   const getHeight = () => {
@@ -215,12 +218,22 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       setTransmitionType(initTransmitionType)
     }
   }, [initTransmitionType, socketTransmitiontype])
+
+  useEffect(() => {
+    if (socketCarouselChatButton !== undefined) {
+      setShowCarouselChatButton(socketCarouselChatButton)
+    } else {
+      setShowCarouselChatButton(showCarouselChatButton)
+    }
+  }, [showCarouselChatButton, socketCarouselChatButton])
+
   return (
     <div
       className={`${styles2.livestreaming} ${
         isModalLive && !isInGlobalPage && styles2.livestreamingPopoup
       }`}
     >
+      <Alert />
       <div
         className={`${styles2.livestreamingContainer} ${
           isModalLive && !isInGlobalPage && styles2.livestreamingPopoupContainer
@@ -301,7 +314,6 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                   streamUrl={streamUrl}
                   transmitionType={transmitionType}
                   livestreamingStatus={status}
-                  showCarouselChatButton={showCarouselChatButton}
                 />
                 <div className={styles2.feedHeader}>
                   <div className={styles2.leftHeader}>

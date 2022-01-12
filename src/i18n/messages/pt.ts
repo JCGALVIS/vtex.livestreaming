@@ -36,6 +36,7 @@ export default {
     'store/text.true': 'Verdadero',
     'store/text.unread-messages': 'Mensagens não lidas',
     'store/time': 'Tempo',
-    'store/total-votes': 'Votos totais'
+    'store/total-votes': 'Votos totais',
+    'store/text.add-to-cart': 'Produto adicionado ao carrinho.'
   }
 }

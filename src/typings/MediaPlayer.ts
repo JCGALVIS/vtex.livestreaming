@@ -103,5 +103,4 @@ export type PlayerControls = {
   isFinalized: boolean
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
-  showCarouselChatButton: boolean | undefined
 }
