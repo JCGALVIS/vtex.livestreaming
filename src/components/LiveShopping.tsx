@@ -220,10 +220,13 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   }, [initTransmitionType, socketTransmitiontype])
 
   useEffect(() => {
-    if (socketCarouselChatButton !== undefined) {
-      setShowCarouselChatButton(socketCarouselChatButton)
-    } else {
-      setShowCarouselChatButton(showCarouselChatButton)
+    if (setShowCarouselChatButton) {
+      if (socketCarouselChatButton !== undefined) {
+        setShowCarouselChatButton(socketCarouselChatButton)
+      } else {
+        if (showCarouselChatButton)
+          setShowCarouselChatButton(showCarouselChatButton)
+      }
     }
   }, [showCarouselChatButton, socketCarouselChatButton])
 
