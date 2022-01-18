@@ -57,7 +57,7 @@ export const Chat = ({
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
 
-  const { infoSocket, isModalLive, showCarouselChat } =
+  const { infoSocket, isModalLive, showCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
   const { chat: chatFinalizedEvents } = useLivestreamingContext()
 
@@ -301,7 +301,7 @@ export const Chat = ({
       <div className={styles.chatContent}>
         <div
           className={`${styles.messagesContainer} ${
-            showCarouselChat ? styles.activeChatCarousel : ''
+            showCarouselChat && showCarouselChatButton ? styles.activeChatCarousel : ''
           }`}
         >
           {pinnedMessage && pinnedMessage?.data && IS_DESKTOP && (
