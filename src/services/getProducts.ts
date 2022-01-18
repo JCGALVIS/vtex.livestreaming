@@ -281,11 +281,7 @@ const getProductByIdVtex = async ({
 const getProductByIdPlatform = async ({ productId }: GetProductsProps) => {
   const url = `${config.API_PLATFORM}/products/${productId}`
 
-  console.log('jcg')
-
   const { data } = await apiCall({ url })
-
-  console.log('data: ', data)
 
   if (data && data.length > 0) {
     const product = {

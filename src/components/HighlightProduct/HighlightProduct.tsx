@@ -79,7 +79,12 @@ const HighlightProduct = ({
             className={styles.productContainer}
             onClick={() => {
               if (fullScreen) handleFullScreen()
-              if (showQuickView) {
+              console.log('showQuickView: ', showQuickView)
+              if (
+                product.variationSelector.length > 0 &&
+                showQuickView &&
+                !isInGlobalPage
+              ) {
                 setShowVariation(product.id)
               } else {
                 addToCart(
@@ -94,7 +99,9 @@ const HighlightProduct = ({
           >
             <img className={styles.productPicture} src={product.imageUrl} />
             <div className={styles.productAddCartContent}>
-              {showQuickView ? (
+              {product.variationSelector.length > 0 &&
+              showQuickView &&
+              !isInGlobalPage ? (
                 <ProductVariationButton
                   isAvailable={product.isAvailable}
                   productId={product.id}
