@@ -5,7 +5,6 @@ export const addToCart = (
   showQuickView: boolean,
   id: string
 ) => {
-  console.log('jcg 3')
   let message = ''
   if (redirectTo || isInGlobalPage || !showQuickView) {
     const link = document.getElementById(`add-cart-${id}`)

@@ -79,7 +79,6 @@ const HighlightProduct = ({
             className={styles.productContainer}
             onClick={() => {
               if (fullScreen) handleFullScreen()
-              console.log('showQuickView: ', showQuickView)
               if (
                 product.variationSelector.length > 0 &&
                 showQuickView &&
