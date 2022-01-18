@@ -23,7 +23,11 @@ export const getProducts = async ({
     // Eliminar terminado el evento CACE
     products = getProductsCace({ collectionId })
   } else if (originOfProducts === 'globalPage') {
-    products = getProductsGlobalPage({ collectionId, account })
+    if (account === 'plataforma') {
+      products = getProductsPlatform()
+    } else {
+      products = getProductsGlobalPage({ collectionId, account })
+    }
   } else {
     products = getProductsVtex({ collectionId })
   }
@@ -174,11 +178,17 @@ export const getProductById = async ({
 }: GetProductsProps) => {
   let product
 
-  if (originOfProducts === 'CACE') {
+  if (originOfProducts === 'platform') {
+    product = getProductByIdPlatform({ productId })
+  } else if (originOfProducts === 'CACE') {
     // Eliminar terminado el evento CACE
     product = getProductByIdCace({ productId, account, host })
   } else if (originOfProducts === 'globalPage') {
-    product = getProductByIdGlobalPage({ productId, account, host })
+    if (account === 'plataforma') {
+      product = getProductByIdPlatform({ productId })
+    } else {
+      product = getProductByIdGlobalPage({ productId, account, host })
+    }
   } else {
     product = getProductByIdVtex({ productId, account, host })
   }
@@ -260,6 +270,35 @@ const getProductByIdVtex = async ({
         : data[0]?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
       variationSelector: data[0]?.skuSpecifications,
       pdpLink: data[0]?.link
+    }
+
+    return product
+  }
+
+  return null
+}
+
+const getProductByIdPlatform = async ({ productId }: GetProductsProps) => {
+  const url = `${config.API_PLATFORM}/products/${productId}`
+
+  console.log('jcg')
+
+  const { data } = await apiCall({ url })
+
+  console.log('data: ', data)
+
+  if (data && data.length > 0) {
+    const product = {
+      id: data.id,
+      name: data.title,
+      priceWithDiscount: data.salesPrice,
+      price: data.price,
+      imageUrl: data.pictures[0],
+      addToCartLink: data.link,
+      isAvailable: data.status === 'active',
+      variationSelector: [],
+      pdpLink: data.link,
+      skuId: data.id
     }
 
     return product
