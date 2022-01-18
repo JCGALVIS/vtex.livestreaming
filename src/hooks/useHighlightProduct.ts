@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getProducts } from '../services'
-import { HighlightProduct } from './../typings/livestreaming'
+import type { HighlightProduct } from './../typings/livestreaming'
 import { useLivestreamingContext } from '../context'
 import { useShowHightlightsForFinishedEvents } from './useShowHightlightsForFinishedEvents'
 
