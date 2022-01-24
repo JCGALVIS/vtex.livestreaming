@@ -1,4 +1,5 @@
 import { DesktopControls } from './DesktopControls'
 import { MobileControls } from './MobileControls'
+import { PlayerControls } from './PlayerControls'
 
-export { DesktopControls, MobileControls }
+export { PlayerControls, DesktopControls, MobileControls }

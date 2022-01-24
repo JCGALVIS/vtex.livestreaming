@@ -72,7 +72,8 @@ export type Dimensions = {
   height: number
 }
 
-export type PlayerControls = {
+export type PlayerControlsType = {
+  player?: MediaPlayer
   BUFFERING: string
   firstTimeMuted: boolean
   fullScreen: boolean

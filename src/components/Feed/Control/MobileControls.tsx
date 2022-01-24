@@ -15,14 +15,14 @@ import {
   VolumeUpIcon
 } from '../../icons'
 import { Like } from '../../'
-import type { PlayerControls } from '../../../typings/MediaPlayer'
+import type { PlayerControlsType } from '../../../typings/MediaPlayer'
 
 import styles from '../../../styles.module.css'
 import { ChatCarousel } from '../../ChatCarousel/ChatCarousel'
 import ShopIcon from './../../icons/ShopIcon'
 import { SettingContext } from '../../../context'
 
-export const MobileControls = (props: PlayerControls) => {
+export const MobileControls = (props: PlayerControlsType) => {
   const { showCarouselChat, setShowCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
 

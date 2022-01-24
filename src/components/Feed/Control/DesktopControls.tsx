@@ -14,7 +14,7 @@ import {
   VolumeOffIcon,
   VolumeUpIcon
 } from '../../icons'
-import type { PlayerControls } from '../../../typings/MediaPlayer'
+import type { PlayerControlsType } from '../../../typings/MediaPlayer'
 import { Like } from '../../'
 
 import styles from '../../../styles.module.css'
@@ -27,7 +27,7 @@ interface IndicatorInterface {
   firstMuted: boolean
 }
 
-export const DesktopControls = (props: PlayerControls) => {
+export const DesktopControls = (props: PlayerControlsType) => {
   const {
     BUFFERING,
     firstTimeMuted,
