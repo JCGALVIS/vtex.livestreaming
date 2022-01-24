@@ -1,5 +1,6 @@
 import { apiCall } from './apiCall'
 import { config } from './../config'
+import { base64Encode } from './../utils'
 
 type GetProductsProps = {
   collectionId?: string | undefined
@@ -18,13 +19,13 @@ export const getProducts = async ({
   let products: Promise<any>
 
   if (originOfProducts === 'platform') {
-    products = getProductsPlatform()
+    products = getProductsPlatform(account)
   } else if (originOfProducts === 'CACE') {
     // Eliminar terminado el evento CACE
     products = getProductsCace({ collectionId })
   } else if (originOfProducts === 'globalPage') {
     if (account === 'plataforma') {
-      products = getProductsPlatform()
+      products = getProductsPlatform(account)
     } else {
       products = getProductsGlobalPage({ collectionId, account })
     }
@@ -115,8 +116,8 @@ const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
   return null
 }
 
-const getProductsPlatform = async () => {
-  const url = config.API_PLATFORM + '/products'
+const getProductsPlatform = async (account: string | undefined) => {
+  const url = config.API_PLATFORM + `/products?account=${base64Encode(account)}`
 
   const { data } = await apiCall({ url })
 
