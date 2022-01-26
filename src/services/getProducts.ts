@@ -1,6 +1,5 @@
 import { apiCall } from './apiCall'
 import { config } from './../config'
-import { base64Encode } from './../utils'
 
 type GetProductsProps = {
   collectionId?: string | undefined
@@ -117,7 +116,8 @@ const getProductsVtex = async ({ collectionId }: GetProductsProps) => {
 }
 
 const getProductsPlatform = async (account: string | undefined) => {
-  const url = config.API_PLATFORM + `/products?account=${base64Encode(account)}`
+  const url =
+    config.API_PLATFORM + `/products?account=${btoa(account as string)}`
 
   const { data } = await apiCall({ url })
 

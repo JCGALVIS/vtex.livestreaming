@@ -5,7 +5,7 @@ import { getMobileOS, getDeviceType } from './getMobileOs'
 import { getRandomColor } from './getRandomColor'
 import Queue from './Queue'
 import { getRandomNumber } from './getRamdonNumber'
-import { base64Encode, base64Decode } from './base64'
+
 export {
   addToCart,
   calcHeightApp,
@@ -14,7 +14,5 @@ export {
   getMobileOS,
   getRandomColor,
   Queue,
-  getRandomNumber,
-  base64Encode,
-  base64Decode
+  getRandomNumber
 }
