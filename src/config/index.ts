@@ -4,6 +4,11 @@ import { configProd } from './prod'
 export { configDev } from './dev'
 export { configProd } from './prod'
 
-const { ENVIROMENT } = process.env
+let INFRA_ENVIRONMENT = '__ENVIRONMENT'
+const { ENVIRONMENT: NODE_ENVIRONMENT } = process.env
 
-export const config = ENVIROMENT === 'prod' ? configProd : configDev
+if (NODE_ENVIRONMENT && NODE_ENVIRONMENT !== INFRA_ENVIRONMENT) {
+  INFRA_ENVIRONMENT = NODE_ENVIRONMENT
+}
+
+export const config = INFRA_ENVIRONMENT === 'prod' ? configProd : configDev
