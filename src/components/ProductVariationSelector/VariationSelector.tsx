@@ -82,6 +82,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     })
 
     if (productSelect) {
+      console.log('productSelect: ', productSelect)
       const selectedProduct = filterProduct?.map((filter) => {
         return {
           imageUrl: filter.images[0].imageUrl,
@@ -111,6 +112,15 @@ export const VariationSelector = (props: VariationSelectorProps) => {
       })
 
       if (selectedProduct) setSelectedProduct(selectedProduct[0])
+    } else if (product.variationSelector.length === 0) {
+      setSelectedProduct({
+        imageUrl: product.imageUrl,
+        addToCartLink: product.addToCartLink,
+        isAvailable: product.isAvailable,
+        price: product.price,
+        priceWithDiscount: product.priceWithDiscount,
+        skuId: product.id
+      })
     }
   }, [product])
 

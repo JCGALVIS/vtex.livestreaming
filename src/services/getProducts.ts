@@ -180,13 +180,13 @@ export const getProductById = async ({
   let product
 
   if (originOfProducts === 'platform') {
-    product = getProductByIdPlatform({ productId })
+    product = getProductByIdPlatform({ productId, account })
   } else if (originOfProducts === 'CACE') {
     // Eliminar terminado el evento CACE
     product = getProductByIdCace({ productId, account, host })
   } else if (originOfProducts === 'globalPage') {
     if (account === 'plataforma') {
-      product = getProductByIdPlatform({ productId })
+      product = getProductByIdPlatform({ productId, account })
     } else {
       product = getProductByIdGlobalPage({ productId, account, host })
     }
@@ -279,12 +279,17 @@ const getProductByIdVtex = async ({
   return null
 }
 
-const getProductByIdPlatform = async ({ productId }: GetProductsProps) => {
-  const url = `${config.API_PLATFORM}/products/${productId}`
+const getProductByIdPlatform = async ({
+  productId,
+  account
+}: GetProductsProps) => {
+  const url = `${config.API_PLATFORM}/products/${productId}?account=${btoa(
+    account as string
+  )}`
 
   const { data } = await apiCall({ url })
 
-  if (data && data.length > 0) {
+  if (data) {
     const product = {
       id: data.id,
       name: data.title,
