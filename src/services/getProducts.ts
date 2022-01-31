@@ -246,18 +246,12 @@ const getProductByIdCace = async ({
   return null
 }
 
-const getProductByIdVtex = async ({
-  productId,
-  account,
-  host
-}: GetProductsProps) => {
+const getProductByIdVtex = async ({ productId }: GetProductsProps) => {
   const url = `/api/catalog_system/pub/products/search?fq=productId:${productId}`
 
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
-    setCorrectAddToCartLink(data, account, host)
-
     const product = {
       id: data[0]?.productId,
       name: data[0]?.productName,
