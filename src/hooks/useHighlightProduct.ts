@@ -60,6 +60,7 @@ export const useHighlightProduct = ({
   )
 
   useEffect(() => {
+    localStorage.removeItem('collectionId')
     if (highlightProduct?.backgroundWhiteHighlight) return
 
     if (highlightProduct && !highlightProduct?.showProduct)
