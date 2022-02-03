@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 
-import { currencyFormat } from '../../utils'
+import { currencyFormat, validateLink } from '../../utils'
 import { ProductButton, ProductVariationButton } from '..'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 import { ActionsContext } from '../../context/ActionsContext'
@@ -43,27 +43,6 @@ export const ProductItem = (props: ProductItemProps) => {
   const {
     setting: { isInGlobalPage, kuikpay, originOfProducts, showQuickView }
   } = useContext(ActionsContext)
-
-  const validateLink = (link: string) => {
-    const hasWwwSubDomain = (link: string) => {
-      if (link.indexOf('www') >= 0 || link.indexOf('WWW') >= 0) {
-        return true
-      } else {
-        return false
-      }
-    }
-    if (hasWwwSubDomain(link)) {
-      return link
-    } else {
-      const urlScheme = link.indexOf('https://') >= 0 ? 'https://' : 'http://'
-      const wwwSubDomain = 'www.'
-      const validatedLink =
-        link.slice(0, urlScheme.length) +
-        wwwSubDomain +
-        link.slice(urlScheme.length)
-      return validatedLink
-    }
-  }
 
   const { formatMessage, locale } = useIntl()
   const isSpanish = locale === SPANISH_CODE

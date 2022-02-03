@@ -5,6 +5,7 @@ import { getMobileOS, getDeviceType } from './getMobileOs'
 import { getRandomColor } from './getRandomColor'
 import Queue from './Queue'
 import { getRandomNumber } from './getRamdonNumber'
+import { validateLink } from './validateProductItemLink'
 
 export {
   addToCart,
@@ -14,5 +15,6 @@ export {
   getMobileOS,
   getRandomColor,
   Queue,
-  getRandomNumber
+  getRandomNumber,
+  validateLink
 }
