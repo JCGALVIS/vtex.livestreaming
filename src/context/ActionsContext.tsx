@@ -10,6 +10,7 @@ type ActionCtx = {
 const actionsDefault: ActionCtx = {
   setting: {
     account: '',
+    getProductId: () => {},
     getProducts: () => {},
     idLivestreaming: '',
     isInGlobalPage: false,
@@ -40,6 +41,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
 }) => {
   const {
     account,
+    getProductId,
     getProducts,
     idLivestreaming,
     isInGlobalPage,
@@ -58,6 +60,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
 
   const [setting, setSetting] = useState<LivestreamingProps>({
     account,
+    getProductId,
     getProducts,
     idLivestreaming,
     isInGlobalPage:
