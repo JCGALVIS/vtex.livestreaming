@@ -23,13 +23,14 @@ export const VerticalProductSlider = ({
   const isMobile = getDeviceType() === 'mobile'
 
   const {
-    setting: { isInfinite, originOfProducts, time }
+    setting: { isInfinite, time }
   } = useContext(ActionsContext)
 
   const { data: products, loading } = useFetchProducts({
-    collectionId,
-    originOfProducts
+    collectionId
   })
+
+  console.log('products: ', products)
   const [isMouseOver, setIsMouseOver] = useState(false)
   const delay = time ? time * 1000 : 10000
   const [indexScroll, setIndexScroll] = useState(0)
@@ -102,7 +103,8 @@ export const VerticalProductSlider = ({
         ref={productLisRef}
         id='product-list'
       >
-        {products.length > 0 &&
+        {products &&
+          products.length > 0 &&
           products.map((product: any) => (
             <ProductItem
               key={product.id}

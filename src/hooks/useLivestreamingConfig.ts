@@ -10,7 +10,7 @@ declare interface Props {
 const useLivestreamingConfig = ({ id, account }: Props) => {
   const [wssStream, setWssStream] = useState<string>()
   const [streamUrl, setStreamUrl] = useState<string>()
-  const [collectionId, setCollectionId] = useState<string>()
+  const [collectionId, setCollectionId] = useState<number>()
   const [utm, setUtm] = useState<string>()
   const [emailIsRequired, setEmailIsRequired] = useState<boolean>()
   const [pinnedMessage, setPinnedMessage] = useState<Message>()

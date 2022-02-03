@@ -2,12 +2,16 @@
 
 > Made with create-react-library
 
-[![NPM](https://img.shields.io/npm/v/vtex.livestreaming.svg)](https://www.npmjs.com/package/vtex.livestreaming) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/vtex.livestreaming.svg)](https://www.npmjs.com/package/@jcgalvis/vtex.livestreaming) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save vtex.livestreaming
+npm install --save @jcgalvis/vtex.livestreaming
+```
+
+```bash
+yarn add @jcgalvis/vtex.livestreaming
 ```
 
 ## Usage
@@ -15,16 +19,16 @@ npm install --save vtex.livestreaming
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'vtex.livestreaming'
-import 'vtex.livestreaming/dist/index.css'
+import { Livestreaming } from '@jcgalvis/vtex.livestreaming'
+import '@jcgalvis/vtex.livestreaming/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <Livestreaming {...props} />
   }
 }
 ```
 
 ## License
 
-MIT © [JCGALVIS](https://github.com/JCGALVIS)
+MIT

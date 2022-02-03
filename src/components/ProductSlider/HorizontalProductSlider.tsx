@@ -41,8 +41,7 @@ export const HorizontalProductSlider = ({
   } = useContext(ActionsContext)
 
   const { data: products, loading } = useFetchProducts({
-    collectionId,
-    originOfProducts
+    collectionId
   })
 
   const delay = time ? time * 1000 : 10000

@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
-import { getProducts } from '../services'
-import { useLivestreamingContext } from '../context'
+import { useContext, useEffect, useState } from 'react'
+// import { getProducts } from '../services'
+import { ActionsContext } from '../context'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
-  originOfProducts: string | undefined
 }
 
-export const useFetchProducts = ({
-  collectionId,
-  originOfProducts
-}: useFetchProductsProps) => {
+export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
+  const {
+    setting: { getProducts }
+  } = useContext(ActionsContext)
+
   const [products, setProducts] = useState({
     data: [
       {
@@ -29,15 +29,17 @@ export const useFetchProducts = ({
     loading: true
   })
 
-  const { account, host } = useLivestreamingContext()
+  const productsList = async (collectionId: string) => {
+    const data = getProducts && (await getProducts(collectionId))
+    return data
+  }
 
   useEffect(() => {
     if (collectionId) {
-      getProducts({ collectionId, originOfProducts, account, host }).then(
-        (respon: any) => {
-          if (respon) setProducts({ data: respon, loading: false })
-        }
-      )
+      productsList(collectionId).then((response: any) => {
+        console.log('response: ', response)
+        response && setProducts({ data: response, loading: false })
+      })
     }
   }, [collectionId])
 

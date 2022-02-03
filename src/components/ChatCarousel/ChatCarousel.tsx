@@ -28,8 +28,7 @@ export const ChatCarousel = ({
   } = useContext(ActionsContext)
 
   const { data: products, loading } = useFetchProducts({
-    collectionId,
-    originOfProducts
+    collectionId
   })
 
   return !loading ? (
