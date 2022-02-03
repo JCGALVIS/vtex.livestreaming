@@ -125,10 +125,14 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       quickView,
       productsCarousel,
       sidebarProducts,
-      time
+      time,
+      viewers
     } = scriptProperties
 
-    if (setShowCounter) setShowCounter(showViewers)
+    const viewersFlag = viewers ? viewers : showViewers
+
+    if (setShowCounter) setShowCounter(viewersFlag)
+
     setSetting({
       account,
       idLivestreaming,
@@ -142,7 +146,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showQuickView: quickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
-      showViewers,
+      showViewers: viewersFlag,
       time
     })
   }, [scriptProperties])
