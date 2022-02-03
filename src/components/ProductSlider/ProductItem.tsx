@@ -55,7 +55,7 @@ export const ProductItem = (props: ProductItemProps) => {
     if (hasWwwSubDomain(link)) {
       return link
     } else {
-      const urlScheme = 'https://'
+      const urlScheme = link.indexOf('https://') >= 0 ? 'https://' : 'http://'
       const wwwSubDomain = 'www.'
       const validatedLink =
         link.slice(0, urlScheme.length) +
