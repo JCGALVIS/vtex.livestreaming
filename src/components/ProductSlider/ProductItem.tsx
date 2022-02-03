@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 
-import { currencyFormat } from '../../utils'
+import { currencyFormat, validateLink } from '../../utils'
 import { ProductButton, ProductVariationButton } from '..'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 import { ActionsContext } from '../../context/ActionsContext'
@@ -51,7 +51,7 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}
-          href={pdpLink}
+          href={validateLink(pdpLink)}
           target='_blank'
           rel='noreferrer'
         >
@@ -76,7 +76,9 @@ export const ProductItem = (props: ProductItemProps) => {
           !showQuickView ? (
             <ProductButton
               addToCartLink={
-                !showQuickView || isInGlobalPage ? pdpLink : addToCartLink
+                !showQuickView || isInGlobalPage
+                  ? validateLink(pdpLink)
+                  : validateLink(addToCartLink)
               }
               imageUrl={imageUrl}
               isAvailable={isAvailable}
