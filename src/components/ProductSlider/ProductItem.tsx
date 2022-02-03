@@ -44,6 +44,27 @@ export const ProductItem = (props: ProductItemProps) => {
     setting: { isInGlobalPage, kuikpay, originOfProducts, showQuickView }
   } = useContext(ActionsContext)
 
+  const validateLink = (link: string) => {
+    const hasWwwSubDomain = (link: string) => {
+      if (link.indexOf('www') >= 0 || link.indexOf('WWW') >= 0) {
+        return true
+      } else {
+        return false
+      }
+    }
+    if (hasWwwSubDomain(link)) {
+      return link
+    } else {
+      const urlScheme = 'https://'
+      const wwwSubDomain = 'www.'
+      const validatedLink =
+        link.slice(0, urlScheme.length) +
+        wwwSubDomain +
+        link.slice(urlScheme.length)
+      return validatedLink
+    }
+  }
+
   const { formatMessage, locale } = useIntl()
   const isSpanish = locale === SPANISH_CODE
   return (
@@ -51,7 +72,7 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}
-          href={pdpLink}
+          href={validateLink(pdpLink)}
           target='_blank'
           rel='noreferrer'
         >
@@ -76,7 +97,9 @@ export const ProductItem = (props: ProductItemProps) => {
           !showQuickView ? (
             <ProductButton
               addToCartLink={
-                !showQuickView || isInGlobalPage ? pdpLink : addToCartLink
+                !showQuickView || isInGlobalPage
+                  ? validateLink(pdpLink)
+                  : validateLink(addToCartLink)
               }
               imageUrl={imageUrl}
               isAvailable={isAvailable}
