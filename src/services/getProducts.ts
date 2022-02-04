@@ -206,7 +206,7 @@ const setCorrectAddToCartLink = (
     const seller = data[0]?.items[0].sellers[0]
     seller.addToCartLink = data[0]?.items[0].sellers[0].addToCartLink.replace(
       `${account}.myvtex.com`,
-      host ? host : ''
+      host || ''
     )
   }
 }

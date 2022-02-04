@@ -3,7 +3,7 @@ import { Queue } from '../utils'
 
 type LivestreamingProps = {
   account: string
-  getProductId: (productId: string) => void
+  getProductId?: (productId: string) => void
   getProducts?: (collectionId?: string) => void
   idLivestreaming: string
   isInGlobalPage: boolean

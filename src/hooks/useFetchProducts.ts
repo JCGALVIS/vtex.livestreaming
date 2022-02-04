@@ -37,7 +37,6 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   useEffect(() => {
     if (collectionId) {
       productsList(collectionId).then((response: any) => {
-        console.log('response: ', response)
         response && setProducts({ data: response, loading: false })
       })
     }

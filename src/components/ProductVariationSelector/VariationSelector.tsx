@@ -39,8 +39,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   } = useContext(ActionsContext)
 
   const { product, loading } = useFetchProductById({
-    productId,
-    originOfProducts
+    productId
   })
 
   useEffect(() => {

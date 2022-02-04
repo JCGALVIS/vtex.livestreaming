@@ -30,7 +30,6 @@ export const VerticalProductSlider = ({
     collectionId
   })
 
-  console.log('products: ', products)
   const [isMouseOver, setIsMouseOver] = useState(false)
   const delay = time ? time * 1000 : 10000
   const [indexScroll, setIndexScroll] = useState(0)
