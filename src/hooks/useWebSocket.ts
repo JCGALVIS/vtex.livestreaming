@@ -97,7 +97,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         isInGlobalPage,
         type,
         quickView,
-        showCarouselChatButton
+        showCarouselChatButton,
+        viewers
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -166,7 +167,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             quickView,
             pdp,
             kuikpay,
-            isInGlobalPage
+            isInGlobalPage,
+            viewers
           })
           break
 

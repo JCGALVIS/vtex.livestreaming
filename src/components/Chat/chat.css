@@ -37,7 +37,7 @@
   width: 100% !important;
   height: 23vh !important;
   overflow: auto !important;
-  display: flex;
+  display: flex !important;
   flex-flow: column-reverse nowrap;
   height: 85%;
   margin-top: 0;
