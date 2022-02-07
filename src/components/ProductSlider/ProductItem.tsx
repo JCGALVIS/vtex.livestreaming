@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 
-import { currencyFormat, validateLink } from '../../utils'
+import { currencyFormat } from '../../utils'
 import { ProductButton, ProductVariationButton } from '..'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 import { ActionsContext } from '../../context/ActionsContext'
@@ -43,7 +43,7 @@ export const ProductItem = (props: ProductItemProps) => {
       <div className={styles.pictureContent}>
         <a
           className={styles.productLink}
-          href={validateLink(pdpLink)}
+          href={pdpLink}
           target='_blank'
           rel='noreferrer'
         >
