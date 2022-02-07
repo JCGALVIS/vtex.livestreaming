@@ -53,6 +53,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
 
   const {
     setting: {
+      addToCart,
       account,
       idLivestreaming,
       isInGlobalPage,
@@ -129,11 +130,12 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       viewers
     } = scriptProperties
 
-    const viewersFlag = viewers ? viewers : showViewers
+    const viewersFlag = viewers || showViewers
 
     if (setShowCounter) setShowCounter(viewersFlag)
 
     setSetting({
+      addToCart,
       account,
       idLivestreaming,
       isInGlobalPage: isInGlobalPage,
