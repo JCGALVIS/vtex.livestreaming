@@ -28,13 +28,12 @@ const HighlightProduct = ({
   const { ivsRealTime, highlightProduct } = infoSocket || {}
 
   const {
-    setting: { isInGlobalPage, originOfProducts, redirectTo, showQuickView }
+    setting: { isInGlobalPage, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   const { product, showProduct } = useHighlightProduct({
     highlightProduct,
     collectionId,
-    originOfProducts,
     isFinalized
   })
 
@@ -66,7 +65,7 @@ const HighlightProduct = ({
 
   return (
     <Fragment>
-      {collectionId && show ? (
+      {collectionId && show && product ? (
         <div
           className={`${styles.highlightProductContainer}  ${
             !optionHighlight || optionHighlight === 'white'

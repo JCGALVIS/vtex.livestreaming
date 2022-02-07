@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
-// import { getProducts } from '../services'
 import { ActionsContext } from '../context'
+import type { Products } from '../typings/livestreaming'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
@@ -11,23 +11,8 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
     setting: { getProducts }
   } = useContext(ActionsContext)
 
-  const [products, setProducts] = useState({
-    data: [
-      {
-        id: '',
-        name: '',
-        price: 0,
-        priceWithDiscount: 0,
-        imageUrl: '',
-        addToCartLink: '',
-        isAvailable: false,
-        variationSelector: [],
-        pdpLink: '',
-        skuId: ''
-      }
-    ],
-    loading: true
-  })
+  const [products, setProducts] = useState<Products[]>()
+  const [loading, setLoading] = useState<boolean>(true)
 
   const productsList = async (collectionId: string) => {
     const data = getProducts && (await getProducts(collectionId))
@@ -37,10 +22,13 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   useEffect(() => {
     if (collectionId) {
       productsList(collectionId).then((response: any) => {
-        response && setProducts({ data: response, loading: false })
+        if (response) {
+          setProducts(response)
+          setLoading(false)
+        }
       })
     }
   }, [collectionId])
 
-  return products
+  return { products, loading }
 }

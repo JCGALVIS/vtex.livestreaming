@@ -81,7 +81,6 @@ export const VariationSelector = (props: VariationSelectorProps) => {
     })
 
     if (productSelect) {
-      console.log('productSelect: ', productSelect)
       const selectedProduct = filterProduct?.map((filter) => {
         return {
           imageUrl: filter.images[0].imageUrl,

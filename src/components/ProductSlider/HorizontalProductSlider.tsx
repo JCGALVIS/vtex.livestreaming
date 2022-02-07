@@ -8,6 +8,7 @@ import { ArrowRightLivestreaming } from '../icons'
 import { ActionsContext, SettingContext } from '../../context'
 
 import styles from './productSlider.css'
+import { Products } from '../../typings/livestreaming'
 
 type HorizontalProductSliderProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
@@ -19,19 +20,7 @@ export const HorizontalProductSlider = ({
   transmitionType
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-  const [itemsProdcuts, setItemsProducts] = useState([
-    {
-      id: '',
-      name: '',
-      price: 0,
-      priceWithDiscount: 0,
-      imageUrl: '',
-      addToCartLink: '',
-      isAvailable: false,
-      variationSelector: [],
-      pdpLink: ''
-    }
-  ])
+  const [itemsProdcuts, setItemsProducts] = useState<Products[]>()
   const [index, setIndex] = useState(2)
 
   const { collectionId } = useContext(SettingContext)
@@ -40,7 +29,7 @@ export const HorizontalProductSlider = ({
     setting: { isInfinite, originOfProducts, time }
   } = useContext(ActionsContext)
 
-  const { data: products, loading } = useFetchProducts({
+  const { products, loading } = useFetchProducts({
     collectionId
   })
 
@@ -98,7 +87,7 @@ export const HorizontalProductSlider = ({
   const handleLeftClick = () => {
     if (products && products.length > 0) {
       let newIdx = selectedProductIndex - 1
-      if (newIdx < 0) {
+      if (newIdx < 0 && itemsProdcuts) {
         newIdx = products.length - itemsProdcuts.length
       }
 
@@ -112,7 +101,8 @@ export const HorizontalProductSlider = ({
         <ArrowRightLivestreaming size='40' viewBox='0 0 400 400' />
       </button>
       <TransitionGroup className={styles.horizontalProductListContent}>
-        {itemsProdcuts.length > 0 &&
+        {itemsProdcuts &&
+          itemsProdcuts.length > 0 &&
           itemsProdcuts.map((product: any) => (
             <CSSTransition
               key={product.id}

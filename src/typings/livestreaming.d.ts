@@ -146,6 +146,7 @@ export interface Products {
   items?: ProductItems[]
   isAvailable: boolean
   variationSelector?: VariationSelector[]
+  pdpLink?: string
 }
 
 export declare interface Question {

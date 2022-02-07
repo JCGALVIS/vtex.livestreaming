@@ -20,20 +20,19 @@ export const ChatCarousel = ({
   fullScreen,
   handleFullScreen
 }: ChatCarouselProps) => {
-  // const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-
   const { collectionId } = useContext(SettingContext)
   const {
     setting: { originOfProducts }
   } = useContext(ActionsContext)
 
-  const { data: products, loading } = useFetchProducts({
+  const { products, loading } = useFetchProducts({
     collectionId
   })
 
   return !loading ? (
     <div className={styles.chatCarouselContainer}>
-      {products.length > 0 &&
+      {products &&
+        products.length > 0 &&
         products.map((product: any) => (
           <div key={product.id} className={styles.horizontalProductList}>
             <ChatCarouselProductItem

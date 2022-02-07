@@ -26,7 +26,7 @@ export const VerticalProductSlider = ({
     setting: { isInfinite, time }
   } = useContext(ActionsContext)
 
-  const { data: products, loading } = useFetchProducts({
+  const { products, loading } = useFetchProducts({
     collectionId
   })
 
