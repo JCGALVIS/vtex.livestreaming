@@ -193,15 +193,24 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                         <div className={styles.productAddCartContent}>
                           <div className={styles.buttonGroup}>
                             <ProductButton
-                              addToCartLink={selectedProduct.addToCartLink}
-                              handleClose={handleClose}
-                              isAvailable={
-                                isAvailable
+                              product={{
+                                id: product?.id || '',
+                                name: product?.name || '',
+                                price: selectedProduct.price,
+                                priceWithDiscount:
+                                  selectedProduct.priceWithDiscount,
+                                imageUrl: selectedProduct.imageUrl,
+                                addToCartLink: selectedProduct.addToCartLink,
+                                items: product?.items || [],
+                                isAvailable: isAvailable
                                   ? selectedProduct.isAvailable
-                                  : false
-                              }
-                              imageUrl={selectedProduct.imageUrl}
-                              productId={selectedProduct.skuId}
+                                  : false,
+                                variationSelector:
+                                  product?.variationSelector || [],
+                                pdpLink: product?.pdpLink || '',
+                                skuId: selectedProduct.skuId
+                              }}
+                              handleClose={handleClose}
                             />
                           </div>
                           {kuikpay && originOfProducts !== 'platform' && (

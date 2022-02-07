@@ -9,6 +9,7 @@ type ActionCtx = {
 
 const actionsDefault: ActionCtx = {
   setting: {
+    addToCart: () => {},
     account: '',
     getProductId: () => {},
     getProducts: () => {},
@@ -40,6 +41,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
   props
 }) => {
   const {
+    addToCart,
     account,
     getProductId,
     getProducts,
@@ -59,6 +61,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
   } = props
 
   const [setting, setSetting] = useState<LivestreamingProps>({
+    addToCart,
     account,
     getProductId,
     getProducts,

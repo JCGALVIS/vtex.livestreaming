@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 
@@ -5,40 +6,31 @@ import { currencyFormat, validateLink } from '../../utils'
 import { ProductButton, ProductVariationButton } from '..'
 import { KuikPayButton } from './../ProductsButton/KuikPayButton'
 import { ActionsContext } from '../../context/ActionsContext'
+import type { Products } from '../../typings/livestreaming'
 
 import styles from './productSlider.css'
 
 const SPANISH_CODE = 'es'
 type ProductItemProps = {
-  id: string
-  name: string
-  price: number
-  priceWithDiscount: number
-  imageUrl: string
-  addToCartLink: string
-  isAvailable: boolean
-  pdpLink: string
-  variationSelector: []
+  product: Products
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  skuId: string
   sectionIdClickedOn?: string
 }
 
 export const ProductItem = (props: ProductItemProps) => {
+  const { product, setShowVariation, sectionIdClickedOn } = props
+
   const {
     id,
     name,
     price,
     priceWithDiscount,
     imageUrl,
-    addToCartLink,
     isAvailable,
-    pdpLink,
     variationSelector,
-    setShowVariation,
-    skuId,
-    sectionIdClickedOn
-  } = props
+    pdpLink,
+    skuId
+  } = product
 
   const {
     setting: { isInGlobalPage, kuikpay, originOfProducts, showQuickView }
@@ -75,16 +67,7 @@ export const ProductItem = (props: ProductItemProps) => {
           isInGlobalPage ||
           !showQuickView ? (
             <ProductButton
-              addToCartLink={
-                !showQuickView || isInGlobalPage
-                  ? validateLink(pdpLink)
-                  : validateLink(addToCartLink)
-              }
-              imageUrl={imageUrl}
-              isAvailable={isAvailable}
-              productId={skuId}
-              id={id}
-              productName={name}
+              product={product}
               sectionIdClickedOn={sectionIdClickedOn}
             />
           ) : (
@@ -97,7 +80,7 @@ export const ProductItem = (props: ProductItemProps) => {
             />
           )}
           {kuikpay && originOfProducts !== 'platform' && (
-            <KuikPayButton productId={skuId} />
+            <KuikPayButton productId={skuId || id} />
           )}
         </div>
       </div>

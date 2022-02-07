@@ -107,7 +107,7 @@ export const VerticalProductSlider = ({
           products.map((product: any) => (
             <ProductItem
               key={product.id}
-              {...product}
+              product={product}
               setShowVariation={setShowVariation}
               sectionIdClickedOn='live_shopping_sidebar'
             />

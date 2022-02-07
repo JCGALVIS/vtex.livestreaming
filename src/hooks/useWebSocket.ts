@@ -202,7 +202,11 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
               priceWithDiscount: 0,
               imageUrl: data.imageUrl,
               addToCartLink: '',
-              isAvailable: false
+              items: [],
+              isAvailable: false,
+              variationSelector: [],
+              pdpLink: '',
+              skuId: ''
             }
           ])
           break

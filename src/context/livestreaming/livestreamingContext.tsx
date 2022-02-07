@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { createContext, useContext } from 'react'
-import { Message, HightLightHistoryElement } from '../../typings/livestreaming'
-import { StreamPlayerType } from '../../typings/MediaPlayer'
+import type {
+  Message,
+  HightLightHistoryElement
+} from '../../typings/livestreaming'
+import type { StreamPlayerType } from '../../typings/MediaPlayer'
 
 export interface LivestreamingCtx {
   idLivestreaming: string

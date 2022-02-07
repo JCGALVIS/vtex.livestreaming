@@ -4,6 +4,9 @@ import { Livestreaming } from 'vtex.livestreaming'
 import 'vtex.livestreaming/dist/index.css'
 import './app.css'
 
+const windowInfo: any = window
+const { vtexjs } = windowInfo
+
 const App = () => {
   const getProductsCace = async (collectionId: number) => {
     const url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://www.livestreaming.link/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
@@ -67,12 +70,23 @@ const App = () => {
     return null
   }
 
+  const addToCart = (product: any) => {
+    var item = {
+      id: product.skuId,
+      quantity: 1,
+      seller: '1'
+    }
+
+    return vtexjs.checkout.addToCart([item])
+  }
+
   return (
     <Livestreaming
+      addToCart={addToCart}
       account='livestreamingdemo'
       getProductId={getProductByIdCace}
       getProducts={getProductsCace}
-      idLivestreaming='a65d8a0e-1643-4ed2-b217-7c751f1d0906'
+      idLivestreaming='f49f659b-0ae5-4c49-bc6e-233847b6c605'
       isInGlobalPage='_ISINGLOBALPAGE'
       isInfinite='_ISINFINITE'
       kuikpay='_KUIKPAY'
@@ -81,7 +95,7 @@ const App = () => {
       showChat={true}
       showLike={true}
       showQuickView={true}
-      showProductsCarousel='_INACTIVEPRODUCTSCAROUSEL'
+      showProductsCarousel={true}
       showSidebarProducts={true}
       showViewers={true}
       time='_TIME'

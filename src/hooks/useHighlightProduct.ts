@@ -39,7 +39,9 @@ export const useHighlightProduct = ({
         addToCartLink: product?.addToCartLink,
         isAvailable: product?.isAvailable,
         variationSelector: product?.variationSelector,
-        pdpLink: product?.pdpLink
+        pdpLink: product?.pdpLink,
+        skuId: product?.skuId,
+        items: product?.items
       })
     }
   }

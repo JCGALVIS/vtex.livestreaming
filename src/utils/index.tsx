@@ -1,4 +1,4 @@
-import { addToCart } from './addToCart'
+import { handlerAddToCart } from './handlerAddToCart'
 import { calcHeightApp } from './calcHeightElmBeforeApp'
 import { currencyFormat } from './getFormatMoney'
 import { getMobileOS, getDeviceType } from './getMobileOs'
@@ -8,12 +8,12 @@ import { getRandomNumber } from './getRamdonNumber'
 import { validateLink } from './validateProductItemLink'
 
 export {
-  addToCart,
   calcHeightApp,
   currencyFormat,
   getDeviceType,
   getMobileOS,
   getRandomColor,
+  handlerAddToCart,
   Queue,
   getRandomNumber,
   validateLink

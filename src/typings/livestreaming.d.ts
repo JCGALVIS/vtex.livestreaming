@@ -2,6 +2,7 @@
 import { Queue } from '../utils'
 
 type LivestreamingProps = {
+  addToCart: (product: Products) => void
   account: string
   getProductId?: (productId: string) => void
   getProducts?: (collectionId?: string) => void
@@ -143,10 +144,11 @@ export interface Products {
   priceWithDiscount: number
   imageUrl: string
   addToCartLink: string
-  items?: ProductItems[]
+  items: ProductItems[]
   isAvailable: boolean
-  variationSelector?: VariationSelector[]
-  pdpLink?: string
+  variationSelector: VariationSelector[]
+  pdpLink: string
+  skuId: string
 }
 
 export declare interface Question {

@@ -1,22 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
 
-import { addToCart, currencyFormat } from '../../utils'
+import { handlerAddToCart, currencyFormat } from '../../utils'
 import { ActionsContext } from '../../context/ActionsContext'
+import type { Products } from '../../typings/livestreaming'
 
 import styles from './productSlider.css'
 
 type ChatCarouselProductItemProps = {
-  id: string
-  name: string
-  price: number
-  priceWithDiscount: number
-  imageUrl: string
-  addToCartLink: string
-  isAvailable: boolean
-  pdpLink: string
-  variationSelector: []
+  product: Products
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
-  skuId: string
   sectionIdClickedOn?: string
   fullScreen: boolean
   handleFullScreen: () => void
@@ -25,17 +18,12 @@ type ChatCarouselProductItemProps = {
 export const ChatCarouselProductItem = (
   props: ChatCarouselProductItemProps
 ) => {
-  const {
-    id,
-    priceWithDiscount,
-    imageUrl,
-    setShowVariation,
-    fullScreen,
-    handleFullScreen
-  } = props
+  const { product, setShowVariation, fullScreen, handleFullScreen } = props
+
+  const { id, priceWithDiscount, imageUrl } = product
 
   const {
-    setting: { isInGlobalPage, showQuickView, redirectTo }
+    setting: { addToCart, isInGlobalPage, showQuickView, redirectTo }
   } = useContext(ActionsContext)
 
   return (
@@ -45,7 +33,13 @@ export const ChatCarouselProductItem = (
         if (showQuickView) {
           setShowVariation(id)
         } else {
-          addToCart(id, redirectTo, isInGlobalPage, showQuickView, id)
+          handlerAddToCart(
+            addToCart,
+            product,
+            redirectTo,
+            isInGlobalPage,
+            showQuickView
+          )
         }
       }}
       className={styles.productItemContent}

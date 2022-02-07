@@ -26,7 +26,7 @@ export const HorizontalProductSlider = ({
   const { collectionId } = useContext(SettingContext)
 
   const {
-    setting: { isInfinite, originOfProducts, time }
+    setting: { isInfinite, time }
   } = useContext(ActionsContext)
 
   const { products, loading } = useFetchProducts({
@@ -111,8 +111,7 @@ export const HorizontalProductSlider = ({
             >
               <div className={styles.horizontalProductList}>
                 <ProductItem
-                  {...product}
-                  originOfProducts={originOfProducts}
+                  product={product}
                   setShowVariation={setShowVariation}
                   sectionIdClickedOn='live_shopping_carousel'
                 />
