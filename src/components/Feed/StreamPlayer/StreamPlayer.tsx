@@ -35,7 +35,7 @@ export const StreamPlayer = ({
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
-  const { isModalLive } = useContext(SettingContext)
+  const { isModalLive, activePromoMessage } = useContext(SettingContext)
 
   const {
     setting: { isInGlobalPage }
@@ -122,6 +122,16 @@ export const StreamPlayer = ({
           <MobileControls {...props} />
         ) : (
           <DesktopControls {...props} />
+        )}
+        <p>{activePromoMessage}</p>
+        {activePromoMessage && activePromoMessage !== '' && (
+          <div
+            className={`${styles.promotionAlertContainer} ${
+              fullScreen && styles.fullScreen
+            }`}
+          >
+            <div className={styles.balloon}>{activePromoMessage}</div>
+          </div>
         )}
       </Fragment>
     )

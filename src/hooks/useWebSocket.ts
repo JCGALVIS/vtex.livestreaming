@@ -46,6 +46,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
   const [productsInCart, setProductsInCart] = useState<Products[]>([])
+  const [activePromoMessage, setActivePromoMessage] = useState<string>()
 
   const createWebSocket = useCallback(() => {
     let queueSocketInit: Queue<number>
@@ -98,7 +99,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         type,
         quickView,
         showCarouselChatButton,
-        viewers
+        viewers,
+        message
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -206,6 +208,14 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             }
           ])
           break
+        case 'sendactivepromotion':
+          setTimeout(() => {
+            setActivePromoMessage(message)
+          }, 300000)
+          setTimeout(() => {
+            setActivePromoMessage(undefined)
+          }, 360000)
+          break
 
         default:
           break
@@ -294,7 +304,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     productsInCart,
     setProductsInCart,
     setQueueSocket,
-    showCarouselChatButton
+    showCarouselChatButton,
+    activePromoMessage
   }
 }
 
