@@ -97,6 +97,7 @@ export declare interface InfoSocket {
     React.SetStateAction<Queue<number> | undefined>
   >
   showCarouselChatButton: boolean | undefined
+  activePromoMessage: string | undefined
 }
 
 export interface ProductImages {
