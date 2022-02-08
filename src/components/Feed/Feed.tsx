@@ -101,7 +101,7 @@ export const Feed = ({
           isFinalized={isFinalized}
         />
       ) : (
-        <NoVideo isLive={isLive} liveStatus={liveStatus} />
+        <NoVideo isLive={isLive} liveStatus={liveStatus} streamUrl={streamUrl} player={player.current} transmitionType={transmitionType} setShowVariation={setShowVariation} isFinalized={isFinalized} />
       )}
     </div>
   )

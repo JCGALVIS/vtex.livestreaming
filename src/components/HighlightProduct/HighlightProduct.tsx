@@ -39,7 +39,7 @@ const HighlightProduct = ({
   })
 
   useEffect(() => {
-    if (ivsRealTime && ivsRealTime.status === 'LIVE') {
+    if (ivsRealTime) {
       setShow(showProduct)
       return
     }
