@@ -60,8 +60,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showChat,
       showQuickView,
       showProductsCarousel,
-      showSidebarProducts,
-      showViewers
+      showSidebarProducts
     },
     setSetting
   } = useContext(ActionsContext)
@@ -135,9 +134,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       viewers
     } = scriptProperties
 
-    const viewersFlag = viewers || showViewers
-
-    if (setShowCounter) setShowCounter(viewersFlag)
+    if (setShowCounter) setShowCounter(viewers)
 
     setSetting({
       account,
@@ -152,7 +149,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showQuickView: quickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
-      showViewers: viewersFlag,
+      showViewers: viewers,
       time
     })
   }, [scriptProperties])

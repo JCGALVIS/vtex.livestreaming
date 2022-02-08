@@ -60,7 +60,7 @@ export declare interface ScriptProperties {
   pdp: boolean
   kuikpay: boolean
   isInGlobalPage: boolean
-  viewers?: boolean
+  viewers: boolean
 }
 export declare interface InfoSocket {
   socket: WebSocket | undefined
