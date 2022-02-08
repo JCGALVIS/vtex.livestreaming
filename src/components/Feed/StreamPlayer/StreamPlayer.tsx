@@ -123,7 +123,6 @@ export const StreamPlayer = ({
         ) : (
           <DesktopControls {...props} />
         )}
-        <p>{activePromoMessage}</p>
         {activePromoMessage && activePromoMessage !== '' && (
           <div
             className={`${styles.promotionAlertContainer} ${
