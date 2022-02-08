@@ -6,9 +6,9 @@ import { ProductItem } from './ProductItem'
 import { useFetchProducts } from '../../hooks/useFetchProducts'
 import { ArrowRightLivestreaming } from '../icons'
 import { ActionsContext, SettingContext } from '../../context'
+import { Products } from '../../typings/livestreaming'
 
 import styles from './productSlider.css'
-import { Products } from '../../typings/livestreaming'
 
 type HorizontalProductSliderProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>

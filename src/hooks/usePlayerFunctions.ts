@@ -9,7 +9,7 @@ import {
 
 import type { MediaPlayer, StreamPlayerType } from '../typings/MediaPlayer'
 import { getMobileOS } from '../utils'
-import { useLivestreamingContext } from '../context'
+import { useLivestreamingContext } from '../context/livestreaming/livestreamingContext'
 import { HightLightHistoryElement } from '../typings/livestreaming'
 
 type PlayerFuntionsProps = {

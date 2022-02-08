@@ -14,7 +14,7 @@ import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import ShareComponents from '../../ShareComponents'
-import { ProductToCart } from '../..'
+import { ProductToCart } from '../../ProductCart/ProductToCart'
 
 import styles from './streamPlayer.css'
 

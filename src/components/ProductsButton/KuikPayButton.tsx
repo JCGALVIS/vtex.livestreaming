@@ -1,29 +1,30 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import $ from 'jquery'
 
-import { Kuikpay } from 'kuikpay-sdk'
+import { cartSimulation } from '../../services'
+import type { Products } from '../../typings/livestreaming'
+import { Kuikpay, KuikpayWrapper } from 'kuikpay-sdk'
 import 'kuikpay-sdk/dist/index.css'
 
 import styles from './kuikPayButton.css'
 
-import { cartSimulation } from '../../services'
-
 const windowInfo: any = window
-const { vtexjs } = windowInfo
+const { vtexjs, vtxctx } = windowInfo
 
 type KuikPayButtonProps = {
-  productId: string
+  product: Products
 }
 
 export const KuikPayButton = (props: KuikPayButtonProps) => {
-  const { productId } = props
+  const { product } = props
 
   const [orderForm, setOrderForm] = useState<any>({})
   const [order, setOrder] = useState<any | null>(null)
 
   // Item to add to cart
   const itemToAdd = {
-    id: Number(productId),
+    id: Number(product.skuId),
     quantity: 1,
     seller: '1'
   }
@@ -108,19 +109,32 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     })
   }
 
+  const runtime = {
+    account: vtxctx.url.split('.')[0],
+    workspace: 'master'
+  }
+
+  const itemsLength = product?.items?.length ?? 0
+  const multipleAvailableSKUs = itemsLength > 1
+
   return (
     <div className={styles.kuikpay}>
-      <Kuikpay
-        addToCart={handleAddToCart}
-        itemToAdd={itemToAdd}
-        updateItems={handleUpdateItems}
-        orderForm={order}
+      <KuikpayWrapper
         updateSelectedAddress={() => {}}
         updateOrderFormProfile={handleUpdateOrderFormProfile}
         cartSimulation={cartSimulation}
-        clearData={handleClearItems}
         theme='kuikpay'
-      />
+        runtime={runtime}
+      >
+        <Kuikpay
+          addToCart={handleAddToCart}
+          itemToAdd={itemToAdd}
+          updateItems={handleUpdateItems}
+          orderForm={order}
+          clearData={handleClearItems}
+          multipleAvailableSKUs={multipleAvailableSKUs}
+        />
+      </KuikpayWrapper>
     </div>
   )
 }
