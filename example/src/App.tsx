@@ -86,7 +86,7 @@ const App = () => {
       account='livestreamingdemo'
       getProductId={getProductByIdCace}
       getProducts={getProductsCace}
-      idLivestreaming='f49f659b-0ae5-4c49-bc6e-233847b6c605'
+      idLivestreaming='3de9208e-61bb-437b-ba2b-b0af696d6d81'
       isInGlobalPage='_ISINGLOBALPAGE'
       isInfinite='_ISINFINITE'
       kuikpay='_KUIKPAY'

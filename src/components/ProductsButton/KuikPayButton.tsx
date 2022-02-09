@@ -114,7 +114,7 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     workspace: 'master'
   }
 
-  const itemsLength = product?.items?.length ?? 0
+  const itemsLength = product?.items?.length || 0
   const multipleAvailableSKUs = itemsLength > 1
 
   return (
