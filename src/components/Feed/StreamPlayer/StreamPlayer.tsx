@@ -12,7 +12,6 @@ import type { MediaPlayer } from '../../../typings/MediaPlayer'
 import { getDeviceType } from '../../../utils'
 import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
-import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import ShareComponents from '../../ShareComponents'
 import { ProductToCart } from '../..'
 
@@ -24,6 +23,7 @@ type streamPlayerProps = {
   transmitionType: string | undefined
   streamUrl: string | undefined
   isFinalized: boolean
+  setHighlightProps: React.Dispatch<React.SetStateAction<{}>>
 }
 
 export const StreamPlayer = ({
@@ -31,7 +31,8 @@ export const StreamPlayer = ({
   setShowVariation,
   transmitionType,
   streamUrl,
-  isFinalized
+  isFinalized,
+  setHighlightProps
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
@@ -76,6 +77,13 @@ export const StreamPlayer = ({
 
   useEffect(() => {
     setDetector(mobileOS)
+    
+    setHighlightProps({
+      detector,
+      fullScreen,
+      handleFullScreen,
+      handleFullScreenMobile
+    })
   }, [mobileOS, pictureInPicture])
 
   const ControlWrapper = useMemo(() => {
@@ -175,12 +183,6 @@ export const StreamPlayer = ({
           : {}
       }
     >
-      <HighlightProduct
-        fullScreen={fullScreen}
-        handleFullScreen={detector ? handleFullScreen : handleFullScreenMobile}
-        setShowVariation={setShowVariation}
-        isFinalized={isFinalized}
-      />
       {openShare && <ShareComponents handleClose={() => setOpenShare(false)} />}
       <video
         className={styles.playerVideoEl}

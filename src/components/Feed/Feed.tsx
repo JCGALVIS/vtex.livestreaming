@@ -4,6 +4,8 @@ import { ActionsContext, SettingContext } from '../../context'
 import { usePlayerLayout } from '../../hooks'
 import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
+//import { getDeviceType } from '../../utils'
+import HighlightProduct from '../HighlightProduct/HighlightProduct'
 
 import styles from './feed.css'
 
@@ -13,6 +15,13 @@ type FeedProps = {
   streamUrl: string | undefined
   transmitionType: string | undefined
   livestreamingStatus: string
+}
+
+interface HighlightProps {
+  detector: boolean
+  fullScreen: boolean
+  handleFullScreen: () => void
+  handleFullScreenMobile: () => void
 }
 
 export const Feed = ({
@@ -34,6 +43,12 @@ export const Feed = ({
 
   const [playerCurrent, setPlayerCurrent] = useState(false)
   const [liveStatus, setLiveStatus] = useState(false)
+  const [highlightProps, setHighlightProps] = useState<HighlightProps>({
+    detector: false,
+    fullScreen: false,
+    handleFullScreen: () => {},
+    handleFullScreenMobile: () => {}
+  })
   const player: typeof MediaPlayer = useRef(null)
 
   const { isTransmiting } = infoSocket || {}
@@ -92,6 +107,13 @@ export const Feed = ({
         isVerticalLayout ? styles.verticalLayout : styles.horizontalLayout
       }`}
     >
+      <HighlightProduct
+        fullScreen={highlightProps.fullScreen}
+        handleFullScreen={highlightProps.detector ? highlightProps.handleFullScreen : highlightProps.handleFullScreenMobile}
+        setShowVariation={setShowVariation}
+        isFinalized={isFinalized}
+      />
+
       {playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
         <StreamPlayer
           player={player.current}
@@ -99,9 +121,10 @@ export const Feed = ({
           setShowVariation={setShowVariation}
           transmitionType={transmitionType}
           isFinalized={isFinalized}
+          setHighlightProps={setHighlightProps}
         />
       ) : (
-        <NoVideo isLive={isLive} liveStatus={liveStatus} streamUrl={streamUrl} player={player.current} transmitionType={transmitionType} setShowVariation={setShowVariation} isFinalized={isFinalized} />
+        <NoVideo isLive={isLive} liveStatus={liveStatus} />
       )}
     </div>
   )
