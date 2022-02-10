@@ -16,7 +16,7 @@ type SettingCtx = {
   setMessageAlert?: React.Dispatch<React.SetStateAction<string>>
   setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
   setShowCarouselChatButton?: React.Dispatch<React.SetStateAction<boolean>>
-  setActivePromoMessage: React.Dispatch<
+  setActivePromoMessage?: React.Dispatch<
     React.SetStateAction<string | undefined>
   >
   activePromoMessage?: string

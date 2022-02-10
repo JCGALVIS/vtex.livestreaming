@@ -4,7 +4,8 @@ import React, {
   useState,
   useMemo,
   Fragment,
-  useContext
+  useContext,
+  useRef
 } from 'react'
 
 import { ActionsContext, SettingContext } from '../../../context'
@@ -14,6 +15,7 @@ import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import ShareComponents from '../../ShareComponents'
+import PromotionsNotification from '../PromotionNotification/PromotionsNotification'
 import { ProductToCart } from '../..'
 
 import styles from './streamPlayer.css'
@@ -37,6 +39,7 @@ export const StreamPlayer = ({
   const [openShare, setOpenShare] = useState(false)
   const { isModalLive, activePromoMessage } = useContext(SettingContext)
 
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const {
     setting: { isInGlobalPage }
   } = useContext(ActionsContext)
@@ -116,6 +119,15 @@ export const StreamPlayer = ({
 
     return (
       <Fragment>
+        <canvas
+          ref={canvasRef}
+          style={{
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            zIndex: 2
+          }}
+        />
         {isMobile ? (
           <MobileControls {...props} />
         ) : !fullScreen && isVerticalLayout ? (
@@ -124,13 +136,12 @@ export const StreamPlayer = ({
           <DesktopControls {...props} />
         )}
         {activePromoMessage && activePromoMessage !== '' && (
-          <div
-            className={`${styles.promotionAlertContainer} ${
-              fullScreen && styles.fullScreen
-            }`}
-          >
-            <div className={styles.balloon}>{activePromoMessage}</div>
-          </div>
+          <Fragment>
+            <PromotionsNotification
+              canvas={canvasRef}
+              message={activePromoMessage}
+            />
+          </Fragment>
         )}
       </Fragment>
     )
