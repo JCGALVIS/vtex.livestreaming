@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-// import { getMobileOS } from '../../utils'
 import styles from './NoVideo.css'
 import { FormattedMessage } from 'react-intl'
 import { ActionsContext, SettingContext } from '../../context'

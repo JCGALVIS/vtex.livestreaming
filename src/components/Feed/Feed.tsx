@@ -4,7 +4,6 @@ import { ActionsContext, SettingContext } from '../../context'
 import { usePlayerLayout } from '../../hooks'
 import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
-//import { getDeviceType } from '../../utils'
 import HighlightProduct from '../HighlightProduct/HighlightProduct'
 
 import styles from './feed.css'
