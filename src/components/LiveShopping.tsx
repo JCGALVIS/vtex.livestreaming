@@ -238,6 +238,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   }, [showCarouselChatButton, socketCarouselChatButton])
 
   useEffect(() => {
+    if (!setActivePromoMessage) return
     setActivePromoMessage(activePromoMessage)
   }, [activePromoMessage, setActivePromoMessage])
 
