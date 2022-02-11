@@ -151,6 +151,7 @@ export const Login = ({
 
         <div className={styles.inputContainer}>
           <input
+            autoFocus
             maxLength={15}
             placeholder={formatMessage({
               id: 'store/live.chat-login-name-placeholder'
