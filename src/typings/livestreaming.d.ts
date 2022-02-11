@@ -70,6 +70,7 @@ export declare interface InfoSocket {
   ivsRealTime: IvsRealTime | undefined
   showCounter: boolean | undefined
   showGif: boolean | undefined
+  showLoader: boolean | undefined
   isTransmiting: boolean
   emailIsRequired: boolean | undefined
   question?: Question
@@ -77,6 +78,7 @@ export declare interface InfoSocket {
   setHearts: React.Dispatch<React.SetStateAction<Heart[]>>
   setChat: React.Dispatch<React.SetStateAction<Message[]>>
   setIsTransmiting: React.Dispatch<React.SetStateAction<boolean>>
+  setShowLoader: React.Dispatch<React.SetStateAction<boolean>>
   sendAccountId: (username?: string, email?: string) => void
   setIvsRealTime: React.Dispatch<React.SetStateAction<IvsRealTime | undefined>>
   highlightProduct?: HighlightProduct | undefined

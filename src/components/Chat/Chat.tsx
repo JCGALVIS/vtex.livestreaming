@@ -19,6 +19,7 @@ import GiphySearch from '../Giphy/Giphy'
 import { ModalQuestion } from '../question/ModalQuestion'
 import { getDeviceType } from '../../utils'
 import ArrowDown from '../icons/ArrowDown'
+import LoadingIcon from '../icons/LoadingIcon'
 import {
   ActionsContext,
   SettingContext,
@@ -63,6 +64,8 @@ export const Chat = ({
 
   const {
     socket,
+    showLoader,
+    setShowLoader,
     chat,
     setChat,
     sessionId,
@@ -97,10 +100,15 @@ export const Chat = ({
       event.preventDefault()
       event.persist()
     }
+
+    if(!setShowLoader) return
+    
+    setShowLoader(true)
     const isEmpty = !(content !== null && content.trim() !== '')
     const isEmptyGif = gif === undefined || gif?.trim() === ''
 
     if ((isEmpty && isEmptyGif) || !socket) {
+      setShowLoader(false)
       return
     }
 
@@ -403,7 +411,7 @@ export const Chat = ({
                   </span>
                 )}
                 <button type='submit' className={styles.btn}>
-                  <SendIcon size='21' viewBox='0 0 21 21' />
+                  {showLoader ? <LoadingIcon size='80' viewBox='0 0 400 400' /> : <SendIcon size='21' viewBox='0 0 21 21' />}
                 </button>
               </div>
             </form>

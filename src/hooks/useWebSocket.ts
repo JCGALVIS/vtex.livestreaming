@@ -27,6 +27,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [showGif, setShowGif] = useState<boolean | undefined>()
+  const [showLoader, setShowLoader] = useState<boolean>()
   const [showCarouselChatButton, setShowCarouselChatButton] = useState<
     boolean | undefined
   >()
@@ -119,6 +120,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             },
             ...prev
           ])
+          setShowLoader(false)
           break
 
         case 'sendlike':
@@ -282,6 +284,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     ivsRealTime,
     showCounter,
     showGif,
+    showLoader,
+    setShowLoader,
     isTransmiting,
     emailIsRequired,
     highlightProduct,
