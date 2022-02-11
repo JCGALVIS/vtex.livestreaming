@@ -33,7 +33,7 @@ export const ProductItem = (props: ProductItemProps) => {
   } = product
 
   const {
-    setting: { isInGlobalPage, kuikpay, originOfProducts, showQuickView }
+    setting: { isInGlobalPage, kuikpay, showQuickView }
   } = useContext(ActionsContext)
 
   const { formatMessage, locale } = useIntl()
@@ -79,9 +79,7 @@ export const ProductItem = (props: ProductItemProps) => {
               productName={name}
             />
           )}
-          {kuikpay && originOfProducts !== 'platform' && (
-            <KuikPayButton product={product} />
-          )}
+          {kuikpay && <KuikPayButton product={product} />}
         </div>
       </div>
     </div>

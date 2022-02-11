@@ -37,7 +37,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   })
 
   const {
-    setting: { kuikpay, originOfProducts }
+    setting: { kuikpay }
   } = useContext(ActionsContext)
 
   const { product, loading } = useFetchProductById({
@@ -215,7 +215,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                               handleClose={handleClose}
                             />
                           </div>
-                          {kuikpay && originOfProducts !== 'platform' && (
+                          {kuikpay && (
                             <KuikPayButton
                               product={{
                                 id: product?.id || '',
