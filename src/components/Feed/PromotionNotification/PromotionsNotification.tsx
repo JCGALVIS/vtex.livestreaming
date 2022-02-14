@@ -39,6 +39,9 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         .to('.cloud', 1, {
           display: 'none'
         })
+        .to('#rocketwrapper', 1, {
+          display: 'none'
+        })
         .set('#rocketwrapper', { y: 250 })
         .to('#rocketwrapper', 1, {
           y: 250,
