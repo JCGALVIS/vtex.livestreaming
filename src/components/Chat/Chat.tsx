@@ -19,7 +19,7 @@ import GiphySearch from '../Giphy/Giphy'
 import { ModalQuestion } from '../question/ModalQuestion'
 import { getDeviceType } from '../../utils'
 import ArrowDown from '../icons/ArrowDown'
-import LoadingIcon from '../icons/LoadingIcon'
+import AnimatedLoaderIcon from '../icons/AnimatedLoaderIcon'
 import {
   ActionsContext,
   SettingContext,
@@ -411,7 +411,7 @@ export const Chat = ({
                   </span>
                 )}
                 <button type='submit' className={styles.btn}>
-                  {showLoader ? <LoadingIcon size='80' viewBox='0 0 400 400' /> : <SendIcon size='21' viewBox='0 0 21 21' />}
+                  {showLoader ? <AnimatedLoaderIcon className={styles.spinner} /> : <SendIcon size='21' viewBox='0 0 21 21' />}
                 </button>
               </div>
             </form>
