@@ -36,6 +36,9 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         .set('.cloud', {
           clearProps: 'all'
         })
+        .to('.cloud', 1, {
+          display: 'none'
+        })
         .set('#rocketwrapper', { y: 250 })
         .to('#rocketwrapper', 1, {
           y: 250,
@@ -111,7 +114,9 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         </div>
 
         <div className={style.cloudswrapper}>
-          <div className={style.messagepromo}>{message}</div>
+          <div className={style.messagepromo}>
+            <div>{message}</div>
+          </div>
 
           <svg
             className={style.clouds}
