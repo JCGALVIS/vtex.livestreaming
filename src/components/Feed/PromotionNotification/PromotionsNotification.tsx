@@ -61,7 +61,7 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
     const party = confetti.create(canvas.current, { resize: true })
     // go Buckeyes!
     const colors = ['#bb0000', '#ffffff']
-    const end = Date.now() + 10 * 5000
+    const end = Date.now() + 5 * 1000
 
     function frame() {
       party({
@@ -78,7 +78,7 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         origin: { x: 1 },
         colors
       })
-
+      console.log(Date.now(), end)
       if (Date.now() < end) {
         requestAnimationFrame(frame)
       }

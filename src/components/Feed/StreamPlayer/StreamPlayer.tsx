@@ -80,7 +80,6 @@ export const StreamPlayer = ({
 
   useEffect(() => {
     setDetector(mobileOS)
-    
     setHighlightProps({
       detector,
       fullScreen,
@@ -127,15 +126,6 @@ export const StreamPlayer = ({
 
     return (
       <Fragment>
-        <canvas
-          ref={canvasRef}
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            zIndex: 2
-          }}
-        />
         {isMobile ? (
           <MobileControls {...props} />
         ) : !fullScreen && isVerticalLayout ? (
@@ -204,6 +194,15 @@ export const StreamPlayer = ({
       }
     >
       {openShare && <ShareComponents handleClose={() => setOpenShare(false)} />}
+      <canvas
+        ref={canvasRef}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          zIndex: 2
+        }}
+      />
       <video
         className={styles.playerVideoEl}
         controls={false}
