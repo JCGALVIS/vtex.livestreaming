@@ -61,7 +61,7 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
     const party = confetti.create(canvas.current, { resize: true })
     // go Buckeyes!
     const colors = ['#bb0000', '#ffffff']
-    const end = Date.now() + 10 * 1000
+    const end = Date.now() + 10 * 5000
 
     function frame() {
       party({
