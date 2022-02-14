@@ -78,7 +78,6 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         origin: { x: 1 },
         colors
       })
-      console.log(Date.now(), end)
       if (Date.now() < end) {
         requestAnimationFrame(frame)
       }
