@@ -13,7 +13,6 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
   const [showMessage, setShowMessage] = useState<boolean>(false)
 
   const completeAnimation = () => {
-    console.log('finalize')
     setShowMessage(true)
   }
 
@@ -25,11 +24,7 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         repeatDelay: 0,
         onComplete: completeAnimation,
         onStart: () => {
-          console.log('start')
           setShowMessage(false)
-        },
-        onUpdate: () => {
-          console.log('update')
         }
       })
       tl.from('.cloud', 1, { alpha: 0 })
