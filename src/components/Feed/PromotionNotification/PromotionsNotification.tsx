@@ -13,7 +13,6 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
   const [showMessage, setShowMessage] = useState<boolean>(false)
 
   const completeAnimation = () => {
-    console.log('finalize')
     setShowMessage(true)
   }
 
@@ -25,11 +24,7 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         repeatDelay: 0,
         onComplete: completeAnimation,
         onStart: () => {
-          console.log('start')
           setShowMessage(false)
-        },
-        onUpdate: () => {
-          console.log('update')
         }
       })
       tl.from('.cloud', 1, { alpha: 0 })
@@ -40,6 +35,12 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         .to('.cloud', 3, { attr: { cy: 185 }, ease: Expo.easeIn }, '-=3')
         .set('.cloud', {
           clearProps: 'all'
+        })
+        .to('.cloud', 1, {
+          display: 'none'
+        })
+        .to('#rocketwrapper', 1, {
+          display: 'none'
         })
         .set('#rocketwrapper', { y: 250 })
         .to('#rocketwrapper', 1, {
@@ -61,7 +62,7 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
     const party = confetti.create(canvas.current, { resize: true })
     // go Buckeyes!
     const colors = ['#bb0000', '#ffffff']
-    const end = Date.now() + 10 * 5000
+    const end = Date.now() + 5 * 1000
 
     function frame() {
       party({
@@ -78,7 +79,6 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         origin: { x: 1 },
         colors
       })
-
       if (Date.now() < end) {
         requestAnimationFrame(frame)
       }
@@ -117,7 +117,9 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
         </div>
 
         <div className={style.cloudswrapper}>
-          <div className={style.messagepromo}>{message}</div>
+          <div className={style.messagepromo}>
+            <div>{message}</div>
+          </div>
 
           <svg
             className={style.clouds}
