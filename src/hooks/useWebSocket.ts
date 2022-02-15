@@ -27,6 +27,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [showGif, setShowGif] = useState<boolean | undefined>()
+  const [showLoader, setShowLoader] = useState<boolean>()
   const [showCarouselChatButton, setShowCarouselChatButton] = useState<
     boolean | undefined
   >()
@@ -46,6 +47,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
   const [productsInCart, setProductsInCart] = useState<Products[]>([])
+  const [activePromoMessage, setActivePromoMessage] = useState<string>()
 
   const createWebSocket = useCallback(() => {
     let queueSocketInit: Queue<number>
@@ -98,7 +100,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         type,
         quickView,
         showCarouselChatButton,
-        viewers
+        viewers,
+        message
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -117,6 +120,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             },
             ...prev
           ])
+          setShowLoader(false)
           break
 
         case 'sendlike':
@@ -210,6 +214,14 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             }
           ])
           break
+        case 'sendactivepromotion':
+          setTimeout(() => {
+            setActivePromoMessage(message)
+          }, 300000)
+          setTimeout(() => {
+            setActivePromoMessage(undefined)
+          }, 360000)
+          break
 
         default:
           break
@@ -276,6 +288,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     ivsRealTime,
     showCounter,
     showGif,
+    showLoader,
+    setShowLoader,
     isTransmiting,
     emailIsRequired,
     highlightProduct,
@@ -298,7 +312,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     productsInCart,
     setProductsInCart,
     setQueueSocket,
-    showCarouselChatButton
+    showCarouselChatButton,
+    activePromoMessage
   }
 }
 

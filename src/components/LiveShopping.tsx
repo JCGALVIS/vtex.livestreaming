@@ -61,14 +61,18 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showChat,
       showQuickView,
       showProductsCarousel,
-      showSidebarProducts,
-      showViewers
+      showSidebarProducts
     },
     setSetting
   } = useContext(ActionsContext)
 
-  const { infoSocket, isModalLive, setIsModalLive, setShowCarouselChatButton } =
-    useContext(SettingContext)
+  const {
+    infoSocket,
+    isModalLive,
+    setIsModalLive,
+    setShowCarouselChatButton,
+    setActivePromoMessage
+  } = useContext(SettingContext)
 
   const {
     collectionId,
@@ -97,7 +101,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     sessionId,
     pinnedMessage: socketPinnedMessage,
     transmitiontype: socketTransmitiontype,
-    showCarouselChatButton: socketCarouselChatButton
+    showCarouselChatButton: socketCarouselChatButton,
+    activePromoMessage
   } = infoSocket || {}
 
   const getHeight = () => {
@@ -130,9 +135,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       viewers
     } = scriptProperties
 
-    const viewersFlag = viewers || showViewers
-
-    if (setShowCounter) setShowCounter(viewersFlag)
+    if (setShowCounter) setShowCounter(viewers)
 
     setSetting({
       addToCart,
@@ -148,7 +151,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showQuickView: quickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
-      showViewers: viewersFlag,
+      showViewers: viewers,
       time
     })
   }, [scriptProperties])
@@ -235,6 +238,11 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       }
     }
   }, [showCarouselChatButton, socketCarouselChatButton])
+
+  useEffect(() => {
+    if (!setActivePromoMessage) return
+    setActivePromoMessage(activePromoMessage)
+  }, [activePromoMessage, setActivePromoMessage])
 
   return (
     <div

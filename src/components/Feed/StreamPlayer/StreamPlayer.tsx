@@ -4,7 +4,8 @@ import React, {
   useState,
   useMemo,
   Fragment,
-  useContext
+  useContext,
+  useRef
 } from 'react'
 
 import { ActionsContext, SettingContext } from '../../../context'
@@ -12,9 +13,9 @@ import type { MediaPlayer } from '../../../typings/MediaPlayer'
 import { getDeviceType } from '../../../utils'
 import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
-import HighlightProduct from '../../HighlightProduct/HighlightProduct'
 import ShareComponents from '../../ShareComponents'
-import { ProductToCart } from '../../ProductCart/ProductToCart'
+import PromotionsNotification from '../PromotionNotification/PromotionsNotification'
+import { ProductToCart } from '../..'
 
 import styles from './streamPlayer.css'
 
@@ -24,6 +25,7 @@ type streamPlayerProps = {
   transmitionType: string | undefined
   streamUrl: string | undefined
   isFinalized: boolean
+  setHighlightProps: React.Dispatch<React.SetStateAction<{}>>
 }
 
 export const StreamPlayer = ({
@@ -31,12 +33,14 @@ export const StreamPlayer = ({
   setShowVariation,
   transmitionType,
   streamUrl,
-  isFinalized
+  isFinalized,
+  setHighlightProps
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
-  const { isModalLive } = useContext(SettingContext)
+  const { isModalLive, activePromoMessage } = useContext(SettingContext)
 
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const {
     setting: { isInGlobalPage }
   } = useContext(ActionsContext)
@@ -76,6 +80,12 @@ export const StreamPlayer = ({
 
   useEffect(() => {
     setDetector(mobileOS)
+    setHighlightProps({
+      detector,
+      fullScreen,
+      handleFullScreen,
+      handleFullScreenMobile
+    })
   }, [mobileOS, pictureInPicture])
 
   const ControlWrapper = useMemo(() => {
@@ -122,6 +132,14 @@ export const StreamPlayer = ({
           <MobileControls {...props} />
         ) : (
           <DesktopControls {...props} />
+        )}
+        {activePromoMessage && activePromoMessage !== '' && (
+          <Fragment>
+            <PromotionsNotification
+              canvas={canvasRef}
+              message={activePromoMessage}
+            />
+          </Fragment>
         )}
       </Fragment>
     )
@@ -175,13 +193,16 @@ export const StreamPlayer = ({
           : {}
       }
     >
-      <HighlightProduct
-        fullScreen={fullScreen}
-        handleFullScreen={detector ? handleFullScreen : handleFullScreenMobile}
-        setShowVariation={setShowVariation}
-        isFinalized={isFinalized}
-      />
       {openShare && <ShareComponents handleClose={() => setOpenShare(false)} />}
+      <canvas
+        ref={canvasRef}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          zIndex: 2
+        }}
+      />
       <video
         className={styles.playerVideoEl}
         controls={false}
