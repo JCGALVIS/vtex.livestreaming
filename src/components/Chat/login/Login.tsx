@@ -35,7 +35,7 @@ export const Login = ({
   const { infoSocket } = useContext(SettingContext)
   const { sessionId } = useSessionId()
 
-  const { sendAccountId, socket, emailIsRequired } = infoSocket || {}
+  const { sendAccountId, socket, emailIsRequired, setShowLoader } = infoSocket || {}
 
   const {
     setting: { account, idLivestreaming }
@@ -43,6 +43,8 @@ export const Login = ({
 
   const handlerCloseCard = () => {
     setShowLoginWindow(false)
+
+    if(setShowLoader) setShowLoader(false)
   }
 
   const sendMessage = () => {
