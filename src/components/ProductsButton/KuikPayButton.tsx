@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import $ from 'jquery'
 
 import { cartSimulation } from '../../services'
 import type { Profile } from '../../interfaces'
@@ -36,16 +35,6 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     quantity: 1,
     seller: '1'
   }
-
-  const listendCheckout = () => {
-    $(window).on('orderFormUpdated.vtex', (_: any, orderFormData: any) => {
-      setOrderForm(orderFormData)
-    })
-  }
-
-  useEffect(() => {
-    listendCheckout()
-  }, [])
 
   useEffect(() => {
     vtexjs.checkout
