@@ -166,7 +166,6 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     <div className={styles.kuikpay}>
       <KuikpayWrapper
         updateSelectedAddress={() => {}}
-        updateOrderFormProfile={handleUpdateOrderFormProfile}
         cartSimulation={cartSimulation}
         theme='kuikpay'
         runtime={runtime}
@@ -176,6 +175,7 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
           addItemOffering={handleAddItemOffering}
           insertCoupon={handleInsertCoupon}
           itemToAdd={itemToAdd}
+          updateOrderFormProfile={handleUpdateOrderFormProfile}
           updateItems={handleUpdateItems}
           orderForm={order}
           clearData={handleClearItems}
