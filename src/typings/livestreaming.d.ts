@@ -17,7 +17,7 @@ type LivestreamingProps = {
   showSidebarProducts: boolean
   showQuickView: boolean
   showProductsCarousel: boolean
-  showViewers: boolean
+  showViewers: boolean | undefined
   kuikpay: boolean
 }
 

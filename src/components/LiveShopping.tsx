@@ -102,7 +102,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     pinnedMessage: socketPinnedMessage,
     transmitiontype: socketTransmitiontype,
     showCarouselChatButton: socketCarouselChatButton,
-    activePromoMessage
+    activePromoMessage,
+    showCounter
   } = infoSocket || {}
 
   const getHeight = () => {
@@ -135,7 +136,9 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       viewers
     } = scriptProperties
 
-    if (setShowCounter) setShowCounter(viewers)
+    const viewersFlag = viewers === undefined ? showCounter : viewers
+
+    if (setShowCounter) setShowCounter(viewersFlag)
 
     setSetting({
       addToCart,
@@ -151,7 +154,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showQuickView: quickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
-      showViewers: viewers,
+      showViewers: viewersFlag,
       time
     })
   }, [scriptProperties])
