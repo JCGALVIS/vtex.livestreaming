@@ -74,7 +74,7 @@
     "caniuse-lite": "^1.0.30001311",
     "canvas-confetti": "^1.5.1",
     "gsap": "^3.9.1",
-    "kuikpay-sdk": "0.0.81-dev.55",
+    "kuikpay-sdk": "0.0.81-dev.58",
     "react-giphy-searchbox": "^1.5.4",
     "react-intl": "^5.21.2",
     "react-transition-group": "^4.4.2",
