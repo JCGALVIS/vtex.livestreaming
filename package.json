@@ -1,6 +1,6 @@
 {
   "name": "@jcgalvis/vtex.livestreaming",
-  "version": "1.6.56-beta",
+  "version": "1.6.57-beta",
   "description": "Made with create-react-library",
   "author": "JCGALVIS",
   "license": "MIT",
@@ -71,7 +71,7 @@
     "@types/resize-observer-browser": "^0.1.6",
     "@vtex/css-handles": "^1.1.3",
     "@vtex/styleguide": "^9.143.0",
-    "caniuse-lite": "^1.0.30001311",
+    "caniuse-lite": "^1.0.30001312",
     "canvas-confetti": "^1.5.1",
     "gsap": "^3.9.1",
     "kuikpay-sdk": "0.0.81-dev.58",
