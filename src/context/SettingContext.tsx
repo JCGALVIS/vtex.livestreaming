@@ -16,13 +16,18 @@ type SettingCtx = {
   setMessageAlert?: React.Dispatch<React.SetStateAction<string>>
   setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
   setShowCarouselChatButton?: React.Dispatch<React.SetStateAction<boolean>>
+  setActivePromoMessage?: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >
+  activePromoMessage?: string
 }
 
 const settingDefault: SettingCtx = {
   isModalLive: false,
   setIsModalLive: () => {},
   showCarouselChat: false,
-  setShowCarouselChatButton: () => {}
+  setShowCarouselChatButton: () => {},
+  setActivePromoMessage: () => {}
 }
 
 export const SettingContext = createContext<SettingCtx>(settingDefault)
@@ -38,6 +43,7 @@ export const SettingProvider: FC<SettingCtx> = ({
   const [showCarouselChat, setShowCarouselChat] = useState(false)
   const [showCarouselChatButton, setShowCarouselChatButton] = useState(false)
   const [messageAlert, setMessageAlert] = useState('')
+  const [activePromoMessage, setActivePromoMessage] = useState<string>()
 
   const contex: SettingCtx = {
     collectionId,
@@ -49,7 +55,9 @@ export const SettingProvider: FC<SettingCtx> = ({
     setMessageAlert,
     setShowCarouselChat,
     showCarouselChatButton,
-    setShowCarouselChatButton
+    setShowCarouselChatButton,
+    activePromoMessage,
+    setActivePromoMessage
   }
   return (
     <SettingContext.Provider value={contex}>{children}</SettingContext.Provider>

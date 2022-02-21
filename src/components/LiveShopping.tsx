@@ -60,14 +60,18 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showChat,
       showQuickView,
       showProductsCarousel,
-      showSidebarProducts,
-      showViewers
+      showSidebarProducts
     },
     setSetting
   } = useContext(ActionsContext)
 
-  const { infoSocket, isModalLive, setIsModalLive, setShowCarouselChatButton } =
-    useContext(SettingContext)
+  const {
+    infoSocket,
+    isModalLive,
+    setIsModalLive,
+    setShowCarouselChatButton,
+    setActivePromoMessage
+  } = useContext(SettingContext)
 
   const {
     collectionId,
@@ -96,7 +100,9 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     sessionId,
     pinnedMessage: socketPinnedMessage,
     transmitiontype: socketTransmitiontype,
-    showCarouselChatButton: socketCarouselChatButton
+    showCarouselChatButton: socketCarouselChatButton,
+    activePromoMessage,
+    showCounter
   } = infoSocket || {}
 
   const getHeight = () => {
@@ -125,10 +131,14 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       quickView,
       productsCarousel,
       sidebarProducts,
-      time
+      time,
+      viewers
     } = scriptProperties
 
-    if (setShowCounter) setShowCounter(showViewers)
+    const viewersFlag = viewers === undefined ? showCounter : viewers
+
+    if (setShowCounter) setShowCounter(viewersFlag)
+
     setSetting({
       account,
       idLivestreaming,
@@ -142,7 +152,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showQuickView: quickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
-      showViewers,
+      showViewers: viewersFlag,
       time
     })
   }, [scriptProperties])
@@ -229,6 +239,11 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       }
     }
   }, [showCarouselChatButton, socketCarouselChatButton])
+
+  useEffect(() => {
+    if (!setActivePromoMessage) return
+    setActivePromoMessage(activePromoMessage)
+  }, [activePromoMessage, setActivePromoMessage])
 
   return (
     <div
