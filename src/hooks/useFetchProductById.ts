@@ -2,6 +2,7 @@
 import { useContext, useEffect, useState } from 'react'
 import type { Products } from '../typings/livestreaming'
 import { ActionsContext } from '../context'
+import { getProductByIdCace } from '../services'
 
 type useFetchProductById = {
   productId: string | undefined
@@ -21,12 +22,21 @@ export const useFetchProductById = ({ productId }: useFetchProductById) => {
   useEffect(() => {
     setLoading(false)
     if (productId) {
-      getProductById(productId).then((respon: any) => {
-        if (respon) {
-          setProduct(respon)
-          setLoading(true)
-        }
-      })
+      if (getProductId) {
+        getProductById(productId).then((respon: any) => {
+          if (respon) {
+            setProduct(respon)
+            setLoading(true)
+          }
+        })
+      }else {
+        getProductByIdCace({productId}).then((respon: any) => {
+          if (respon) {
+            setProduct(respon)
+            setLoading(true)
+          }
+        })
+      }
     }
   }, [productId])
 
