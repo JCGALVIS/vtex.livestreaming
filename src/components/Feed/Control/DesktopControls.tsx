@@ -15,7 +15,7 @@ import {
   VolumeUpIcon
 } from '../../icons'
 import type { PlayerControls } from '../../../typings/MediaPlayer'
-import { Like } from '../../'
+import { Like } from '../../Like/Like'
 
 import styles from '../../../styles.module.css'
 import styles2 from '../StreamPlayer/streamPlayer.css'

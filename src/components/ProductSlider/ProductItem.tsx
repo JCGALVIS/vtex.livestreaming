@@ -3,8 +3,9 @@ import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 
 import { currencyFormat } from '../../utils'
-import { ProductButton, ProductVariationButton } from '..'
-import { KuikPayButton } from './../ProductsButton/KuikPayButton'
+import { ProductButton } from '../ProductsButton/ProductButton'
+import { KuikPayButton } from '../ProductsButton/KuikPayButton'
+import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
 import { ActionsContext } from '../../context/ActionsContext'
 import type { Products } from '../../typings/livestreaming'
 
@@ -28,12 +29,11 @@ export const ProductItem = (props: ProductItemProps) => {
     imageUrl,
     isAvailable,
     variationSelector,
-    pdpLink,
-    skuId
+    pdpLink
   } = product
 
   const {
-    setting: { isInGlobalPage, kuikpay, originOfProducts, showQuickView }
+    setting: { isInGlobalPage, kuikpay, showQuickView }
   } = useContext(ActionsContext)
 
   const { formatMessage, locale } = useIntl()
@@ -79,9 +79,7 @@ export const ProductItem = (props: ProductItemProps) => {
               productName={name}
             />
           )}
-          {kuikpay && originOfProducts !== 'platform' && (
-            <KuikPayButton productId={skuId || id} />
-          )}
+          {kuikpay && <KuikPayButton product={product} />}
         </div>
       </div>
     </div>

@@ -7,9 +7,11 @@ import { useFetchProductById } from '../../hooks/useFetchProductById'
 import { currencyFormat } from '../../utils'
 import { ColorVariation } from './ColorVariation'
 import { SizeVariations } from './SizeVariations'
-import type { Values } from '../../typings/livestreaming'
-import { ProductButton, KuikPayButton } from '..'
+import { ProductButton } from '../ProductsButton/ProductButton'
+import { KuikPayButton } from '../ProductsButton/KuikPayButton'
 import { ActionsContext } from '../../context/ActionsContext'
+
+import type { Values } from '../../typings/livestreaming'
 
 import styles from './variationSelector.css'
 
@@ -35,7 +37,7 @@ export const VariationSelector = (props: VariationSelectorProps) => {
   })
 
   const {
-    setting: { kuikpay, originOfProducts }
+    setting: { kuikpay }
   } = useContext(ActionsContext)
 
   const { product, loading } = useFetchProductById({
@@ -213,8 +215,26 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                               handleClose={handleClose}
                             />
                           </div>
-                          {kuikpay && originOfProducts !== 'platform' && (
-                            <KuikPayButton productId={selectedProduct.skuId} />
+                          {kuikpay && (
+                            <KuikPayButton
+                              product={{
+                                id: product?.id || '',
+                                name: product?.name || '',
+                                price: selectedProduct.price,
+                                priceWithDiscount:
+                                  selectedProduct.priceWithDiscount,
+                                imageUrl: selectedProduct.imageUrl,
+                                addToCartLink: selectedProduct.addToCartLink,
+                                items: product?.items || [],
+                                isAvailable: isAvailable
+                                  ? selectedProduct.isAvailable
+                                  : false,
+                                variationSelector:
+                                  product?.variationSelector || [],
+                                pdpLink: product?.pdpLink || '',
+                                skuId: selectedProduct.skuId
+                              }}
+                            />
                           )}
                         </div>
                       </div>
