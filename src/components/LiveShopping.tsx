@@ -61,14 +61,18 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       showChat,
       showQuickView,
       showProductsCarousel,
-      showSidebarProducts,
-      showViewers
+      showSidebarProducts
     },
     setSetting
   } = useContext(ActionsContext)
 
-  const { infoSocket, isModalLive, setIsModalLive, setShowCarouselChatButton } =
-    useContext(SettingContext)
+  const {
+    infoSocket,
+    isModalLive,
+    setIsModalLive,
+    setShowCarouselChatButton,
+    setActivePromoMessage
+  } = useContext(SettingContext)
 
   const {
     collectionId,
@@ -97,7 +101,9 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     sessionId,
     pinnedMessage: socketPinnedMessage,
     transmitiontype: socketTransmitiontype,
-    showCarouselChatButton: socketCarouselChatButton
+    showCarouselChatButton: socketCarouselChatButton,
+    activePromoMessage,
+    showCounter
   } = infoSocket || {}
 
   const getHeight = () => {
@@ -130,7 +136,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       viewers
     } = scriptProperties
 
-    const viewersFlag = viewers || showViewers
+    const viewersFlag = viewers === undefined ? showCounter : viewers
 
     if (setShowCounter) setShowCounter(viewersFlag)
 
@@ -235,6 +241,11 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       }
     }
   }, [showCarouselChatButton, socketCarouselChatButton])
+
+  useEffect(() => {
+    if (!setActivePromoMessage) return
+    setActivePromoMessage(activePromoMessage)
+  }, [activePromoMessage, setActivePromoMessage])
 
   return (
     <div
