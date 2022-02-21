@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Dispatch, useEffect } from 'react'
 import { Actions } from './reducer'
 
@@ -20,6 +21,5 @@ export const useSetLivestreaming = (
         }
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idLivestreaming, account, host, playBackStartTime])
 }

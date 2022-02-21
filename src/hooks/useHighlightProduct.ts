@@ -1,35 +1,26 @@
 import { useEffect, useState } from 'react'
-import { getProducts } from '../services'
-import type { HighlightProduct } from './../typings/livestreaming'
+import type { HighlightProduct, Products } from './../typings/livestreaming'
 import { useLivestreamingContext } from '../context'
 import { useShowHightlightsForFinishedEvents } from './useShowHightlightsForFinishedEvents'
+import { useFetchProducts } from './useFetchProducts'
 
 type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
-  originOfProducts: string | undefined
   isFinalized: boolean
 }
 
 export const useHighlightProduct = ({
   highlightProduct,
   collectionId,
-  originOfProducts,
   isFinalized
 }: useHighlightProductProps) => {
-  const [product, setProduct] = useState({
-    id: '',
-    name: '',
-    price: 0,
-    priceWithDiscount: 0,
-    imageUrl: '',
-    addToCartLink: '',
-    isAvailable: true,
-    variationSelector: [],
-    pdpLink: ''
-  })
+  const [product, setProduct] = useState<Products>()
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
-  const { account, host, idLivestreaming } = useLivestreamingContext()
+  const { idLivestreaming } = useLivestreamingContext()
+  const { products, loading } = useFetchProducts({
+    collectionId
+  })
 
   const handleSetProduct = (productId: string, storageProducts: string) => {
     const products = JSON.parse(storageProducts)
@@ -48,7 +39,9 @@ export const useHighlightProduct = ({
         addToCartLink: product?.addToCartLink,
         isAvailable: product?.isAvailable,
         variationSelector: product?.variationSelector,
-        pdpLink: product?.pdpLink
+        pdpLink: product?.pdpLink,
+        skuId: product?.skuId,
+        items: product?.items
       })
     }
   }
@@ -85,14 +78,7 @@ export const useHighlightProduct = ({
       (!storageCollectionId || collectionId !== storageCollectionId)
     ) {
       localStorage.setItem('collectionId', collectionId)
-
-      getProducts({ collectionId, originOfProducts, account, host }).then(
-        (data: any) => {
-          if (data && data.length > 0) {
-            localStorage.setItem('products', JSON.stringify(data))
-          }
-        }
-      )
+      !loading && localStorage.setItem('products', JSON.stringify(products))
     }
 
     let objetProduct = storageProduct && JSON.parse(storageProduct)
@@ -108,7 +94,7 @@ export const useHighlightProduct = ({
       const productId = objetProduct.productId || highlightProduct?.productId
       handleSetProduct(productId, storageProducts)
 
-      if (product) setShowProduct(isShowProduct)
+      if (productId) setShowProduct(isShowProduct)
     } else {
       setShowProduct(isShowProduct)
     }

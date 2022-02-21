@@ -194,6 +194,7 @@
 }
 
 .itemColorBackground {
+  display: initial !important;
   border-radius: 100px;
   height: 100%;
   width: 100%;

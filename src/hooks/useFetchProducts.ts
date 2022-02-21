@@ -1,45 +1,44 @@
-import { useEffect, useState } from 'react'
-import { getProducts } from '../services'
-import { useLivestreamingContext } from '../context'
+import { useContext, useEffect, useState } from 'react'
+import { ActionsContext } from '../context'
+import { getProductsCace } from '../services'
+import type { Products } from '../typings/livestreaming'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
-  originOfProducts: string | undefined
 }
 
-export const useFetchProducts = ({
-  collectionId,
-  originOfProducts
-}: useFetchProductsProps) => {
-  const [products, setProducts] = useState({
-    data: [
-      {
-        id: '',
-        name: '',
-        price: 0,
-        priceWithDiscount: 0,
-        imageUrl: '',
-        addToCartLink: '',
-        isAvailable: false,
-        variationSelector: [],
-        pdpLink: '',
-        skuId: ''
-      }
-    ],
-    loading: true
-  })
+export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
+  const {
+    setting: { getProducts }
+  } = useContext(ActionsContext)
 
-  const { account, host } = useLivestreamingContext()
+  const [products, setProducts] = useState<Products[]>()
+  const [loading, setLoading] = useState<boolean>(true)
+
+  const productsList = async (collectionId: string) => {
+    const data = getProducts && (await getProducts(collectionId))
+    return data
+  }
 
   useEffect(() => {
     if (collectionId) {
-      getProducts({ collectionId, originOfProducts, account, host }).then(
-        (respon: any) => {
-          if (respon) setProducts({ data: respon, loading: false })
-        }
-      )
+      if (getProducts) {
+        productsList(collectionId).then((response: any) => {
+          if (response) {
+            setProducts(response)
+            setLoading(false)
+          }
+        })
+      }else {
+        getProductsCace({collectionId}).then((response: any) => {
+          if (response) {
+            setProducts(response)
+            setLoading(false)
+          }
+        })
+      }
     }
   }, [collectionId])
 
-  return products
+  return { products, loading }
 }

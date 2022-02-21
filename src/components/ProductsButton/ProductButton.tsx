@@ -1,34 +1,27 @@
+/* eslint-disable no-unused-vars */
 import React, { Fragment, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { ActionsContext, SettingContext } from '../../context'
-import { addToCart } from '../../utils'
+import type { Products } from '../../typings/livestreaming'
+import { handlerAddToCart } from '../../utils'
 
 import styles from './productButton.css'
 
 type ProductButtonProps = {
-  addToCartLink: string
   handleClose?: () => void
-  imageUrl: string
-  isAvailable: boolean
-  productId: string
-  id?: string
-  productName?: string
+  product: Products
   sectionIdClickedOn?: string
 }
 
 export const ProductButton = (props: ProductButtonProps) => {
-  const {
-    addToCartLink,
-    handleClose,
-    imageUrl,
-    isAvailable,
-    productId,
-    id,
-    productName,
-    sectionIdClickedOn
-  } = props
+  const { handleClose, product, sectionIdClickedOn } = props
+
+  const { id, imageUrl, name, addToCartLink, isAvailable, skuId } = product
 
   const { infoSocket, setMessageAlert } = useContext(SettingContext)
+  const {
+    setting: { addToCart }
+  } = useContext(ActionsContext)
 
   const { socket } = infoSocket || {}
 
@@ -57,12 +50,12 @@ export const ProductButton = (props: ProductButtonProps) => {
             socket.send(JSON.stringify(sendLike))
           }
 
-          const returnMessage = addToCart(
-            productId,
+          const returnMessage = handlerAddToCart(
+            addToCart,
+            product,
             redirectTo,
             isInGlobalPage,
-            showQuickView,
-            id == null ? productId : id
+            showQuickView
           )
 
           if (setMessageAlert) setMessageAlert(returnMessage)
@@ -72,8 +65,8 @@ export const ProductButton = (props: ProductButtonProps) => {
 
           const eventAddToCart = JSON.stringify({
             sectionIdClickedOn,
-            productId,
-            productName
+            id,
+            name
           })
 
           localStorage.setItem('sectionIdClickedOnForAddToCart', eventAddToCart)
@@ -85,7 +78,7 @@ export const ProductButton = (props: ProductButtonProps) => {
       </button>
       <div>
         <a
-          id={`add-cart-${id == null ? productId : id}`}
+          id={`add-cart-${skuId || id}`}
           className='add-cart'
           target='_blank'
           rel='noreferrer'

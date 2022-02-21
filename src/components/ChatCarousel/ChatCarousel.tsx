@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 
 import { useFetchProducts } from '../../hooks/useFetchProducts'
-import { ActionsContext, SettingContext } from '../../context'
+import { SettingContext } from '../../context'
 
 import styles from '../ProductSlider/productSlider.css'
 import { ChatCarouselProductItem } from '../ProductSlider/ChatCarouselProductItem'
@@ -20,26 +20,20 @@ export const ChatCarousel = ({
   fullScreen,
   handleFullScreen
 }: ChatCarouselProps) => {
-  // const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-
   const { collectionId } = useContext(SettingContext)
-  const {
-    setting: { originOfProducts }
-  } = useContext(ActionsContext)
 
-  const { data: products, loading } = useFetchProducts({
-    collectionId,
-    originOfProducts
+  const { products, loading } = useFetchProducts({
+    collectionId
   })
 
   return !loading ? (
     <div className={styles.chatCarouselContainer}>
-      {products.length > 0 &&
+      {products &&
+        products.length > 0 &&
         products.map((product: any) => (
           <div key={product.id} className={styles.horizontalProductList}>
             <ChatCarouselProductItem
-              {...product}
-              originOfProducts={originOfProducts}
+              product={product}
               setShowVariation={setShowVariation}
               sectionIdClickedOn='live_shopping_carousel'
               fullScreen={fullScreen}

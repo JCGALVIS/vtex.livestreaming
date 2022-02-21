@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect, useContext } from 'react'
 
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 import { ActionsContext, SettingContext } from '../../context'
-import { addToCart } from '../../utils'
+import { handlerAddToCart } from '../../utils'
 import { ProductButton } from '../ProductsButton/ProductButton'
 import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
 
@@ -28,13 +28,12 @@ const HighlightProduct = ({
   const { ivsRealTime, highlightProduct } = infoSocket || {}
 
   const {
-    setting: { isInGlobalPage, originOfProducts, redirectTo, showQuickView }
+    setting: { addToCart, isInGlobalPage, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   const { product, showProduct } = useHighlightProduct({
     highlightProduct,
     collectionId,
-    originOfProducts,
     isFinalized
   })
 
@@ -66,7 +65,7 @@ const HighlightProduct = ({
 
   return (
     <Fragment>
-      {collectionId && show ? (
+      {collectionId && show && product ? (
         <div
           className={`${styles.highlightProductContainer}  ${
             !optionHighlight || optionHighlight === 'white'
@@ -82,12 +81,12 @@ const HighlightProduct = ({
               if (showQuickView) {
                 setShowVariation(product.id)
               } else {
-                addToCart(
-                  product.id,
+                handlerAddToCart(
+                  addToCart,
+                  product,
                   redirectTo,
                   isInGlobalPage,
-                  showQuickView,
-                  product.id
+                  showQuickView
                 )
               }
             }}
@@ -104,11 +103,7 @@ const HighlightProduct = ({
                 />
               ) : (
                 <ProductButton
-                  addToCartLink={product.addToCartLink}
-                  imageUrl={product.imageUrl}
-                  isAvailable={product.isAvailable}
-                  productId={product.id}
-                  productName={product.name}
+                  product={product}
                   sectionIdClickedOn='live_shopping_highlight_product'
                 />
               )}
