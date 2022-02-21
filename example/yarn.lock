@@ -7220,10 +7220,10 @@ knot.js@^1.1.5:
   resolved "https://registry.yarnpkg.com/knot.js/-/knot.js-1.1.5.tgz#28e72522f703f50fe98812fde224dd72728fef5d"
   integrity sha1-KOclIvcD9Q/piBL94iTdcnKP710=
 
-kuikpay-sdk@0.0.81-dev.55:
-  version "0.0.81-dev.55"
-  resolved "https://registry.yarnpkg.com/kuikpay-sdk/-/kuikpay-sdk-0.0.81-dev.55.tgz#9e54039e4475960b1e9e76de64ab89d8315e7e46"
-  integrity sha512-ddbK20617ef23fGddejBxjuN9ZKkJ/4Jmz207iIiBjeqiZ6q1NnTeTPoMn1YpYG59sDFQV8c18KYC8ms0XkHVg==
+kuikpay-sdk@0.0.81-dev.58:
+  version "0.0.81-dev.58"
+  resolved "https://registry.yarnpkg.com/kuikpay-sdk/-/kuikpay-sdk-0.0.81-dev.58.tgz#66ca6f5302d8451c87637c9c0057ab901303dca0"
+  integrity sha512-fzeH4i6J+aFSajawPrH5WZVtf3HUpb4nkVAykiEJ2Wn9acvwnJUPE03uyx3h56swdBlUJI9MnrVhQDn6nqT/Hw==
   dependencies:
     "@apollo/client" "^3.3.21"
     "@formatjs/intl-datetimeformat" "^4.2.3"
