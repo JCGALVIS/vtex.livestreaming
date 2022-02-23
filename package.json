@@ -1,6 +1,6 @@
 {
   "name": "@jcgalvis/vtex.livestreaming",
-  "version": "1.6.68-beta",
+  "version": "1.6.70-beta",
   "description": "Made with create-react-library",
   "author": "JCGALVIS",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/chat',GET_QUESTION_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/livestreamingquestion',ENVIRONMENT='dev',USERNAME_EXIST_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/usernameexist',GET_HIGHTLIGHT_BY_ID_URL='https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/highlight-products' watch --no-compress --format modern,cjs",
+    "build": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/chat',GET_QUESTION_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/livestreamingquestion',ENVIRONMENT='dev',USERNAME_EXIST_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/usernameexist',GET_HIGHTLIGHT_BY_ID_URL='https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/highlight-products' --no-compress --format modern,cjs",
     "start": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/chat',GET_QUESTION_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/livestreamingquestion',ENVIRONMENT='dev',USERNAME_EXIST_URL='https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/usernameexist',GET_HIGHTLIGHT_BY_ID_URL='https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/highlight-products' watch --no-compress --format modern,cjs",
     "start:prod": "microbundle-crl --define GET_LIVESTREAMING_CONFIG_URL='https://9n976nhd6g.execute-api.us-east-1.amazonaws.com/Prod/livestreamingconfig',GET_CHAT_BY_ID_URL='https://6rfhhp7a2d.execute-api.us-east-1.amazonaws.com/global-page/chat',GET_QUESTION_URL='https://9n976nhd6g.execute-api.us-east-1.amazonaws.com/Prod/livestreamingquestion',ENVIRONMENT='prod',USERNAME_EXIST_URL='https://9n976nhd6g.execute-api.us-east-1.amazonaws.com/Prod/usernameexist',GET_HIGHTLIGHT_BY_ID_URL='https://6rfhhp7a2d.execute-api.us-east-1.amazonaws.com/global-page/highlight-products' watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
