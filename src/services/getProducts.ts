@@ -216,7 +216,6 @@ const setCorrectAddToCartLink = (
         return item
       })
     }
-    //
   } catch (error) {
     if (data[0]?.items[0].sellers[0].addToCartLink) {
       const seller = data[0]?.items[0].sellers[0]
