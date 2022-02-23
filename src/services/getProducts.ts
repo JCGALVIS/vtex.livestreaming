@@ -203,13 +203,15 @@ const setCorrectAddToCartLink = (
   host?: string
 ) => {
   if (data[0]?.items) {
-    let Items = data[0]?.items
-    Items.map((item: any) => {
-      const seller = item.sellers[0]
-      seller.addToCartLink = item.sellers[0].addToCartLink.replace(
-        `${account}.myvtex.com`,
-        host ? host : ''
-      )
+    let items = data[0]?.items
+    items.map((item: any) => {
+      if (item.sellers[0].addToCartLink) {
+        const seller = item.sellers[0]
+        seller.addToCartLink = item.sellers[0].addToCartLink.replace(
+          `${account}.myvtex.com`,
+          host ? host : ''
+        )
+      }
       return item
     })
   }
