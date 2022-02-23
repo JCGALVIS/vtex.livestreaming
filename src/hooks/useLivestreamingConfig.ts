@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import { apiCall } from '../services'
-import { config } from '../utils'
 import type { Message } from '../typings/livestreaming'
 declare interface Props {
   id: string
@@ -26,10 +25,7 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
-    console.log('config: ', config)
-    const { GET_LIVESTREAMING_CONFIG_URL } = config
-    console.log('process jcg: ', process.env)
-    console.log('GET_LIVESTREAMING_CONFIG_URL: ', GET_LIVESTREAMING_CONFIG_URL)
+    const { GET_LIVESTREAMING_CONFIG_URL } = process.env
 
     if (GET_LIVESTREAMING_CONFIG_URL && GET_LIVESTREAMING_CONFIG_URL !== URL) {
       URL = GET_LIVESTREAMING_CONFIG_URL
@@ -38,7 +34,6 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     if (!GET_LIVESTREAMING_CONFIG_URL) return
 
     const getLivestreaming = async () => {
-      console.log('URL: ', URL)
       await apiCall({
         url: `${URL}?id=${id}&account=${account}`
       }).then((data) => {
