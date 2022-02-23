@@ -9,13 +9,13 @@ type useFetchProductById = {
 }
 export const useFetchProductById = ({ productId }: useFetchProductById) => {
   const {
-    setting: { getProductId }
+    setting: { account, getProductId }
   } = useContext(ActionsContext)
   const [product, setProduct] = useState<Products>()
   const [loading, setLoading] = useState<boolean>(false)
 
   const getProductById = async (productId: string) => {
-    const data = getProductId && (await getProductId(productId))
+    const data = getProductId && (await getProductId(productId, account))
     return data
   }
 

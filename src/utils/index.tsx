@@ -5,9 +5,11 @@ import { getMobileOS, getDeviceType } from './getMobileOs'
 import { getRandomColor } from './getRandomColor'
 import Queue from './Queue'
 import { getRandomNumber } from './getRamdonNumber'
+import config from './config'
 
 export {
   calcHeightApp,
+  config,
   currencyFormat,
   getDeviceType,
   getMobileOS,

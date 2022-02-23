@@ -9,14 +9,14 @@ type useFetchProductsProps = {
 
 export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   const {
-    setting: { getProducts }
+    setting: {account, getProducts }
   } = useContext(ActionsContext)
 
   const [products, setProducts] = useState<Products[]>()
   const [loading, setLoading] = useState<boolean>(true)
 
   const productsList = async (collectionId: string) => {
-    const data = getProducts && (await getProducts(collectionId))
+    const data = getProducts && (await getProducts(collectionId, account))
     return data
   }
 
