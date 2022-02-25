@@ -9,28 +9,29 @@ type useFetchProductsProps = {
 
 export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   const {
-    setting: { getProducts }
+    setting: { account, getProducts }
   } = useContext(ActionsContext)
 
   const [products, setProducts] = useState<Products[]>()
   const [loading, setLoading] = useState<boolean>(true)
 
-  const productsList = async (collectionId: string) => {
-    const data = getProducts && (await getProducts(collectionId))
+  const productsList = async (collectionId: string, account?: string) => {
+    const data = getProducts && (await getProducts(collectionId, account))
     return data
   }
 
   useEffect(() => {
     if (collectionId) {
       if (getProducts) {
-        productsList(collectionId).then((response: any) => {
+        productsList(collectionId, account).then((response: any) => {
           if (response) {
+            console.log('response: ', response)
             setProducts(response)
             setLoading(false)
           }
         })
-      }else {
-        getProductsCace({collectionId}).then((response: any) => {
+      } else {
+        getProductsCace({ collectionId }).then((response: any) => {
           if (response) {
             setProducts(response)
             setLoading(false)
