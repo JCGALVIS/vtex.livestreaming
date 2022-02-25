@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import { apiCall } from '../services'
-import type { Message } from '../typings/livestreaming'
+import type { Message, Settings } from '../typings/livestreaming'
 declare interface Props {
   id: string
   account: string
@@ -22,6 +22,8 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     useState<boolean>()
   const [host, setHost] = useState<string>('')
   const [playBackStartTime, setPlayBackStartTime] = useState<number>(0)
+  const [settings, setSettings] = useState<Settings>()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
@@ -50,11 +52,22 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
           setShowGifButton(data?.webClient?.showGif)
           setShowCarouselChatButton(data?.webClient?.showCarouselChat)
           setHost(data?.host)
+          setSettings({
+            showChat: data?.webClient?.showChat,
+            showLike: data?.webClient?.showLike,
+            showProductsCarousel: data?.webClient?.showProductsCarousel,
+            showSidebarProducts: data?.webClient?.showProductsSidebar,
+            isInfinite: data?.webClient?.infiniteScroll,
+            redirectTo: data?.webClient?.redirectToPdp,
+            showViewers: data?.webClient?.showCounter,
+            time: data?.webClient?.scrollTime
+          })
           if (data?.playBackStartTime && !isNaN(data?.playBackStartTime)) {
             setPlayBackStartTime(data?.playBackStartTime)
           } else {
             setPlayBackStartTime(0)
           }
+          setIsLoading(false)
         }
       })
     }
@@ -75,7 +88,9 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     showGifButton,
     showCarouselChatButton,
     host,
-    playBackStartTime
+    playBackStartTime,
+    settings,
+    isLoading
   }
 }
 
