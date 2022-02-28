@@ -19,6 +19,7 @@ type LivestreamingProps = {
   showProductsCarousel: boolean
   showViewers: boolean | undefined
   kuikpay: boolean
+  isLoading?: boolean
 }
 
 export declare interface Message {
@@ -189,4 +190,14 @@ export interface HightLightHistoryElement {
   productId: string
   joinSecond: number
   outSecond: number
+}
+export interface Settings {
+  isInfinite: boolean
+  time: number
+  redirectTo: boolean
+  showChat: boolean
+  showLike: boolean
+  showSidebarProducts: boolean
+  showProductsCarousel: boolean
+  showViewers: boolean
 }

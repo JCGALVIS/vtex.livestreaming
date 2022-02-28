@@ -51,20 +51,19 @@ export const LiveShopping = (props: LiveShoppingProps) => {
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
+  const { setting, setSetting } = useContext(ActionsContext)
+
   const {
-    setting: {
-      addToCart,
-      account,
-      idLivestreaming,
-      isInGlobalPage,
-      originOfProducts,
-      showChat,
-      showQuickView,
-      showProductsCarousel,
-      showSidebarProducts
-    },
-    setSetting
-  } = useContext(ActionsContext)
+    addToCart,
+    account,
+    idLivestreaming,
+    isInGlobalPage,
+    originOfProducts,
+    showChat,
+    showQuickView,
+    showProductsCarousel,
+    showSidebarProducts
+  } = setting
 
   const {
     infoSocket,
@@ -141,6 +140,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     if (setShowCounter) setShowCounter(viewersFlag)
 
     setSetting({
+      ...setting,
       addToCart,
       account,
       idLivestreaming,

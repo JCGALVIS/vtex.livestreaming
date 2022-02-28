@@ -21,7 +21,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const { idLivestreaming, account } = props
   const [locale, setLocale] = useState(LOCALES.en)
   const [loading, setLoading] = useState(true)
-
+  const [actionsProps, setActionsProps] = useState(props)
   useEffect(() => {
     const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
     const languageAvailable = [LOCALES.en, LOCALES.es, LOCALES.pt]
@@ -37,7 +37,9 @@ export const Livestreaming = (props: LivestreamingProps) => {
     setIsModalLive,
     wssStream,
     host,
-    playBackStartTime
+    playBackStartTime,
+    settings,
+    isLoading
   } = useLivestreamingConfig({
     id: idLivestreaming,
     account
@@ -49,6 +51,20 @@ export const Livestreaming = (props: LivestreamingProps) => {
     setIsModalLive,
     wssStream
   }
+
+  useEffect(() => {
+    if (!settings || isLoading === undefined || isLoading) return
+    setActionsProps({
+      ...actionsProps,
+      showChat: settings.showChat,
+      showLike: settings.showLike,
+      showProductsCarousel: settings.showProductsCarousel,
+      showSidebarProducts: settings.showSidebarProducts,
+      isInfinite: settings.isInfinite,
+      time: settings.time,
+      isLoading
+    })
+  }, [settings, isLoading])
 
   const [state, dispatch] = useLivestreamingReducer()
   useSetLivestreaming(
@@ -73,7 +89,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
 
   return (
     <I18nProvider locale={locale}>
-      <ActionsProvider props={props}>
+      <ActionsProvider props={actionsProps}>
         <SettingProvider {...settingProps}>
           <LivestreamingProvider value={state} dispatch={dispatch}>
             <div className={styles.liveShoppingContainer}>

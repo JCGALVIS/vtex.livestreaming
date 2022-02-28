@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { createContext, useState, FC } from 'react'
+import React, { createContext, useState, FC, useEffect } from 'react'
 import type { LivestreamingProps } from '../typings/livestreaming'
 
 type ActionCtx = {
@@ -32,7 +32,7 @@ const actionsDefault: ActionCtx = {
 
 export const ActionsContext = createContext<ActionCtx>(actionsDefault)
 
-type ActionsProviderProps = {
+export type ActionsProviderProps = {
   props: LivestreamingProps
 }
 
@@ -57,33 +57,46 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     showProductsCarousel,
     showSidebarProducts,
     showViewers,
-    time
+    time,
+    isLoading
   } = props
 
-  const [setting, setSetting] = useState<LivestreamingProps>({
-    addToCart,
-    account,
-    getProductId,
-    getProducts,
-    idLivestreaming,
-    isInGlobalPage:
-      isInGlobalPage === undefined ? false : isInGlobalPage === true,
-    isInfinite: isInfinite === undefined ? true : isInfinite === true,
-    kuikpay: kuikpay === undefined ? false : kuikpay === true,
-    originOfProducts,
-    redirectTo: redirectTo === undefined ? true : redirectTo === true,
-    showChat: showChat === undefined ? true : showChat === true,
-    showLike: showLike === undefined ? true : showLike === true,
-    showQuickView: showQuickView === undefined ? true : showQuickView === true,
-    showProductsCarousel:
-      showProductsCarousel === undefined
-        ? false
-        : showProductsCarousel === true,
-    showSidebarProducts:
-      showSidebarProducts === undefined ? false : showSidebarProducts === true,
-    showViewers: showViewers === undefined ? true : showViewers === true,
-    time
-  })
+  const getSettings = () => {
+    return {
+      addToCart,
+      account,
+      getProductId,
+      getProducts,
+      idLivestreaming,
+      isInGlobalPage:
+        isInGlobalPage === undefined ? false : isInGlobalPage === true,
+      isInfinite: isInfinite === undefined ? true : isInfinite === true,
+      kuikpay: kuikpay === undefined ? false : kuikpay === true,
+      originOfProducts,
+      redirectTo: redirectTo === undefined ? true : redirectTo === true,
+      showChat: showChat === undefined ? true : showChat === true,
+      showLike: showLike === undefined ? true : showLike === true,
+      showQuickView:
+        showQuickView === undefined ? true : showQuickView === true,
+      showProductsCarousel:
+        showProductsCarousel === undefined
+          ? false
+          : showProductsCarousel === true,
+      showSidebarProducts:
+        showSidebarProducts === undefined
+          ? false
+          : showSidebarProducts === true,
+      showViewers: showViewers === undefined ? true : showViewers === true,
+      time
+    }
+  }
+
+  const [setting, setSetting] = useState<LivestreamingProps>(getSettings())
+
+  useEffect(() => {
+    if (isLoading === undefined || isLoading) return
+    setSetting(getSettings())
+  }, [isLoading])
 
   const context: ActionCtx = {
     setting,
