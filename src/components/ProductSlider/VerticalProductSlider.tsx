@@ -5,6 +5,7 @@ import { ProductItem } from './ProductItem'
 import { ActionsContext, SettingContext } from '../../context'
 import { useFetchProducts } from './../../hooks/useFetchProducts'
 import { getDeviceType } from '../../utils'
+import { Spinner } from '../Spinner/Spinner'
 
 import styles from './productSlider.css'
 
@@ -114,5 +115,11 @@ export const VerticalProductSlider = ({
           ))}
       </div>
     </div>
-  ) : null
+  ) : (
+    <div
+      className={styles.loader}
+    >
+      <Spinner />
+    </div>
+  )
 }
