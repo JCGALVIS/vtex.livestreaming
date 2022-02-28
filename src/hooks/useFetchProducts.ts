@@ -9,7 +9,7 @@ type useFetchProductsProps = {
 
 export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   const {
-    setting: { account, getProducts }
+    setting: { account, getProducts, originOfProducts }
   } = useContext(ActionsContext)
 
   const [products, setProducts] = useState<Products[]>()
@@ -22,10 +22,9 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
   useEffect(() => {
     if (collectionId) {
-      if (getProducts) {
+      if (getProducts && originOfProducts !== 'CACE') {
         productsList(collectionId, account).then((response: any) => {
           if (response) {
-            console.log('response: ', response)
             setProducts(response)
             setLoading(false)
           }
