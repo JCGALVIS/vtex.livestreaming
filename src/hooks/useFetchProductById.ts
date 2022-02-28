@@ -9,7 +9,7 @@ type useFetchProductById = {
 }
 export const useFetchProductById = ({ productId }: useFetchProductById) => {
   const {
-    setting: { account, getProductId }
+    setting: { account, getProductId, originOfProducts }
   } = useContext(ActionsContext)
   const [product, setProduct] = useState<Products>()
   const [loading, setLoading] = useState<boolean>(false)
@@ -22,15 +22,15 @@ export const useFetchProductById = ({ productId }: useFetchProductById) => {
   useEffect(() => {
     setLoading(false)
     if (productId) {
-      if (getProductId) {
+      if (getProductId && originOfProducts !== 'CACE') {
         getProductById(productId).then((respon: any) => {
           if (respon) {
             setProduct(respon)
             setLoading(true)
           }
         })
-      }else {
-        getProductByIdCace({productId}).then((respon: any) => {
+      } else {
+        getProductByIdCace({ productId }).then((respon: any) => {
           if (respon) {
             setProduct(respon)
             setLoading(true)

@@ -60,8 +60,6 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     time
   } = props
 
-  console.log('getProducts: ', getProducts)
-
   const [setting, setSetting] = useState<LivestreamingProps>({
     addToCart,
     account,
