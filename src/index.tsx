@@ -22,6 +22,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   const [locale, setLocale] = useState(LOCALES.en)
   const [loading, setLoading] = useState(true)
   const [actionsProps, setActionsProps] = useState(props)
+
   useEffect(() => {
     const languageBrowser = window.navigator.language.trim().split(/-|_/)[0]
     const languageAvailable = [LOCALES.en, LOCALES.es, LOCALES.pt]
@@ -58,12 +59,27 @@ export const Livestreaming = (props: LivestreamingProps) => {
     if (!settings || isLoading === undefined || isLoading) return
     setActionsProps({
       ...actionsProps,
-      showChat: settings.showChat,
-      showLike: settings.showLike,
-      showProductsCarousel: settings.showProductsCarousel,
-      showSidebarProducts: settings.showSidebarProducts,
-      isInfinite: settings.isInfinite,
-      time: settings.time,
+      showChat:
+        settings.showChat === undefined
+          ? actionsProps.showChat
+          : settings.showChat,
+      showLike:
+        settings.showLike === undefined
+          ? actionsProps.showLike
+          : settings.showLike,
+      showProductsCarousel:
+        settings.showProductsCarousel === undefined
+          ? actionsProps.showProductsCarousel
+          : settings.showProductsCarousel,
+      showSidebarProducts:
+        settings.showSidebarProducts === undefined
+          ? actionsProps.showSidebarProducts
+          : settings.showSidebarProducts,
+      isInfinite:
+        settings.isInfinite === undefined
+          ? actionsProps.isInfinite
+          : settings.isInfinite,
+      time: settings.time === undefined ? actionsProps.time : settings.time,
       isLoading
     })
   }, [settings, isLoading])
