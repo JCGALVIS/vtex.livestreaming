@@ -43,7 +43,6 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
   }, [])
 
   useEffect(() => {
-    console.log('orderForm: ', orderForm)
     const formattedOrderForm = {
       clientProfileData: {
         email: orderForm.clientProfileData?.email

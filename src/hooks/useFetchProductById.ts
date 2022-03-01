@@ -32,7 +32,6 @@ export const useFetchProductById = ({ productId }: useFetchProductById) => {
           }
         })
       } else {
-        console.log('jcg')
         optionsToGetProductById({
           productId,
           originOfProducts,

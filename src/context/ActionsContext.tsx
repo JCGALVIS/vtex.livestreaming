@@ -63,8 +63,6 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     isLoading
   } = props
 
-  console.log('showSidebarProducts: ', showSidebarProducts)
-
   const getSettings = () => {
     return {
       addToCart,

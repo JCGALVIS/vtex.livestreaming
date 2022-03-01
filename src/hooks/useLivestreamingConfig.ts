@@ -31,13 +31,9 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     setting: { environment }
   } = useContext(ActionsContext)
 
-  console.log('environment: ', environment)
-
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
     const { GET_LIVESTREAMING_CONFIG_URL } = config(environment || '')
-
-    console.log('GET_LIVESTREAMING_CONFIG_URL: ', GET_LIVESTREAMING_CONFIG_URL)
 
     if (GET_LIVESTREAMING_CONFIG_URL && GET_LIVESTREAMING_CONFIG_URL !== URL) {
       URL = GET_LIVESTREAMING_CONFIG_URL
