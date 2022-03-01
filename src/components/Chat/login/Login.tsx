@@ -6,6 +6,7 @@ import styles from './Login.css'
 import { useSessionId } from '../../../hooks/useSessionId'
 import { apiCall } from '../../../services'
 import { ActionsContext, SettingContext } from '../../../context'
+import { config } from '../../../enviroment/config'
 
 interface Props {
   content: string
@@ -38,7 +39,7 @@ export const Login = ({
   const { sendAccountId, socket, emailIsRequired, setShowLoader } = infoSocket || {}
 
   const {
-    setting: { account, idLivestreaming }
+    setting: { account, environment, idLivestreaming }
   } = useContext(ActionsContext)
 
   const handlerCloseCard = () => {
@@ -94,7 +95,7 @@ export const Login = ({
 
   const defineUsername = async () => {
     let URL = '__USERNAME_EXIST_URL'
-    const { USERNAME_EXIST_URL } = process.env
+    const { USERNAME_EXIST_URL } = config(environment || '')
 
     if (USERNAME_EXIST_URL && USERNAME_EXIST_URL !== URL) {
       URL = USERNAME_EXIST_URL

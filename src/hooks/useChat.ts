@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { ActionsContext } from '../context'
+import { config } from '../enviroment/config'
 import { apiCall } from '../services'
 declare interface Props {
   idLivestreaming: string
@@ -7,10 +9,13 @@ declare interface Props {
 
 export const useChat = ({ idLivestreaming, account }: Props) => {
   const [chatHistory, setChatHistory] = useState<any>([])
+  const {
+    setting: { environment }
+  } = useContext(ActionsContext)
 
   useEffect(() => {
     let URL = '__GET_CHAT_BY_ID_URL'
-    const { GET_CHAT_BY_ID_URL } = process.env
+    const { GET_CHAT_BY_ID_URL } = config(environment || '')
 
     if (GET_CHAT_BY_ID_URL && GET_CHAT_BY_ID_URL !== URL) {
       URL = GET_CHAT_BY_ID_URL

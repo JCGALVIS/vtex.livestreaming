@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
-import { ActionsContext } from '../context'
-import { getProductsCace } from '../services'
+import { ActionsContext, useLivestreamingContext } from '../context'
+import { optionsToGetProducts } from '../services'
 import type { Products } from '../typings/livestreaming'
 
 type useFetchProductsProps = {
@@ -9,8 +9,10 @@ type useFetchProductsProps = {
 
 export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   const {
-    setting: { account, getProducts, originOfProducts }
+    setting: { account, environment, getProducts, originOfProducts }
   } = useContext(ActionsContext)
+
+  const { host } = useLivestreamingContext()
 
   const [products, setProducts] = useState<Products[]>()
   const [loading, setLoading] = useState<boolean>(true)
@@ -22,7 +24,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
   useEffect(() => {
     if (collectionId) {
-      if (getProducts && originOfProducts !== 'CACE') {
+      if (getProducts && !originOfProducts) {
         productsList(collectionId, account).then((response: any) => {
           if (response) {
             setProducts(response)
@@ -30,7 +32,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
           }
         })
       } else {
-        getProductsCace({ collectionId }).then((response: any) => {
+        optionsToGetProducts({ collectionId, originOfProducts, account, host, environment }).then((response: any) => {
           if (response) {
             setProducts(response)
             setLoading(false)

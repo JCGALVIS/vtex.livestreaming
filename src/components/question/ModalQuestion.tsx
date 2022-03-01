@@ -14,6 +14,7 @@ import { apiCall } from '../../services'
 import { ActionsContext, SettingContext } from '../../context'
 
 import styles from './question.css'
+import { config } from '../../enviroment/config'
 
 export const ModalQuestion = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -31,7 +32,7 @@ export const ModalQuestion = () => {
   const { saveUpdateVotes } = useUpdateVotes({ socket })
 
   const {
-    setting: { account, idLivestreaming }
+    setting: { account, environment, idLivestreaming }
   } = useContext(ActionsContext)
 
   const showQuestion = useCallback(
@@ -104,7 +105,7 @@ export const ModalQuestion = () => {
 
     const getQuestion = () => {
       let URL = '__GET_QUESTION_URL'
-      const { GET_QUESTION_URL } = process.env
+      const { GET_QUESTION_URL } = config(environment || '')
 
       if (GET_QUESTION_URL && GET_QUESTION_URL !== URL) {
         URL = GET_QUESTION_URL

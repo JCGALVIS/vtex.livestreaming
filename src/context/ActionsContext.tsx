@@ -11,6 +11,7 @@ const actionsDefault: ActionCtx = {
   setting: {
     addToCart: () => {},
     account: '',
+    environment: '',
     getProductId: () => {},
     getProducts: () => {},
     idLivestreaming: '',
@@ -43,6 +44,7 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
   const {
     addToCart,
     account,
+    environment,
     getProductId,
     getProducts,
     idLivestreaming,
@@ -61,10 +63,13 @@ export const ActionsProvider: FC<ActionsProviderProps> = ({
     isLoading
   } = props
 
+  console.log('showSidebarProducts: ', showSidebarProducts)
+
   const getSettings = () => {
     return {
       addToCart,
       account,
+      environment,
       getProductId,
       getProducts,
       idLivestreaming,

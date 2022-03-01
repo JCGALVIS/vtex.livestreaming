@@ -1,5 +1,10 @@
-import { getProductsCace, getProductByIdCace } from './getProducts'
+import { optionsToGetProducts, optionsToGetProductById } from './getProducts'
 import { apiCall } from './apiCall'
 import { cartSimulation } from './checkout'
 
-export { apiCall, getProductsCace, getProductByIdCace, cartSimulation }
+export {
+  apiCall,
+  optionsToGetProducts,
+  optionsToGetProductById,
+  cartSimulation
+}

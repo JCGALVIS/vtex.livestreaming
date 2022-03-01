@@ -1,17 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { Dispatch, useEffect } from 'react'
+import { Dispatch, useContext, useEffect } from 'react'
 import { Actions } from '../reducer'
 import { apiCall } from '../../../../services/apiCall'
 import { HightLightHistoryElement } from '../../../../typings/livestreaming'
+import { config } from '../../../../enviroment/config'
+import { ActionsContext } from '../../..'
 
 export const useSetHighlightHistory = (
   idLivestreaming: string,
   account: string,
   dispatch: Dispatch<Actions>
 ) => {
+  const {
+    setting: { environment }
+  } = useContext(ActionsContext)
+
   useEffect(() => {
     let URL = '__GET_HIGHTLIGHT_BY_ID_URL'
-    const { GET_HIGHTLIGHT_BY_ID_URL } = process.env
+    const { GET_HIGHTLIGHT_BY_ID_URL } = config(environment || '')
 
     if (GET_HIGHTLIGHT_BY_ID_URL && GET_HIGHTLIGHT_BY_ID_URL !== URL) {
       URL = GET_HIGHTLIGHT_BY_ID_URL

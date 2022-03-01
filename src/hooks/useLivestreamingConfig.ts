@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { ActionsContext } from '../context'
 import { apiCall } from '../services'
+import { config } from '../enviroment/config'
 import type { Message, Settings } from '../typings/livestreaming'
 declare interface Props {
   id: string
@@ -25,9 +27,17 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
   const [settings, setSettings] = useState<Settings>()
   const [isLoading, setIsLoading] = useState(true)
 
+  const {
+    setting: { environment }
+  } = useContext(ActionsContext)
+
+  console.log('environment: ', environment)
+
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'
-    const { GET_LIVESTREAMING_CONFIG_URL } = process.env
+    const { GET_LIVESTREAMING_CONFIG_URL } = config(environment || '')
+
+    console.log('GET_LIVESTREAMING_CONFIG_URL: ', GET_LIVESTREAMING_CONFIG_URL)
 
     if (GET_LIVESTREAMING_CONFIG_URL && GET_LIVESTREAMING_CONFIG_URL !== URL) {
       URL = GET_LIVESTREAMING_CONFIG_URL

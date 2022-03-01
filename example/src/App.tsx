@@ -84,12 +84,14 @@ const App = () => {
     <Livestreaming
       addToCart={addToCart}
       account='livestreamingdemo'
+      environment='dev'
       getProductId={getProductByIdCace}
       getProducts={getProductsCace}
-      idLivestreaming='1d68c967-b887-480a-828c-173dd5c76bcd'
+      idLivestreaming='74b2096d-23d5-42d6-a183-7c27eb1c6d53'
       isInGlobalPage='_ISINGLOBALPAGE'
       isInfinite='_ISINFINITE'
       kuikpay='_KUIKPAY'
+      originOfProducts='globalPage'
       redirectTo="_PDP"
       showChat="_INACTIVATECHAT"
       showLike="_INACTIVATELIKE"

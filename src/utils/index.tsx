@@ -5,6 +5,8 @@ import { getMobileOS, getDeviceType } from './getMobileOs'
 import { getRandomColor } from './getRandomColor'
 import Queue from './Queue'
 import { getRandomNumber } from './getRamdonNumber'
+import { mapDomainToPdp } from './mapDomainToPdp'
+import { setCorrectAddToCartLink } from './setCorrectAddToCartLink'
 
 export {
   calcHeightApp,
@@ -14,5 +16,7 @@ export {
   getRandomColor,
   handlerAddToCart,
   Queue,
-  getRandomNumber
+  getRandomNumber,
+  mapDomainToPdp,
+  setCorrectAddToCartLink
 }

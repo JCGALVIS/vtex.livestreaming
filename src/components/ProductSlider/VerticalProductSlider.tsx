@@ -116,9 +116,7 @@ export const VerticalProductSlider = ({
       </div>
     </div>
   ) : (
-    <div
-      className={styles.loader}
-    >
+    <div className={styles.loader}>
       <Spinner />
     </div>
   )

@@ -45,6 +45,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     account
   })
 
+  console.log('settings: ', settings)
+
   const settingProps = {
     collectionId,
     isModalLive,
