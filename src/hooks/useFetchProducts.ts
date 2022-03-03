@@ -28,18 +28,19 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
         productsList(collectionId, account).then((response: any) => {
           if (response) {
             setProducts(response)
-            setLoading(false)
           }
         })
       } else {
         optionsToGetProducts({ collectionId, originOfProducts, account, host, environment }).then((response: any) => {
           if (response) {
             setProducts(response)
-            setLoading(false)
           }
         })
       }
     }
+
+    const timeout = setTimeout(() => setLoading(false), 2000)
+    return () => clearTimeout(timeout)
   }, [collectionId])
 
   return { products, loading }
