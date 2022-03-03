@@ -26,7 +26,11 @@ export const ChatCarousel = ({
     collectionId
   })
 
-  return !loading ? (
+  return loading ? (
+    <div className={styles.chatCarouselContainer}>
+      <Spinner />
+    </div>
+  ) : products ? (
     <div className={styles.chatCarouselContainer}>
       {products &&
         products.length > 0 &&
@@ -42,9 +46,5 @@ export const ChatCarousel = ({
           </div>
         ))}
     </div>
-  ) : (
-    <div className={styles.chatCarouselContainer}>
-      <Spinner />
-    </div>
-  )
+  ) : null
 }

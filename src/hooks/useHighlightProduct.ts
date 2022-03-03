@@ -18,7 +18,7 @@ export const useHighlightProduct = ({
   const [product, setProduct] = useState<Products>()
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
   const { idLivestreaming } = useLivestreamingContext()
-  const { products, loading } = useFetchProducts({
+  const { products } = useFetchProducts({
     collectionId
   })
 
@@ -78,7 +78,7 @@ export const useHighlightProduct = ({
       (!storageCollectionId || collectionId !== storageCollectionId)
     ) {
       localStorage.setItem('collectionId', collectionId)
-      !loading && localStorage.setItem('products', JSON.stringify(products))
+      products && localStorage.setItem('products', JSON.stringify(products))
     }
 
     let objetProduct = storageProduct && JSON.parse(storageProduct)
@@ -98,7 +98,7 @@ export const useHighlightProduct = ({
     } else {
       setShowProduct(isShowProduct)
     }
-  }, [collectionId, highlightProduct])
+  }, [collectionId, highlightProduct, products])
 
   return { product, showProduct }
 }
