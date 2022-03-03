@@ -84,6 +84,7 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
     wssStream,
     streamUrl,
     collectionId,
+    setCollectionId,
     utm,
     emailIsRequired,
     pinnedMessage,

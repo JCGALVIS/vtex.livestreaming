@@ -12,6 +12,7 @@ import {
 } from './../typings/livestreaming'
 import { useSessionId } from './useSessionId'
 import { getDeviceType, getRandomColor, Queue } from '../utils'
+import { v4 as uuidv4 } from 'uuid'
 
 declare interface Props {
   wssStream: string | undefined
@@ -48,6 +49,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
   const [productsInCart, setProductsInCart] = useState<Products[]>([])
   const [activePromoMessage, setActivePromoMessage] = useState<string>()
+  const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
 
   const createWebSocket = useCallback(() => {
     let queueSocketInit: Queue<number>
@@ -216,11 +218,14 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           break
         case 'sendactivepromotion':
           setTimeout(() => {
-            setActivePromoMessage(message)
+            setActivePromoMessage(message === undefined ? uuidv4() : message)
           }, 300000)
           setTimeout(() => {
             setActivePromoMessage(undefined)
           }, 360000)
+          break
+        case 'sendupdatelivestreaming':
+          setUpdateLivestreaming(uuidv4())
           break
 
         default:
@@ -313,7 +318,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setProductsInCart,
     setQueueSocket,
     showCarouselChatButton,
-    activePromoMessage
+    activePromoMessage,
+    updateLivestreaming
   }
 }
 
