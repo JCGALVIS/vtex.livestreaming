@@ -60,7 +60,6 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
         productsList(collection, account).then((response: any) => {
           if (response) {
             setProducts(response)
-            setLoading(false)
           }
         })
       } else {
@@ -73,12 +72,14 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
         }).then((response: any) => {
           if (response) {
             setProducts(response)
-            setLoading(false)
           }
         })
       }
     }
-  }, [collection, activePromoMessage])
+
+    const timeout = setTimeout(() => setLoading(false), 2000)
+    return () => clearTimeout(timeout)
+  }, [collectionId, activePromoMessage])
 
   return { products, loading }
 }
