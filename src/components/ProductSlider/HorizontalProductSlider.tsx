@@ -9,6 +9,7 @@ import { ActionsContext, SettingContext } from '../../context'
 import { Products } from '../../typings/livestreaming'
 
 import styles from './productSlider.css'
+import { Spinner } from '..'
 
 type HorizontalProductSliderProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
@@ -52,8 +53,7 @@ export const HorizontalProductSlider = ({
   }, [products, index])
 
   useEffect(() => {
-    if (loading) return
-    if (!isInfinite) return
+    if (!products || !isInfinite) return
 
     const timeout = setTimeout(() => {
       handleRightClick()
@@ -62,7 +62,7 @@ export const HorizontalProductSlider = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [isInfinite, delay, loading, itemsProdcuts, selectedProductIndex, index])
+  }, [isInfinite, delay, products, itemsProdcuts, selectedProductIndex, index])
 
   const handleProductMovement = (newIdx: number) => {
     if (products && products.length > 0) {
@@ -95,7 +95,11 @@ export const HorizontalProductSlider = ({
     }
   }
 
-  return !loading ? (
+  return loading ? (
+    <div className={styles.loader}>
+      <Spinner />
+    </div>
+  ) : products ? (
     <div className={styles.horizontalProductContainer}>
       <button className={styles.arrowLeft} onClick={handleLeftClick}>
         <ArrowRightLivestreaming size='40' viewBox='0 0 400 400' />
