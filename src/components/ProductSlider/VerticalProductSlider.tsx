@@ -37,7 +37,7 @@ export const VerticalProductSlider = ({
   const productLisRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (loading) return
+    if (loading || !products) return
     if (!isInfinite) return
     if (!productLisRef?.current) return
     if (isMouseOver) return
@@ -69,7 +69,7 @@ export const VerticalProductSlider = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [indexScroll, isInfinite, delay, isMouseOver, loading])
+  }, [indexScroll, isInfinite, delay, isMouseOver, products])
 
   useEffect(() => {
     if (!productLisRef.current) return
@@ -83,7 +83,11 @@ export const VerticalProductSlider = ({
     return () => {}
   }, [productLisRef])
 
-  return !loading ? (
+  return loading ? (
+    <div className={styles.verticalProductSliderContent}>
+      <Spinner />
+    </div>
+  ) : products ? (
     <div
       className={styles.verticalProductSliderContent}
       style={
@@ -115,9 +119,5 @@ export const VerticalProductSlider = ({
           ))}
       </div>
     </div>
-  ) : (
-    <div className={styles.loader}>
-      <Spinner />
-    </div>
-  )
+  ) : null
 }
