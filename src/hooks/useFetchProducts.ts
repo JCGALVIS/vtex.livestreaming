@@ -79,7 +79,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
     const timeout = setTimeout(() => setLoading(false), 2000)
     return () => clearTimeout(timeout)
-  }, [collectionId, activePromoMessage])
+  }, [collection, activePromoMessage])
 
   return { products, loading }
 }
