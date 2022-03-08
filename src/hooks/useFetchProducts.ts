@@ -56,13 +56,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
   useEffect(() => {
     if (collection) {
-      if (getProducts && !originOfProducts) {
-        productsList(collection, account).then((response: any) => {
-          if (response) {
-            setProducts(response)
-          }
-        })
-      } else {
+      if (originOfProducts === 'CACE' || originOfProducts === 'globalPage') {
         optionsToGetProducts({
           collectionId: collection,
           originOfProducts,
@@ -70,6 +64,12 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
           host,
           environment
         }).then((response: any) => {
+          if (response) {
+            setProducts(response)
+          }
+        })
+      } else {
+        productsList(collection, account).then((response: any) => {
           if (response) {
             setProducts(response)
           }
