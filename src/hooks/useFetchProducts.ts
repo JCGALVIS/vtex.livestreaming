@@ -19,7 +19,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   } = useContext(ActionsContext)
 
   const { host, idLivestreaming } = useLivestreamingContext()
-  const { activePromoMessage, updateLivestreaming } = useContext(SettingContext)
+  const { activePromo, updateLivestreaming } = useContext(SettingContext)
 
   const [products, setProducts] = useState<Products[]>()
   const [loading, setLoading] = useState<boolean>(true)
@@ -79,7 +79,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
     const timeout = setTimeout(() => setLoading(false), 2000)
     return () => clearTimeout(timeout)
-  }, [collection, activePromoMessage])
+  }, [collection, activePromo])
 
   return { products, loading }
 }

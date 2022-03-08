@@ -2,7 +2,7 @@
 import React, { createContext, FC, useState } from 'react'
 
 import { useWebSocket } from '../hooks'
-import { InfoSocket } from '../typings/livestreaming'
+import { InfoSocket, PromotionTrigger } from '../typings/livestreaming'
 
 type SettingCtx = {
   collectionId?: string
@@ -16,10 +16,10 @@ type SettingCtx = {
   setMessageAlert?: React.Dispatch<React.SetStateAction<string>>
   setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
   setShowCarouselChatButton?: React.Dispatch<React.SetStateAction<boolean>>
-  setActivePromoMessage?: React.Dispatch<
-    React.SetStateAction<string | undefined>
+  setActivePromo?: React.Dispatch<
+    React.SetStateAction<PromotionTrigger | undefined>
   >
-  activePromoMessage?: string
+  activePromo?: PromotionTrigger
   setUpdateLivestreaming?: React.Dispatch<
     React.SetStateAction<string | undefined>
   >
@@ -31,7 +31,7 @@ const settingDefault: SettingCtx = {
   setIsModalLive: () => {},
   showCarouselChat: false,
   setShowCarouselChatButton: () => {},
-  setActivePromoMessage: () => {}
+  setActivePromo: () => {}
 }
 
 export const SettingContext = createContext<SettingCtx>(settingDefault)
@@ -47,7 +47,7 @@ export const SettingProvider: FC<SettingCtx> = ({
   const [showCarouselChat, setShowCarouselChat] = useState(false)
   const [showCarouselChatButton, setShowCarouselChatButton] = useState(false)
   const [messageAlert, setMessageAlert] = useState('')
-  const [activePromoMessage, setActivePromoMessage] = useState<string>()
+  const [activePromo, setActivePromo] = useState<PromotionTrigger>()
   const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
 
   const contex: SettingCtx = {
@@ -61,8 +61,8 @@ export const SettingProvider: FC<SettingCtx> = ({
     setShowCarouselChat,
     showCarouselChatButton,
     setShowCarouselChatButton,
-    activePromoMessage,
-    setActivePromoMessage,
+    activePromo,
+    setActivePromo,
     updateLivestreaming,
     setUpdateLivestreaming
   }

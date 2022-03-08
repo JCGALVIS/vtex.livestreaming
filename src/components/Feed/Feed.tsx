@@ -108,7 +108,11 @@ export const Feed = ({
     >
       <HighlightProduct
         fullScreen={highlightProps.fullScreen}
-        handleFullScreen={highlightProps.detector ? highlightProps.handleFullScreen : highlightProps.handleFullScreenMobile}
+        handleFullScreen={
+          highlightProps.detector
+            ? highlightProps.handleFullScreen
+            : highlightProps.handleFullScreenMobile
+        }
         setShowVariation={setShowVariation}
         isFinalized={isFinalized}
       />

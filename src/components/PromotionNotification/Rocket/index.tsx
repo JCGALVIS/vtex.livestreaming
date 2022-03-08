@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import gsap, { Expo, Elastic } from 'gsap'
 import confetti from 'canvas-confetti'
 
-import style from './PromotionsNotification.css'
+import style from './index.css'
 import BorderPromo from '../../icons/BorderPromo'
 
 interface Props {
@@ -60,7 +60,6 @@ const PromotionsNotification: React.FC<Props> = ({ canvas, message }) => {
     if (!canvas?.current) return
     if (!showMessage) return
     const party = confetti.create(canvas.current, { resize: true })
-    // go Buckeyes!
     const colors = ['#bb0000', '#ffffff']
     const end = Date.now() + 5 * 1000
 

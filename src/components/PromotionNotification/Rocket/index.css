@@ -10,7 +10,7 @@
   width: 200px;
   height: 200px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 1;
 }
 
 .loader {
