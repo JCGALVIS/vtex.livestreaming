@@ -104,7 +104,7 @@ export declare interface InfoSocket {
     React.SetStateAction<Queue<number> | undefined>
   >
   showCarouselChatButton: boolean | undefined
-  activePromoMessage: string | undefined
+  activePromo: PromotionTrigger | undefined
 }
 
 export interface ProductImages {
@@ -201,4 +201,17 @@ export interface Settings {
   showSidebarProducts: boolean
   showProductsCarousel: boolean
   showViewers: boolean
+}
+
+declare interface PromotionTrigger {
+  id: string
+  name: string
+  variable: string
+  goal: number
+  status: boolean
+  message: string
+  triggerDate?: string
+  index?: number
+  animation: string
+  isCoupon: boolean
 }

@@ -70,7 +70,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     isModalLive,
     setIsModalLive,
     setShowCarouselChatButton,
-    setActivePromoMessage
+    setActivePromo
   } = useContext(SettingContext)
 
   const {
@@ -101,7 +101,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     pinnedMessage: socketPinnedMessage,
     transmitiontype: socketTransmitiontype,
     showCarouselChatButton: socketCarouselChatButton,
-    activePromoMessage,
+    activePromo,
     showCounter
   } = infoSocket || {}
 
@@ -243,9 +243,9 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   }, [showCarouselChatButton, socketCarouselChatButton])
 
   useEffect(() => {
-    if (!setActivePromoMessage) return
-    setActivePromoMessage(activePromoMessage)
-  }, [activePromoMessage, setActivePromoMessage])
+    if (!setActivePromo) return
+    setActivePromo(activePromo)
+  }, [activePromo, setActivePromo])
 
   return (
     <div

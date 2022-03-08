@@ -1,0 +1,111 @@
+.animation2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.moveToRight {
+  -webkit-animation: slide 8s forwards;
+  animation: slide 8s forwards;
+  position: absolute;
+  animation-delay: 2s;
+  -webkit-animation-delay: 2s;
+  width: 70%;
+}
+
+@-webkit-keyframes slide {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 40%;
+  }
+}
+
+@keyframes slide {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 40%;
+  }
+}
+
+@-webkit-keyframes slideUp {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 60%;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 60%;
+  }
+}
+
+.left {
+  left: 0;
+  position: absolute;
+}
+
+.right {
+  right: 0;
+  position: absolute;
+}
+
+.text {
+  position: absolute;
+  max-width: 200px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: white;
+  transform: rotate(357deg);
+  text-align: center;
+}
+
+.animation2frame {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  width: 200px;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: zoomin 1s;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 740px) {
+  .moveToRight {
+    -webkit-animation: slideUp 8s forwards;
+    animation: slideUp 8s forwards;
+    width: 100%;
+  }
+}
+
+.mobile .moveToRight {
+  -webkit-animation: slideUp 8s forwards;
+  animation: slideUp 8s forwards;
+  width: 100%;
+}
+
+@keyframes zoomin {
+  0% {
+    transform: scale(0.1);
+  }
+  80% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
