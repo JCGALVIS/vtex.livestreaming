@@ -26,7 +26,7 @@ export const getProducts = async ({
     if (account === 'plataforma') {
       products = getProductsPlatform(account)
     } else {
-      products = getProductsGlobalPage({ collectionId, account })
+      products = getProductsGlobalPage({ collectionId, account, host })
     }
   } else {
     products = getProductsVtex({ collectionId })
@@ -143,12 +143,15 @@ const getProductsPlatform = async (account: string | undefined) => {
 
 const getProductsGlobalPage = async ({
   collectionId,
-  account
+  account,
+  host
 }: GetProductsProps) => {
   const url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://${account}.myvtex.com/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   const data = await apiCall({ url })
   if (data && data.length > 0) {
+    setCorrectAddToCartLink(data, account, host)
+
     const products = data.map((product: any) => {
       return {
         id: product.productId,
@@ -203,17 +206,21 @@ const setCorrectAddToCartLink = (
   host?: string
 ) => {
   try {
-    if (data[0]?.items) {
-      let items = data[0]?.items
-      items.map((item: any) => {
-        if (item.sellers[0].addToCartLink) {
-          const seller = item.sellers[0]
-          seller.addToCartLink = item.sellers[0].addToCartLink.replace(
-            `${account}.myvtex.com`,
-            host ? host : ''
-          )
+    if (data) {
+      data.map((product: any) => {
+        if (product?.items) {
+          let items = product?.items
+          items.map((item: any) => {
+            if (item.sellers[0].addToCartLink) {
+              const seller = item.sellers[0]
+              seller.addToCartLink = item.sellers[0].addToCartLink.replace(
+                `${account}.myvtex.com`,
+                host ? host : ''
+              )
+            }
+            return item
+          })
         }
-        return item
       })
     }
   } catch (error) {
