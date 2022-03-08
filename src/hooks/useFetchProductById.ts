@@ -24,14 +24,7 @@ export const useFetchProductById = ({ productId }: useFetchProductById) => {
   useEffect(() => {
     setLoading(false)
     if (productId) {
-      if (getProductId && !originOfProducts) {
-        getProductById(productId).then((respon: any) => {
-          if (respon) {
-            setProduct(respon)
-            setLoading(true)
-          }
-        })
-      } else {
+      if (originOfProducts === 'CACE' || originOfProducts === 'globalPage') {
         optionsToGetProductById({
           productId,
           originOfProducts,
@@ -39,6 +32,13 @@ export const useFetchProductById = ({ productId }: useFetchProductById) => {
           host,
           environment
         }).then((respon: any) => {
+          if (respon) {
+            setProduct(respon)
+            setLoading(true)
+          }
+        })
+      } else {
+        getProductById(productId).then((respon: any) => {
           if (respon) {
             setProduct(respon)
             setLoading(true)

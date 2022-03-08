@@ -8,7 +8,8 @@ import {
   HighlightProduct,
   ScriptProperties,
   Question,
-  Products
+  Products,
+  PromotionTrigger
 } from './../typings/livestreaming'
 import { useSessionId } from './useSessionId'
 import { getDeviceType, getRandomColor, Queue } from '../utils'
@@ -48,7 +49,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
   const [productsInCart, setProductsInCart] = useState<Products[]>([])
-  const [activePromoMessage, setActivePromoMessage] = useState<string>()
+  const [activePromo, setActivePromo] = useState<PromotionTrigger>()
   const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
 
   const createWebSocket = useCallback(() => {
@@ -103,7 +104,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         quickView,
         showCarouselChatButton,
         viewers,
-        message
+        trigger
       } = JSON.parse(event.data)
 
       switch (action) {
@@ -217,12 +218,10 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
           ])
           break
         case 'sendactivepromotion':
+          setActivePromo(trigger)
           setTimeout(() => {
-            setActivePromoMessage(message === undefined ? uuidv4() : message)
-          }, 300000)
-          setTimeout(() => {
-            setActivePromoMessage(undefined)
-          }, 360000)
+            setActivePromo(undefined)
+          }, 65000)
           break
         case 'sendupdatelivestreaming':
           setUpdateLivestreaming(uuidv4())
@@ -318,8 +317,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setProductsInCart,
     setQueueSocket,
     showCarouselChatButton,
-    activePromoMessage,
-    updateLivestreaming
+    activePromo,
+    updateLivestreaming,
   }
 }
 

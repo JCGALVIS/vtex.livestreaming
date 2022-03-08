@@ -14,7 +14,7 @@ import { getDeviceType } from '../../../utils'
 import { usePlayerFunctions, usePlayerLayout } from '../../../hooks'
 import { DesktopControls, MobileControls } from '../Control'
 import ShareComponents from '../../ShareComponents'
-import PromotionsNotification from '../PromotionNotification/PromotionsNotification'
+import Animations from '../../PromotionNotification/Animations'
 import { ProductToCart } from '../..'
 
 import styles from './streamPlayer.css'
@@ -38,7 +38,7 @@ export const StreamPlayer = ({
 }: streamPlayerProps) => {
   const [detector, setDetector] = useState<boolean>(false)
   const [openShare, setOpenShare] = useState(false)
-  const { isModalLive, activePromoMessage } = useContext(SettingContext)
+  const { isModalLive, activePromo } = useContext(SettingContext)
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const {
@@ -133,11 +133,12 @@ export const StreamPlayer = ({
         ) : (
           <DesktopControls {...props} />
         )}
-        {activePromoMessage && activePromoMessage !== '' && (
+        {activePromo && activePromo.message !== '' && (
           <Fragment>
-            <PromotionsNotification
+            <Animations
               canvas={canvasRef}
-              message={activePromoMessage}
+              message={activePromo.message}
+              animation={activePromo.animation}
             />
           </Fragment>
         )}

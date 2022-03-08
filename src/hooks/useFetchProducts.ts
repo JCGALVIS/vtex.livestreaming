@@ -19,7 +19,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   } = useContext(ActionsContext)
 
   const { host, idLivestreaming } = useLivestreamingContext()
-  const { activePromoMessage, updateLivestreaming } = useContext(SettingContext)
+  const { activePromo, updateLivestreaming } = useContext(SettingContext)
 
   const [products, setProducts] = useState<Products[]>()
   const [loading, setLoading] = useState<boolean>(true)
@@ -56,13 +56,7 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
   useEffect(() => {
     if (collection) {
-      if (getProducts && !originOfProducts) {
-        productsList(collection, account).then((response: any) => {
-          if (response) {
-            setProducts(response)
-          }
-        })
-      } else {
+      if (originOfProducts === 'CACE' || originOfProducts === 'globalPage') {
         optionsToGetProducts({
           collectionId: collection,
           originOfProducts,
@@ -74,12 +68,18 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
             setProducts(response)
           }
         })
+      } else {
+        productsList(collection, account).then((response: any) => {
+          if (response) {
+            setProducts(response)
+          }
+        })
       }
     }
 
     const timeout = setTimeout(() => setLoading(false), 2000)
     return () => clearTimeout(timeout)
-  }, [collection, activePromoMessage])
+  }, [collection, activePromo])
 
   return { products, loading }
 }
