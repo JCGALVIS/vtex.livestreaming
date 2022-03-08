@@ -6,11 +6,13 @@ import copyTextToClipboard from '../../utils/copy'
 import { ActionsContext } from '../../context'
 import { getCorrectUrlToShare } from '../../utils/getCorrectUrlToShare'
 import styles from './style.css'
+import { useIntl } from 'react-intl'
 
 const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
   const { setting } = useContext(ActionsContext)
   const { account, idLivestreaming, isInGlobalPage } = { ...setting }
   const url = getCorrectUrlToShare(account, idLivestreaming, isInGlobalPage)
+  const { formatMessage } = useIntl()
 
   const urlshareSocial = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
@@ -31,7 +33,9 @@ const ShareComponents = ({ handleClose }: { handleClose: () => void }) => {
         <IconClose />
       </button>
       <div className={`${styles.containerFlexShare}`}>
-        <div className={`${styles.textShare}`}>Compartir</div>
+        <div className={`${styles.textShare}`}>
+          {formatMessage({ id: 'store/text.share' })}
+        </div>
         <div className={`${styles.containerShareIcon}`}>
           <div onClick={() => shareeOnclik('facebook')}>
             <FacebookIcon size='32' viewBox='0 0 64 64' />

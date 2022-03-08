@@ -38,6 +38,7 @@ export default {
     'store/text.unread-messages': 'Mensajes sin leer',
     'store/time': 'Tiempo',
     'store/total-votes': 'Total votos',
-    'store/text.add-to-cart': 'Producto agregado al carrito.'
+    'store/text.add-to-cart': 'Producto agregado al carrito.',
+    'store/text.share': 'Compartir'
   }
 }

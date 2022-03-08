@@ -105,6 +105,7 @@ export declare interface InfoSocket {
   >
   showCarouselChatButton: boolean | undefined
   activePromo: PromotionTrigger | undefined
+  updateLivestreaming: string | undefined
 }
 
 export interface ProductImages {

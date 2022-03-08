@@ -20,6 +20,10 @@ type SettingCtx = {
     React.SetStateAction<PromotionTrigger | undefined>
   >
   activePromo?: PromotionTrigger
+  setUpdateLivestreaming?: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >
+  updateLivestreaming?: string
 }
 
 const settingDefault: SettingCtx = {
@@ -44,6 +48,7 @@ export const SettingProvider: FC<SettingCtx> = ({
   const [showCarouselChatButton, setShowCarouselChatButton] = useState(false)
   const [messageAlert, setMessageAlert] = useState('')
   const [activePromo, setActivePromo] = useState<PromotionTrigger>()
+  const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
 
   const contex: SettingCtx = {
     collectionId,
@@ -57,7 +62,9 @@ export const SettingProvider: FC<SettingCtx> = ({
     showCarouselChatButton,
     setShowCarouselChatButton,
     activePromo,
-    setActivePromo
+    setActivePromo,
+    updateLivestreaming,
+    setUpdateLivestreaming
   }
   return (
     <SettingContext.Provider value={contex}>{children}</SettingContext.Provider>
