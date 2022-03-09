@@ -1,14 +1,17 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { isAppleDevice } from '../../../utils/getMobileOs'
 
 import style from './index.css'
 
 interface Props {
   canvas: React.RefObject<HTMLCanvasElement> | null
   message: string
+  forceMobile: boolean
 }
-const PromotionsNotification: React.FC<Props> = ({ message }) => {
+const PromotionsNotification: React.FC<Props> = ({ message, forceMobile }) => {
   const [showHide, setShowHide] = useState(true)
   const [showMessage, setShowMessage] = useState(false)
+  const isApple = isAppleDevice()
 
   useEffect(() => {
     let seconds = 0
@@ -26,16 +29,20 @@ const PromotionsNotification: React.FC<Props> = ({ message }) => {
 
     setTimeout(() => {
       clearInterval(int)
-      setShowHide(false) // cambiar
-      setShowMessage(true) // cambiar
+      setShowHide(false)
+      setShowMessage(true)
     }, 10000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className={style.animation3frame}>
+    <div
+      className={`${style.animation3frame} ${isApple ? style.ios : ''} ${
+        forceMobile ? style.mobile : ''
+      }`}
+    >
       {showHide && (
-        <Fragment>
+        <>
           <div className={`${style.celebrationContainer} ${style.left}`}>
             <span
               role="img"
@@ -120,6 +127,48 @@ const PromotionsNotification: React.FC<Props> = ({ message }) => {
               🤑
             </span>
           </div>
+          {isApple && (
+            <div className={`${style.celebrationContainer} ${style.left3}`}>
+              <span
+                role="img"
+                aria-label="EMoji1"
+                className={`${style.celebrationContainerEmoji} ${style.emoji1}`}
+              >
+                {' '}
+                🎉
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji2"
+                className={`${style.celebrationContainerEmoji} ${style.emoji2}`}
+              >
+                🎁
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji4"
+                className={`${style.celebrationContainerEmoji} ${style.emoji4}`}
+              >
+                {' '}
+                🎊
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji6"
+                className={`${style.celebrationContainerEmoji} ${style.emoji6}`}
+              >
+                💰
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji7"
+                className={`${style.celebrationContainerEmoji} ${style.emoji7}`}
+              >
+                {' '}
+                🎀
+              </span>
+            </div>
+          )}
           <div className={`${style.celebrationContainer} ${style.right}`}>
             <span
               role="img"
@@ -142,7 +191,7 @@ const PromotionsNotification: React.FC<Props> = ({ message }) => {
               className={`${style.celebrationContainerEmoji} ${style.emoji4}`}
             >
               {' '}
-              ❤️
+              🥳
             </span>
             <span
               role="img"
@@ -182,14 +231,14 @@ const PromotionsNotification: React.FC<Props> = ({ message }) => {
               className={`${style.celebrationContainerEmoji} ${style.emoji4}`}
             >
               {' '}
-              ❤️
+              😊
             </span>
             <span
               role="img"
               aria-label="EMoji6"
               className={`${style.celebrationContainerEmoji} ${style.emoji6}`}
             >
-              💰
+              🎈
             </span>
             <span
               role="img"
@@ -200,7 +249,49 @@ const PromotionsNotification: React.FC<Props> = ({ message }) => {
               🎫
             </span>
           </div>
-        </Fragment>
+          {isApple && (
+            <div className={`${style.celebrationContainer} ${style.right3}`}>
+              <span
+                role="img"
+                aria-label="EMoji1"
+                className={`${style.celebrationContainerEmoji} ${style.emoji1}`}
+              >
+                {' '}
+                🎉
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji2"
+                className={`${style.celebrationContainerEmoji} ${style.emoji2}`}
+              >
+                🎁
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji4"
+                className={`${style.celebrationContainerEmoji} ${style.emoji4}`}
+              >
+                {' '}
+                ❤️
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji6"
+                className={`${style.celebrationContainerEmoji} ${style.emoji6}`}
+              >
+                💰
+              </span>
+              <span
+                role="img"
+                aria-label="EMoji7"
+                className={`${style.celebrationContainerEmoji} ${style.emoji7}`}
+              >
+                {' '}
+                🤑
+              </span>
+            </div>
+          )}
+        </>
       )}
       {showMessage && (
         <div className={style.animationTextContainer}>

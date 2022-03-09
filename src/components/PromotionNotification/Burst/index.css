@@ -84,6 +84,10 @@
   animation: zoomin 1s;
 }
 
+.animation2frame svg {
+  width: 100%;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 740px) {
   .moveToRight {
     -webkit-animation: slideUp 8s forwards;

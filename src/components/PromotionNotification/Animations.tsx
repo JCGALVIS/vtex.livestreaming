@@ -35,7 +35,9 @@ const Animations: React.FC<Props> = ({
         )
 
       case 'type3':
-        return <Emoji canvas={canvas} message={message} />
+        return (
+          <Emoji canvas={canvas} message={message} forceMobile={forceMobile} />
+        )
 
       default:
         return <Rocket canvas={canvas} message={message} />

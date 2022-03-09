@@ -32,4 +32,11 @@ const getDeviceType = () => {
   return 'desktop'
 }
 
-export { getMobileOS, getDeviceType }
+const isAppleDevice = () => {
+  const isIOs = /iP(ad|od|hone)/i.test(window.navigator.userAgent)
+  const isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
+
+  return isIOs || isSafari
+}
+
+export { getMobileOS, getDeviceType, isAppleDevice }
