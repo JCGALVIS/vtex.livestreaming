@@ -84,7 +84,7 @@ export const VerticalProductSlider = ({
   }, [productLisRef])
 
   return loading ? (
-    <div className={styles.verticalProductSliderContent}>
+    <div className={styles.loader}>
       <Spinner />
     </div>
   ) : products ? (
