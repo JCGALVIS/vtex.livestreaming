@@ -45,9 +45,9 @@ export const ChatCarouselProductItem = (
       className={styles.productItemContent}
     >
       <div className={styles.pictureContent}>
-        <a className={styles.productLink} href='#'>
+        <div className={styles.productLink}>
           <img className={styles.picture} src={imageUrl} />
-        </a>
+        </div>
       </div>
       <div className={styles.productDeatailContent}>
         <span className={styles.priceWithDiscount}>
