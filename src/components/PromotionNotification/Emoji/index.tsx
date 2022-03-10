@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { isAppleDevice } from '../../../utils/getMobileOs'
 
 import style from './index.css'
@@ -42,7 +42,7 @@ const PromotionsNotification: React.FC<Props> = ({ message, forceMobile }) => {
       }`}
     >
       {showHide && (
-        <>
+        <Fragment>
           <div className={`${style.celebrationContainer} ${style.left}`}>
             <span
               role="img"
@@ -291,7 +291,7 @@ const PromotionsNotification: React.FC<Props> = ({ message, forceMobile }) => {
               </span>
             </div>
           )}
-        </>
+        </Fragment>
       )}
       {showMessage && (
         <div className={style.animationTextContainer}>
