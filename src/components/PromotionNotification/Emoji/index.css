@@ -99,40 +99,6 @@
   bottom: -40%;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 740px) {
-  .left {
-    left: -50%;
-    transform: rotate(314deg);
-    bottom: -20%;
-  }
-  .left2 {
-    left: -50%;
-    transform: rotate(338deg);
-    bottom: -20%;
-  }
-  .left3 {
-    left: -50%;
-    transform: rotate(344deg);
-    bottom: -20%;
-  }
-
-  .right {
-    left: 0%;
-    transform: rotate(9deg);
-    bottom: -20%;
-  }
-  .right2 {
-    left: 20%;
-    transform: rotate(24deg);
-    bottom: -20%;
-  }
-  .right3 {
-    left: 0%;
-    transform: rotate(15deg);
-    bottom: -20%;
-  }
-}
-
 .mobile .left {
   left: -50%;
   transform: rotate(314deg);
@@ -407,5 +373,128 @@
   100% {
     transform: scale(2) translate(0px, -27vh) rotate(0deg);
     opacity: 0;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 740px) {
+  .left {
+    left: -40%;
+    transform: rotate(336deg);
+    bottom: -30%;
+  }
+  .left2 {
+    left: -30%;
+    transform: rotate(353deg);
+    bottom: -20%;
+  }
+  .left3 {
+    left: -15%;
+    transform: rotate(344deg);
+    bottom: -20%;
+  }
+
+  .right {
+    left: 15%;
+    transform: rotate(9deg);
+    bottom: -20%;
+  }
+  .right2 {
+    left: 25%;
+    transform: rotate(15deg);
+    bottom: -20%;
+  }
+  .right3 {
+    left: 20%;
+    transform: rotate(25deg);
+    bottom: -20%;
+  }
+
+  .celebrationContainer {
+    width: 100%;
+  }
+
+  @keyframes one {
+    0% {
+      transform: scale(1) translateY(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2) translate(-50px, -21vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  @keyframes two {
+    0% {
+      transform: scale(1) translateY(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(3) translate(-10px, -26vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  @keyframes three {
+    0% {
+      transform: scale(1) translateY(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(3) translate(10px, -31vh) rotate(-270deg);
+      opacity: 0;
+    }
+  }
+  @keyframes four {
+    0% {
+      transform: scale(1) translateY(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(3) translate(0px, -23vh) rotate(300deg);
+      opacity: 0;
+    }
+  }
+  @keyframes five {
+    0% {
+      transform: scale(1) translateY(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(3) translate(30px, -19vh) rotate(-380deg);
+      opacity: 0;
+    }
+  }
+  @keyframes six {
+    0% {
+      transform: scale(1) translateY(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(5) translate(0px, -16vh) rotate(-380deg);
+      opacity: 0;
+    }
+  }
+  @keyframes seven {
+    0% {
+      transform: scale(1) translateY(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(5) translate(0px, -15vh) rotate(0deg);
+      opacity: 0;
+    }
   }
 }
