@@ -23,7 +23,7 @@ const HighlightProduct = ({
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
 
-  const { collectionId, infoSocket } = useContext(SettingContext)
+  const { collectionId, infoSocket, setCollection } = useContext(SettingContext)
 
   const { ivsRealTime, highlightProduct } = infoSocket || {}
 
@@ -34,7 +34,8 @@ const HighlightProduct = ({
   const { product, showProduct } = useHighlightProduct({
     highlightProduct,
     collectionId,
-    isFinalized
+    isFinalized,
+    setCollection
   })
 
   useEffect(() => {

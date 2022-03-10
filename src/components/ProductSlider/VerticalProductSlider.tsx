@@ -20,7 +20,7 @@ export const VerticalProductSlider = ({
   setShowVariation,
   transmitionType
 }: VerticalProductSliderProps) => {
-  const { collectionId, isModalLive } = useContext(SettingContext)
+  const { collectionId, isModalLive, setCollection } = useContext(SettingContext)
   const isMobile = getDeviceType() === 'mobile'
 
   const {
@@ -28,7 +28,8 @@ export const VerticalProductSlider = ({
   } = useContext(ActionsContext)
 
   const { products, loading } = useFetchProducts({
-    collectionId
+    collectionId,
+    setCollection
   })
 
   const [isMouseOver, setIsMouseOver] = useState(false)

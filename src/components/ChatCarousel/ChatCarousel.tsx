@@ -20,10 +20,11 @@ export const ChatCarousel = ({
   fullScreen,
   handleFullScreen
 }: ChatCarouselProps) => {
-  const { collectionId } = useContext(SettingContext)
+  const { collectionId, setCollection } = useContext(SettingContext)
 
   const { products, loading } = useFetchProducts({
-    collectionId
+    collectionId,
+    setCollection
   })
 
   return loading ? (

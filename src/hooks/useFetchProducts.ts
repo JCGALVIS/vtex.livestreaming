@@ -11,9 +11,13 @@ import { config } from '../enviroment/config'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
+  setCollection: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
+export const useFetchProducts = ({
+  collectionId,
+  setCollection
+}: useFetchProductsProps) => {
   const {
     setting: { account, environment, getProducts, originOfProducts }
   } = useContext(ActionsContext)
@@ -23,7 +27,6 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
 
   const [products, setProducts] = useState<Products[]>()
   const [loading, setLoading] = useState<boolean>(true)
-  const [collection, setCollection] = useState<string | undefined>(collectionId)
 
   const productsList = async (collectionId: string, account?: string) => {
     const data = getProducts && (await getProducts(collectionId, account))
@@ -40,10 +43,6 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   }
 
   useEffect(() => {
-    setCollection(collectionId)
-  }, [collectionId])
-
-  useEffect(() => {
     const URL = getUrl()
     apiCall({
       url: `${URL}?id=${idLivestreaming}&account=${account}`
@@ -55,10 +54,10 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
   }, [updateLivestreaming])
 
   useEffect(() => {
-    if (collection) {
+    if (collectionId) {
       if (originOfProducts === 'CACE' || originOfProducts === 'globalPage') {
         optionsToGetProducts({
-          collectionId: collection,
+          collectionId: collectionId,
           originOfProducts,
           account,
           host,
@@ -69,19 +68,17 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
           }
         })
       } else {
-        productsList(collection, account).then((response: any) => {
+        productsList(collectionId, account).then((response: any) => {
           if (response) {
             setProducts(response)
           }
         })
       }
-    } else {
-      setProducts([])
     }
 
     const timeout = setTimeout(() => setLoading(false), 2000)
     return () => clearTimeout(timeout)
-  }, [collection, activePromo])
+  }, [collectionId, activePromo])
 
   return { products, loading }
 }
