@@ -75,6 +75,8 @@ export const useFetchProducts = ({ collectionId }: useFetchProductsProps) => {
           }
         })
       }
+    } else {
+      setProducts([])
     }
 
     const timeout = setTimeout(() => setLoading(false), 2000)
