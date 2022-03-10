@@ -8,18 +8,21 @@ type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
   isFinalized: boolean
+  setCollection: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 export const useHighlightProduct = ({
   highlightProduct,
   collectionId,
-  isFinalized
+  isFinalized,
+  setCollection
 }: useHighlightProductProps) => {
   const [product, setProduct] = useState<Products>()
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
   const { idLivestreaming } = useLivestreamingContext()
   const { products } = useFetchProducts({
-    collectionId
+    collectionId,
+    setCollection
   })
 
   const handleSetProduct = (productId: string, storageProducts: string) => {
