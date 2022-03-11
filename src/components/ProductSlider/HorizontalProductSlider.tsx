@@ -24,14 +24,14 @@ export const HorizontalProductSlider = ({
   const [itemsProdcuts, setItemsProducts] = useState<Products[]>()
   const [index, setIndex] = useState(2)
 
-  const { collectionId } = useContext(SettingContext)
+  const { collectionId, setCollection } = useContext(SettingContext)
 
   const {
     setting: { isInfinite, time }
   } = useContext(ActionsContext)
 
   const { products, loading } = useFetchProducts({
-    collectionId
+    collectionId, setCollection
   })
 
   const delay = time ? time * 1000 : 10000

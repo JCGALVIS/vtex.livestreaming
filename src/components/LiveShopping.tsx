@@ -66,6 +66,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   } = setting
 
   const {
+    collectionId,
     infoSocket,
     isModalLive,
     setIsModalLive,
@@ -75,7 +76,6 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   } = useContext(SettingContext)
 
   const {
-    collectionId,
     streamUrl,
     utm,
     emailIsRequired,
