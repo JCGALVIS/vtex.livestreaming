@@ -414,6 +414,14 @@
     width: 100%;
   }
 
+  .animation3text {
+    max-width: 50px;
+  }
+
+  .animationTextContainer {
+    padding-top: 2.8em;
+  }
+
   @keyframes one {
     0% {
       transform: scale(1) translateY(0) rotate(0);
