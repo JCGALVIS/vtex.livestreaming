@@ -54,7 +54,7 @@ export const SettingProvider: FC<SettingCtx> = ({
   const [collection, setCollection] = useState(collectionId)
 
   const contex: SettingCtx = {
-    collectionId: true ? collectionId : collection,
+    collectionId:collection,
     infoSocket,
     isModalLive,
     messageAlert,
