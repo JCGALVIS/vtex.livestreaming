@@ -8,7 +8,7 @@ type useHighlightProductProps = {
   highlightProduct: HighlightProduct | undefined
   collectionId: string | undefined
   isFinalized: boolean
-  setCollection: React.Dispatch<React.SetStateAction<string | undefined>>
+  setCollection?: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 export const useHighlightProduct = ({

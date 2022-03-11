@@ -11,7 +11,7 @@ import { config } from '../enviroment/config'
 
 type useFetchProductsProps = {
   collectionId: string | undefined
-  setCollection: React.Dispatch<React.SetStateAction<string | undefined>>
+  setCollection?: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 export const useFetchProducts = ({
@@ -48,7 +48,7 @@ export const useFetchProducts = ({
       url: `${URL}?id=${idLivestreaming}&account=${account}`
     }).then((data) => {
       if (data) {
-        setCollection(data?.collection?.id)
+        if (setCollection) setCollection(data?.collection?.id)
       }
     })
   }, [updateLivestreaming])

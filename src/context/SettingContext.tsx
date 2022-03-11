@@ -24,7 +24,7 @@ type SettingCtx = {
     React.SetStateAction<string | undefined>
   >
   updateLivestreaming?: string
-  setCollection: React.Dispatch<React.SetStateAction<string | undefined>>
+  setCollection?: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 const settingDefault: SettingCtx = {
