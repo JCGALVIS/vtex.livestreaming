@@ -4,7 +4,7 @@ import { Queue } from '../utils'
 type LivestreamingProps = {
   addToCart: (product: Products) => void
   account: string
-  environment?: string
+  environment: string
   getProductId?: (productId: string, account?: string) => void
   getProducts?: (collectionId?: string, account?: string) => void
   idLivestreaming: string

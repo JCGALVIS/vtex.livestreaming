@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from 'react'
-import { ActionsContext } from '../context'
+import { useEffect, useState } from 'react'
 import { apiCall } from '../services'
 import { config } from '../enviroment/config'
 import type { Message, Settings } from '../typings/livestreaming'
 declare interface Props {
   id: string
   account: string
+  environment: string
 }
 
-const useLivestreamingConfig = ({ id, account }: Props) => {
+const useLivestreamingConfig = ({ id, account, environment }: Props) => {
   const [wssStream, setWssStream] = useState<string>()
   const [streamUrl, setStreamUrl] = useState<string>()
   const [collectionId, setCollectionId] = useState<string>()
@@ -26,10 +26,6 @@ const useLivestreamingConfig = ({ id, account }: Props) => {
   const [playBackStartTime, setPlayBackStartTime] = useState<number>(0)
   const [settings, setSettings] = useState<Settings>()
   const [isLoading, setIsLoading] = useState(true)
-
-  const {
-    setting: { environment }
-  } = useContext(ActionsContext)
 
   useEffect(() => {
     let URL = '__GET_LIVESTREAMING_CONFIG_URL'

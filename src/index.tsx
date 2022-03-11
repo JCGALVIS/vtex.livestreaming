@@ -18,7 +18,7 @@ import {
 import styles from './styles.module.css'
 
 export const Livestreaming = (props: LivestreamingProps) => {
-  const { idLivestreaming, account } = props
+  const { idLivestreaming, account, environment } = props
   const [locale, setLocale] = useState(LOCALES.en)
   const [loading, setLoading] = useState(true)
   const [actionsProps, setActionsProps] = useState(props)
@@ -43,7 +43,8 @@ export const Livestreaming = (props: LivestreamingProps) => {
     isLoading
   } = useLivestreamingConfig({
     id: idLivestreaming,
-    account
+    account,
+    environment
   })
 
   const settingProps = {

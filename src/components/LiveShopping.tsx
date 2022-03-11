@@ -56,6 +56,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   const {
     addToCart,
     account,
+    environment,
     idLivestreaming,
     isInGlobalPage,
     originOfProducts,
@@ -86,7 +87,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     showCarouselChatButton
   } = useLivestreamingConfig({
     id: idLivestreaming,
-    account
+    account,
+    environment
   })
 
   const { livestreaminComponentInView } = useLivestreamingComponentOnScreen({
@@ -145,6 +147,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       ...setting,
       addToCart,
       account,
+      environment,
       idLivestreaming,
       isInGlobalPage: isInGlobalPage,
       isInfinite: infinite,
