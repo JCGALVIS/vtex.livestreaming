@@ -126,6 +126,8 @@ const getProductsGlobalPage = async ({
   data = await apiCall({ url })
 
   if (data && data.length > 0) {
+    setCorrectAddToCartLink(data, account, host)
+
     const products = data.map((product: any) => {
       return {
         id: product.productId,
