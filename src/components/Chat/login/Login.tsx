@@ -71,10 +71,10 @@ export const Login = ({
     const isEmptyEmail = !(email !== null && email.trim() !== '')
 
     const isValid = emailIsRequired
-      ? regEmail.test(email)
+      ? regEmail.test(email.trim())
       : isEmptyEmail
       ? true
-      : regEmail.test(email)
+      : regEmail.test(email.trim())
 
     setErrorEmail(!isValid)
 
@@ -193,6 +193,7 @@ export const Login = ({
               }
               value={email}
               autoComplete='off'
+              autoCorrect='off'
               className={`${styles.input} ${
                 errorEmail ? styles.inputError : ''
               }`}
