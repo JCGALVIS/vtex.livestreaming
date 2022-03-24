@@ -49,7 +49,9 @@ export const ChatCarouselProductItem = (
           <img className={styles.picture} src={imageUrl} />
         </div>
       </div>
-      <div className={styles.productDeatailContent}>
+      <div
+        className={`${styles.productDeatailContent} ${styles.flexAlignItemsCenter}`}
+      >
         <span className={styles.priceWithDiscount}>
           {currencyFormat(priceWithDiscount)}
         </span>

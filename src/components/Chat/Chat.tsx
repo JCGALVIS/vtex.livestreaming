@@ -101,8 +101,8 @@ export const Chat = ({
       event.persist()
     }
 
-    if(!setShowLoader) return
-    
+    if (!setShowLoader) return
+
     setShowLoader(true)
     const isEmpty = !(content !== null && content.trim() !== '')
     const isEmptyGif = gif === undefined || gif?.trim() === ''
@@ -309,7 +309,9 @@ export const Chat = ({
       <div className={styles.chatContent}>
         <div
           className={`${styles.messagesContainer} ${
-            showCarouselChat && showCarouselChatButton ? styles.activeChatCarousel : ''
+            showCarouselChat && showCarouselChatButton
+              ? styles.activeChatCarousel
+              : ''
           }`}
         >
           {pinnedMessage && pinnedMessage?.data && IS_DESKTOP && (
@@ -391,9 +393,10 @@ export const Chat = ({
                   })}
                   name='content'
                   type='text'
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    if (e.target.value.length > 180) return
                     setContent(e.target.value)
-                  }
+                  }}
                   onFocus={() =>
                     setShowLoginWindow(!userIsLoggedInChat && sendFirstMessage)
                   }
@@ -411,7 +414,11 @@ export const Chat = ({
                   </span>
                 )}
                 <button type='submit' className={styles.btn}>
-                  {showLoader ? <AnimatedLoaderIcon className={styles.spinner} /> : <SendIcon size='21' viewBox='0 0 21 21' />}
+                  {showLoader ? (
+                    <AnimatedLoaderIcon className={styles.spinner} />
+                  ) : (
+                    <SendIcon size='21' viewBox='0 0 21 21' />
+                  )}
                 </button>
               </div>
             </form>
