@@ -116,6 +116,7 @@ export const Chat = ({
       setTimeout(() => setShowLoginWindow(true), 200)
       setSelectedGif(gif)
       setShowGif(false)
+      setShowLoader(false)
       return
     }
 
@@ -133,6 +134,8 @@ export const Chat = ({
     } else {
       setShowGif(false)
     }
+
+    setTimeout(() => setShowLoader(false), 1000)
   }
 
   const deleteMessage = useCallback(() => {

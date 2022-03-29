@@ -29,7 +29,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   )
   const [showCounter, setShowCounter] = useState<boolean | undefined>(true)
   const [showGif, setShowGif] = useState<boolean | undefined>()
-  const [showLoader, setShowLoader] = useState<boolean>()
+  const [showLoader, setShowLoader] = useState<boolean>(false)
   const [showCarouselChatButton, setShowCarouselChatButton] = useState<
     boolean | undefined
   >()
