@@ -111,6 +111,8 @@ export const Login = ({
   }
 
   const handlerSendDataToChat = async (event: React.SyntheticEvent) => {
+    if(!setShowLoader) return
+    setShowLoader(true)
     setDisabledBtn(true)
     event.preventDefault()
     event.persist()
@@ -118,7 +120,7 @@ export const Login = ({
 
     if (!isValid || !sendAccountId || !emailIsValid()) {
       setDisabledBtn(false)
-
+      setShowLoader(false)
       return
     }
 
@@ -137,6 +139,7 @@ export const Login = ({
     setShowLoginWindow(false)
     setUserIsLoggedInChat(true)
     setSendFirstMessage(true)
+    setShowLoader(false)
   }
 
   return (
