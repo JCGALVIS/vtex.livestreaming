@@ -43,8 +43,13 @@ export const ProductButton = (props: ProductButtonProps) => {
             const sendLike = {
               action: 'sendaddtocart',
               data: {
+                productId: id,
+                name: name,
                 imageUrl: imageUrl
-              }
+              },
+              sessionId: infoSocket?.sessionId,
+              email: '-',
+              orderForm: window?.vtexjs?.checkout?.orderForm?.orderFormId
             }
 
             socket.send(JSON.stringify(sendLike))
