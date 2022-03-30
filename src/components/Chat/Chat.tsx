@@ -101,7 +101,7 @@ export const Chat = ({
       event.persist()
     }
 
-    if (!setShowLoader) return
+    if (setShowLoader === undefined) return
 
     setShowLoader(true)
     const isEmpty = !(content !== null && content.trim() !== '')
