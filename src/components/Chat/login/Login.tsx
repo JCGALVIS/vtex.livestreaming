@@ -36,7 +36,8 @@ export const Login = ({
   const { infoSocket } = useContext(SettingContext)
   const { sessionId } = useSessionId()
 
-  const { sendAccountId, socket, emailIsRequired, setShowLoader } = infoSocket || {}
+  const { sendAccountId, socket, emailIsRequired, setShowLoader } =
+    infoSocket || {}
 
   const {
     setting: { account, environment, idLivestreaming }
@@ -45,7 +46,7 @@ export const Login = ({
   const handlerCloseCard = () => {
     setShowLoginWindow(false)
 
-    if(setShowLoader) setShowLoader(false)
+    if (setShowLoader) setShowLoader(false)
   }
 
   const sendMessage = () => {
@@ -111,7 +112,7 @@ export const Login = ({
   }
 
   const handlerSendDataToChat = async (event: React.SyntheticEvent) => {
-    if(!setShowLoader) return
+    if (setShowLoader === undefined) return
     setShowLoader(true)
     setDisabledBtn(true)
     event.preventDefault()
