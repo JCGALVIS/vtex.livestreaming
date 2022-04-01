@@ -40,7 +40,7 @@ export const ProductButton = (props: ProductButtonProps) => {
         disabled={!isAvailable}
         onClick={() => {
           if (socket && socket?.readyState === 1) {
-            const sendLike = {
+            const currentCart = {
               action: 'sendaddtocart',
               data: {
                 productId: id,
@@ -52,7 +52,8 @@ export const ProductButton = (props: ProductButtonProps) => {
               orderForm: window?.vtexjs?.checkout?.orderForm?.orderFormId
             }
 
-            socket.send(JSON.stringify(sendLike))
+            socket.send(JSON.stringify(currentCart))
+            sessionStorage.cartCachedOrderFormId = currentCart.orderForm
           }
 
           const returnMessage = handlerAddToCart(

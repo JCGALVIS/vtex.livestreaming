@@ -197,33 +197,32 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   useEffect(() => {
     setTimeout(() => {
       if (!socket || !window.vtexjs) return
-
-      const eventAddToCartStorage = localStorage.getItem(
-        'sectionIdClickedOnForAddToCart'
-      )
-
+      const eventAddToCartStorage = localStorage.getItem('sectionIdClickedOnForAddToCart')
       if (!eventAddToCartStorage) return
+      const { productId, productName, sectionIdClickedOn } = JSON.parse(eventAddToCartStorage)
 
-      const { productId, productName, sectionIdClickedOn } = JSON.parse(
-        eventAddToCartStorage
-      )
+      const currentCart = {
+        action: 'sendaddtocart',
+        data: {
+          name: productName,
+          productId
+        },
+        sectionIdClickedOn,
+        orderForm: window.vtexjs.checkout.orderForm.orderFormId,
+        sessionId,
+        email: ''
+      }
 
-      socket.send(
-        JSON.stringify({
-          action: 'sendaddtocart',
-          data: {
-            name: productName,
-            productId
-          },
-          sectionIdClickedOn,
-          orderForm: window.vtexjs.checkout.orderForm.orderFormId,
-          sessionId,
-          email: ''
-        })
-      )
+      if(!sessionStorage.cartCachedOrderFormId){
+        sessionStorage.cartCachedOrderFormId = currentCart.orderForm
+      }
 
-      localStorage.removeItem('sectionIdClickedOnForAddToCart')
+      if(currentCart.orderForm !== sessionStorage.cartCachedOrderFormId){
+        socket.send(JSON.stringify(currentCart))
+        localStorage.removeItem('sectionIdClickedOnForAddToCart')
+      }
     }, 1000)
+
   }, [socket])
 
   useEffect(() => {
