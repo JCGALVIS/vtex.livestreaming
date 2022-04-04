@@ -11,7 +11,6 @@ import {
   SettingProvider,
   useLivestreamingReducer,
   useSetLivestreaming,
-  useSetInfoFinalizedEvents,
   LivestreamingProvider
 } from './context'
 
@@ -91,7 +90,6 @@ export const Livestreaming = (props: LivestreamingProps) => {
     playBackStartTime,
     dispatch
   )
-  useSetInfoFinalizedEvents(idLivestreaming, account, dispatch)
 
   useEffect(() => {
     const { isInGlobalPage } = props

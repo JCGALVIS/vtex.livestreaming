@@ -5,16 +5,14 @@ import { Message } from '../../../../typings/livestreaming'
 import { ActionsContext } from '../../..'
 import { config } from '../../../../enviroment/config'
 
-export const useSetChatHistory = (
-  idLivestreaming: string,
-  account: string,
-  dispatch: Dispatch<Actions>
-) => {
+export const useSetChatHistory = (dispatch: Dispatch<Actions>) => {
   const {
-    setting: { environment }
+    setting: { environment, idLivestreaming, account }
   } = useContext(ActionsContext)
 
   useEffect(() => {
+    if (!environment || !idLivestreaming || !account) return
+
     let URL = '__GET_CHAT_BY_ID_URL'
     const { GET_CHAT_BY_ID_URL } = config(environment || '')
 
@@ -38,5 +36,5 @@ export const useSetChatHistory = (
       }
     }
     getChat().catch(null)
-  }, [])
+  }, [idLivestreaming, account, environment])
 }
