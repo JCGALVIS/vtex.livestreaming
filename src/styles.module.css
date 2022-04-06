@@ -458,8 +458,8 @@ input[type='text']:focus {
     grid-row-start: 4;
     grid-row-end: 5;
     position: absolute;
-    bottom: 20px;
-    right: 100px;
+    bottom: 22px;
+    right: 90px;
     z-index: 2;
   }
 }

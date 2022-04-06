@@ -133,12 +133,12 @@
 
 .chatCarouselContainer {
   position: absolute;
-  width: 100%;
+  width: 85%;
   bottom: 60px;
   height: 90px;
   display: flex;
   overflow-x: auto;
-  z-index: 1;
+  z-index: 3;
 }
 
 .chatCarouselContainer .productAddCartContent {
