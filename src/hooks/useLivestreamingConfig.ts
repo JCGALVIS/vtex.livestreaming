@@ -69,6 +69,14 @@ const useLivestreamingConfig = ({ id, account, environment }: Props) => {
           } else {
             setPlayBackStartTime(0)
           }
+          if (data?.highlightProduct && data?.highlightProduct.showhighlight) {
+            localStorage.setItem('product', JSON.stringify({
+              collection: data?.collection?.id,
+              livestreamingId: data?.highlightProduct.livestreamingid,
+              productId: data.highlightProduct.productid,
+              showProduct: (data.highlightProduct.showhighlight === 'true'),
+            }))
+          }
           setIsLoading(false)
         }
       })

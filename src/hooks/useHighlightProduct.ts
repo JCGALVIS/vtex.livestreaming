@@ -66,13 +66,12 @@ export const useHighlightProduct = ({
       productId: highlightProduct?.productId,
       showProduct: highlightProduct?.showProduct,
       collection: highlightProduct?.collection,
-      idLivestreaming: highlightProduct?.livestreamingId
+      livestreamingId: highlightProduct?.livestreamingId
     }
 
     if (highlightProduct)
       localStorage.setItem('product', JSON.stringify(dataProduct))
 
-    const storageProducts = localStorage.getItem('products')
     const storageProduct = localStorage.getItem('product')
     const storageCollectionId = localStorage.getItem('collectionId')
 
@@ -85,7 +84,7 @@ export const useHighlightProduct = ({
     }
 
     let objetProduct = storageProduct && JSON.parse(storageProduct)
-    if (`${objetProduct?.idLivestreaming}` !== idLivestreaming) {
+    if (`${objetProduct?.livestreamingId}` !== idLivestreaming) {
       objetProduct = null
     }
 
@@ -93,9 +92,9 @@ export const useHighlightProduct = ({
       ? objetProduct.showProduct
       : highlightProduct?.showProduct
 
-    if (storageProducts && isShowProduct) {
+    if (products && isShowProduct) {
       const productId = objetProduct.productId || highlightProduct?.productId
-      handleSetProduct(productId, storageProducts)
+      handleSetProduct(productId, JSON.stringify(products))
 
       if (productId) setShowProduct(isShowProduct)
     } else {
