@@ -126,6 +126,7 @@ export const Feed = ({
           setShowVariation={setShowVariation}
           fullScreen={highlightProps.fullScreen}
           handleFullScreen={highlightProps.handleFullScreenMobile}
+          isTransmiting={isTransmiting}
         />
       )}
       {playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
