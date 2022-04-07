@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useLivestreamingContext } from '../context'
+import { Products } from '../typings/livestreaming'
 
 export const useShowHightlightsForFinishedEvents = (
-  hanledSetProduct: (productId: string, storageProducts: string) => void,
+  hanledSetProduct: (productId: string, storageProducts: Products[]) => void,
   setShowProduct: React.Dispatch<React.SetStateAction<boolean | undefined>>,
   isFinalized: boolean
 ) => {
@@ -21,7 +22,7 @@ export const useShowHightlightsForFinishedEvents = (
     )
 
     if (product) {
-      hanledSetProduct(currentHightLightProductId, storageProducts)
+      hanledSetProduct(currentHightLightProductId, products)
       setShowProduct(!!currentHightLightProductId)
     } else {
       setShowProduct(false)
