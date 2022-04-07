@@ -25,8 +25,7 @@ export const useHighlightProduct = ({
     setCollection
   })
 
-  const handleSetProduct = (productId: string, storageProducts: string) => {
-    const products = JSON.parse(storageProducts)
+  const handleSetProduct = (productId: string, products: Products[]) => {
 
     const product = products.find(
       (product: { id: string | undefined }) => product.id === productId
@@ -94,7 +93,7 @@ export const useHighlightProduct = ({
 
     if (products && isShowProduct) {
       const productId = objetProduct.productId || highlightProduct?.productId
-      handleSetProduct(productId, JSON.stringify(products))
+      handleSetProduct(productId, products)
 
       if (productId) setShowProduct(isShowProduct)
     } else {
