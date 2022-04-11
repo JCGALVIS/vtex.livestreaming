@@ -13,6 +13,7 @@ export const useSetHighlightHistory = (dispatch: Dispatch<Actions>) => {
 
   useEffect(() => {
     if (!environment || !idLivestreaming || !account) return
+
     let URL = '__GET_HIGHTLIGHT_BY_ID_URL'
     const { GET_HIGHTLIGHT_BY_ID_URL } = config(environment || '')
 
