@@ -7,6 +7,7 @@ import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 import HighlightProduct from '../HighlightProduct/HighlightProduct'
 
 import styles from './feed.css'
+import { ChatCarousel } from '../ChatCarousel/ChatCarousel'
 
 type FeedProps = {
   isPlayerSupported: boolean
@@ -34,8 +35,9 @@ export const Feed = ({
   const {
     setting: { isInGlobalPage }
   } = useContext(ActionsContext)
-
-  const { isVerticalLayout } = usePlayerLayout(transmitionType)
+  const { showCarouselChat, showCarouselChatButton } =
+    useContext(SettingContext)
+  const { isVerticalLayout, windowDimensions } = usePlayerLayout(transmitionType)
 
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
@@ -53,6 +55,7 @@ export const Feed = ({
   const { isTransmiting } = infoSocket || {}
   const isLive = infoSocket?.ivsRealTime?.status
   const isFinalized = livestreamingStatus === 'FINALIZED'
+  const isMobile = windowDimensions.width <= 640
 
   useEffect(() => {
     if (isLive === 'LIVE') setLiveStatus(true)
@@ -117,6 +120,15 @@ export const Feed = ({
         isFinalized={isFinalized}
       />
 
+      {isMobile && showCarouselChat && showCarouselChatButton && (
+        <ChatCarousel
+          transmitionType={transmitionType}
+          setShowVariation={setShowVariation}
+          fullScreen={highlightProps.fullScreen}
+          handleFullScreen={highlightProps.handleFullScreenMobile}
+          isTransmiting={isTransmiting}
+        />
+      )}
       {playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
         <StreamPlayer
           player={player.current}

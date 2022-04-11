@@ -457,5 +457,9 @@ input[type='text']:focus {
     grid-column-end: 4;
     grid-row-start: 4;
     grid-row-end: 5;
+    position: absolute;
+    bottom: 22px;
+    right: 90px;
+    z-index: 2;
   }
 }

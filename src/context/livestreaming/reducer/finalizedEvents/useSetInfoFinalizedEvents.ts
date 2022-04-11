@@ -3,7 +3,9 @@ import { Actions } from '../reducer'
 import { useSetChatHistory } from './useSetChatHistory'
 import { useSetHighlightHistory } from './useSetHighlightHistory'
 
-export const useSetInfoFinalizedEvents = (dispatch: Dispatch<Actions>) => {
+export const useSetInfoFinalizedEvents = (
+  dispatch: Dispatch<Actions>
+) => {
   useSetChatHistory(dispatch)
   useSetHighlightHistory(dispatch)
 }

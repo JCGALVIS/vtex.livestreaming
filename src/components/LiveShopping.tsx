@@ -19,7 +19,8 @@ import {
 import {
   useIsPlayerSupported,
   useLivestreamingComponentOnScreen,
-  useLivestreamingConfig
+  useLivestreamingConfig,
+  usePlayerLayout
 } from './../hooks'
 import { getMobileOS } from './../utils'
 import type { Message } from './../typings/livestreaming'
@@ -27,6 +28,7 @@ import type { Message } from './../typings/livestreaming'
 import styles from './../styles.module.css'
 import styles2 from './liveShopping.css'
 import { Alert } from './commonComponents'
+import ShopIcon from './icons/ShopIcon'
 type MarketingData = {
   utmSource: string | undefined
 }
@@ -48,6 +50,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   const [detector, setDetector] = useState('')
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitionType, setTransmitionType] = useState<string | undefined>()
+  const { windowDimensions } = usePlayerLayout(transmitionType)
+  const isMobile = windowDimensions.width <= 640
 
   const { isPlayerSupported } = useIsPlayerSupported()
 
@@ -70,8 +74,10 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     collectionId,
     infoSocket,
     isModalLive,
+    showCarouselChatButton: socketShowCarouselChatButton,
     setIsModalLive,
     setShowCarouselChatButton,
+    setShowCarouselChat,
     setActivePromo,
     setUpdateLivestreaming,
   } = useContext(SettingContext)
@@ -191,33 +197,32 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   useEffect(() => {
     setTimeout(() => {
       if (!socket || !window.vtexjs) return
-
-      const eventAddToCartStorage = localStorage.getItem(
-        'sectionIdClickedOnForAddToCart'
-      )
-
+      const eventAddToCartStorage = localStorage.getItem('sectionIdClickedOnForAddToCart')
       if (!eventAddToCartStorage) return
+      const { productId, productName, sectionIdClickedOn } = JSON.parse(eventAddToCartStorage)
 
-      const { productId, productName, sectionIdClickedOn } = JSON.parse(
-        eventAddToCartStorage
-      )
+      const currentCart = {
+        action: 'sendaddtocart',
+        data: {
+          name: productName,
+          productId
+        },
+        sectionIdClickedOn,
+        orderForm: window.vtexjs.checkout.orderForm.orderFormId,
+        sessionId,
+        email: ''
+      }
 
-      socket.send(
-        JSON.stringify({
-          action: 'sendaddtocart',
-          data: {
-            name: productName,
-            productId
-          },
-          sectionIdClickedOn,
-          orderForm: window.vtexjs.checkout.orderForm.orderFormId,
-          sessionId,
-          email: ''
-        })
-      )
+      if(!sessionStorage.cartCachedOrderFormId){
+        sessionStorage.cartCachedOrderFormId = currentCart.orderForm
+      }
 
-      localStorage.removeItem('sectionIdClickedOnForAddToCart')
+      if(currentCart.orderForm !== sessionStorage.cartCachedOrderFormId){
+        socket.send(JSON.stringify(currentCart))
+        localStorage.removeItem('sectionIdClickedOnForAddToCart')
+      }
     }, 1000)
+
   }, [socket])
 
   useEffect(() => {
@@ -400,6 +405,19 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               />
             )}
           </div>
+          {isMobile && socketShowCarouselChatButton && (
+            <div
+              role='button'
+              tabIndex={0}
+              className={styles.playerVideoMobileCarouselButtonPosition}
+              onClick={() => {
+                if (!setShowCarouselChat) return
+                setShowCarouselChat((prev) => !prev)
+              }}
+            >
+              <ShopIcon size='25' viewBox='0 0 170 170' />
+            </div>
+          )}
           {getMobileOS() === 'unknown' && isModalLive && !isInGlobalPage && (
             <div
               className={styles2.closePopoupDeskotp}

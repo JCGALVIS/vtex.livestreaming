@@ -12,13 +12,15 @@ type ChatCarouselProps = {
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   transmitionType: string | undefined
   fullScreen: boolean
+  isTransmiting: boolean | undefined
   handleFullScreen: () => void
 }
 
 export const ChatCarousel = ({
   setShowVariation,
   fullScreen,
-  handleFullScreen
+  handleFullScreen,
+  isTransmiting = false
 }: ChatCarouselProps) => {
   const { collectionId, setCollection } = useContext(SettingContext)
 
@@ -32,7 +34,7 @@ export const ChatCarousel = ({
       <Spinner />
     </div>
   ) : products ? (
-    <div className={styles.chatCarouselContainer}>
+    <div className={styles.chatCarouselContainer} style={{width: isTransmiting ? '85%' : '100%'}}>
       {products &&
         products.length > 0 &&
         products.map((product: any) => (

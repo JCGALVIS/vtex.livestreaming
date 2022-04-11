@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment } from 'react'
 
 import { getMobileOS } from '../../../utils'
 import {
@@ -18,13 +18,8 @@ import { Like } from '../../Like/Like'
 import type { PlayerControls } from '../../../typings/MediaPlayer'
 
 import styles from '../../../styles.module.css'
-import { ChatCarousel } from '../../ChatCarousel/ChatCarousel'
-import ShopIcon from './../../icons/ShopIcon'
-import { SettingContext } from '../../../context'
 
 export const MobileControls = (props: PlayerControls) => {
-  const { showCarouselChat, setShowCarouselChat, showCarouselChatButton } =
-    useContext(SettingContext)
 
   const {
     BUFFERING,
@@ -46,21 +41,11 @@ export const MobileControls = (props: PlayerControls) => {
     progress,
     handleVideoProgress,
     handleOpenShare,
-    isFinalized,
-    transmitionType,
-    setShowVariation
+    isFinalized
   } = props
 
   return (
     <div className={styles.playerVideoMobile}>
-      {showCarouselChat && showCarouselChatButton && (
-        <ChatCarousel
-          transmitionType={transmitionType}
-          setShowVariation={setShowVariation}
-          fullScreen={fullScreen}
-          handleFullScreen={handleFullScreenMobile}
-        />
-      )}
       {firstTimeMuted ? (
         <div
           role='button'
@@ -128,19 +113,6 @@ export const MobileControls = (props: PlayerControls) => {
             <div
               className={`${styles.noPercentProgressBar} ${styles.progressBarHeigth}`}
             />
-          </div>
-        )}
-        {showCarouselChatButton && (
-          <div
-            role='button'
-            tabIndex={0}
-            className={styles.playerVideoMobileCarouselButtonPosition}
-            onClick={() => {
-              if (!setShowCarouselChat) return
-              setShowCarouselChat((prev) => !prev)
-            }}
-          >
-            <ShopIcon size='25' viewBox='0 0 170 170' />
           </div>
         )}
         <div

@@ -36,7 +36,8 @@ export const Login = ({
   const { infoSocket } = useContext(SettingContext)
   const { sessionId } = useSessionId()
 
-  const { sendAccountId, socket, emailIsRequired, setShowLoader } = infoSocket || {}
+  const { sendAccountId, socket, emailIsRequired, setShowLoader } =
+    infoSocket || {}
 
   const {
     setting: { account, environment, idLivestreaming }
@@ -45,7 +46,7 @@ export const Login = ({
   const handlerCloseCard = () => {
     setShowLoginWindow(false)
 
-    if(setShowLoader) setShowLoader(false)
+    if (setShowLoader) setShowLoader(false)
   }
 
   const sendMessage = () => {
@@ -66,7 +67,7 @@ export const Login = ({
 
   const emailIsValid = () => {
     const regEmail =
-      /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
+      /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z_\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
     const isEmptyEmail = !(email !== null && email.trim() !== '')
 
@@ -111,6 +112,8 @@ export const Login = ({
   }
 
   const handlerSendDataToChat = async (event: React.SyntheticEvent) => {
+    if (setShowLoader === undefined) return
+    setShowLoader(true)
     setDisabledBtn(true)
     event.preventDefault()
     event.persist()
@@ -118,7 +121,7 @@ export const Login = ({
 
     if (!isValid || !sendAccountId || !emailIsValid()) {
       setDisabledBtn(false)
-
+      setShowLoader(false)
       return
     }
 
@@ -137,6 +140,7 @@ export const Login = ({
     setShowLoginWindow(false)
     setUserIsLoggedInChat(true)
     setSendFirstMessage(true)
+    setShowLoader(false)
   }
 
   return (
