@@ -4,7 +4,7 @@ import { LivestreamingCtx, LivestreamingContext } from './livestreamingContext'
 import { Actions } from './'
 import { LivestreamDispatchContext } from './ClientUseLivestreamDispatchContext'
 import { Message } from '../../typings/livestreaming'
-
+import { useSetInfoFinalizedEvents } from '../../context'
 interface Props {
   children: React.ReactNode
   value: LivestreamingCtx
@@ -29,6 +29,8 @@ export const LivestreamingProvider = ({ children, value, dispatch }: Props) => {
       }
     })
   }, [])
+
+  useSetInfoFinalizedEvents(dispatch)
 
   return (
     <LivestreamingContext.Provider

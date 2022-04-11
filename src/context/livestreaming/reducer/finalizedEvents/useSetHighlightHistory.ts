@@ -6,16 +6,13 @@ import { HightLightHistoryElement } from '../../../../typings/livestreaming'
 import { config } from '../../../../enviroment/config'
 import { ActionsContext } from '../../..'
 
-export const useSetHighlightHistory = (
-  idLivestreaming: string,
-  account: string,
-  dispatch: Dispatch<Actions>
-) => {
+export const useSetHighlightHistory = (dispatch: Dispatch<Actions>) => {
   const {
-    setting: { environment }
+    setting: { environment, idLivestreaming, account }
   } = useContext(ActionsContext)
 
   useEffect(() => {
+    if (!environment || !idLivestreaming || !account) return
     let URL = '__GET_HIGHTLIGHT_BY_ID_URL'
     const { GET_HIGHTLIGHT_BY_ID_URL } = config(environment || '')
 
@@ -39,5 +36,5 @@ export const useSetHighlightHistory = (
       }
     }
     getHightlight().catch(null)
-  }, [])
+  }, [idLivestreaming, account, environment])
 }
