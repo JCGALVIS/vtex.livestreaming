@@ -96,6 +96,7 @@ export const useFetchProducts = ({
       } else {
         productsList(collectionId, account).then((response: any) => {
           if (response) {
+            setLoading(true)
             setProducts(response)
           }
         })
