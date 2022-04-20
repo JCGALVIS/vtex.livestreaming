@@ -47,14 +47,14 @@ export const useFetchProducts = ({
   const scheduledSidebarReload = () => {
     setForceUpdate(`${Date.now()}`)
     if (timer) {
-      clearInterval(timer)
+      clearInterval(timer) //cancel old timer
     }
     const newTimer = setInterval(() => {
       setForceUpdate(`${Date.now()}`)
-    }, 420000) //7 min
+    }, 420000) //reload sidebar each 7 min
     setTimeout(() => {
       clearTimeout(newTimer)
-    }, 1260000) //7x3 min
+    }, 1260000) //cancel auto-reloads after 3 times
     setTimer(newTimer)
   }
 
