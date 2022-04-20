@@ -91,6 +91,7 @@ export const useFetchProducts = ({
           if (response) {
             setLoading(true)
             setProducts(response)
+            setTimeout(() => setLoading(false), 2000)
           }
         })
       } else {
@@ -98,13 +99,11 @@ export const useFetchProducts = ({
           if (response) {
             setLoading(true)
             setProducts(response)
+            setTimeout(() => setLoading(false), 2000)
           }
         })
       }
     }
-
-    const timeout = setTimeout(() => setLoading(false), 2000)
-    return () => clearTimeout(timeout)
   }, [collectionId, forceUpdate])
 
   return { products, loading }
