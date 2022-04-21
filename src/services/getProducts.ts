@@ -63,21 +63,25 @@ const getProductsCace = async ({ collectionId }: GetProductsProps) => {
   const data = await apiCall({ url })
   if (data && data.length > 0) {
     const products = data.map((product: any) => {
+
+      const item = product?.items[0]
+      const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+
       return {
         id: product.productId,
         name: product?.productName,
-        priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
-        price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
-        imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.items[0].complementName
-          ? product?.items[0].complementName
-          : product?.items[0].sellers[0].addToCartLink,
+        priceWithDiscount: seller?.commertialOffer.Price,
+        price: seller?.commertialOffer.ListPrice,
+        imageUrl: item?.images[0]?.imageUrl,
+        addToCartLink: item?.complementName
+          ? item?.complementName
+          : seller?.addToCartLink,
         isAvailable: product?.skuSpecifications
           ? true
-          : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
+          : seller?.commertialOffer.IsAvailable,
         variationSelector: product?.skuSpecifications || [],
         pdpLink: product.link,
-        skuId: product.items[0].itemId
+        skuId: item?.itemId
       }
     })
     return products
@@ -129,19 +133,23 @@ const getProductsGlobalPage = async ({
     setCorrectAddToCartLink(data, account, host)
 
     const products = data.map((product: any) => {
+
+      const item = product?.items[0]
+      const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+
       return {
         id: product.productId,
         name: product?.productName,
-        priceWithDiscount: product?.items[0]?.sellers[0]?.commertialOffer.Price,
-        price: product?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
-        imageUrl: product?.items[0]?.images[0]?.imageUrl,
-        addToCartLink: product?.items[0].sellers[0].addToCartLink,
+        priceWithDiscount: seller?.commertialOffer.Price,
+        price: seller?.commertialOffer.ListPrice,
+        imageUrl: item?.images[0]?.imageUrl,
+        addToCartLink: seller?.addToCartLink,
         isAvailable: product?.skuSpecifications
           ? true
-          : product?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
+          : seller?.commertialOffer.IsAvailable,
         variationSelector: product?.skuSpecifications || [],
         pdpLink: product.link,
-        skuId: product.items[0].itemId
+        skuId: item?.itemId
       }
     })
 
@@ -157,19 +165,23 @@ const getProductByIdCace = async ({ productId }: GetProductsProps) => {
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
+
+    const item = data[0]?.items[0]
+    const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+
     const product = {
       id: data[0]?.productId,
       name: data[0]?.productName,
-      priceWithDiscount: data[0]?.items[0]?.sellers[0]?.commertialOffer.Price,
-      price: data[0]?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
-      imageUrl: data[0]?.items[0]?.images[0]?.imageUrl,
-      addToCartLink: data[0]?.items[0].complementName
-        ? data[0]?.items[0].complementName
-        : data[0]?.items[0].sellers[0].addToCartLink,
+      priceWithDiscount: seller?.commertialOffer.Price,
+      price: seller?.commertialOffer.ListPrice,
+      imageUrl: item?.images[0]?.imageUrl,
+      addToCartLink: item?.complementName
+        ? item?.complementName
+        : seller?.addToCartLink,
       items: data[0]?.items,
       isAvailable: data[0]?.skuSpecifications
         ? true
-        : data[0]?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
+        : seller?.commertialOffer.IsAvailable,
       variationSelector: data[0]?.skuSpecifications,
       pdpLink: data[0]?.link
     }
@@ -222,17 +234,20 @@ const getProductByIdGlobalPage = async ({
   if (data && data.length > 0) {
     setCorrectAddToCartLink(data, account, host)
 
+    const item = data[0]?.items[0]
+    const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+
     const product = {
       id: data[0]?.productId,
       name: data[0]?.productName,
-      priceWithDiscount: data[0]?.items[0]?.sellers[0]?.commertialOffer.Price,
-      price: data[0]?.items[0]?.sellers[0]?.commertialOffer.ListPrice,
-      imageUrl: data[0]?.items[0]?.images[0]?.imageUrl,
-      addToCartLink: data[0]?.items[0].sellers[0].addToCartLink,
+      priceWithDiscount: seller?.commertialOffer.Price,
+      price: seller?.commertialOffer.ListPrice,
+      imageUrl: item?.images[0]?.imageUrl,
+      addToCartLink: seller?.addToCartLink,
       items: data[0]?.items,
       isAvailable: data[0]?.skuSpecifications
         ? true
-        : data[0]?.items[0]?.sellers[0]?.commertialOffer.IsAvailable,
+        : seller?.commertialOffer.IsAvailable,
       variationSelector: data[0]?.skuSpecifications,
       pdpLink: data[0]?.link
     }
