@@ -19,7 +19,7 @@ export const NoVideo = ({ isLive, liveStatus }: NoVideoProps) => {
   const {
     setting: { isInGlobalPage }
   } = useContext(ActionsContext)
-  
+
   return (
     <div
       className={`${
