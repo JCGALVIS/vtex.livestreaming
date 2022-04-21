@@ -27,6 +27,8 @@ export const useFetchProducts = ({
 
   const [products, setProducts] = useState<Products[]>()
   const [loading, setLoading] = useState<boolean>(true)
+  const [timer, setTimer] = useState<any>()
+  const [forceUpdate, setForceUpdate] = useState('')
 
   const productsList = async (collectionId: string, account?: string) => {
     const data = getProducts && (await getProducts(collectionId, account))
@@ -41,6 +43,29 @@ export const useFetchProducts = ({
     }
     return URL
   }
+
+  const scheduledSidebarReload = () => {
+    setForceUpdate(`${Date.now()}`)
+    if (timer) {
+      clearInterval(timer) //cancel old timer
+    }
+    const newTimer = setInterval(() => {
+      setForceUpdate(`${Date.now()}`)
+    }, 420000) //reload sidebar each 7 min
+    setTimeout(() => {
+      clearTimeout(newTimer)
+    }, 1260000) //cancel auto-reloads after 3 times
+    setTimer(newTimer)
+  }
+
+  useEffect(() => {
+    if (activePromo) {
+      const { isCoupon } = activePromo
+      if (!isCoupon) {
+        scheduledSidebarReload()
+      }
+    }
+  }, [activePromo])
 
   useEffect(() => {
     const URL = getUrl()
@@ -64,21 +89,22 @@ export const useFetchProducts = ({
           environment
         }).then((response: any) => {
           if (response) {
+            setLoading(true)
             setProducts(response)
+            setTimeout(() => setLoading(false), 2000)
           }
         })
       } else {
         productsList(collectionId, account).then((response: any) => {
           if (response) {
+            setLoading(true)
             setProducts(response)
+            setTimeout(() => setLoading(false), 2000)
           }
         })
       }
     }
-
-    const timeout = setTimeout(() => setLoading(false), 2000)
-    return () => clearTimeout(timeout)
-  }, [collectionId, activePromo])
+  }, [collectionId, forceUpdate])
 
   return { products, loading }
 }
