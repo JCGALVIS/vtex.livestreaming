@@ -134,7 +134,8 @@ export const Login = ({
       'userIsLoggedInChat',
       JSON.stringify({
         value: true,
-        id: idLivestreaming
+        id: idLivestreaming,
+        username: username
       })
     )
     setShowLoginWindow(false)

@@ -57,6 +57,7 @@ export const Chat = ({
   const [showGifButton, setShowGifButton] = useState<boolean | undefined>(false)
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
+  const [bannedUser, setBannedUser] = useState(false)
 
   const { infoSocket, isModalLive, showCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
@@ -71,8 +72,10 @@ export const Chat = ({
     sessionId,
     messageToDelete,
     setMessageToDelete,
-    showGif: showGifButtonSocket
+    showGif: showGifButtonSocket,
+    ivsRealTime
   } = infoSocket || {}
+  console.log("ivsRealTime", ivsRealTime)
 
   const {
     setting: { idLivestreaming }
@@ -152,14 +155,17 @@ export const Chat = ({
     let newChat = chat.filter(
       (row: Message) =>
         row.username !== messageToDelete?.username ||
-        row.data !== messageToDelete?.data ||
-        row.sendDate !== messageToDelete?.sendDate
+        row.data !== messageToDelete?.data
     )
 
     if (messageToDelete.all) {
       newChat = chat.filter(
         (row: Message) => row.username !== messageToDelete?.username
       )
+
+      const userIsLoggedInChat = localStorage.getItem('userIsLoggedInChat')
+      const { username } = JSON.parse(userIsLoggedInChat ? userIsLoggedInChat : '')
+      setBannedUser(username === messageToDelete.username)
     }
 
     setChat(newChat)
@@ -405,6 +411,7 @@ export const Chat = ({
                   }
                   value={content}
                   autoComplete='off'
+                  disabled={bannedUser}
                 />
               </div>
               <div className={styles.buttonsChat}>
