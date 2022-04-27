@@ -58,7 +58,7 @@ export const optionsToGetProductById = async ({
 }
 
 const getProductsCace = async ({ collectionId }: GetProductsProps) => {
-  const url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://www.livestreaming.link/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
+  const url = `https://3hvqfl2xcg.execute-api.us-east-1.amazonaws.com/dev?url=https://www.livestreaming.link/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   const data = await apiCall({ url })
   if (data && data.length > 0) {
