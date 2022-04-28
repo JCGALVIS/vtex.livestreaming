@@ -125,7 +125,7 @@ const getProductsGlobalPage = async ({
     return products
   }
 
-  url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://${account}.myvtex.com/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
+  url = `https://3hvqfl2xcg.execute-api.us-east-1.amazonaws.com/dev?url=https://${account}.myvtex.com/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
   data = await apiCall({ url })
 
@@ -160,7 +160,7 @@ const getProductsGlobalPage = async ({
 }
 
 const getProductByIdCace = async ({ productId }: GetProductsProps) => {
-  const url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://livestreamingdemo.myvtex.com/api/catalog_system/pub/products/search?fq=productId:${productId}`
+  const url = `https://3hvqfl2xcg.execute-api.us-east-1.amazonaws.com/dev?url=https://livestreamingdemo.myvtex.com/api/catalog_system/pub/products/search?fq=productId:${productId}`
 
   const data = await apiCall({ url })
 
@@ -227,7 +227,7 @@ const getProductByIdGlobalPage = async ({
     return product
   }
 
-  url = `https://vtsfr28120.execute-api.us-east-1.amazonaws.com/dev?url=https://${account}.myvtex.com/api/catalog_system/pub/products/search?fq=productId:${productId}`
+  url = `https://3hvqfl2xcg.execute-api.us-east-1.amazonaws.com/dev?url=https://${account}.myvtex.com/api/catalog_system/pub/products/search?fq=productId:${productId}`
 
   data = await apiCall({ url })
 
