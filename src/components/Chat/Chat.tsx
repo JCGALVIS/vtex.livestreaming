@@ -32,6 +32,7 @@ type ChatProps = {
   pinnedMessage: Message | undefined
   transmitionType: string | undefined
   initShowGif: boolean | undefined
+  livestreamingStatus: string | undefined
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
@@ -39,7 +40,8 @@ const NUMBER_OF_PREVIOUS_MESSAGES = 10
 export const Chat = ({
   pinnedMessage,
   transmitionType,
-  initShowGif
+  initShowGif,
+  livestreamingStatus
 }: ChatProps) => {
   const { formatMessage } = useIntl()
   const chatAreaRef = useRef<HTMLDivElement>(null)
@@ -58,6 +60,7 @@ export const Chat = ({
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
   const [bannedUser, setBannedUser] = useState(false)
+  const [finishLive, setFinishLive] = useState(true)
 
   const { infoSocket, isModalLive, showCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
@@ -72,10 +75,8 @@ export const Chat = ({
     sessionId,
     messageToDelete,
     setMessageToDelete,
-    showGif: showGifButtonSocket,
-    ivsRealTime
+    showGif: showGifButtonSocket
   } = infoSocket || {}
-  console.log("ivsRealTime", ivsRealTime)
 
   const {
     setting: { idLivestreaming }
@@ -171,6 +172,16 @@ export const Chat = ({
     setChat(newChat)
     setMessageToDelete(undefined)
   }, [messageToDelete])
+
+  useEffect(() => {
+    if(!livestreamingStatus) return
+
+    if(livestreamingStatus !== 'FINALIZED'){
+      setFinishLive(false)
+    }else{
+      setFinishLive(true)
+    }
+  }, [livestreamingStatus])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -411,7 +422,7 @@ export const Chat = ({
                   }
                   value={content}
                   autoComplete='off'
-                  disabled={bannedUser}
+                  disabled={bannedUser || finishLive}
                 />
               </div>
               <div className={styles.buttonsChat}>
