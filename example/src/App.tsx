@@ -93,7 +93,7 @@ const App = () => {
     <Livestreaming
       addToCart={addToCart}
       account='__ACCOUNT'
-      environment='prod'
+      environment='dev'
       getProductId={getProductByIdCace}
       getProducts={getProductsCace}
       idLivestreaming='__IDLIVESTREAMING'
