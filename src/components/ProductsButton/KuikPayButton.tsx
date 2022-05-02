@@ -36,16 +36,10 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     seller: '1'
   }
 
-  const listendCheckout = (_: any, orderFormData: any) => {
-    setOrderForm(orderFormData)
-  }
-
   useEffect(() => {
-    $(window).on('orderFormUpdated.vtex', listendCheckout)
-
-    return () => {
-      $(window).off('orderFormUpdated.vtex', listendCheckout)
-    }
+    vtexjs.checkout
+      .getOrderForm()
+      .then((orderForm: any) => setOrderForm(orderForm))
   }, [])
 
   useEffect(() => {
@@ -98,14 +92,18 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
 
   const handleAddToCart = (item: ItemToAdd) => {
     vtexjs.checkout.getOrderForm().then(() => {
-      return vtexjs.checkout.addToCart([item])
+      vtexjs.checkout
+        .addToCart([item])
+        .done((orderForm: any) => setOrderForm(orderForm))
     })
   }
 
   // Function to remove all items from the cart after finalizing the order
-  const handleClearItems = (_items: ItemToRemove[]) => {
+  const handleClearItems = () => {
     vtexjs.checkout.getOrderForm().then(() => {
-      return vtexjs.checkout.removeAllItems()
+      vtexjs.checkout
+        .removeAllItems()
+        .done((orderForm: any) => setOrderForm(orderForm))
     })
   }
 
@@ -116,26 +114,34 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     })
 
     vtexjs.checkout.getOrderForm().then(() => {
-      return vtexjs.checkout.updateItems(itemsInfo, null, false)
+      vtexjs.checkout
+        .updateItems(itemsInfo, null, false)
+        .then((orderForm: any) => setOrderForm(orderForm))
     })
   }
 
   // Function to update order form profile
   const handleUpdateOrderFormProfile = (profile: Profile) => {
     vtexjs.checkout.getOrderForm().then(() => {
-      return vtexjs.checkout.sendAttachment('clientProfileData', profile)
+      return vtexjs.checkout
+        .sendAttachment('clientProfileData', profile)
+        .then((orderForm: any) => setOrderForm(orderForm))
     })
   }
 
   const handleInsertCoupon = (text: string) => {
     vtexjs.checkout.getOrderForm().then(() => {
-      return vtexjs.checkout.addDiscountCoupon(text)
+      vtexjs.checkout
+        .addDiscountCoupon(text)
+        .then((orderForm: any) => setOrderForm(orderForm))
     })
   }
 
   const handleAddItemOffering = ({ offeringId, itemIndex }: OfferingInput) => {
     vtexjs.checkout.getOrderForm().then(() => {
-      return vtexjs.checkout.addOffering(offeringId, itemIndex)
+      vtexjs.checkout
+        .addOffering(offeringId, itemIndex)
+        .then((orderForm: any) => setOrderForm(orderForm))
     })
   }
 
@@ -144,32 +150,15 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     itemIndex
   }: OfferingInput) => {
     vtexjs.checkout.getOrderForm().then(() => {
-      return vtexjs.checkout.removeOffering(offeringId, itemIndex)
+      vtexjs.checkout
+        .removeOffering(offeringId, itemIndex)
+        .then((orderForm: any) => setOrderForm(orderForm))
     })
-  }
-
-  const clearOrderFormProfile = async () => {
-    const clientProfileData = orderForm?.clientProfileData
-
-    if (clientProfileData) {
-      const changeToAnonymousUserURL =
-        await vtexjs.checkout.getChangeToAnonymousUserURL()
-
-      fetch(changeToAnonymousUserURL, {
-        method: 'GET',
-        redirect: 'follow',
-      }).then(() => {
-        vtexjs.checkout.getOrderForm().then((e: any) => {
-          listendCheckout('', e)
-        })
-      })
-    }
   }
 
   const runtime = {
     account: vtxctx.url.split('.')[0],
-    workspace: 'master',
-    platform: 'vtex-cms'
+    workspace: 'master'
   }
 
   return (
@@ -179,26 +168,21 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
         cartSimulation={cartSimulation}
         theme='kuikpay'
         runtime={runtime}
-        insertCoupon={handleInsertCoupon}
-        addItemOffering={handleAddItemOffering}
-        removeItemOffering={handleRemoveItemOffering}
-        updateOrderFormProfile={handleUpdateOrderFormProfile}
-        updateItems={handleUpdateItems}
-        clearData={handleClearItems}
-        orderForm={order}
-        addToCart={handleAddToCart}
-        sandbox
-        clearOrderFormProfile={clearOrderFormProfile}
-      />
-      <Kuikpay
-        addToCart={handleAddToCart}
-        itemToAdd={itemToAdd}
-        multipleAvailableSKUs={false}
-        isVisible
-        onClickBehavior='ensure-sku-selection'
-        runtime={runtime}
-        sandbox
-      />
+      >
+        <Kuikpay
+          addToCart={handleAddToCart}
+          addItemOffering={handleAddItemOffering}
+          insertCoupon={handleInsertCoupon}
+          itemToAdd={itemToAdd}
+          updateOrderFormProfile={handleUpdateOrderFormProfile}
+          updateItems={handleUpdateItems}
+          orderForm={order}
+          clearData={handleClearItems}
+          multipleAvailableSKUs={false}
+          removeItemOffering={handleRemoveItemOffering}
+          isVisible
+        />
+      </KuikpayWrapper>
     </div>
   )
 }
