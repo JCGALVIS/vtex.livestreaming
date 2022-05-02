@@ -48,12 +48,6 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
     }
   }, [])
 
-/*   useEffect(() => {
-    vtexjs.checkout
-      .getOrderForm()
-      .then((orderForm: any) => setOrderForm(orderForm))
-  }, []) */
-
   useEffect(() => {
     const formattedOrderForm = {
       clientProfileData: {
