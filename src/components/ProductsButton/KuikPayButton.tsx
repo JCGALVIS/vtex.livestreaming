@@ -197,10 +197,6 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
         clearOrderFormProfile={clearOrderFormProfile}
       />
       <Kuikpay
-        //props por preguntar:
-        //product
-        //item to add hay leves diferencias
-        //handleSelectedItem donde el select Item tiene un tipado
         addToCart={handleAddToCart}
         itemToAdd={itemToAdd}
         multipleAvailableSKUs={false}

@@ -11,7 +11,6 @@ export const cartSimulation = async (body: any) => {
 
   const raw = JSON.stringify(body)
 
-  //const data = await apiCall({ url, method, headers, body: raw })
   const data = await fetch( url, {
     method,
     headers,
