@@ -63,7 +63,7 @@ export const Chat = ({
   const [finishLive, setFinishLive] = useState(false)
   const [deleteMessageFlag, setDeleteMessageFlag] = useState(false)
   const userLogin = localStorage.getItem('userIsLoggedInChat')
-  const { username } = JSON.parse(userLogin ? userLogin : '')
+  const { username } = JSON.parse(userLogin ? userLogin : '{}')
 
   const { infoSocket, isModalLive, showCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
