@@ -32,6 +32,7 @@ type ChatProps = {
   pinnedMessage: Message | undefined
   transmitionType: string | undefined
   initShowGif: boolean | undefined
+  livestreamingStatus: string | undefined
 }
 
 const NUMBER_OF_PREVIOUS_MESSAGES = 10
@@ -39,7 +40,8 @@ const NUMBER_OF_PREVIOUS_MESSAGES = 10
 export const Chat = ({
   pinnedMessage,
   transmitionType,
-  initShowGif
+  initShowGif,
+  livestreamingStatus
 }: ChatProps) => {
   const { formatMessage } = useIntl()
   const chatAreaRef = useRef<HTMLDivElement>(null)
@@ -57,6 +59,11 @@ export const Chat = ({
   const [showGifButton, setShowGifButton] = useState<boolean | undefined>(false)
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
+  const [bannedUser, setBannedUser] = useState(false)
+  const [finishLive, setFinishLive] = useState(false)
+  const [deleteMessageFlag, setDeleteMessageFlag] = useState(false)
+  const userLogin = localStorage.getItem('userIsLoggedInChat')
+  const { username } = JSON.parse(userLogin ? userLogin : '')
 
   const { infoSocket, isModalLive, showCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
@@ -102,6 +109,11 @@ export const Chat = ({
     }
 
     if (setShowLoader === undefined) return
+    if (bannedUser) {
+      setContent('')
+
+      return
+    }
 
     setShowLoader(true)
     const isEmpty = !(content !== null && content.trim() !== '')
@@ -152,19 +164,32 @@ export const Chat = ({
     let newChat = chat.filter(
       (row: Message) =>
         row.username !== messageToDelete?.username ||
-        row.data !== messageToDelete?.data ||
-        row.sendDate !== messageToDelete?.sendDate
+        row.data !== messageToDelete?.data
     )
+
+    setDeleteMessageFlag(true)
 
     if (messageToDelete.all) {
       newChat = chat.filter(
         (row: Message) => row.username !== messageToDelete?.username
       )
+
+      setBannedUser(username === messageToDelete.username)
     }
 
     setChat(newChat)
     setMessageToDelete(undefined)
   }, [messageToDelete])
+
+  useEffect(() => {
+    if(!livestreamingStatus) return
+
+    if(livestreamingStatus !== 'FINALIZED'){
+      setFinishLive(false)
+    }else{
+      setFinishLive(true)
+    }
+  }, [livestreamingStatus])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -184,7 +209,12 @@ export const Chat = ({
   }, [messageToDelete])
 
   useEffect(() => {
-    if (scrolled) setIncoming(true)
+    if (scrolled && deleteMessageFlag) {
+      setIncoming(false)
+      setDeleteMessageFlag(false)
+    }
+
+    if (scrolled && !deleteMessageFlag) setIncoming(true)
   }, [chat])
 
   const ChatMessages = useMemo(
@@ -405,6 +435,7 @@ export const Chat = ({
                   }
                   value={content}
                   autoComplete='off'
+                  disabled={bannedUser || finishLive}
                 />
               </div>
               <div className={styles.buttonsChat}>

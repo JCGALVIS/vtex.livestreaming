@@ -402,6 +402,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                 pinnedMessage={pinnedMessage}
                 transmitionType={transmitionType}
                 initShowGif={showGifButton}
+                livestreamingStatus={status}
               />
             )}
           </div>
