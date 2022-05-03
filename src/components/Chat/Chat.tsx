@@ -60,7 +60,10 @@ export const Chat = ({
   const [selectedGif, setSelectedGif] = useState<string>()
   const [fisrtLoad, setFirstLoad] = useState(true)
   const [bannedUser, setBannedUser] = useState(false)
-  const [finishLive, setFinishLive] = useState(true)
+  const [finishLive, setFinishLive] = useState(false)
+  const [deleteMessageFlag, setDeleteMessageFlag] = useState(false)
+  const userLogin = localStorage.getItem('userIsLoggedInChat')
+  const { username } = JSON.parse(userLogin ? userLogin : '')
 
   const { infoSocket, isModalLive, showCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
@@ -106,6 +109,11 @@ export const Chat = ({
     }
 
     if (setShowLoader === undefined) return
+    if (bannedUser) {
+      setContent('')
+
+      return
+    }
 
     setShowLoader(true)
     const isEmpty = !(content !== null && content.trim() !== '')
@@ -159,13 +167,13 @@ export const Chat = ({
         row.data !== messageToDelete?.data
     )
 
+    setDeleteMessageFlag(true)
+
     if (messageToDelete.all) {
       newChat = chat.filter(
         (row: Message) => row.username !== messageToDelete?.username
       )
 
-      const userIsLoggedInChat = localStorage.getItem('userIsLoggedInChat')
-      const { username } = JSON.parse(userIsLoggedInChat ? userIsLoggedInChat : '')
       setBannedUser(username === messageToDelete.username)
     }
 
@@ -201,7 +209,12 @@ export const Chat = ({
   }, [messageToDelete])
 
   useEffect(() => {
-    if (scrolled) setIncoming(true)
+    if (scrolled && deleteMessageFlag) {
+      setIncoming(false)
+      setDeleteMessageFlag(false)
+    }
+
+    if (scrolled && !deleteMessageFlag) setIncoming(true)
   }, [chat])
 
   const ChatMessages = useMemo(
