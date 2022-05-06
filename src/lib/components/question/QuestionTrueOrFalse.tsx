@@ -50,11 +50,10 @@ const QuestionTrueOrFalse = ({
     }
   }, [timeExpired, setOptionsQuestion, setIsAnswer, dataQuestion]);
 
-  const saveVotes = (e: SyntheticEvent) => {
-    const { value } = e.target as HTMLInputElement;
-    console.log(value);
-    // setValueOption(value)
-  };
+  // const saveVotes = (e: SyntheticEvent) => {
+  //   const { value } = e.target as HTMLInputElement;
+  //   setValueOption(value)
+  // };
 
   return (
     <Fragment>
@@ -68,7 +67,7 @@ const QuestionTrueOrFalse = ({
               id={`${option.label}_${option.value}`}
               name="trueOrFalse"
               value={option.value}
-              onChange={saveVotes}
+              // onChange={saveVotes}
               disabled={timeExpired}
               label={option.label}
             />
