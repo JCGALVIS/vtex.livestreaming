@@ -1,41 +1,73 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "standard",
-    "standard-react",
-    "plugin:prettier/recommended",
-    "prettier/standard",
-    "prettier/react",
-    "plugin:@typescript-eslint/eslint-recommended"
-  ],
+  "root": true,
+  "settings": {
+    "react": { "version": "detect" }
+  },
   "env": {
-    "node": true
+    "browser": true,
+    "es6": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2021,
     "ecmaFeatures": {
-      "legacyDecorators": true,
       "jsx": true
-    }
+    },
+    "sourceType": "module"
   },
-  "settings": {
-    "react": {
-      "version": "16"
-    }
-  },
+  "extends": ["eslint:recommended", "eslint-config-prettier", "prettier"],
   "rules": {
-    "space-before-function-paren": 0,
-    "react/prop-types": 0,
-    "react/jsx-handler-names": 0,
-    "react/jsx-fragments": 0,
-    "react/no-unused-prop-types": 0,
-    "import/export": 0,
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "endOfLine": "auto"
+    "no-console": "error",
+    "@typescript-eslint/explicit-function-return-type": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.+(ts|tsx)"],
+      "env": {
+        "browser": true
+      },
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["react", "react-hooks", "sonarjs"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:sonarjs/recommended"
+      ],
+      "rules": {
+        "react/jsx-uses-react": "error",
+        "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { "argsIgnorePattern": "^_" }
+        ],
+        "@typescript-eslint/ban-ts-comment": "off",
+        "react/display-name": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "react/prop-types": "off",
+        "react/jsx-runtime": "off"
       }
-    ]
-  }
+    },
+    {
+      "files": ["**/__tests__/**"],
+      "env": { "jest": true },
+      "plugins": ["jest", "testing-library"],
+      "extends": [
+        "plugin:jest/recommended",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react"
+      ],
+      "rules": {
+        "sonarjs/no-duplicate-string": "warn",
+        "@typescript-eslint/no-var-requires": "warn",
+        "sonarjs/no-identical-functions": "warn"
+      }
+    },
+    {
+      "files": ["*.js", "stacks/*.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
 }
