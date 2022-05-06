@@ -1,10 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
-
-import { cartSimulation } from '../../services';
-import type { Profile } from '../../interfaces';
-import type { Products } from '../../../typings/livestreaming';
 import { Kuikpay, KuikpayWrapper } from 'kuikpay-sdk';
+import 'kuikpay-sdk/dist/index.css';
 import type {
   Item,
   ItemToAdd,
@@ -12,8 +8,10 @@ import type {
   OfferingInput,
   Totalizer,
 } from 'kuikpay-sdk/dist/interfaces';
-import 'kuikpay-sdk/dist/index.css';
-
+import { useEffect, useState } from 'react';
+import type { Products } from '../../../typings/livestreaming';
+import type { Profile } from '../../interfaces';
+import { cartSimulation } from '../../services';
 import styles from './kuikPayButton.module.css';
 
 const windowInfo: any = window;

@@ -86,8 +86,12 @@ export const Like = ({ isFinalized }: LikeProps) => {
 
   return showLike ? (
     <div className={styles.likeWrapper}>
-      <button className={styles.likeButton} onClick={handleClick}>
-        <HeartIcon size="30" viewBox="0 0 400 400" aria-label="Like Button" />
+      <button
+        className={styles.likeButton}
+        onClick={handleClick}
+        aria-label="Like Button"
+      >
+        <HeartIcon size="30" viewBox="0 0 400 400" aria-label="Like Icon" />
       </button>
       {HeartCollection}
     </div>

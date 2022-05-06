@@ -1,18 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useEffect, useState, useContext } from 'react';
-import { Transition, CSSTransition } from 'react-transition-group';
 import IconClose from '@vtex/styleguide/lib/icon/Close';
-
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { CSSTransition, Transition } from 'react-transition-group';
+import { KuikPayButton } from '..';
+import type { Values } from '../../../typings/livestreaming';
+import { ActionsContext } from '../../context/ActionsContext';
 import { useFetchProductById } from '../../hooks/useFetchProductById';
 import { currencyFormat } from '../../utils';
+import { ProductButton } from '../ProductsButton/ProductButton';
 import { ColorVariation } from './ColorVariation';
 import { SizeVariations } from './SizeVariations';
-import { ProductButton } from '../ProductsButton/ProductButton';
-import { KuikPayButton } from '../ProductsButton/KuikPayButton';
-import { ActionsContext } from '../../context/ActionsContext';
-
-import type { Values } from '../../../typings/livestreaming';
-
 import styles from './variationSelector.module.css';
 
 type VariationSelectorProps = {

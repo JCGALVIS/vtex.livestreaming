@@ -81,8 +81,6 @@ export const VerticalProductSlider = ({
     productLisRef.current.addEventListener('mouseout', () => {
       setIsMouseOver(false);
     });
-
-    return () => {};
   }, [productLisRef]);
 
   return loading ? (

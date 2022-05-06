@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { useIntl } from 'react-intl';
-
+import { KuikPayButton } from '..';
+import type { Products } from '../../../typings/livestreaming';
+import { ActionsContext } from '../../context/ActionsContext';
 import { currencyFormat } from '../../utils';
 import { ProductButton } from '../ProductsButton/ProductButton';
-import { KuikPayButton } from '../ProductsButton/KuikPayButton';
 import { ProductVariationButton } from '../ProductsButton/ProductVariationButton';
-import { ActionsContext } from '../../context/ActionsContext';
-import type { Products } from '../../../typings/livestreaming';
-
 import styles from './productSlider.module.css';
 
 const SPANISH_CODE = 'es';
