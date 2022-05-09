@@ -1,5 +1,3 @@
-import { apiCall } from './apiCall'
-
 export const cartSimulation = async (body: any) => {
   const url = `/api/checkout/pub/orderforms/simulation`
 
@@ -11,7 +9,11 @@ export const cartSimulation = async (body: any) => {
 
   const raw = JSON.stringify(body)
 
-  const data = await apiCall({ url, method, headers, body: raw })
+  const data = await fetch( url, {
+    method,
+    headers,
+    body: raw
+  })
 
   return data
 }
