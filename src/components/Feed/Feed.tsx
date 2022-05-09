@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState, useContext } from 'react'
 
 import { ActionsContext, SettingContext } from '../../context'
 import { usePlayerLayout } from '../../hooks'
-import { NoVideo } from '../NoVideo/NoVideo'
+// import { NoVideo } from '../NoVideo/NoVideo'
 import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 import HighlightProduct from '../HighlightProduct/HighlightProduct'
 
 import styles from './feed.css'
 import { ChatCarousel } from '../ChatCarousel/ChatCarousel'
+import { NoVideo } from '../NoVideo/NoVideo'
 
 type FeedProps = {
   isPlayerSupported: boolean
@@ -38,11 +39,13 @@ export const Feed = ({
   const { showCarouselChat, showCarouselChatButton } =
     useContext(SettingContext)
   const { isVerticalLayout, windowDimensions } = usePlayerLayout(transmitionType)
+  const setIvsRealTime = infoSocket?.setIvsRealTime
 
   const { IVSPlayer } = window
   const { MediaPlayer } = IVSPlayer
+  const [isOnline, setIsOnline] = useState(false)
 
-  const [playerCurrent, setPlayerCurrent] = useState(false)
+  const [, setPlayerCurrent] = useState(false)
   const [liveStatus, setLiveStatus] = useState(false)
   const [highlightProps, setHighlightProps] = useState<HighlightProps>({
     detector: false,
@@ -71,12 +74,43 @@ export const Feed = ({
     }
 
     const { ENDED, PLAYING, READY } = IVSPlayer.PlayerState
-    const { ERROR } = IVSPlayer.PlayerEventType
+    const { ERROR, TEXT_METADATA_CUE } = IVSPlayer.PlayerEventType
 
-    const onStateChange = () => {}
+    const onStateChange = () => {
+      setIsOnline(
+        player.current.getState() === PLAYING ||
+          player.current.getState() === READY
+      )
+
+      player.current.getState() === ENDED &&
+        setTimeout(() => {
+          player.current.load(streamUrl)
+        }, 3000)
+    }
+
+    const onMetadataChange = (cue: any) => {
+      const metadataText = cue.text
+      const { startTime, viewerCount, status: state } = JSON.parse(metadataText)
+      setIvsRealTime?.(
+        {
+          startTime,
+          viewerCount,
+          status: state,
+        }
+      )
+    }
 
     const onError = (err: Error) => {
       console.warn('Player Event - ERROR:', err.message)
+      if (
+        err.message === 'Failed to load playlist' ||
+        err.message === 'Failed to fetch'
+      ) {
+        setTimeout(() => {
+          player.current.load(streamUrl)
+          // setReplay((prev) => prev + 1)
+        }, 3000)
+      }
       setTimeout(() => {
         setPlayerCurrent(false)
         setPlayerCurrent(true)
@@ -84,11 +118,13 @@ export const Feed = ({
     }
 
     player.current = IVSPlayer.create()
+    player.current.load(streamUrl)
 
     player.current.addEventListener(READY, onStateChange)
     player.current.addEventListener(PLAYING, onStateChange)
     player.current.addEventListener(ENDED, onStateChange)
     player.current.addEventListener(ERROR, onError)
+    player.current.addEventListener(TEXT_METADATA_CUE, onMetadataChange)
 
     setPlayerCurrent(true)
 
@@ -97,12 +133,14 @@ export const Feed = ({
       player.current.removeEventListener(PLAYING, onStateChange)
       player.current.removeEventListener(ENDED, onStateChange)
       player.current.removeEventListener(ERROR, onError)
+      player.current.removeEventListener(TEXT_METADATA_CUE, onMetadataChange)
     }
   }, [IVSPlayer, isPlayerSupported, streamUrl])
 
   if (!isPlayerSupported) {
     return null
   }
+
   return (
     <div
       className={`${isModalLive && !isInGlobalPage && styles.playerUiPopoup}  ${
@@ -129,18 +167,16 @@ export const Feed = ({
           isTransmiting={isTransmiting}
         />
       )}
-      {playerCurrent && (isFinalized ? streamUrl : isTransmiting) ? (
-        <StreamPlayer
-          player={player.current}
-          streamUrl={streamUrl}
-          setShowVariation={setShowVariation}
-          transmitionType={transmitionType}
-          isFinalized={isFinalized}
-          setHighlightProps={setHighlightProps}
-        />
-      ) : (
-        <NoVideo isLive={isLive} liveStatus={liveStatus} />
-      )}
+        {isOnline ?
+          <StreamPlayer
+            player={player.current}
+            streamUrl={streamUrl}
+            setShowVariation={setShowVariation}
+            transmitionType={transmitionType}
+            isFinalized={isFinalized}
+            setHighlightProps={setHighlightProps}
+          />
+          : <NoVideo isLive={isLive} liveStatus={liveStatus} />}
     </div>
   )
 }

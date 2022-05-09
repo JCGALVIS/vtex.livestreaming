@@ -16,10 +16,9 @@ const App = () => {
 
     if (data && data.length > 0) {
       const products = data.map((product: any) => {
+
         const item = product?.items[0]
-        const seller = item?.sellers.find(
-          (seller: { sellerDefault: boolean }) => seller.sellerDefault === true
-        )
+        const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
 
         return {
           id: product.productId,
@@ -51,10 +50,9 @@ const App = () => {
     const data = await response.json()
 
     if (data && data.length > 0) {
+
       const item = data[0]?.items[0]
-      const seller = item?.sellers.find(
-        (seller: { sellerDefault: boolean }) => seller.sellerDefault === true
-      )
+      const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
 
       const product = {
         id: data[0]?.productId,
