@@ -19,6 +19,7 @@ import { Like } from '../../Like/Like'
 
 import styles from '../../../styles.module.css'
 import styles2 from '../StreamPlayer/streamPlayer.css'
+import { getMobileOS } from '../../../utils'
 
 interface IndicatorInterface {
   mute: boolean
@@ -65,21 +66,21 @@ export const DesktopControls = (props: PlayerControls) => {
   ): JSX.Element => {
     return (
       <Fragment>
-        <div
-          role='button'
-          tabIndex={0}
-          className={`${styles.playerVideoPictureButtonPosition} ${styles.playerVideoButtonFlex}`}
-          onClick={handlePictureAndPicture}
-          onKeyDown={handleNothing}
-        >
-          {videoEl?.current?.requestPictureInPicture ? (
-            picture ? (
+        {videoEl?.current?.requestPictureInPicture && getMobileOS() !== 'Android' ? (
+          <div
+            role='button'
+            tabIndex={0}
+            className={`${styles.playerVideoPictureButtonPosition} ${styles.playerVideoButtonFlex}`}
+            onClick={handlePictureAndPicture}
+            onKeyDown={handleNothing}
+          >
+            {picture ? (
               <PictureAndPictureIcon size='40' viewBox='0 0 400 400' />
             ) : (
               <PictureAndPictureAltIcon size='40' viewBox='0 0 400 400' />
-            )
-          ) : null}
-        </div>
+            )}
+          </div>
+        ): null}
         <div
           role='button'
           tabIndex={0}
