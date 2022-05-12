@@ -94,7 +94,7 @@ const HighlightProduct = ({
           >
             <img className={styles.productPicture} src={product.imageUrl} />
             <div className={styles.productAddCartContent}>
-              {showQuickView ? (
+              {showQuickView && !redirectTo ? (
                 <ProductVariationButton
                   isAvailable={product.isAvailable}
                   productId={product.id}
