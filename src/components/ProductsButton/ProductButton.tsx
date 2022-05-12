@@ -17,16 +17,13 @@ export const ProductButton = (props: ProductButtonProps) => {
   const { id, imageUrl, name, addToCartLink, isAvailable, skuId } = product
 
   const { infoSocket, setMessageAlert } = useContext(SettingContext)
-  const {
-    setting: { addToCart }
-  } = useContext(ActionsContext)
 
   const { socket } = infoSocket || {}
 
   const { formatMessage } = useIntl()
 
   const {
-    setting: { isInGlobalPage, redirectTo, showQuickView }
+    setting: { addToCart ,isInGlobalPage, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   return redirectTo ? (
