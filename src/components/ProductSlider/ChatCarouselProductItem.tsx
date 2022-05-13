@@ -23,7 +23,7 @@ export const ChatCarouselProductItem = (
   const { id, priceWithDiscount, imageUrl } = product
 
   const {
-    setting: { addToCart, isInGlobalPage, showQuickView, redirectTo }
+    setting: { addToCart, showQuickView, redirectTo }
   } = useContext(ActionsContext)
 
   return (
@@ -37,7 +37,6 @@ export const ChatCarouselProductItem = (
             addToCart,
             product,
             redirectTo,
-            isInGlobalPage,
             showQuickView
           )
         }
