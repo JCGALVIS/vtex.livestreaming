@@ -28,7 +28,7 @@ const HighlightProduct = ({
   const { ivsRealTime, highlightProduct } = infoSocket || {}
 
   const {
-    setting: { addToCart, isInGlobalPage, redirectTo, showQuickView }
+    setting: { addToCart, redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   const { product, showProduct } = useHighlightProduct({
@@ -86,7 +86,6 @@ const HighlightProduct = ({
                   addToCart,
                   product,
                   redirectTo,
-                  isInGlobalPage,
                   showQuickView
                 )
               }

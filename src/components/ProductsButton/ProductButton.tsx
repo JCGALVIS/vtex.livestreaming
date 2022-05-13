@@ -23,7 +23,7 @@ export const ProductButton = (props: ProductButtonProps) => {
   const { formatMessage } = useIntl()
 
   const {
-    setting: { addToCart ,isInGlobalPage, redirectTo, showQuickView }
+    setting: { addToCart , redirectTo, showQuickView }
   } = useContext(ActionsContext)
 
   return redirectTo ? (
@@ -66,7 +66,6 @@ export const ProductButton = (props: ProductButtonProps) => {
           addToCart,
           product,
           redirectTo,
-          isInGlobalPage,
           showQuickView
         )
 
