@@ -1,6 +1,9 @@
 export const filterAvailableProducts = (product: any) => {
   const filterItems = product?.items.filter((item: any) => {
-    const availableSellers = item.sellers.filter((seller: any) => seller.commertialOffer.IsAvailable)
+    const availableSellers = item.sellers.filter((seller: any) =>
+      seller.commertialOffer.IsAvailable &&
+      seller.commertialOffer.Price > 0 &&
+      seller.commertialOffer.AvailableQuantity > 0)
     return availableSellers.length > 0
   })
 

@@ -9,6 +9,24 @@ const { vtexjs } = windowInfo
 const CORS_PROXY_URL = 'https://3hvqfl2xcg.execute-api.us-east-1.amazonaws.com'
 
 const App = () => {
+
+  const filterAvailableProducts = (product: any) => {
+    const filterItems = product?.items.filter((item: any) => {
+      const availableSellers = item.sellers.filter((seller: any) =>
+        seller.commertialOffer.IsAvailable &&
+        seller.commertialOffer.Price > 0 &&
+        seller.commertialOffer.AvailableQuantity > 0)
+      return availableSellers.length > 0
+    })
+    const item = filterItems[0]
+    const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+
+    return {
+      item,
+      seller
+    }
+  }
+
   const getProductsCace = async (collectionId: number) => {
     const url = `${CORS_PROXY_URL}?url=https://www.livestreaming.link/api/catalog_system/pub/products/search?fq=productClusterIds:${collectionId}&_from=0&_to=49`
 
@@ -17,10 +35,9 @@ const App = () => {
 
     if (data && data.length > 0) {
       const products = data.map((product: any) => {
-        const item = product?.items[0]
-        const seller = item?.sellers.find(
-          (seller: { sellerDefault: boolean }) => seller.sellerDefault === true
-        )
+
+        const result: any = filterAvailableProducts(product)
+        const { item, seller } = result
 
         return {
           id: product.productId,
@@ -52,10 +69,9 @@ const App = () => {
     const data = await response.json()
 
     if (data && data.length > 0) {
-      const item = data[0]?.items[0]
-      const seller = item?.sellers.find(
-        (seller: { sellerDefault: boolean }) => seller.sellerDefault === true
-      )
+
+      const result: any = filterAvailableProducts(data[0])
+      const { item, seller } = result
 
       const product = {
         id: data[0]?.productId,
