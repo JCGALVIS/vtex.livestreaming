@@ -1,6 +1,7 @@
 import { mapDomainToPdp, setCorrectAddToCartLink } from '../utils'
 import { apiCall } from './apiCall'
 import { config } from '../enviroment/config'
+import { filterAvailableProducts } from '../utils/products'
 
 type GetProductsProps = {
   collectionId?: string | undefined
@@ -64,8 +65,8 @@ const getProductsCace = async ({ collectionId }: GetProductsProps) => {
   if (data && data.length > 0) {
     const products = data.map((product: any) => {
 
-      const item = product?.items[0]
-      const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+      const result: any = filterAvailableProducts(product)
+      const { item, seller } = result
 
       return {
         id: product.productId,
@@ -134,8 +135,8 @@ const getProductsGlobalPage = async ({
 
     const products = data.map((product: any) => {
 
-      const item = product?.items[0]
-      const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+      const result: any = filterAvailableProducts(product)
+      const { item, seller } = result
 
       return {
         id: product.productId,
@@ -166,8 +167,8 @@ const getProductByIdCace = async ({ productId }: GetProductsProps) => {
 
   if (data && data.length > 0) {
 
-    const item = data[0]?.items[0]
-    const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+    const result: any = filterAvailableProducts(data[0])
+    const { item, seller } = result
 
     const product = {
       id: data[0]?.productId,
@@ -234,8 +235,8 @@ const getProductByIdGlobalPage = async ({
   if (data && data.length > 0) {
     setCorrectAddToCartLink(data, account, host)
 
-    const item = data[0]?.items[0]
-    const seller = item?.sellers.find((seller: { sellerDefault: boolean }) => seller.sellerDefault === true)
+    const result: any = filterAvailableProducts(data[0])
+    const { item, seller } = result
 
     const product = {
       id: data[0]?.productId,
