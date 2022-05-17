@@ -5,7 +5,7 @@ import {
   SettingContext
 } from '../context'
 import { optionsToGetProducts } from '../services'
-import type { Products } from '../typings/livestreaming'
+import type { Product } from '../typings/livestreaming'
 import { apiCall } from '../services'
 import { config } from '../enviroment/config'
 
@@ -25,7 +25,7 @@ export const useFetchProducts = ({
   const { host, idLivestreaming } = useLivestreamingContext()
   const { activePromo, updateLivestreaming } = useContext(SettingContext)
 
-  const [products, setProducts] = useState<Products[]>()
+  const [products, setProducts] = useState<Product[]>()
   const [loading, setLoading] = useState<boolean>(true)
   const [timer, setTimer] = useState<any>()
   const [forceUpdate, setForceUpdate] = useState('')
