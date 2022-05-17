@@ -30,6 +30,7 @@ export const ProductVariationButton = (props: ProductButtonProps) => {
         disabled={!isAvailable}
         onClick={() => {
           setShowVariation(productId)
+
           const eventAddToCart = JSON.stringify({
             sectionIdClickedOn,
             productId,

@@ -1,12 +1,10 @@
-import React, { useState, Fragment, useEffect, useContext } from 'react'
-
+import classNames from 'clsx'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
+import { SettingContext } from '../../context'
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
-import { ActionsContext, SettingContext } from '../../context'
-import { handlerAddToCart } from '../../utils'
 import { ProductButton } from '../ProductsButton/ProductButton'
-import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
-
 import styles from './highlightProduct.css'
+
 interface HighlightProductProps {
   fullScreen: boolean
   handleFullScreen: () => void
@@ -26,10 +24,6 @@ const HighlightProduct = ({
   const { collectionId, infoSocket, setCollection } = useContext(SettingContext)
 
   const { ivsRealTime, highlightProduct } = infoSocket || {}
-
-  const {
-    setting: { addToCart, redirectTo, showQuickView }
-  } = useContext(ActionsContext)
 
   const { product, showProduct } = useHighlightProduct({
     highlightProduct,
@@ -68,45 +62,27 @@ const HighlightProduct = ({
     <Fragment>
       {collectionId && show && product ? (
         <div
-          className={`${styles.highlightProductContainer}  ${
+          className={classNames(
+            styles.highlightProductContainer,
             !optionHighlight || optionHighlight === 'white'
               ? styles.white
               : styles.black
-          }`}
+          )}
           id='highlightProductContainer'
         >
           <div
             className={styles.productContainer}
             onClick={() => {
               if (fullScreen) handleFullScreen()
-              if (showQuickView) {
-                setShowVariation(product.id)
-              } else {
-                handlerAddToCart(
-                  addToCart,
-                  product,
-                  redirectTo,
-                  showQuickView
-                )
-              }
             }}
           >
             <img className={styles.productPicture} src={product.imageUrl} />
             <div className={styles.productAddCartContent}>
-              {showQuickView && !redirectTo ? (
-                <ProductVariationButton
-                  isAvailable={product.isAvailable}
-                  productId={product.id}
-                  setShowVariation={setShowVariation}
-                  sectionIdClickedOn='live_shopping_highlight_product'
-                  productName={product.name}
-                />
-              ) : (
-                <ProductButton
-                  product={product}
-                  sectionIdClickedOn='live_shopping_highlight_product'
-                />
-              )}
+              <ProductButton
+                product={product}
+                sectionIdClickedOn='live_shopping_highlight_product'
+                openVariationSelector={() => setShowVariation(product.id)}
+              />
             </div>
           </div>
         </div>

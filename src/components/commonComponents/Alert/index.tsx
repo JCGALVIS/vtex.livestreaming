@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { SettingContext } from '../../../context'
@@ -26,35 +26,33 @@ const AlertIcon = (props: AlertProps) => {
 export const Alert = (props: AlertProps) => {
   const { message, type } = props
   const [textOfMessage, setTextOfMessage] = useState<string | undefined>('')
+  const { alertMessage, setAlertMessage } = useContext(SettingContext)
+  const timeoutId = useRef<number>()
+  const alertType = type || alertMessage?.type || 'success'
 
-  const { messageAlert, setMessageAlert } = useContext(SettingContext)
-
-  const typeDefault = type || 'success'
+  const resetAlert = () => {
+    setAlertMessage(null)
+    setTextOfMessage('')
+  }
 
   useEffect(() => {
-    if (message || messageAlert) {
-      setTextOfMessage(message || messageAlert)
-      setTimeout(() => {
-        if (setMessageAlert) setMessageAlert('')
-        setTextOfMessage('')
-      }, 5000)
+    if (message || alertMessage) {
+      if (timeoutId.current) clearTimeout(timeoutId.current)
+      setTextOfMessage(message || alertMessage?.value || '')
+      timeoutId.current = window.setTimeout(() => resetAlert(), 5000)
     }
-  }, [message, messageAlert])
+  }, [message, alertMessage])
 
-  return textOfMessage && textOfMessage.length > 0 ? (
-    <div className={styles.alertContainer}>
-      <div className={`${styles.alertContent} ${styles[typeDefault]}`}>
-        <AlertIcon type={typeDefault} /> <FormattedMessage id={textOfMessage} />
-        <button
-          className={styles.buttonClose}
-          onClick={() => {
-            if (setMessageAlert) setMessageAlert('')
-            setTextOfMessage('')
-          }}
-        >
-          <Close size='16' viewBox='0 0 400 400' />
-        </button>
+  return (
+    textOfMessage && (
+      <div className={styles.alertContainer}>
+        <div className={`${styles.alertContent} ${styles[alertType]}`}>
+          <AlertIcon type={alertType} /> <FormattedMessage id={textOfMessage} />
+          <button className={styles.buttonClose} onClick={() => resetAlert()}>
+            <Close size='16' viewBox='0 0 400 400' />
+          </button>
+        </div>
       </div>
-    </div>
-  ) : null
+    )
+  )
 }

@@ -4,16 +4,21 @@ import React, { createContext, FC, useState } from 'react'
 import { useWebSocket } from '../hooks'
 import { InfoSocket, PromotionTrigger } from '../typings/livestreaming'
 
+type AlertMessage = {
+  type: 'error' | 'success' | 'info' | 'warning'
+  value: string
+}
+
 type SettingCtx = {
   collectionId?: string
   infoSocket?: InfoSocket
   isModalLive: boolean | undefined
-  messageAlert?: string
+  alertMessage: AlertMessage | null
   setIsModalLive: (isModalLive: boolean) => void
   wssStream?: string
   showCarouselChat?: boolean
   showCarouselChatButton?: boolean
-  setMessageAlert?: React.Dispatch<React.SetStateAction<string>>
+  setAlertMessage: (message: AlertMessage | null) => void
   setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
   setShowCarouselChatButton?: React.Dispatch<React.SetStateAction<boolean>>
   setActivePromo?: React.Dispatch<
@@ -29,11 +34,13 @@ type SettingCtx = {
 
 const settingDefault: SettingCtx = {
   isModalLive: false,
-  setIsModalLive: () => {},
   showCarouselChat: false,
+  alertMessage: null,
+  setIsModalLive: () => {},
   setShowCarouselChatButton: () => {},
   setActivePromo: () => {},
-  setCollection:() => {}
+  setCollection: () => {},
+  setAlertMessage: () => null
 }
 
 export const SettingContext = createContext<SettingCtx>(settingDefault)
@@ -48,19 +55,19 @@ export const SettingProvider: FC<SettingCtx> = ({
   const infoSocket = useWebSocket({ wssStream })
   const [showCarouselChat, setShowCarouselChat] = useState(false)
   const [showCarouselChatButton, setShowCarouselChatButton] = useState(false)
-  const [messageAlert, setMessageAlert] = useState('')
+  const [alertMessage, setAlertMessage] = useState<AlertMessage | null>(null)
   const [activePromo, setActivePromo] = useState<PromotionTrigger>()
   const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
   const [collection, setCollection] = useState(collectionId)
 
   const contex: SettingCtx = {
-    collectionId:collection,
+    collectionId: collection,
     infoSocket,
     isModalLive,
-    messageAlert,
+    alertMessage,
     setIsModalLive,
     showCarouselChat,
-    setMessageAlert,
+    setAlertMessage,
     setShowCarouselChat,
     showCarouselChatButton,
     setShowCarouselChatButton,
