@@ -61,7 +61,7 @@ export declare interface ScriptProperties {
   like: boolean
   infinite: boolean
   time: number
-  quickView: boolean
+  showQuickView: boolean
   pdp: boolean
   kuikpay: boolean
   isInGlobalPage: boolean

@@ -101,7 +101,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         responseAdmin,
         isInGlobalPage,
         type,
-        quickView,
+        showQuickView,
         showCarouselChatButton,
         viewers,
         trigger
@@ -171,7 +171,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             like,
             infinite,
             time,
-            quickView,
+            showQuickView,
             pdp,
             kuikpay,
             isInGlobalPage,
