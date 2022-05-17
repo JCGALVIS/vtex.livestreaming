@@ -38,6 +38,7 @@ export default {
     'store/time': 'Tempo',
     'store/total-votes': 'Votos totais',
     'store/text.add-to-cart': 'Produto adicionado ao carrinho.',
+    'store/text.add-to-cart-error': 'Erro ao adicionar ao carrinho.',
     'store/text.share': 'Compartilhar'
   }
 }

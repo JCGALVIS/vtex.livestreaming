@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useLivestreamingContext } from '../context'
-import { Products } from '../typings/livestreaming'
+import { Product } from '../typings/livestreaming'
 
 export const useShowHightlightsForFinishedEvents = (
-  hanledSetProduct: (productId: string, storageProducts: Products[]) => void,
+  hanledSetProduct: (productId: string, storageProducts: Product[]) => void,
   setShowProduct: React.Dispatch<React.SetStateAction<boolean | undefined>>,
   isFinalized: boolean
 ) => {

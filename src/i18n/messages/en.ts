@@ -38,6 +38,7 @@ export default {
     'store/time': 'Time',
     'store/total-votes': 'Total votes',
     'store/text.add-to-cart': 'Product added to cart.',
+    'store/text.add-to-cart-error': 'Error adding to cart.',
     'store/text.share': 'To share'
   }
 }

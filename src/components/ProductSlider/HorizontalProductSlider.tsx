@@ -6,7 +6,7 @@ import { ProductItem } from './ProductItem'
 import { useFetchProducts } from '../../hooks/useFetchProducts'
 import { ArrowRightLivestreaming } from '../icons'
 import { ActionsContext, SettingContext } from '../../context'
-import { Products } from '../../typings/livestreaming'
+import { Product } from '../../typings/livestreaming'
 
 import styles from './productSlider.css'
 import { Spinner } from '..'
@@ -21,7 +21,7 @@ export const HorizontalProductSlider = ({
   transmitionType
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
-  const [itemsProdcuts, setItemsProducts] = useState<Products[]>()
+  const [itemsProdcuts, setItemsProducts] = useState<Product[]>()
   const [index, setIndex] = useState(2)
 
   const { collectionId, setCollection } = useContext(SettingContext)
