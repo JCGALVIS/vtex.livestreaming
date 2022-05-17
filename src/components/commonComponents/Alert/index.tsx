@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { FC, useContext, useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { SettingContext } from '../../../context'
@@ -23,7 +23,7 @@ const AlertIcon = (props: AlertProps) => {
   )
 }
 
-export const Alert = (props: AlertProps) => {
+export const Alert: FC<AlertProps> = (props) => {
   const { message, type } = props
   const [textOfMessage, setTextOfMessage] = useState<string | undefined>('')
   const { alertMessage, setAlertMessage } = useContext(SettingContext)
@@ -43,16 +43,14 @@ export const Alert = (props: AlertProps) => {
     }
   }, [message, alertMessage])
 
-  return (
-    textOfMessage && (
-      <div className={styles.alertContainer}>
-        <div className={`${styles.alertContent} ${styles[alertType]}`}>
-          <AlertIcon type={alertType} /> <FormattedMessage id={textOfMessage} />
-          <button className={styles.buttonClose} onClick={() => resetAlert()}>
-            <Close size='16' viewBox='0 0 400 400' />
-          </button>
-        </div>
+  return textOfMessage ? (
+    <div className={styles.alertContainer}>
+      <div className={`${styles.alertContent} ${styles[alertType]}`}>
+        <AlertIcon type={alertType} /> <FormattedMessage id={textOfMessage} />
+        <button className={styles.buttonClose} onClick={() => resetAlert()}>
+          <Close size='16' viewBox='0 0 400 400' />
+        </button>
       </div>
-    )
-  )
+    </div>
+  ) : null
 }

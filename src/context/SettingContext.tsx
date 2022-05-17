@@ -32,7 +32,7 @@ type SettingCtx = {
   setCollection?: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-const settingDefault: SettingCtx = {
+export const settingDefault: SettingCtx = {
   isModalLive: false,
   showCarouselChat: false,
   alertMessage: null,

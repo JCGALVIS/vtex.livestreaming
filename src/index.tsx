@@ -11,7 +11,8 @@ import {
   SettingProvider,
   useLivestreamingReducer,
   useSetLivestreaming,
-  LivestreamingProvider
+  LivestreamingProvider,
+  settingDefault
 } from './context'
 
 import styles from './styles.module.css'
@@ -47,6 +48,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   })
 
   const settingProps = {
+    ...settingDefault,
     collectionId,
     isModalLive,
     setIsModalLive,
