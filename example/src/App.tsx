@@ -93,23 +93,23 @@ const App = () => {
   return (
     <Livestreaming
       addToCart={addToCart}
-      account='livestreamingdemo'
+      account='__ACCOUNT'
       environment='dev'
       getProductId={getProductByIdCace}
       getProducts={getProductsCace}
-      idLivestreaming='06012abd-85eb-4acb-9f03-ec3f1bfd8dca'
-      isInGlobalPage={true}
-      isInfinite={true}
-      kuikpay={false}
+      idLivestreaming='__IDLIVESTREAMING'
+      isInGlobalPage='_ISINGLOBALPAGE'
+      isInfinite='_ISINFINITE'
+      kuikpay='_KUIKPAY'
       originOfProducts='_ORIGINOFPRODUCTS'
-      redirectTo={false}
-      showChat={true}
-      showLike={true}
-      showQuickView={false}
-      showProductsCarousel={false}
-      showSidebarProducts={true}
-      showViewers={true}
-      time={9999999999999}
+      redirectTo='_PDP'
+      showChat='_INACTIVATECHAT'
+      showLike='_INACTIVATELIKE'
+      showQuickView='_SHOWQUICKVIEW'
+      showProductsCarousel='_INACTIVEPRODUCTSCAROUSEL'
+      showSidebarProducts='_INACTIVESIDEBARPRODUCTS'
+      showViewers='_INACTIVATEVIEWERS'
+      time='_TIME'
     />
   )
 }

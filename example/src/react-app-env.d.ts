@@ -1,3 +1,3 @@
 /// <reference types="react-scripts" />
 
-declare module "vtex.livestreaming"
+// declare module "vtex.livestreaming"
