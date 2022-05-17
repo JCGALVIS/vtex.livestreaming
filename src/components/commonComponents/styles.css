@@ -6,166 +6,166 @@
 
 .checkbox,
 .radio {
-  --active: #275efe;
-  --active-inner: #fff;
-  --border: #bbc1e1;
-  --border-hover: #275efe;
-  --background: #fff;
-  --disabled: #f6f8ff;
-  --disabled-inner: #e1e6f9;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  height: 18px;
-  outline: none;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-  border: 1px solid var(--bc, var(--border));
-  background: var(--b, var(--background));
-  box-sizing: border-box;
-  min-height: 18px;
-  max-height: 18px;
-  margin: 0px !important;
+  --active: #275efe !important;
+  --active-inner: #fff !important;
+  --border: #bbc1e1 !important;
+  --border-hover: #275efe !important;
+  --background: #fff !important;
+  --disabled: #f6f8ff !important;
+  --disabled-inner: #e1e6f9 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  height: 18px !important;
+  outline: none !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative !important;
+  cursor: pointer !important;
+  border: 1px solid var(--bc, var(--border)) !important;
+  background: var(--b, var(--background)) !important;
+  box-sizing: border-box !important;
+  min-height: 18px !important;
+  max-height: 18px !important;
+  margin: 0px !important !important;
 }
 
 .radio {
-  --active-inner: #275efe;
-  background: #fff;
-  border: 1px solid var(--bc, var(--border));
-  height: 20px;
-  min-height: 20px;
-  max-height: 20px;
+  --active-inner: #275efe !important;
+  background: #fff !important;
+  border: 1px solid var(--bc, var(--border)) !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
 }
 
 .checkbox:after,
 .radio:after {
-  content: '';
-  display: block;
+  content: '' !important;
+  display: block !important;
   transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
-    opacity var(--d-o, 0.2s);
-  outline: none;
+    opacity var(--d-o, 0.2s) !important;
+  outline: none !important;
 }
 
 .checkbox:after {
-  position: absolute;
+  position: absolute !important;
 }
 
 .checkbox:checked,
 .radio:checked {
-  --b: var(--active);
-  --bc: var(--active);
-  --d-o: 0.3s;
-  --d-t: 0.6s;
-  --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
-  outline: none;
+  --b: var(--active) !important;
+  --bc: var(--active) !important;
+  --d-o: 0.3s !important;
+  --d-t: 0.6s !important;
+  --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2) !important;
+  outline: none !important;
 }
 
 .radio:checked {
-  border: 3px solid var(--bc, var(--border));
+  border: 3px solid var(--bc, var(--border)) !important;
 }
 
 .checkbox:disabled,
 .radio:disabled {
-  --b: var(--disabled);
-  cursor: not-allowed;
-  opacity: 0.9;
-  --active-inner: #275efe36;
+  --b: var(--disabled) !important;
+  cursor: not-allowed !important;
+  opacity: 0.9 !important;
+  --active-inner: #275efe36 !important;
 }
 .checkbox:disabled:checked,
 .radio:disabled:checked {
-  --b: var(--disabled-inner);
-  --bc: var(--border);
+  --b: var(--disabled-inner) !important;
+  --bc: var(--border) !important;
 }
 .checkbox:disabled + label,
 .radio:disabled + label {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 .checkbox:hover:not(:checked):not(:disabled),
 .radio:hover:not(:checked):not(:disabled) {
-  --bc: var(--border-hover);
+  --bc: var(--border-hover) !important;
 }
 .checkbox:focus,
 .radio:focus {
-  box-shadow: 0 0 0 var(--focus);
+  box-shadow: 0 0 0 var(--focus) !important;
 }
 .checkbox:not(.switch) {
-  width: 18px;
-  min-width: 18px;
-  max-width: 18px;
+  width: 18px !important;
+  min-width: 18px !important;
+  max-width: 18px !important;
 }
 
 .radio:not(.switch) {
-  width: 20px;
-  min-width: 20px;
-  max-width: 20px;
+  width: 20px !important;
+  min-width: 20px !important;
+  max-width: 20px !important;
 }
 
 .checkbox:not(.switch):after,
 .radio:not(.switch):after {
-  opacity: var(--o, 0);
+  opacity: var(--o, 0) !important;
 }
 .checkbox:not(.switch):checked,
 .radio:not(.switch):checked {
-  --o: 1;
-  outline: none;
+  --o: 1 !important;
+  outline: none !important;
 }
 .checkbox + label,
 .radio + label {
-  line-height: 21px;
-  display: inline-block;
-  cursor: pointer;
-  margin-left: 4px;
-  font-weight: normal;
-  margin-bottom: 0px;
+  line-height: 21px !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  margin-left: 4px !important;
+  font-weight: normal !important;
+  margin-bottom: 0px !important;
 }
 .checkbox:not(.switch) {
-  border-radius: 3px;
+  border-radius: 3px !important;
 }
 .checkbox:not(.switch):after {
-  width: 5px;
-  height: 9px;
-  border: 2px solid var(--active-inner);
-  border-top: 0;
-  border-left: 0;
-  left: 5px;
-  top: 1px;
-  transform: rotate(var(--r, 20deg));
+  width: 5px !important;
+  height: 9px !important;
+  border: 2px solid var(--active-inner) !important;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  left: 5px !important;
+  top: 1px !important;
+  transform: rotate(var(--r, 20deg)) !important;
 }
 .checkbox:not(.switch):checked {
-  --r: 43deg;
+  --r: 43deg !important;
 }
 .checkbox.switch {
-  width: 38px;
-  border-radius: 11px;
+  width: 38px !important;
+  border-radius: 11px !important;
 }
 .checkbox.switch:after {
-  left: 2px;
-  top: 2px;
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  background: var(--ab, var(--border));
-  transform: translateX(var(--x, 0));
+  left: 2px !important;
+  top: 2px !important;
+  border-radius: 50% !important;
+  width: 15px !important;
+  height: 15px !important;
+  background: var(--ab, var(--border)) !important;
+  transform: translateX(var(--x, 0)) !important;
 }
 .checkbox.switch:checked {
-  --ab: var(--active-inner);
-  --x: 17px;
+  --ab: var(--active-inner) !important;
+  --x: 17px !important;
 }
 .checkbox.switch:disabled:not(:checked):after {
-  opacity: 0.6;
+  opacity: 0.6 !important;
 }
 .radio {
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
 .radio:after {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--active-inner);
-  opacity: 0;
-  transform: scale(var(--s, 0.7));
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  background: var(--active-inner) !important;
+  opacity: 0 !important;
+  transform: scale(var(--s, 0.7)) !important;
 }
 .radio:checked {
-  --s: 0.5;
+  --s: 0.5 !important;
 }

@@ -6,14 +6,14 @@
 }
 
 .buttonContenModal {
-  display: flex;
-  justify-content: flex-end;
+  display: flex !important;
+  justify-content: flex-end !important;
 }
 
 .timeContent {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 1rem;
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-bottom: 1rem !important;
 }
 
 .answerContent {
@@ -32,26 +32,26 @@
 }
 
 .buttonContenModal > button {
-  color: #001738;
-  font-weight: bolder;
-  text-align: center;
-  font-size: 14px;
-  text-transform: uppercase;
-  background: #e3e4e6;
-  border-radius: 8px;
-  text-decoration: none;
-  border: 0;
-  box-sizing: border-box;
-  padding: 10px 15px;
+  color: #001738 !important;
+  font-weight: bolder !important;
+  text-align: center !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  background: #e3e4e6 !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  border: 0 !important;
+  box-sizing: border-box !important;
+  padding: 10px 15px !important;
 }
 
 .buttonContenModal > button:hover {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .buttonContenModal > button:disabled {
-  color: #979899;
-  cursor: default;
+  color: #979899 !important;
+  cursor: default !important;
 }
 
 .errorMessageContainer {

@@ -98,18 +98,18 @@ const App = () => {
       getProductId={getProductByIdCace}
       getProducts={getProductsCace}
       idLivestreaming='06012abd-85eb-4acb-9f03-ec3f1bfd8dca'
-      isInGlobalPage={false}
-      isInfinite={false}
+      isInGlobalPage={true}
+      isInfinite={true}
       kuikpay={false}
       originOfProducts='_ORIGINOFPRODUCTS'
       redirectTo={false}
       showChat={true}
       showLike={true}
       showQuickView={false}
-      showProductsCarousel={true}
+      showProductsCarousel={false}
       showSidebarProducts={true}
       showViewers={true}
-      time='_TIME'
+      time={9999999999999}
     />
   )
 }

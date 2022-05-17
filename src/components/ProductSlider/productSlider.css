@@ -132,13 +132,13 @@
 }
 
 .chatCarouselContainer {
-  position: absolute;
-  width: 85%;
-  bottom: 60px;
-  height: 90px;
-  display: flex;
-  overflow-x: auto;
-  z-index: 3;
+  position: absolute !important;
+  width: 85% !important;
+  bottom: 60px !important;
+  height: 90px !important;
+  display: flex !important;
+  overflow-x: auto !important;
+  z-index: 3 !important;
 }
 
 .chatCarouselContainer .productAddCartContent {
@@ -146,35 +146,35 @@
 }
 
 .chatCarouselContainer .horizontalProductList {
-  margin: 0 5px;
+  margin: 0 5px !important;
 }
 
 .chatCarouselContainer .productItemContent {
-  flex-direction: column;
-  min-width: unset;
-  width: 66px;
-  border-radius: 10px;
-  overflow: hidden;
+  flex-direction: column !important;
+  min-width: unset !important;
+  width: 66px !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
 }
 
 .chatCarouselContainer .productItemContent .pictureContent {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .chatCarouselContainer .productItemContent .pictureContent .productLink {
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 
 .chatCarouselContainer .productItemContent .picture {
-  min-width: unset;
-  min-height: unset;
-  max-height: unset;
-  height: auto;
-  width: 100%;
-  overflow: hidden;
-  height: 60px;
+  min-width: unset !important;
+  min-height: unset !important;
+  max-height: unset !important;
+  height: auto !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  height: 60px !important;
 }
 
 .horizontalProductListContent {
@@ -258,13 +258,13 @@
 }
 
 .buttonMobile {
-  color: white;
-  background-color: #808080;
-  opacity: 0.9;
+  color: white !important;
+  background-color: #808080 !important;
+  opacity: 0.9 !important;
   padding: 4px 10px !important;
-  border-radius: 64px;
-  font-size: 12px;
-  border: unset;
+  border-radius: 64px !important;
+  font-size: 12px !important;
+  border: unset !important;
 }
 
 .sliderProductMobileContainer {
@@ -318,7 +318,7 @@
   }
 
   .buttonMobile {
-    display: none;
+    display: none !important;
   }
 }
 

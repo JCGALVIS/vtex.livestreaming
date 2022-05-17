@@ -1,14 +1,14 @@
 .giphySearchBoxContainer {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  z-index: 100;
-  bottom: 55px;
-  left: 0px;
-  background: white;
-  padding-top: 10px;
-  border-radius: 10px 10px 0 0;
-  margin: auto;
+  position: absolute !important;
+  width: 100% !important;
+  height: auto !important;
+  z-index: 100 !important;
+  bottom: 55px !important;
+  left: 0px !important;
+  background: white !important;
+  padding-top: 10px !important;
+  border-radius: 10px 10px 0 0 !important;
+  margin: auto !important;
 }
 
 .giphySearchBoxWrapper {
@@ -39,7 +39,7 @@
   }
 
   .giphySearchBoxContainer {
-    width: auto;
-    padding: 10px;
+    width: auto !important;
+    padding: 10px !important;
   }
 }
