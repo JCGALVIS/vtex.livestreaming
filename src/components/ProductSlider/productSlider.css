@@ -106,10 +106,10 @@
 }
 
 .productAddCartContent {
-  display: flex;
-  align-items: center;
-  margin-top: 1rem;
-  flex-direction: column;
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 1rem !important;
+  flex-direction: column !important;
 }
 
 .noActive {
@@ -142,7 +142,7 @@
 }
 
 .chatCarouselContainer .productAddCartContent {
-  display: none;
+  display: none !important;
 }
 
 .chatCarouselContainer .horizontalProductList {
