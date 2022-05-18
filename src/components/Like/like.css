@@ -1,25 +1,26 @@
 .likeWrapper {
-  position: relative;
-  user-select: none;
+  position: relative !important;
+  user-select: none !important
+  ;
 }
 
 .likeButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  background: none;
-  outline: none;
-  cursor: pointer;
-  border: none;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: white !important;
+  background: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  border: none !important;
 }
 
 @media screen and (min-width: 568px) {
   .likeButton {
-    height: 44px;
-    width: 44px;
-    border-radius: 21.75px;
-    border: 1px solid #ffffff;
-    background-color: rgba(50, 56, 69, 0.32);
+    height: 44px !important;
+    width: 44px !important;
+    border-radius: 21.75px !important;
+    border: 1px solid #ffffff !important;
+    background-color: rgba(50, 56, 69, 0.32) !important;
   }
 }
