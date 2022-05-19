@@ -75,6 +75,7 @@
     "@vtex/styleguide": "^9.143.0",
     "caniuse-lite": "^1.0.30001312",
     "canvas-confetti": "^1.5.1",
+    "clsx": "^1.1.1",
     "gsap": "^3.9.1",
     "kuikpay-sdk": "^1.0.6",
     "lodash.clonedeep": "^4.5.0",

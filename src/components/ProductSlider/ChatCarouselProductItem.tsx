@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
-
-import { handlerAddToCart, currencyFormat } from '../../utils'
-import { ActionsContext } from '../../context/ActionsContext'
-import type { Products } from '../../typings/livestreaming'
-
+import { ActionsContext, SettingContext } from '../../context'
+import type { Product } from '../../typings/livestreaming'
+import { addToCartHandler, currencyFormat } from '../../utils'
 import styles from './productSlider.css'
 
 type ChatCarouselProductItemProps = {
-  product: Products
+  product: Product
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   sectionIdClickedOn?: string
   fullScreen: boolean
@@ -19,27 +16,32 @@ export const ChatCarouselProductItem = (
   props: ChatCarouselProductItemProps
 ) => {
   const { product, setShowVariation, fullScreen, handleFullScreen } = props
-
   const { id, priceWithDiscount, imageUrl } = product
+  const { setAlertMessage } = useContext(SettingContext)
 
   const {
-    setting: { addToCart, isInGlobalPage, showQuickView, redirectTo }
+    setting: {
+      showQuickView,
+      addToCart: addToCartCallback,
+      redirectTo: openProductDetail
+    }
   } = useContext(ActionsContext)
 
   return (
     <div
       onClick={() => {
         if (fullScreen) handleFullScreen()
-        if (showQuickView) {
+
+        if (showQuickView && !openProductDetail) {
           setShowVariation(id)
         } else {
-          handlerAddToCart(
-            addToCart,
+          const message = addToCartHandler({
             product,
-            redirectTo,
-            isInGlobalPage,
-            showQuickView
-          )
+            openProductDetail,
+            addToCartCallback
+          })
+
+          if (message) setAlertMessage(message)
         }
       }}
       className={styles.productItemContent}

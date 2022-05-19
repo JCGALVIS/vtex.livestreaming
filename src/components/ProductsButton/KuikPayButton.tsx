@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 
 import { cartSimulation } from '../../services'
 import type { Profile } from '../../interfaces'
-import type { Products } from '../../typings/livestreaming'
+import type { Product } from '../../typings/livestreaming'
 import { Kuikpay, KuikpayWrapper } from 'kuikpay-sdk'
 import type {
   Item,
@@ -20,7 +20,7 @@ const windowInfo: any = window
 const { vtexjs, vtxctx } = windowInfo
 
 type KuikPayButtonProps = {
-  product: Products
+  product: Product
 }
 
 export const KuikPayButton = (props: KuikPayButtonProps) => {
@@ -157,7 +157,7 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
 
       fetch(changeToAnonymousUserURL, {
         method: 'GET',
-        redirect: 'follow',
+        redirect: 'follow'
       }).then(() => {
         vtexjs.checkout.getOrderForm().then((e: any) => {
           listendCheckout('', e)

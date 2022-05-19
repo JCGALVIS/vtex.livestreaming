@@ -1,4 +1,4 @@
-import { handlerAddToCart } from './handlerAddToCart'
+import { addToCartHandler } from './addToCartHandler'
 import { calcHeightApp } from './calcHeightElmBeforeApp'
 import { currencyFormat } from './getFormatMoney'
 import { getMobileOS, getDeviceType } from './getMobileOs'
@@ -14,7 +14,7 @@ export {
   getDeviceType,
   getMobileOS,
   getRandomColor,
-  handlerAddToCart,
+  addToCartHandler,
   Queue,
   getRandomNumber,
   mapDomainToPdp,

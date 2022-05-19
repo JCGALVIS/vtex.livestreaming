@@ -1,39 +1,25 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
-
-import { currencyFormat } from '../../utils'
-import { ProductButton } from '../ProductsButton/ProductButton'
-import { KuikPayButton } from '../ProductsButton/KuikPayButton'
-import { ProductVariationButton } from '../ProductsButton/ProductVariationButton'
 import { ActionsContext } from '../../context/ActionsContext'
-import type { Products } from '../../typings/livestreaming'
-
+import type { Product } from '../../typings/livestreaming'
+import { currencyFormat } from '../../utils'
+import { KuikPayButton } from '../ProductsButton/KuikPayButton'
+import { ProductButton } from '../ProductsButton/ProductButton'
 import styles from './productSlider.css'
 
 const SPANISH_CODE = 'es'
 type ProductItemProps = {
-  product: Products
+  product: Product
   setShowVariation: React.Dispatch<React.SetStateAction<string>>
   sectionIdClickedOn?: string
 }
 
 export const ProductItem = (props: ProductItemProps) => {
   const { product, setShowVariation, sectionIdClickedOn } = props
+  const { name, price, priceWithDiscount, imageUrl, pdpLink } = product
 
   const {
-    id,
-    name,
-    price,
-    priceWithDiscount,
-    imageUrl,
-    isAvailable,
-    variationSelector,
-    pdpLink
-  } = product
-
-  const {
-    setting: { isInGlobalPage, kuikpay, showQuickView }
+    setting: { kuikpay }
   } = useContext(ActionsContext)
 
   const { formatMessage, locale } = useIntl()
@@ -63,22 +49,11 @@ export const ProductItem = (props: ProductItemProps) => {
           {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          {variationSelector.length === 0 ||
-          isInGlobalPage ||
-          !showQuickView ? (
-            <ProductButton
-              product={product}
-              sectionIdClickedOn={sectionIdClickedOn}
-            />
-          ) : (
-            <ProductVariationButton
-              isAvailable={isAvailable}
-              productId={id}
-              setShowVariation={setShowVariation}
-              sectionIdClickedOn={sectionIdClickedOn}
-              productName={name}
-            />
-          )}
+          <ProductButton
+            product={product}
+            openVariationSelector={() => setShowVariation(product.id)}
+            sectionIdClickedOn={sectionIdClickedOn}
+          />
           {kuikpay && <KuikPayButton product={product} />}
         </div>
       </div>

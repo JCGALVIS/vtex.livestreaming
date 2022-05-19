@@ -2,7 +2,7 @@
 import { Queue } from '../utils'
 
 type LivestreamingProps = {
-  addToCart: (product: Products) => void
+  addToCart: (product: Product) => void
   account: string
   environment: string
   getProductId?: (productId: string, account?: string) => void
@@ -61,7 +61,7 @@ export declare interface ScriptProperties {
   like: boolean
   infinite: boolean
   time: number
-  quickView: boolean
+  showQuickView: boolean
   pdp: boolean
   kuikpay: boolean
   isInGlobalPage: boolean
@@ -98,8 +98,8 @@ export declare interface InfoSocket {
   setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>
   pinnedMessage: Message | undefined
   transmitiontype: string | undefined
-  productsInCart: Products[]
-  setProductsInCart: React.Dispatch<React.SetStateAction<Products[]>>
+  productsInCart: Product[]
+  setProductsInCart: React.Dispatch<React.SetStateAction<Product[]>>
   setQueueSocket: React.Dispatch<
     React.SetStateAction<Queue<number> | undefined>
   >
@@ -143,7 +143,7 @@ export interface VariationSelector {
   field: Field
   values: Values[]
 }
-export interface Products {
+export interface Product {
   id: string
   name: string
   price: number

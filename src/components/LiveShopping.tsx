@@ -79,7 +79,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     setShowCarouselChatButton,
     setShowCarouselChat,
     setActivePromo,
-    setUpdateLivestreaming,
+    setUpdateLivestreaming
   } = useContext(SettingContext)
 
   const {
@@ -138,7 +138,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       kuikpay,
       like,
       pdp,
-      quickView,
+      showQuickView,
       productsCarousel,
       sidebarProducts,
       time,
@@ -162,7 +162,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       redirectTo: pdp,
       showChat: chat,
       showLike: like,
-      showQuickView: quickView,
+      showQuickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
       showViewers: viewersFlag,
@@ -197,9 +197,13 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   useEffect(() => {
     setTimeout(() => {
       if (!socket || !window.vtexjs) return
-      const eventAddToCartStorage = localStorage.getItem('sectionIdClickedOnForAddToCart')
+      const eventAddToCartStorage = localStorage.getItem(
+        'sectionIdClickedOnForAddToCart'
+      )
       if (!eventAddToCartStorage) return
-      const { productId, productName, sectionIdClickedOn } = JSON.parse(eventAddToCartStorage)
+      const { productId, productName, sectionIdClickedOn } = JSON.parse(
+        eventAddToCartStorage
+      )
 
       const currentCart = {
         action: 'sendaddtocart',
@@ -213,16 +217,15 @@ export const LiveShopping = (props: LiveShoppingProps) => {
         email: ''
       }
 
-      if(!sessionStorage.cartCachedOrderFormId){
+      if (!sessionStorage.cartCachedOrderFormId) {
         sessionStorage.cartCachedOrderFormId = currentCart.orderForm
       }
 
-      if(currentCart.orderForm !== sessionStorage.cartCachedOrderFormId){
+      if (currentCart.orderForm !== sessionStorage.cartCachedOrderFormId) {
         socket.send(JSON.stringify(currentCart))
         localStorage.removeItem('sectionIdClickedOnForAddToCart')
       }
     }, 1000)
-
   }, [socket])
 
   useEffect(() => {

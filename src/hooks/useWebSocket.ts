@@ -8,7 +8,7 @@ import {
   HighlightProduct,
   ScriptProperties,
   Question,
-  Products,
+  Product,
   PromotionTrigger
 } from './../typings/livestreaming'
 import { useSessionId } from './useSessionId'
@@ -48,7 +48,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [messageToDelete, setMessageToDelete] = useState<Message | undefined>()
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
   const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
-  const [productsInCart, setProductsInCart] = useState<Products[]>([])
+  const [productsInCart, setProductsInCart] = useState<Product[]>([])
   const [activePromo, setActivePromo] = useState<PromotionTrigger>()
   const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
 
@@ -101,7 +101,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         responseAdmin,
         isInGlobalPage,
         type,
-        quickView,
+        showQuickView,
         showCarouselChatButton,
         viewers,
         trigger
@@ -171,7 +171,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             like,
             infinite,
             time,
-            quickView,
+            showQuickView,
             pdp,
             kuikpay,
             isInGlobalPage,
@@ -318,7 +318,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setQueueSocket,
     showCarouselChatButton,
     activePromo,
-    updateLivestreaming,
+    updateLivestreaming
   }
 }
 

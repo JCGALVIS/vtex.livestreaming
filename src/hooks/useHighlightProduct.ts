@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { HighlightProduct, Products } from './../typings/livestreaming'
+import type { HighlightProduct, Product } from './../typings/livestreaming'
 import { useLivestreamingContext } from '../context'
 import { useShowHightlightsForFinishedEvents } from './useShowHightlightsForFinishedEvents'
 import { useFetchProducts } from './useFetchProducts'
@@ -17,7 +17,7 @@ export const useHighlightProduct = ({
   isFinalized,
   setCollection
 }: useHighlightProductProps) => {
-  const [product, setProduct] = useState<Products>()
+  const [product, setProduct] = useState<Product>()
   const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
   const { idLivestreaming } = useLivestreamingContext()
   const { products } = useFetchProducts({
@@ -25,8 +25,7 @@ export const useHighlightProduct = ({
     setCollection
   })
 
-  const handleSetProduct = (productId: string, products: Products[]) => {
-
+  const handleSetProduct = (productId: string, products: Product[]) => {
     const product = products.find(
       (product: { id: string | undefined }) => product.id === productId
     )
