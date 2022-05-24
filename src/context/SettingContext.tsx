@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { createContext, FC, useState } from 'react'
+import React, { createContext, FC, useContext, useState } from 'react'
 
 import { useWebSocket } from '../hooks'
 import { InfoSocket, PromotionTrigger } from '../typings/livestreaming'
@@ -44,6 +43,8 @@ export const settingDefault: SettingCtx = {
 }
 
 export const SettingContext = createContext<SettingCtx>(settingDefault)
+
+export const useSettings = () => useContext(SettingContext)
 
 export const SettingProvider: FC<SettingCtx> = ({
   collectionId,

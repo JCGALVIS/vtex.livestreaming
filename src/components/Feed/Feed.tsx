@@ -1,18 +1,15 @@
-import React, { useEffect, useRef, useState, useContext } from 'react'
-
-import { ActionsContext, SettingContext } from '../../context'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { SettingContext, useActions, useSettings } from '../../context'
 import { usePlayerLayout } from '../../hooks'
-// import { NoVideo } from '../NoVideo/NoVideo'
-import { StreamPlayer } from './StreamPlayer/StreamPlayer'
-import HighlightProduct from '../HighlightProduct/HighlightProduct'
-
-import styles from './feed.css'
 import { ChatCarousel } from '../ChatCarousel/ChatCarousel'
+import HighlightProduct from '../HighlightProduct/HighlightProduct'
 import { NoVideo } from '../NoVideo/NoVideo'
+import styles from './feed.css'
+import { StreamPlayer } from './StreamPlayer/StreamPlayer'
 
 type FeedProps = {
   isPlayerSupported: boolean
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
   streamUrl: string | undefined
   transmitionType: string | undefined
   livestreamingStatus: string
@@ -27,18 +24,21 @@ interface HighlightProps {
 
 export const Feed = ({
   isPlayerSupported,
-  setShowVariation,
+  variationSelectorState,
   streamUrl,
   transmitionType,
   livestreamingStatus
 }: FeedProps) => {
   const { infoSocket, isModalLive } = useContext(SettingContext)
+  const { showCarouselChat, showCarouselChatButton } = useSettings()
+
   const {
     setting: { isInGlobalPage }
-  } = useContext(ActionsContext)
-  const { showCarouselChat, showCarouselChatButton } =
-    useContext(SettingContext)
-  const { isVerticalLayout, windowDimensions } = usePlayerLayout(transmitionType)
+  } = useActions()
+
+  const { isVerticalLayout, windowDimensions } =
+    usePlayerLayout(transmitionType)
+
   const setIvsRealTime = infoSocket?.setIvsRealTime
 
   const { IVSPlayer } = window
@@ -91,13 +91,11 @@ export const Feed = ({
     const onMetadataChange = (cue: any) => {
       const metadataText = cue.text
       const { startTime, viewerCount, status: state } = JSON.parse(metadataText)
-      setIvsRealTime?.(
-        {
-          startTime,
-          viewerCount,
-          status: state,
-        }
-      )
+      setIvsRealTime?.({
+        startTime,
+        viewerCount,
+        status: state
+      })
     }
 
     const onError = (err: Error) => {
@@ -154,29 +152,31 @@ export const Feed = ({
             ? highlightProps.handleFullScreen
             : highlightProps.handleFullScreenMobile
         }
-        setShowVariation={setShowVariation}
+        variationSelectorState={variationSelectorState}
         isFinalized={isFinalized}
       />
 
       {isMobile && showCarouselChat && showCarouselChatButton && (
         <ChatCarousel
           transmitionType={transmitionType}
-          setShowVariation={setShowVariation}
+          variationSelectorState={variationSelectorState}
           fullScreen={highlightProps.fullScreen}
           handleFullScreen={highlightProps.handleFullScreenMobile}
           isTransmiting={isTransmiting}
         />
       )}
-        {isOnline ?
-          <StreamPlayer
-            player={player.current}
-            streamUrl={streamUrl}
-            setShowVariation={setShowVariation}
-            transmitionType={transmitionType}
-            isFinalized={isFinalized}
-            setHighlightProps={setHighlightProps}
-          />
-          : <NoVideo isLive={isLive} liveStatus={liveStatus} />}
+      {isOnline ? (
+        <StreamPlayer
+          player={player.current}
+          streamUrl={streamUrl}
+          setShowVariation={variationSelectorState?.[1]}
+          transmitionType={transmitionType}
+          isFinalized={isFinalized}
+          setHighlightProps={setHighlightProps}
+        />
+      ) : (
+        <NoVideo isLive={isLive} liveStatus={liveStatus} />
+      )}
     </div>
   )
 }

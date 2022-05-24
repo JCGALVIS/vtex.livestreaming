@@ -8,14 +8,15 @@ import { ProductButton } from '../ProductsButton/ProductButton'
 import styles from './productSlider.css'
 
 const SPANISH_CODE = 'es'
+
 type ProductItemProps = {
   product: Product
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
   sectionIdClickedOn?: string
 }
 
 export const ProductItem = (props: ProductItemProps) => {
-  const { product, setShowVariation, sectionIdClickedOn } = props
+  const { product, sectionIdClickedOn, variationSelectorState } = props
   const { name, price, priceWithDiscount, imageUrl, pdpLink } = product
 
   const {
@@ -51,7 +52,7 @@ export const ProductItem = (props: ProductItemProps) => {
         <div className={styles.productAddCartContent}>
           <ProductButton
             product={product}
-            openVariationSelector={() => setShowVariation(product.id)}
+            variationSelectorState={variationSelectorState}
             sectionIdClickedOn={sectionIdClickedOn}
           />
           {kuikpay && <KuikPayButton product={product} />}

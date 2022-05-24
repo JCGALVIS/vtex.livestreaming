@@ -1,3 +1,4 @@
+import { useAddToCart } from './useAddToCart'
 import useIsPlayerSupported from './useIsPlayerSupported'
 import useLivestreamingComponentOnScreen from './useLivestreamingComponentOnScreen'
 import useLivestreamingConfig from './useLivestreamingConfig'
@@ -11,5 +12,6 @@ export {
   useLivestreamingConfig,
   usePlayerFunctions,
   usePlayerLayout,
-  useWebSocket
+  useWebSocket,
+  useAddToCart
 }
