@@ -213,6 +213,10 @@ export const VariationSelector = (props: VariationSelectorProps) => {
                                 skuId: selectedProduct.skuId
                               }}
                               handleClose={handleClose}
+                              variationSelectorState={[
+                                showVariation,
+                                setShowVariation
+                              ]}
                             />
                           </div>
                           {kuikpay && (

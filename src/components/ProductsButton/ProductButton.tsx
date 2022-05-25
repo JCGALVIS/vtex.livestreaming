@@ -1,36 +1,41 @@
 import classNames from 'clsx'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
-import { ActionsContext, SettingContext } from '../../context'
+import { useActions, useSettings } from '../../context'
+import { useAddToCart } from '../../hooks'
 import type { Product } from '../../typings/livestreaming'
-import { addToCartHandler } from '../../utils'
 import styles from './productButton.css'
 
 type ProductButtonProps = {
   product: Product
   sectionIdClickedOn?: string
-  openVariationSelector?: () => void
+  variationSelectorState?: [
+    string,
+    React.Dispatch<React.SetStateAction<string>>
+  ]
   handleClose?: () => void
 }
 
 export const ProductButton = (props: ProductButtonProps) => {
-  const { product, sectionIdClickedOn, handleClose, openVariationSelector } =
+  const { product, sectionIdClickedOn, handleClose, variationSelectorState } =
     props
+
   const { id, imageUrl, name, isAvailable } = product
-  const { infoSocket, setAlertMessage } = useContext(SettingContext)
+  const { infoSocket } = useSettings()
   const { socket } = infoSocket || {}
   const { formatMessage } = useIntl()
 
   const {
-    setting: {
-      showQuickView,
-      addToCart: addToCartCallback,
-      redirectTo: openProductDetail
-    }
-  } = useContext(ActionsContext)
+    setting: { redirectTo }
+  } = useActions()
+
+  const addToCart = useAddToCart({
+    product,
+    variationSelectorState
+  })
 
   const handleClick = () => {
-    if (socket && socket?.readyState === 1 && !openProductDetail) {
+    if (socket && socket?.readyState === 1 && !redirectTo) {
       const currentCart = {
         action: 'sendaddtocart',
         data: {
@@ -47,17 +52,7 @@ export const ProductButton = (props: ProductButtonProps) => {
       sessionStorage.cartCachedOrderFormId = currentCart.orderForm
     }
 
-    if (showQuickView && openVariationSelector && !openProductDetail) {
-      openVariationSelector()
-    } else {
-      const message = addToCartHandler({
-        product,
-        openProductDetail,
-        addToCartCallback
-      })
-
-      if (message) setAlertMessage(message)
-    }
+    addToCart()
 
     if (handleClose) handleClose()
 

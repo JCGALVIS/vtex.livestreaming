@@ -11,16 +11,17 @@ import styles from './productSlider.css'
 
 type VerticalProductSliderProps = {
   height: string
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
   transmitionType?: string | undefined
 }
 
 export const VerticalProductSlider = ({
   height,
-  setShowVariation,
+  variationSelectorState,
   transmitionType
 }: VerticalProductSliderProps) => {
-  const { collectionId, isModalLive, setCollection } = useContext(SettingContext)
+  const { collectionId, isModalLive, setCollection } =
+    useContext(SettingContext)
   const isMobile = getDeviceType() === 'mobile'
 
   const {
@@ -114,7 +115,7 @@ export const VerticalProductSlider = ({
             <ProductItem
               key={product.id}
               product={product}
-              setShowVariation={setShowVariation}
+              variationSelectorState={variationSelectorState}
               sectionIdClickedOn='live_shopping_sidebar'
             />
           ))}

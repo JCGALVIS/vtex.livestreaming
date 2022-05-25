@@ -12,12 +12,12 @@ import styles from './productSlider.css'
 import { Spinner } from '..'
 
 type HorizontalProductSliderProps = {
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
   transmitionType: string | undefined
 }
 
 export const HorizontalProductSlider = ({
-  setShowVariation,
+  variationSelectorState,
   transmitionType
 }: HorizontalProductSliderProps) => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0)
@@ -117,7 +117,7 @@ export const HorizontalProductSlider = ({
               <div className={styles.horizontalProductList}>
                 <ProductItem
                   product={product}
-                  setShowVariation={setShowVariation}
+                  variationSelectorState={variationSelectorState}
                   sectionIdClickedOn='live_shopping_carousel'
                 />
               </div>
