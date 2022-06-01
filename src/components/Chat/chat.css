@@ -74,7 +74,7 @@
 }
 
 .profileIcon svg {
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .chatUser {
@@ -201,11 +201,11 @@
 
 @keyframes spin {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -272,7 +272,7 @@
     overflow-y: scroll !important;
   }
 
-  .chatArea img{
+  .chatArea img {
     border-radius: 5px;
   }
 
@@ -435,7 +435,7 @@
     display: block;
   }
 
-  .activeChatCarousel .chatArea{
+  .activeChatCarousel .chatArea {
     height: 13vh !important;
   }
   .activeChatCarousel .liveChatPinnedMessage .chatArea {
