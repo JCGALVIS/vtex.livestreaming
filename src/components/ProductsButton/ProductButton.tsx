@@ -1,7 +1,7 @@
 import classNames from 'clsx'
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useActions, useSettings } from '../../context'
+import { useSettings } from '../../context'
 import { useAddToCart } from '../../hooks'
 import type { Product } from '../../typings/livestreaming'
 import styles from './productButton.css'
@@ -25,17 +25,13 @@ export const ProductButton = (props: ProductButtonProps) => {
   const { socket } = infoSocket || {}
   const { formatMessage } = useIntl()
 
-  const {
-    setting: { redirectTo }
-  } = useActions()
-
   const addToCart = useAddToCart({
     product,
     variationSelectorState
   })
 
   const handleClick = () => {
-    if (socket && socket?.readyState === 1 && !redirectTo) {
+    if (socket && socket?.readyState === 1) {
       const currentCart = {
         action: 'sendaddtocart',
         data: {
