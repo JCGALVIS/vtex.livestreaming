@@ -70,13 +70,13 @@
 }
 
 .chatContent {
-  position: absolute !important;
-  bottom: 1rem !important;
-  left: 0.5rem !important;
-  width: 50% !important;
-  height: auto !important;
-  max-height: none !important;
-  z-index: 3 !important;
+  position: absolute;
+  bottom: 1rem;
+  left: 0.5rem;
+  width: 50%;
+  height: auto;
+  max-height: none;
+  z-index: 3;
 }
 
 .closePopoup {
@@ -150,11 +150,11 @@
   }
 
   .chatContent {
-    position: relative !important;
-    flex: 0 1 24.22% !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    z-index: auto !important;
+    position: relative;
+    flex: 0 1 24.22%;
+    bottom: 0;
+    left: 0;
+    z-index: auto;
   }
 
   .flexAuto {
