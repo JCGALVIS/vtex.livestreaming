@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl'
 import { useActions, useSettings } from '../context'
-import { Product } from '../typings/livestreaming'
+import { InfoSocket, Product } from '../typings/livestreaming'
 
 enum OriginOfProducts {
   CACE = 'CACE',
@@ -13,13 +13,15 @@ type AddToCartProps = {
     string,
     React.Dispatch<React.SetStateAction<string>>
   ]
+  infoSocket?: InfoSocket
 }
 
 const error = (message: string, ...args: any[]) =>
   console.error(`[useAddToCart] ${message}`, ...args)
 
 export const useAddToCart = (props: AddToCartProps) => {
-  const { product } = props
+  const { product, infoSocket } = props
+  const { socket } = infoSocket || {}
   const { setting } = useActions()
   const { setAlertMessage } = useSettings()
   const { formatMessage } = useIntl()
@@ -52,19 +54,41 @@ export const useAddToCart = (props: AddToCartProps) => {
   const openCheckoutTab = () => openNewTab(addToCartLink)
   const openProductDetailTab = () => openNewTab(pdpLink)
 
+  function sendAddToCartSocket() {
+    if (socket && socket?.readyState === 1) {
+      const currentCart = {
+        action: 'sendaddtocart',
+        data: {
+          productId: product.id,
+          name: product.name,
+          imageUrl: product.imageUrl
+        },
+        sessionId: infoSocket?.sessionId,
+        email: '-',
+        orderForm: window?.vtexjs?.checkout?.orderForm?.orderFormId
+      }
+      socket.send(JSON.stringify(currentCart))
+      sessionStorage.cartCachedOrderFormId = currentCart.orderForm
+    }
+  }
+
   function addToCart() {
     if (isCACE) {
       // The PDP link of a CACE product comes in the "addToCartLink"
+      sendAddToCartSocket()
       openCheckoutTab()
     } else if (!showVariationSelector && thereAreVariations) {
       if (showQuickView) {
         setShowVariationSelector(product.id)
       } else {
+        sendAddToCartSocket()
         openProductDetailTab()
       }
     } else if (redirectTo && (!thereAreVariations || showVariationSelector)) {
+      sendAddToCartSocket()
       openCheckoutTab()
     } else {
+      sendAddToCartSocket()
       runAddToCartCallback()
     }
   }

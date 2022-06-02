@@ -20,34 +20,17 @@ export const ProductButton = (props: ProductButtonProps) => {
   const { product, sectionIdClickedOn, handleClose, variationSelectorState } =
     props
 
-  const { id, imageUrl, name, isAvailable } = product
+  const { id, name, isAvailable } = product
   const { infoSocket } = useSettings()
-  const { socket } = infoSocket || {}
   const { formatMessage } = useIntl()
 
   const addToCart = useAddToCart({
     product,
-    variationSelectorState
+    variationSelectorState,
+    infoSocket
   })
 
   const handleClick = () => {
-    if (socket && socket?.readyState === 1) {
-      const currentCart = {
-        action: 'sendaddtocart',
-        data: {
-          productId: id,
-          name: name,
-          imageUrl: imageUrl
-        },
-        sessionId: infoSocket?.sessionId,
-        email: '-',
-        orderForm: window?.vtexjs?.checkout?.orderForm?.orderFormId
-      }
-
-      socket.send(JSON.stringify(currentCart))
-      sessionStorage.cartCachedOrderFormId = currentCart.orderForm
-    }
-
     addToCart()
 
     if (handleClose) handleClose()

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSettings } from '../../context'
 import { useAddToCart } from '../../hooks'
 import type { Product } from '../../typings/livestreaming'
 import { currencyFormat } from '../../utils'
@@ -18,13 +19,15 @@ type ChatCarouselProductItemProps = {
 export const ChatCarouselProductItem = (
   props: ChatCarouselProductItemProps
 ) => {
+  const { infoSocket } = useSettings()
   const { product, variationSelectorState, fullScreen, handleFullScreen } =
     props
   const { priceWithDiscount, imageUrl } = product
 
   const addToCart = useAddToCart({
     product,
-    variationSelectorState
+    variationSelectorState,
+    infoSocket
   })
 
   return (
