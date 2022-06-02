@@ -1,14 +1,24 @@
 import React, { useEffect, useState, useContext } from 'react'
 
-import { SettingContext } from '../../context'
+import { SettingContext, ActionsContext } from '../../context'
 import ViewersIcon from '../icons/ViewersIcon'
 import styles from './viewers.css'
 
 export const Viewers = () => {
-  const [viewers, setViewers] = useState(0)
+  const {setting: {showViewers: initShowViewers}} = useContext(ActionsContext)
   const { infoSocket } = useContext(SettingContext)
+  const { ivsRealTime, showCounter: socketShowViewers, isTransmiting } = infoSocket || {}
 
-  const { ivsRealTime, showCounter, isTransmiting } = infoSocket || {}
+  const [showViewers, setShowViewers] = useState(true)
+  const [viewers, setViewers] = useState(0)
+
+  useEffect(()=>{
+    if(initShowViewers === undefined){
+      setShowViewers(socketShowViewers === undefined ? true : socketShowViewers)
+    } else {
+      setShowViewers(initShowViewers)
+    }
+  }, [initShowViewers, socketShowViewers])
 
   useEffect(() => {
     if (ivsRealTime && ivsRealTime.status === 'LIVE') {
@@ -22,7 +32,7 @@ export const Viewers = () => {
     return null
   }
 
-  return showCounter && isTransmiting ? (
+  return showViewers && isTransmiting ? (
     <div className={styles.viewersContainer}>
       <div className={styles.viewerIcon}>
         <ViewersIcon size='20' viewBox='0 0 400 400' />
