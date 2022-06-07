@@ -1,63 +1,37 @@
 import classNames from 'clsx'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
-import { ActionsContext, SettingContext } from '../../context'
+import { useSettings } from '../../context'
+import { useAddToCart } from '../../hooks'
 import type { Product } from '../../typings/livestreaming'
-import { addToCartHandler } from '../../utils'
 import styles from './productButton.css'
 
 type ProductButtonProps = {
   product: Product
   sectionIdClickedOn?: string
-  openVariationSelector?: () => void
+  variationSelectorState?: [
+    string,
+    React.Dispatch<React.SetStateAction<string>>
+  ]
   handleClose?: () => void
 }
 
 export const ProductButton = (props: ProductButtonProps) => {
-  const { product, sectionIdClickedOn, handleClose, openVariationSelector } =
+  const { product, sectionIdClickedOn, handleClose, variationSelectorState } =
     props
-  const { id, imageUrl, name, isAvailable } = product
-  const { infoSocket, setAlertMessage } = useContext(SettingContext)
-  const { socket } = infoSocket || {}
+
+  const { id, name, isAvailable } = product
+  const { infoSocket } = useSettings()
   const { formatMessage } = useIntl()
 
-  const {
-    setting: {
-      showQuickView,
-      addToCart: addToCartCallback,
-      redirectTo: openProductDetail
-    }
-  } = useContext(ActionsContext)
+  const addToCart = useAddToCart({
+    product,
+    variationSelectorState,
+    infoSocket
+  })
 
   const handleClick = () => {
-    if (socket && socket?.readyState === 1 && !openProductDetail) {
-      const currentCart = {
-        action: 'sendaddtocart',
-        data: {
-          productId: id,
-          name: name,
-          imageUrl: imageUrl
-        },
-        sessionId: infoSocket?.sessionId,
-        email: '-',
-        orderForm: window?.vtexjs?.checkout?.orderForm?.orderFormId
-      }
-
-      socket.send(JSON.stringify(currentCart))
-      sessionStorage.cartCachedOrderFormId = currentCart.orderForm
-    }
-
-    if (showQuickView && openVariationSelector && !openProductDetail) {
-      openVariationSelector()
-    } else {
-      const message = addToCartHandler({
-        product,
-        openProductDetail,
-        addToCartCallback
-      })
-
-      if (message) setAlertMessage(message)
-    }
+    addToCart()
 
     if (handleClose) handleClose()
 

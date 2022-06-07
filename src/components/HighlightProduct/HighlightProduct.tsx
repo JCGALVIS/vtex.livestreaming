@@ -1,6 +1,6 @@
 import classNames from 'clsx'
-import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { SettingContext } from '../../context'
+import React, { Fragment, useEffect, useState } from 'react'
+import { useSettings } from '../../context'
 import { useHighlightProduct } from '../../hooks/useHighlightProduct'
 import { ProductButton } from '../ProductsButton/ProductButton'
 import styles from './highlightProduct.css'
@@ -8,21 +8,19 @@ import styles from './highlightProduct.css'
 interface HighlightProductProps {
   fullScreen: boolean
   handleFullScreen: () => void
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
   isFinalized: boolean
 }
 
 const HighlightProduct = ({
   fullScreen,
   handleFullScreen,
-  setShowVariation,
+  variationSelectorState,
   isFinalized
 }: HighlightProductProps) => {
   const [show, setShow] = useState<boolean | undefined>(false)
   const [optionHighlight, setOptionHighlight] = useState<string | undefined>()
-
-  const { collectionId, infoSocket, setCollection } = useContext(SettingContext)
-
+  const { collectionId, infoSocket, setCollection } = useSettings()
   const { ivsRealTime, highlightProduct } = infoSocket || {}
 
   const { product, showProduct } = useHighlightProduct({
@@ -81,7 +79,7 @@ const HighlightProduct = ({
               <ProductButton
                 product={product}
                 sectionIdClickedOn='live_shopping_highlight_product'
-                openVariationSelector={() => setShowVariation(product.id)}
+                variationSelectorState={variationSelectorState}
               />
             </div>
           </div>

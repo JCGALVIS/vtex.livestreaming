@@ -1,11 +1,10 @@
-import { addToCartHandler } from './addToCartHandler'
 import { calcHeightApp } from './calcHeightElmBeforeApp'
 import { currencyFormat } from './getFormatMoney'
-import { getMobileOS, getDeviceType } from './getMobileOs'
-import { getRandomColor } from './getRandomColor'
-import Queue from './Queue'
+import { getDeviceType, getMobileOS } from './getMobileOs'
 import { getRandomNumber } from './getRamdonNumber'
+import { getRandomColor } from './getRandomColor'
 import { mapDomainToPdp } from './mapDomainToPdp'
+import Queue from './Queue'
 import { setCorrectAddToCartLink } from './setCorrectAddToCartLink'
 
 export {
@@ -14,7 +13,6 @@ export {
   getDeviceType,
   getMobileOS,
   getRandomColor,
-  addToCartHandler,
   Queue,
   getRandomNumber,
   mapDomainToPdp,

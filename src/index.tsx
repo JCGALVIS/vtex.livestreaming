@@ -59,6 +59,10 @@ export const Livestreaming = (props: LivestreamingProps) => {
     if (!settings || isLoading === undefined || isLoading) return
     setActionsProps({
       ...actionsProps,
+      showViewers:
+        settings.showViewers === undefined
+          ? actionsProps.showViewers
+          : settings.showViewers,
       redirectTo:
         settings.redirectTo === undefined
           ? actionsProps.redirectTo
