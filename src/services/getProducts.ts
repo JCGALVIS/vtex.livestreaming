@@ -66,7 +66,6 @@ const getProductsCace = async ({ collectionId }: GetProductsProps) => {
   const data = await apiCall({ url })
   if (data && data.length > 0) {
     const products = data.map((product: any) => {
-
       const result: any = filterAvailableProducts(product)
       const { item, seller, isAvailable } = result
 
@@ -134,7 +133,6 @@ const getProductsGlobalPage = async ({
     setCorrectAddToCartLink(data, account, host)
 
     const products = data.map((product: any) => {
-
       const result: any = filterAvailableProducts(product)
       const { item, seller, isAvailable } = result
 
@@ -164,7 +162,6 @@ const getProductByIdCace = async ({ productId }: GetProductsProps) => {
   const data = await apiCall({ url })
 
   if (data && data.length > 0) {
-
     const result: any = filterAvailableProducts(data[0])
     const { item, seller, isAvailable } = result
 

@@ -29,6 +29,7 @@ import styles from './../styles.module.css'
 import styles2 from './liveShopping.css'
 import { Alert } from './commonComponents'
 import ShopIcon from './icons/ShopIcon'
+
 type MarketingData = {
   utmSource: string | undefined
 }
@@ -45,7 +46,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   const { setLoading } = props
   const divVideoContent = useRef<HTMLDivElement>(null)
   const [showSliderProducts, setShowSliderProducts] = useState(false)
-  const [showVariation, setShowVariation] = useState('')
+  const variationSelectorState = useState('')
+  const [showVariation, setShowVariation] = variationSelectorState
   const [height, setHeight] = useState('0')
   const [detector, setDetector] = useState('')
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
@@ -294,7 +296,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               height={height}
               showSliderProducts={showSliderProducts}
               setShowSliderProducts={setShowSliderProducts}
-              setShowVariation={setShowVariation}
+              variationSelectorState={variationSelectorState}
             />
           ) : null}
           <div
@@ -308,7 +310,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             {showSidebarProducts && (
               <VerticalProductSlider
                 height={(parseInt(height) - 58).toString()}
-                setShowVariation={setShowVariation}
+                variationSelectorState={variationSelectorState}
                 transmitionType={transmitionType}
               />
             )}
@@ -348,7 +350,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               >
                 <Feed
                   isPlayerSupported={isPlayerSupported}
-                  setShowVariation={setShowVariation}
+                  variationSelectorState={variationSelectorState}
                   streamUrl={streamUrl}
                   transmitionType={transmitionType}
                   livestreamingStatus={status}
@@ -383,7 +385,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               <div className={styles.horizontalProductsContent}>
                 {showProductsCarousel && !isModalLive && (
                   <HorizontalProductSlider
-                    setShowVariation={setShowVariation}
+                    variationSelectorState={variationSelectorState}
                     transmitionType={transmitionType}
                   />
                 )}

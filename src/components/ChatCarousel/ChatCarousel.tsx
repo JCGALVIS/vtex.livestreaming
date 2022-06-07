@@ -9,7 +9,7 @@ import { ChatCarouselProductItem } from '../ProductSlider/ChatCarouselProductIte
 import { Spinner } from '../commonComponents'
 
 type ChatCarouselProps = {
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
   transmitionType: string | undefined
   fullScreen: boolean
   isTransmiting: boolean | undefined
@@ -17,7 +17,7 @@ type ChatCarouselProps = {
 }
 
 export const ChatCarousel = ({
-  setShowVariation,
+  variationSelectorState,
   fullScreen,
   handleFullScreen,
   isTransmiting = false
@@ -34,14 +34,17 @@ export const ChatCarousel = ({
       <Spinner />
     </div>
   ) : products ? (
-    <div className={styles.chatCarouselContainer} style={{width: isTransmiting ? '85%' : '100%'}}>
+    <div
+      className={styles.chatCarouselContainer}
+      style={{ width: isTransmiting ? '85%' : '100%' }}
+    >
       {products &&
         products.length > 0 &&
         products.map((product: any) => (
           <div key={product.id} className={styles.horizontalProductList}>
             <ChatCarouselProductItem
               product={product}
-              setShowVariation={setShowVariation}
+              variationSelectorState={variationSelectorState}
               sectionIdClickedOn='live_shopping_carousel'
               fullScreen={fullScreen}
               handleFullScreen={handleFullScreen}

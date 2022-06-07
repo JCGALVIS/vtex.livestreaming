@@ -1,12 +1,16 @@
-import React, { useContext } from 'react'
-import { ActionsContext, SettingContext } from '../../context'
+import React from 'react'
+import { useSettings } from '../../context'
+import { useAddToCart } from '../../hooks'
 import type { Product } from '../../typings/livestreaming'
-import { addToCartHandler, currencyFormat } from '../../utils'
+import { currencyFormat } from '../../utils'
 import styles from './productSlider.css'
 
 type ChatCarouselProductItemProps = {
   product: Product
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState?: [
+    string,
+    React.Dispatch<React.SetStateAction<string>>
+  ]
   sectionIdClickedOn?: string
   fullScreen: boolean
   handleFullScreen: () => void
@@ -15,34 +19,22 @@ type ChatCarouselProductItemProps = {
 export const ChatCarouselProductItem = (
   props: ChatCarouselProductItemProps
 ) => {
-  const { product, setShowVariation, fullScreen, handleFullScreen } = props
-  const { id, priceWithDiscount, imageUrl } = product
-  const { setAlertMessage } = useContext(SettingContext)
+  const { infoSocket } = useSettings()
+  const { product, variationSelectorState, fullScreen, handleFullScreen } =
+    props
+  const { priceWithDiscount, imageUrl } = product
 
-  const {
-    setting: {
-      showQuickView,
-      addToCart: addToCartCallback,
-      redirectTo: openProductDetail
-    }
-  } = useContext(ActionsContext)
+  const addToCart = useAddToCart({
+    product,
+    variationSelectorState,
+    infoSocket
+  })
 
   return (
     <div
       onClick={() => {
         if (fullScreen) handleFullScreen()
-
-        if (showQuickView && !openProductDetail) {
-          setShowVariation(id)
-        } else {
-          const message = addToCartHandler({
-            product,
-            openProductDetail,
-            addToCartCallback
-          })
-
-          if (message) setAlertMessage(message)
-        }
+        addToCart()
       }}
       className={styles.productItemContent}
     >

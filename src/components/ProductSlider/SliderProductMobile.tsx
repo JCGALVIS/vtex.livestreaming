@@ -1,22 +1,21 @@
-import React, { Fragment } from 'react'
-import { Transition, CSSTransition } from 'react-transition-group'
 import IconClose from '@vtex/styleguide/lib/icon/Close'
-
-import { VerticalProductSlider } from './VerticalProductSlider'
+import React, { Fragment } from 'react'
+import { CSSTransition, Transition } from 'react-transition-group'
 import styles from './productSlider.css'
+import { VerticalProductSlider } from './VerticalProductSlider'
 
 type SliderProductMobileProps = {
   height: string
   showSliderProducts: boolean
   setShowSliderProducts: React.Dispatch<React.SetStateAction<boolean>>
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
 }
 
 export const SliderProductMobile = ({
   height,
   showSliderProducts,
   setShowSliderProducts,
-  setShowVariation
+  variationSelectorState
 }: SliderProductMobileProps) => {
   return (
     <Transition in={showSliderProducts} timeout={150}>
@@ -44,7 +43,7 @@ export const SliderProductMobile = ({
               <div>
                 <VerticalProductSlider
                   height={(parseInt(height) + 50).toString()}
-                  setShowVariation={setShowVariation}
+                  variationSelectorState={variationSelectorState}
                 />
               </div>
             </div>
