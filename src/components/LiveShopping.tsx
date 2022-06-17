@@ -236,7 +236,11 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   }, [initPinnedMessage, socketPinnedMessage])
 
   useEffect(() => {
-    if (isTransmitting) return
+    if (
+      (isTransmitting && transmissionType) ||
+      (!initTransmissionType && !socketTransmissionType)
+    )
+      return
 
     if (socketTransmissionType) {
       setTransmissionType(socketTransmissionType)
@@ -265,6 +269,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     if (!setUpdateLivestreaming) return
     setUpdateLivestreaming(updateLivestreaming)
   }, [updateLivestreaming, setUpdateLivestreaming])
+
+  console.log('transmissionType;', transmissionType)
 
   return (
     <div
