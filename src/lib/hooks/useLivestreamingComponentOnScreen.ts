@@ -1,30 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 declare interface Option {
-  rootMargin: string;
+  rootMargin: string
 }
 
 const useLivestreamingComponentOnScreen = (option: Option) => {
-  const livestreaminComponent = document.getElementById('live-shopping-app');
-  const [inView, setInView] = useState(false);
+  const livestreamingComponent = document.getElementById('live-shopping-app')
+  const [inView, setInView] = useState(false)
 
   const callback = (entries: IntersectionObserverEntry[]) => {
     if (entries[0].isIntersecting) {
-      setInView(true);
+      setInView(true)
 
-      return;
+      return
     }
 
-    setInView(false);
-  };
+    setInView(false)
+  }
 
   useEffect(() => {
-    const observer = new IntersectionObserver(callback, option);
+    const observer = new IntersectionObserver(callback, option)
 
-    if (livestreaminComponent) observer.observe(livestreaminComponent);
-  }, [livestreaminComponent, option]);
+    if (livestreamingComponent) observer.observe(livestreamingComponent)
+  }, [livestreamingComponent, option])
 
-  return { livestreaminComponentInView: inView };
-};
+  return { livestreamingComponentInView: inView }
+}
 
-export default useLivestreamingComponentOnScreen;
+export default useLivestreamingComponentOnScreen

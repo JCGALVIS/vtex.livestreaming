@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react';
-import type { HighlightProduct, Products } from '../../typings/livestreaming';
-import { useLivestreamingContext } from '../context';
-import { useShowHightlightsForFinishedEvents } from './useShowHightlightsForFinishedEvents';
-import { useFetchProducts } from './useFetchProducts';
+import { useEffect, useState } from 'react'
+import type { HighlightProduct, Product } from '../../typings/livestreaming'
+import { useLivestreamingContext } from '../context'
+import { useShowHightlightsForFinishedEvents } from './useShowHightlightsForFinishedEvents'
+import { useFetchProducts } from './useFetchProducts'
 
 type useHighlightProductProps = {
-  highlightProduct: HighlightProduct | undefined;
-  collectionId: string | undefined;
-  isFinalized: boolean;
-  setCollection?: React.Dispatch<React.SetStateAction<string | undefined>>;
-};
+  highlightProduct: HighlightProduct | undefined
+  collectionId: string | undefined
+  isFinalized: boolean
+  setCollection?: React.Dispatch<React.SetStateAction<string | undefined>>
+}
 
 export const useHighlightProduct = ({
   highlightProduct,
   collectionId,
   isFinalized,
-  setCollection,
+  setCollection
 }: useHighlightProductProps) => {
-  const [product, setProduct] = useState<Products>();
-  const [showProduct, setShowProduct] = useState<boolean | undefined>(false);
-  const { idLivestreaming } = useLivestreamingContext();
+  const [product, setProduct] = useState<Product>()
+  const [showProduct, setShowProduct] = useState<boolean | undefined>(false)
+  const { idLivestreaming } = useLivestreamingContext()
   const { products } = useFetchProducts({
     collectionId,
-    setCollection,
-  });
+    setCollection
+  })
 
-  const handleSetProduct = (productId: string, products: Products[]) => {
+  const handleSetProduct = (productId: string, products: Product[]) => {
     const product = products.find(
-      (product: { id: string | undefined }) => product.id === productId,
-    );
+      (product: { id: string | undefined }) => product.id === productId
+    )
 
     if (product) {
       setProduct({
@@ -42,63 +42,63 @@ export const useHighlightProduct = ({
         variationSelector: product?.variationSelector,
         pdpLink: product?.pdpLink,
         skuId: product?.skuId,
-        items: product?.items,
-      });
+        items: product?.items
+      })
     }
-  };
+  }
 
   useShowHightlightsForFinishedEvents(
     handleSetProduct,
     setShowProduct,
-    isFinalized,
-  );
+    isFinalized
+  )
 
   useEffect(() => {
-    localStorage.removeItem('collectionId');
-    if (highlightProduct?.backgroundWhiteHighlight) return;
+    localStorage.removeItem('collectionId')
+    if (highlightProduct?.backgroundWhiteHighlight) return
 
     if (highlightProduct && !highlightProduct?.showProduct)
-      localStorage.removeItem('product');
+      localStorage.removeItem('product')
 
     const dataProduct = {
       productId: highlightProduct?.productId,
       showProduct: highlightProduct?.showProduct,
       collection: highlightProduct?.collection,
-      livestreamingId: highlightProduct?.livestreamingId,
-    };
+      livestreamingId: highlightProduct?.livestreamingId
+    }
 
     if (highlightProduct)
-      localStorage.setItem('product', JSON.stringify(dataProduct));
+      localStorage.setItem('product', JSON.stringify(dataProduct))
 
-    const storageProduct = localStorage.getItem('product');
-    const storageCollectionId = localStorage.getItem('collectionId');
+    const storageProduct = localStorage.getItem('product')
+    const storageCollectionId = localStorage.getItem('collectionId')
 
     if (
       collectionId &&
       (!storageCollectionId || collectionId !== storageCollectionId)
     ) {
-      localStorage.setItem('collectionId', collectionId);
-      products && localStorage.setItem('products', JSON.stringify(products));
+      localStorage.setItem('collectionId', collectionId)
+      products && localStorage.setItem('products', JSON.stringify(products))
     }
 
-    let objetProduct = storageProduct && JSON.parse(storageProduct);
+    let objetProduct = storageProduct && JSON.parse(storageProduct)
     if (`${objetProduct?.livestreamingId}` !== idLivestreaming) {
-      objetProduct = null;
+      objetProduct = null
     }
 
     const isShowProduct = objetProduct
       ? objetProduct.showProduct
-      : highlightProduct?.showProduct;
+      : highlightProduct?.showProduct
 
     if (products && isShowProduct) {
-      const productId = objetProduct.productId || highlightProduct?.productId;
-      handleSetProduct(productId, products);
+      const productId = objetProduct.productId || highlightProduct?.productId
+      handleSetProduct(productId, products)
 
-      if (productId) setShowProduct(isShowProduct);
+      if (productId) setShowProduct(isShowProduct)
     } else {
-      setShowProduct(isShowProduct);
+      setShowProduct(isShowProduct)
     }
-  }, [collectionId, highlightProduct, products]);
+  }, [collectionId, highlightProduct, products])
 
-  return { product, showProduct };
-};
+  return { product, showProduct }
+}

@@ -31,7 +31,7 @@ const GiphySearch = (props: Props) => {
         searchFormClassName={styles.giphySearchBoxSearchForm}
         listWrapperClassName={styles.giphySearchBoxlistWrapper}
         listItemClassName={styles.giphySearchBoxlistItem}
-        apiKey="8uW5K9OTZrXxxZd65rncfQ3e8owkueU1" // Required: get your on https://developers.giphy.com
+        apiKey='2USWDcs6hMCHg89eWUZMYEJNlp4jsmG1'
         onSelect={(item: IGif) => {
           sendGif(
             undefined,

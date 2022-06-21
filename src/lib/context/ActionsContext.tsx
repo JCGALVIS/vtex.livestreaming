@@ -1,6 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, { createContext, useState, FC, useEffect } from 'react';
-import type { LivestreamingProps } from '../../typings/livestreaming';
+import React, {
+  createContext,
+  useState,
+  FC,
+  useEffect,
+  useContext
+} from 'react'
+import type { LivestreamingProps } from '../../typings/livestreaming'
 
 type ActionCtx = {
   setting: LivestreamingProps;
@@ -32,6 +37,8 @@ const actionsDefault: ActionCtx = {
 };
 
 export const ActionsContext = createContext<ActionCtx>(actionsDefault);
+
+export const useActions = () => useContext(ActionsContext)
 
 export type ActionsProviderProps = {
   props: LivestreamingProps;

@@ -1,21 +1,25 @@
-/* eslint-disable no-unused-vars */
-import React, { createContext, FC, useState } from 'react';
+import React, { createContext, FC, useContext, useState } from 'react'
 
 import { useWebSocket } from '../hooks';
 import { InfoSocket, PromotionTrigger } from '../../typings/livestreaming';
 
+type AlertMessage = {
+  type: 'error' | 'success' | 'info' | 'warning'
+  value: string
+}
+
 type SettingCtx = {
-  collectionId?: string;
-  infoSocket?: InfoSocket;
-  isModalLive: boolean | undefined;
-  messageAlert?: string;
-  setIsModalLive: (isModalLive: boolean) => void;
-  wssStream?: string;
-  showCarouselChat?: boolean;
-  showCarouselChatButton?: boolean;
-  setMessageAlert?: React.Dispatch<React.SetStateAction<string>>;
-  setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowCarouselChatButton?: React.Dispatch<React.SetStateAction<boolean>>;
+  collectionId?: string
+  infoSocket?: InfoSocket
+  isModalLive: boolean | undefined
+  alertMessage: AlertMessage | null
+  setIsModalLive: (isModalLive: boolean) => void
+  wssStream?: string
+  showCarouselChat?: boolean
+  showCarouselChatButton?: boolean
+  setAlertMessage: (message: AlertMessage | null) => void
+  setShowCarouselChat?: React.Dispatch<React.SetStateAction<boolean>>
+  setShowCarouselChatButton?: React.Dispatch<React.SetStateAction<boolean>>
   setActivePromo?: React.Dispatch<
     React.SetStateAction<PromotionTrigger | undefined>
   >;
@@ -27,16 +31,20 @@ type SettingCtx = {
   setCollection?: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const settingDefault: SettingCtx = {
+export const settingDefault: SettingCtx = {
   isModalLive: false,
-  setIsModalLive: () => {},
   showCarouselChat: false,
+  alertMessage: null,
+  setIsModalLive: () => {},
   setShowCarouselChatButton: () => {},
   setActivePromo: () => {},
   setCollection: () => {},
-};
+  setAlertMessage: () => null
+}
 
 export const SettingContext = createContext<SettingCtx>(settingDefault);
+
+export const useSettings = () => useContext(SettingContext)
 
 export const SettingProvider: FC<SettingCtx> = ({
   collectionId,
@@ -45,22 +53,22 @@ export const SettingProvider: FC<SettingCtx> = ({
   setIsModalLive,
   wssStream,
 }) => {
-  const infoSocket = useWebSocket({ wssStream });
-  const [showCarouselChat, setShowCarouselChat] = useState(false);
-  const [showCarouselChatButton, setShowCarouselChatButton] = useState(false);
-  const [messageAlert, setMessageAlert] = useState('');
-  const [activePromo, setActivePromo] = useState<PromotionTrigger>();
-  const [updateLivestreaming, setUpdateLivestreaming] = useState<string>();
-  const [collection, setCollection] = useState(collectionId);
+  const infoSocket = useWebSocket({ wssStream })
+  const [showCarouselChat, setShowCarouselChat] = useState(false)
+  const [showCarouselChatButton, setShowCarouselChatButton] = useState(false)
+  const [alertMessage, setAlertMessage] = useState<AlertMessage | null>(null)
+  const [activePromo, setActivePromo] = useState<PromotionTrigger>()
+  const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
+  const [collection, setCollection] = useState(collectionId)
 
   const contex: SettingCtx = {
     collectionId: collection,
     infoSocket,
     isModalLive,
-    messageAlert,
+    alertMessage,
     setIsModalLive,
     showCarouselChat,
-    setMessageAlert,
+    setAlertMessage,
     setShowCarouselChat,
     showCarouselChatButton,
     setShowCarouselChatButton,

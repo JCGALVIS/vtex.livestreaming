@@ -2,5 +2,6 @@
   "cSpell.language": "en,es",
   "editor.tabSize": 2,
   "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": ["source.fixAll"]
+  "editor.codeActionsOnSave": ["source.fixAll"],
+  "cSpell.words": ["livestreaming", "Livestreaming"]
 }

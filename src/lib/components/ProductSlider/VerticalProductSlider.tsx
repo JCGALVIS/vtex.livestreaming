@@ -10,19 +10,19 @@ import { Spinner } from '../Spinner/Spinner';
 import styles from './productSlider.module.css';
 
 type VerticalProductSliderProps = {
-  height: string;
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>;
-  transmitionType?: string | undefined;
-};
+  height: string
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
+  transmitionType?: string | undefined
+}
 
 export const VerticalProductSlider = ({
   height,
-  setShowVariation,
-  transmitionType,
+  variationSelectorState,
+  transmitionType
 }: VerticalProductSliderProps) => {
   const { collectionId, isModalLive, setCollection } =
-    useContext(SettingContext);
-  const isMobile = getDeviceType() === 'mobile';
+    useContext(SettingContext)
+  const isMobile = getDeviceType() === 'mobile'
 
   const {
     setting: { isInfinite, time },
@@ -113,8 +113,8 @@ export const VerticalProductSlider = ({
             <ProductItem
               key={product.id}
               product={product}
-              setShowVariation={setShowVariation}
-              sectionIdClickedOn="live_shopping_sidebar"
+              variationSelectorState={variationSelectorState}
+              sectionIdClickedOn='live_shopping_sidebar'
             />
           ))}
       </div>

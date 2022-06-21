@@ -8,12 +8,12 @@ import {
   HighlightProduct,
   ScriptProperties,
   Question,
-  Products,
-  PromotionTrigger,
-} from '../../typings/livestreaming';
-import { useSessionId } from './useSessionId';
-import { getDeviceType, getRandomColor, Queue } from '../utils';
-import { v4 as uuidv4 } from 'uuid';
+  Product,
+  PromotionTrigger
+} from '../../typings/livestreaming'
+import { useSessionId } from './useSessionId'
+import { getDeviceType, getRandomColor, Queue } from '../utils'
+import { v4 as uuidv4 } from 'uuid'
 
 declare interface Props {
   wssStream: string | undefined;
@@ -41,16 +41,16 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
   const [uniqueViewer, setUniqueViewer] = useState(false);
   const [scriptProperties, setScriptProperties] = useState<
     ScriptProperties | undefined
-  >();
-  const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>();
-  const [question, setQuestion] = useState<Question>();
-  const [queueSocket, setQueueSocket] = useState<Queue<number> | undefined>();
-  const [messageToDelete, setMessageToDelete] = useState<Message | undefined>();
-  const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>();
-  const [transmitiontype, setTransmitiontype] = useState<string | undefined>();
-  const [productsInCart, setProductsInCart] = useState<Products[]>([]);
-  const [activePromo, setActivePromo] = useState<PromotionTrigger>();
-  const [updateLivestreaming, setUpdateLivestreaming] = useState<string>();
+  >()
+  const [emailIsRequired, setEmailIsRequired] = useState<boolean | undefined>()
+  const [question, setQuestion] = useState<Question>()
+  const [queueSocket, setQueueSocket] = useState<Queue<number> | undefined>()
+  const [messageToDelete, setMessageToDelete] = useState<Message | undefined>()
+  const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>()
+  const [transmitiontype, setTransmitiontype] = useState<string | undefined>()
+  const [productsInCart, setProductsInCart] = useState<Product[]>([])
+  const [activePromo, setActivePromo] = useState<PromotionTrigger>()
+  const [updateLivestreaming, setUpdateLivestreaming] = useState<string>()
 
   const createWebSocket = useCallback(() => {
     let queueSocketInit: Queue<number>;
@@ -101,7 +101,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
         responseAdmin,
         isInGlobalPage,
         type,
-        quickView,
+        showQuickView,
         showCarouselChatButton,
         viewers,
         trigger,
@@ -171,7 +171,7 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
             like,
             infinite,
             time,
-            quickView,
+            showQuickView,
             pdp,
             kuikpay,
             isInGlobalPage,
@@ -318,8 +318,8 @@ const useWebSocket = ({ wssStream }: Props): InfoSocket => {
     setQueueSocket,
     showCarouselChatButton,
     activePromo,
-    updateLivestreaming,
-  };
-};
+    updateLivestreaming
+  }
+}
 
 export default useWebSocket;

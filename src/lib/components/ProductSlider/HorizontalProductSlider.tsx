@@ -2,27 +2,27 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { ProductItem } from './ProductItem';
-import { useFetchProducts } from '../../hooks/useFetchProducts';
-import { ArrowRightLivestreaming } from '../icons';
-import { ActionsContext, SettingContext } from '../../context';
-import { Products } from '../../../typings/livestreaming';
+import { ProductItem } from './ProductItem'
+import { useFetchProducts } from '../../hooks/useFetchProducts'
+import { ArrowRightLivestreaming } from '../icons'
+import { ActionsContext, SettingContext } from '../../context'
+import { Product } from '../../../typings/livestreaming'
 
 import styles from './productSlider.module.css';
 import { Spinner } from '..';
 
 type HorizontalProductSliderProps = {
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>;
-  transmitionType: string | undefined;
-};
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
+  transmitionType: string | undefined
+}
 
 export const HorizontalProductSlider = ({
-  setShowVariation,
-  transmitionType,
+  variationSelectorState,
+  transmitionType
 }: HorizontalProductSliderProps) => {
-  const [selectedProductIndex, setSelectedProductIndex] = useState(0);
-  const [itemsProdcuts, setItemsProducts] = useState<Products[]>();
-  const [index, setIndex] = useState(2);
+  const [selectedProductIndex, setSelectedProductIndex] = useState(0)
+  const [itemsProdcuts, setItemsProducts] = useState<Product[]>()
+  const [index, setIndex] = useState(2)
 
   const { collectionId, setCollection } = useContext(SettingContext);
 
@@ -117,8 +117,8 @@ export const HorizontalProductSlider = ({
               <div className={styles.horizontalProductList}>
                 <ProductItem
                   product={product}
-                  setShowVariation={setShowVariation}
-                  sectionIdClickedOn="live_shopping_carousel"
+                  variationSelectorState={variationSelectorState}
+                  sectionIdClickedOn='live_shopping_carousel'
                 />
               </div>
             </CSSTransition>

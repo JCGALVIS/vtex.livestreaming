@@ -1,46 +1,40 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext } from 'react';
-
-import { handlerAddToCart, currencyFormat } from '../../utils';
-import { ActionsContext } from '../../context/ActionsContext';
-import type { Products } from '../../../typings/livestreaming';
-
+import React from 'react'
+import { useSettings } from '../../context'
+import { useAddToCart } from '../../hooks'
+import type { Product } from '../../../typings/livestreaming'
+import { currencyFormat } from '../../utils'
 import styles from './productSlider.module.css';
 
 type ChatCarouselProductItemProps = {
-  product: Products;
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>;
-  sectionIdClickedOn?: string;
-  fullScreen: boolean;
-  handleFullScreen: () => void;
-};
+  product: Product
+  variationSelectorState?: [
+    string,
+    React.Dispatch<React.SetStateAction<string>>
+  ]
+  sectionIdClickedOn?: string
+  fullScreen: boolean
+  handleFullScreen: () => void
+}
 
 export const ChatCarouselProductItem = (
   props: ChatCarouselProductItemProps,
 ) => {
-  const { product, setShowVariation, fullScreen, handleFullScreen } = props;
+  const { infoSocket } = useSettings()
+  const { product, variationSelectorState, fullScreen, handleFullScreen } =
+    props
+  const { priceWithDiscount, imageUrl } = product
 
-  const { id, priceWithDiscount, imageUrl } = product;
-
-  const {
-    setting: { addToCart, isInGlobalPage, showQuickView, redirectTo },
-  } = useContext(ActionsContext);
+  const addToCart = useAddToCart({
+    product,
+    variationSelectorState,
+    infoSocket
+  })
 
   return (
     <div
       onClick={() => {
-        if (fullScreen) handleFullScreen();
-        if (showQuickView) {
-          setShowVariation(id);
-        } else {
-          handlerAddToCart(
-            addToCart,
-            product,
-            redirectTo,
-            isInGlobalPage,
-            showQuickView,
-          );
-        }
+        if (fullScreen) handleFullScreen()
+        addToCart()
       }}
       className={styles.productItemContent}
     >

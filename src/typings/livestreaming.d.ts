@@ -2,26 +2,26 @@
 import { Queue } from '../lib/utils';
 
 type LivestreamingProps = {
-  addToCart: (product: Products) => Promise<any>;
+  addToCart: (product: Product) => Promise<any>;
   account: string;
   environment: string;
   getProductId?: (productId: string, account?: string) => Promise<any>;
   getProducts?: (collectionId?: string, account?: string) => Promise<any>;
-  idLivestreaming: string;
-  isInGlobalPage: boolean;
-  isInfinite: boolean;
-  time: number;
-  redirectTo: boolean;
-  originOfProducts: string;
-  showChat: boolean;
-  showLike: boolean;
-  showSidebarProducts: boolean;
-  showQuickView: boolean;
-  showProductsCarousel: boolean;
-  showViewers: boolean | undefined;
-  kuikpay: boolean;
-  isLoading?: boolean;
-};
+  idLivestreaming: string
+  isInGlobalPage: boolean
+  isInfinite: boolean
+  time: number
+  redirectTo: boolean
+  originOfProducts: string
+  showChat: boolean
+  showLike: boolean
+  showSidebarProducts: boolean
+  showQuickView: boolean
+  showProductsCarousel: boolean
+  showViewers?: boolean
+  kuikpay: boolean
+  isLoading?: boolean
+}
 
 export declare interface Message {
   sessionId?: string;
@@ -55,17 +55,17 @@ declare interface HighlightProduct {
   backgroundWhiteHighlight?: string;
 }
 export declare interface ScriptProperties {
-  sidebarProducts: boolean;
-  productsCarousel: boolean;
-  chat: boolean;
-  like: boolean;
-  infinite: boolean;
-  time: number;
-  quickView: boolean;
-  pdp: boolean;
-  kuikpay: boolean;
-  isInGlobalPage: boolean;
-  viewers: boolean;
+  sidebarProducts: boolean
+  productsCarousel: boolean
+  chat: boolean
+  like: boolean
+  infinite: boolean
+  time: number
+  showQuickView: boolean
+  pdp: boolean
+  kuikpay: boolean
+  isInGlobalPage: boolean
+  viewers: boolean
 }
 export declare interface InfoSocket {
   socket: WebSocket | undefined;
@@ -90,16 +90,16 @@ export declare interface InfoSocket {
   scriptProperties?: ScriptProperties | undefined;
   setScriptProperties: React.Dispatch<
     React.SetStateAction<ScriptProperties | undefined>
-  >;
-  setShowCounter: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-  setEmailIsRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-  setQuestion?: React.Dispatch<React.SetStateAction<Question | undefined>>;
-  queueSocket?: Queue<number> | undefined;
-  setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>;
-  pinnedMessage: Message | undefined;
-  transmitiontype: string | undefined;
-  productsInCart: Products[];
-  setProductsInCart: React.Dispatch<React.SetStateAction<Products[]>>;
+  >
+  setShowCounter: React.Dispatch<React.SetStateAction<boolean | undefined>>
+  setEmailIsRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>
+  setQuestion?: React.Dispatch<React.SetStateAction<Question | undefined>>
+  queueSocket?: Queue<number> | undefined
+  setMessageToDelete: React.Dispatch<React.SetStateAction<Message | undefined>>
+  pinnedMessage: Message | undefined
+  transmitiontype: string | undefined
+  productsInCart: Product[]
+  setProductsInCart: React.Dispatch<React.SetStateAction<Product[]>>
   setQueueSocket: React.Dispatch<
     React.SetStateAction<Queue<number> | undefined>
   >;
@@ -143,18 +143,18 @@ export interface VariationSelector {
   field: Field;
   values: Values[];
 }
-export interface Products {
-  id: string;
-  name: string;
-  price: number;
-  priceWithDiscount: number;
-  imageUrl: string;
-  addToCartLink: string;
-  items: ProductItems[];
-  isAvailable: boolean;
-  variationSelector: VariationSelector[];
-  pdpLink: string;
-  skuId: string;
+export interface Product {
+  id: string
+  name: string
+  price: number
+  priceWithDiscount: number
+  imageUrl: string
+  addToCartLink: string
+  items: ProductItems[]
+  isAvailable: boolean
+  variationSelector: VariationSelector[]
+  pdpLink: string
+  skuId: string
 }
 
 export declare interface Question {

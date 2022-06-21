@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState, useContext } from 'react';
 import IconClose from '@vtex/styleguide/lib/icon/Close';
-
-import { SettingContext } from '../context/SettingContext';
-import { ActionsContext } from '../context/ActionsContext';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ButtonProductsMobile,
   Chat,
@@ -15,20 +12,20 @@ import {
   VerticalProductSlider,
   Viewers,
 } from '.';
-
+import { useActions, useSettings } from '../context';
 import {
   useIsPlayerSupported,
   useLivestreamingComponentOnScreen,
   useLivestreamingConfig,
   usePlayerLayout,
 } from './../hooks';
-import { getMobileOS } from './../utils';
-import type { Message } from '../../typings/livestreaming';
-
 import styles from './../styles.module.css';
-import styles2 from './liveShopping.module.css';
+import type { Message } from '../../typings/livestreaming';
+import { getMobileOS } from './../utils';
 import { Alert } from './commonComponents';
 import ShopIcon from './icons/ShopIcon';
+import styles2 from './liveShopping.module.css';
+
 type MarketingData = {
   utmSource: string | undefined;
 };
@@ -45,17 +42,18 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   const { setLoading } = props;
   const divVideoContent = useRef<HTMLDivElement>(null);
   const [showSliderProducts, setShowSliderProducts] = useState(false);
-  const [showVariation, setShowVariation] = useState('');
+  const variationSelectorState = useState('');
+  const [showVariation, setShowVariation] = variationSelectorState;
   const [height, setHeight] = useState('0');
   const [detector, setDetector] = useState('');
   const [pinnedMessage, setPinnedMessage] = useState<Message | undefined>();
-  const [transmitionType, setTransmitionType] = useState<string | undefined>();
-  const { windowDimensions } = usePlayerLayout(transmitionType);
+  const [transmissionType, setTransmissionType] = useState<
+    string | undefined
+  >();
+  const { windowDimensions } = usePlayerLayout(transmissionType);
   const isMobile = windowDimensions.width <= 640;
-
   const { isPlayerSupported, playerScriptLoaded } = useIsPlayerSupported();
-
-  const { setting, setSetting } = useContext(ActionsContext);
+  const { setting, setSetting } = useActions();
 
   const {
     addToCart,
@@ -80,14 +78,14 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     setShowCarouselChat,
     setActivePromo,
     setUpdateLivestreaming,
-  } = useContext(SettingContext);
+  } = useSettings();
 
   const {
     streamUrl,
     utm,
     emailIsRequired,
     pinnedMessage: initPinnedMessage,
-    transmitionType: initTransmitionType,
+    transmitionType: initTransmissionType,
     status,
     showGifButton,
     showCarouselChatButton,
@@ -97,7 +95,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     environment,
   });
 
-  const { livestreaminComponentInView } = useLivestreamingComponentOnScreen({
+  const { livestreamingComponentInView } = useLivestreamingComponentOnScreen({
     rootMargin: '0px 0px',
   });
 
@@ -108,12 +106,15 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     socket,
     sessionId,
     pinnedMessage: socketPinnedMessage,
-    transmitiontype: socketTransmitiontype,
+    transmitiontype: socketTransmissionType,
     showCarouselChatButton: socketCarouselChatButton,
     activePromo,
     updateLivestreaming,
     showCounter,
+    ivsRealTime,
   } = infoSocket || {};
+
+  const isTransmitting = ivsRealTime?.status === 'LIVE';
 
   const getHeight = () => {
     setDetector(getMobileOS());
@@ -138,7 +139,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       kuikpay,
       like,
       pdp,
-      quickView,
+      showQuickView,
       productsCarousel,
       sidebarProducts,
       time,
@@ -162,7 +163,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
       redirectTo: pdp,
       showChat: chat,
       showLike: like,
-      showQuickView: quickView,
+      showQuickView,
       showProductsCarousel: productsCarousel,
       showSidebarProducts: sidebarProducts,
       showViewers: viewersFlag,
@@ -175,7 +176,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   }, [emailIsRequired]);
 
   useEffect(() => {
-    if (!livestreaminComponentInView || !window.vtexjs) return () => {};
+    if (!livestreamingComponentInView || !window.vtexjs) return () => {};
     const setUTM = setTimeout(() => {
       window.vtexjs.checkout
         .getOrderForm()
@@ -192,7 +193,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
     }, 10000);
 
     return () => clearTimeout(setUTM);
-  }, [livestreaminComponentInView, utm]);
+  }, [livestreamingComponentInView, utm]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -221,6 +222,10 @@ export const LiveShopping = (props: LiveShoppingProps) => {
         sessionStorage.cartCachedOrderFormId = currentCart.orderForm;
       }
 
+      if (!sessionStorage.cartCachedOrderFormId) {
+        sessionStorage.cartCachedOrderFormId = currentCart.orderForm;
+      }
+
       if (currentCart.orderForm !== sessionStorage.cartCachedOrderFormId) {
         socket.send(JSON.stringify(currentCart));
         localStorage.removeItem('sectionIdClickedOnForAddToCart');
@@ -237,12 +242,18 @@ export const LiveShopping = (props: LiveShoppingProps) => {
   }, [initPinnedMessage, socketPinnedMessage]);
 
   useEffect(() => {
-    if (socketTransmitiontype) {
-      setTransmitionType(socketTransmitiontype);
+    if (
+      (isTransmitting && transmissionType) ||
+      (!initTransmissionType && !socketTransmissionType)
+    )
+      return;
+
+    if (socketTransmissionType) {
+      setTransmissionType(socketTransmissionType);
     } else {
-      setTransmitionType(initTransmitionType);
+      setTransmissionType(initTransmissionType);
     }
-  }, [initTransmitionType, socketTransmitiontype]);
+  }, [initTransmissionType, socketTransmissionType]);
 
   useEffect(() => {
     if (setShowCarouselChatButton) {
@@ -294,7 +305,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               height={height}
               showSliderProducts={showSliderProducts}
               setShowSliderProducts={setShowSliderProducts}
-              setShowVariation={setShowVariation}
+              variationSelectorState={variationSelectorState}
             />
           ) : null}
           <div
@@ -308,8 +319,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             {showSidebarProducts && (
               <VerticalProductSlider
                 height={(parseInt(height) - 58).toString()}
-                setShowVariation={setShowVariation}
-                transmitionType={transmitionType}
+                variationSelectorState={variationSelectorState}
+                transmitionType={transmissionType}
               />
             )}
           </div>
@@ -318,18 +329,18 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               detector === 'unknown'
                 ? isModalLive &&
                   !isInGlobalPage &&
-                  transmitionType === 'vertical'
+                  transmissionType === 'vertical'
                   ? { height: '100%', width: '25vw' }
                   : { height: '100%' }
                 : { width: '100%' }
             }
             className={`${
-              transmitionType === 'vertical'
+              transmissionType === 'vertical'
                 ? styles2.videoContainerVertical
                 : styles2.videoContainer
             } ${
               isModalLive &&
-              transmitionType !== 'vertical' &&
+              transmissionType !== 'vertical' &&
               !isInGlobalPage &&
               styles2.videoContainerPopoup
             }`}
@@ -339,7 +350,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               className={`${
                 isModalLive && !isInGlobalPage && styles2.heightPopoup
               } ${styles2.fittedContainer}`}
-              style={transmitionType === 'horizontal' ? { width: '100%' } : {}}
+              style={transmissionType === 'horizontal' ? { width: '100%' } : {}}
             >
               <div
                 className={`${
@@ -349,9 +360,9 @@ export const LiveShopping = (props: LiveShoppingProps) => {
                 {playerScriptLoaded && (
                   <Feed
                     isPlayerSupported={isPlayerSupported}
-                    setShowVariation={setShowVariation}
+                    variationSelectorState={variationSelectorState}
                     streamUrl={streamUrl}
-                    transmitionType={transmitionType}
+                    transmitionType={transmissionType}
                     livestreamingStatus={status}
                   />
                 )}
@@ -385,8 +396,8 @@ export const LiveShopping = (props: LiveShoppingProps) => {
               <div className={styles.horizontalProductsContent}>
                 {showProductsCarousel && !isModalLive && (
                   <HorizontalProductSlider
-                    setShowVariation={setShowVariation}
-                    transmitionType={transmitionType}
+                    variationSelectorState={variationSelectorState}
+                    transmitionType={transmissionType}
                   />
                 )}
               </div>
@@ -405,7 +416,7 @@ export const LiveShopping = (props: LiveShoppingProps) => {
             {showChat && (
               <Chat
                 pinnedMessage={pinnedMessage}
-                transmitionType={transmitionType}
+                transmitionType={transmissionType}
                 initShowGif={showGifButton}
                 livestreamingStatus={status}
               />

@@ -1,38 +1,28 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { useIntl } from 'react-intl';
 import { KuikPayButton } from '..';
-import type { Products } from '../../../typings/livestreaming';
+import type { Product } from '../../../typings/livestreaming'
 import { ActionsContext } from '../../context/ActionsContext';
 import { currencyFormat } from '../../utils';
 import { ProductButton } from '../ProductsButton/ProductButton';
 import { ProductVariationButton } from '../ProductsButton/ProductVariationButton';
 import styles from './productSlider.module.css';
 
-const SPANISH_CODE = 'es';
+const SPANISH_CODE = 'es'
+
 type ProductItemProps = {
-  product: Products;
-  setShowVariation: React.Dispatch<React.SetStateAction<string>>;
-  sectionIdClickedOn?: string;
-};
+  product: Product
+  variationSelectorState: [string, React.Dispatch<React.SetStateAction<string>>]
+  sectionIdClickedOn?: string
+}
 
 export const ProductItem = (props: ProductItemProps) => {
-  const { product, setShowVariation, sectionIdClickedOn } = props;
+  const { product, sectionIdClickedOn, variationSelectorState } = props
+  const { name, price, priceWithDiscount, imageUrl, pdpLink } = product
 
   const {
-    id,
-    name,
-    price,
-    priceWithDiscount,
-    imageUrl,
-    isAvailable,
-    variationSelector,
-    pdpLink,
-  } = product;
-
-  const {
-    setting: { isInGlobalPage, kuikpay, showQuickView },
-  } = useContext(ActionsContext);
+    setting: { kuikpay }
+  } = useContext(ActionsContext)
 
   const { formatMessage, locale } = useIntl();
   const isSpanish = locale === SPANISH_CODE;
@@ -61,22 +51,11 @@ export const ProductItem = (props: ProductItemProps) => {
           {currencyFormat(priceWithDiscount)}
         </span>
         <div className={styles.productAddCartContent}>
-          {variationSelector.length === 0 ||
-          isInGlobalPage ||
-          !showQuickView ? (
-            <ProductButton
-              product={product}
-              sectionIdClickedOn={sectionIdClickedOn}
-            />
-          ) : (
-            <ProductVariationButton
-              isAvailable={isAvailable}
-              productId={id}
-              setShowVariation={setShowVariation}
-              sectionIdClickedOn={sectionIdClickedOn}
-              productName={name}
-            />
-          )}
+          <ProductButton
+            product={product}
+            variationSelectorState={variationSelectorState}
+            sectionIdClickedOn={sectionIdClickedOn}
+          />
           {kuikpay && <KuikPayButton product={product} />}
         </div>
       </div>

@@ -12,7 +12,8 @@ import {
   useLivestreamingReducer,
   useSetLivestreaming,
   LivestreamingProvider,
-} from './context';
+  settingDefault
+} from './context'
 
 import styles from './styles.module.css';
 
@@ -49,6 +50,7 @@ export const Livestreaming = (props: LivestreamingProps) => {
   });
 
   const settingProps = {
+    ...settingDefault,
     collectionId,
     isModalLive,
     setIsModalLive,
@@ -59,6 +61,14 @@ export const Livestreaming = (props: LivestreamingProps) => {
     if (!settings || isLoading === undefined || isLoading) return;
     setActionsProps({
       ...actionsProps,
+      showViewers:
+        settings.showViewers === undefined
+          ? actionsProps.showViewers
+          : settings.showViewers,
+      redirectTo:
+        settings.redirectTo === undefined
+          ? actionsProps.redirectTo
+          : settings.redirectTo,
       showChat:
         settings.showChat === undefined
           ? actionsProps.showChat

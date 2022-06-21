@@ -23,7 +23,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true
   },
-  "include": ["src", "src/typings/*.d.ts"],
+  "include": ["src", "src/lib/typings/*.d.ts"],
   "exclude": ["node_modules", "dist", "example"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

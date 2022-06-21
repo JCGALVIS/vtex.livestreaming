@@ -1,6 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { Kuikpay, KuikpayWrapper } from 'kuikpay-sdk';
+import React, { useState, useEffect } from 'react'
+
+import { cartSimulation } from '../../services'
+import type { Profile } from '../../interfaces'
+import type { Product } from '../../../typings/livestreaming'
+import { Kuikpay, KuikpayWrapper } from 'kuikpay-sdk'
 import 'kuikpay-sdk/dist/index.css';
+
 import type {
   Item,
   ItemToAdd,
@@ -8,18 +14,14 @@ import type {
   OfferingInput,
   Totalizer,
 } from 'kuikpay-sdk/dist/interfaces';
-import { useEffect, useState } from 'react';
-import type { Products } from '../../../typings/livestreaming';
-import type { Profile } from '../../interfaces';
-import { cartSimulation } from '../../services';
 import styles from './kuikPayButton.module.css';
 
 const windowInfo: any = window;
 const { vtexjs, vtxctx } = windowInfo;
 
 type KuikPayButtonProps = {
-  product: Products;
-};
+  product: Product
+}
 
 export const KuikPayButton = (props: KuikPayButtonProps) => {
   const { product } = props;
@@ -155,7 +157,7 @@ export const KuikPayButton = (props: KuikPayButtonProps) => {
 
       fetch(changeToAnonymousUserURL, {
         method: 'GET',
-        redirect: 'follow',
+        redirect: 'follow'
       }).then(() => {
         vtexjs.checkout.getOrderForm().then((e: any) => {
           listendCheckout('', e);
