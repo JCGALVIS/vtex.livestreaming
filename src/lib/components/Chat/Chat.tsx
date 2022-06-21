@@ -449,7 +449,7 @@ export const Chat = ({
                     <GifIcon viewBox="0 0 22 10" size="25" />
                   </span>
                 )}
-                <button type="submit" className={styles.btn}>
+                <button type="submit" className={styles.btn} aria-label="Send message">
                   {showLoader ? (
                     <AnimatedLoaderIcon className={styles.spinner} />
                   ) : (
