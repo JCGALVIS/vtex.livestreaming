@@ -10,7 +10,8 @@ const dev = {
   GET_HIGHTLIGHT_BY_ID_URL:
     'https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/highlight-products',
   API_PLATFORM: 'https://pabprg32bj.execute-api.us-east-1.amazonaws.com',
-};
+  CORS_PROXY_URL: 'https://1qmd8jteh1.execute-api.us-east-1.amazonaws.com'
+}
 
 const prod = {
   GET_LIVESTREAMING_CONFIG_URL:
@@ -24,7 +25,8 @@ const prod = {
   GET_HIGHTLIGHT_BY_ID_URL:
     'https://6rfhhp7a2d.execute-api.us-east-1.amazonaws.com/global-page/highlight-products',
   API_PLATFORM: 'https://6rfhhp7a2d.execute-api.us-east-1.amazonaws.com',
-};
+  CORS_PROXY_URL: 'https://3hvqfl2xcg.execute-api.us-east-1.amazonaws.com'
+}
 
 export const config = (environment: string) =>
   environment === 'prod' ? prod : dev;
