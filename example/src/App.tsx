@@ -92,11 +92,16 @@ const App = () => {
   }
 
   const addToCart = (product: any) => {
+
+    const result = filterAvailableProducts(product);
+
+    const { seller: { sellerId } } = result;
+
     var item = {
       id: product.skuId,
       quantity: 1,
-      seller: '1'
-    }
+      seller: sellerId,
+    };
 
     return vtexjs.checkout.addToCart([item])
   }
