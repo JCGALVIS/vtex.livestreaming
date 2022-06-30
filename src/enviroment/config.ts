@@ -9,7 +9,8 @@ const dev = {
     'https://xdr18ajfu3.execute-api.us-east-1.amazonaws.com/Prod/usernameexist',
   GET_HIGHTLIGHT_BY_ID_URL:
     'https://pabprg32bj.execute-api.us-east-1.amazonaws.com/global-page/highlight-products',
-  API_PLATFORM: 'https://pabprg32bj.execute-api.us-east-1.amazonaws.com'
+  API_PLATFORM: 'https://pabprg32bj.execute-api.us-east-1.amazonaws.com',
+  CORS_PROXY_URL: 'https://1qmd8jteh1.execute-api.us-east-1.amazonaws.com'
 }
 
 const prod = {
@@ -23,7 +24,8 @@ const prod = {
     'https://9n976nhd6g.execute-api.us-east-1.amazonaws.com/Prod/usernameexist',
   GET_HIGHTLIGHT_BY_ID_URL:
     'https://6rfhhp7a2d.execute-api.us-east-1.amazonaws.com/global-page/highlight-products',
-  API_PLATFORM: 'https://6rfhhp7a2d.execute-api.us-east-1.amazonaws.com'
+  API_PLATFORM: 'https://6rfhhp7a2d.execute-api.us-east-1.amazonaws.com',
+  CORS_PROXY_URL: 'https://3hvqfl2xcg.execute-api.us-east-1.amazonaws.com'
 }
 
 export const config = (environment: string) =>

@@ -5,7 +5,7 @@ declare interface Option {
 }
 
 const useLivestreamingComponentOnScreen = (option: Option) => {
-  const livestreaminComponent = document.getElementById('live-shopping-app')
+  const livestreamingComponent = document.getElementById('live-shopping-app')
   const [inView, setInView] = useState(false)
 
   const callback = (entries: IntersectionObserverEntry[]) => {
@@ -21,10 +21,10 @@ const useLivestreamingComponentOnScreen = (option: Option) => {
   useEffect(() => {
     const observer = new IntersectionObserver(callback, option)
 
-    if (livestreaminComponent) observer.observe(livestreaminComponent)
-  }, [livestreaminComponent, option])
+    if (livestreamingComponent) observer.observe(livestreamingComponent)
+  }, [livestreamingComponent, option])
 
-  return { livestreaminComponentInView: inView }
+  return { livestreamingComponentInView: inView }
 }
 
 export default useLivestreamingComponentOnScreen
