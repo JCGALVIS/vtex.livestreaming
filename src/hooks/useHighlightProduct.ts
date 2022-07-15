@@ -29,7 +29,6 @@ export const useHighlightProduct = ({
     const product = products.find(
       (product: { id: string | undefined }) => product.id === productId
     )
-
     if (product) {
       setProduct({
         id: product?.id,
@@ -50,7 +49,8 @@ export const useHighlightProduct = ({
   useShowHightlightsForFinishedEvents(
     handleSetProduct,
     setShowProduct,
-    isFinalized
+    isFinalized,
+    products
   )
 
   useEffect(() => {
@@ -78,7 +78,6 @@ export const useHighlightProduct = ({
       (!storageCollectionId || collectionId !== storageCollectionId)
     ) {
       localStorage.setItem('collectionId', collectionId)
-      products && localStorage.setItem('products', JSON.stringify(products))
     }
 
     let objetProduct = storageProduct && JSON.parse(storageProduct)
